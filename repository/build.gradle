@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+android {
+    // 编译sdk版本
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    // 构建工具版本
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    // 默认配置
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName // 版本号
+        versionNameSuffix 'rep'
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+
+    // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
+    buildTypes {
+        // release 包的配置
+        release {
+            // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
+//            shrinkResources true
+            // 开启代码压缩
+            minifyEnabled false
+            // 指定混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 对齐
+            zipAlignEnabled true
+        }
+    }
+    // 产品特性
+    productFlavors {
+        dev { void }
+        pro { void }
+        uat { void }
+        stg { void }
+        uat1 { void }
+    }
+    return void
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}

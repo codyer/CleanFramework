@@ -35,7 +35,7 @@ android {
         versionName rootProject.ext.versionName // 版本号
         // Android 单元测试 test runner
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        versionNameSuffix 'test'
+        versionNameSuffix 'p'
         // dex突破65535的限制
         multiDexEnabled true
     }
@@ -106,5 +106,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:support-v4:25.1.0'
     testCompile 'junit:junit:4.12'
 }

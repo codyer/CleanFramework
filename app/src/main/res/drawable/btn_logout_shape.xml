@@ -1,0 +1,10 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/14.
+  下线
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/logout"/>
+    <corners android:radius="@dimen/btn_radius"/>
+</shape>

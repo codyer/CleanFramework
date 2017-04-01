@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/18.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data class="RecycleLoadMoreWithSearchBinding">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.common.ListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_transparent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_with_bottom_line"
+            android:orientation="horizontal">
+
+            <com.cody.app.framework.widget.SearchEditView
+                android:id="@+id/searchView"
+                style="@style/editSearchStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@{viewModel.hint}"
+                android:text="@={viewModel.keyWord}"/>
+        </LinearLayout>
+
+        <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/pullLoadMoreRecyclerView"
+            style="@style/ListViewNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</layout>

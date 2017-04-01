@@ -1,0 +1,69 @@
+apply plugin: 'com.android.library'
+
+def MODULE_NAME = 'xf'
+
+android {
+
+    dataBinding {
+        enabled true
+    }
+
+    // 编译sdk版本
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    // 构建工具版本
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    // 主要是用来设置Library发布所有的variants
+    publishNonDefault true
+
+    // 资源前缀
+    resourcePrefix MODULE_NAME + '_'
+
+    // 默认配置
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName // 版本号
+        versionNameSuffix '_' + MODULE_NAME
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+
+    // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
+    buildTypes {
+        // release 包的配置
+        release {
+            // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
+//            shrinkResources true
+            // 开启代码压缩
+            minifyEnabled false
+            // 对齐
+            zipAlignEnabled true
+            // 指定混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    return void
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile rootProject.ext.dependencies["support-v4"]
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["volley"]
+    compile rootProject.ext.dependencies["glide-transformations"]
+    compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["okhttp3"]
+    compile rootProject.ext.dependencies["okio"]
+    compile rootProject.ext.dependencies["gson"]
+    compile rootProject.ext.dependencies["httpcore"]
+    compile rootProject.ext.dependencies["multidex"]
+    debugCompile rootProject.ext.dependencies["leakcanary-android"]
+    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+    testCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+}

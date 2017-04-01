@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/18.
+  -->
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/line_gray">
+<item android:drawable="@drawable/bg_with_bottom_line"/>
+</ripple>

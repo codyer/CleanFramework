@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/lLayout_bg"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/xf_alert_bg"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textColor="@color/xf_dark_gray"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/xf_btn_edge_gray_shape"
+        android:gravity="top"
+        android:hint="请输入备注"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:padding="10dp"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/xf_alertDialogLine"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_neg"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:background="@drawable/xf_alertdialog_left_selector"
+            android:gravity="center"
+            android:text="@string/xf_picker_view_cancel"
+            android:textColor="@color/xf_actionSheetBlue"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/img_line"
+            android:layout_width="0.5dp"
+            android:layout_height="43dp"
+            android:background="@color/xf_alertDialogLine"/>
+
+        <Button
+            android:id="@+id/btn_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:background="@drawable/xf_alertdialog_right_selector"
+            android:gravity="center"
+            android:text="@string/xf_picker_view_submit"
+            android:textColor="@color/xf_actionSheetBlue"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/17.
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/background_gray"></solid>
+</shape>

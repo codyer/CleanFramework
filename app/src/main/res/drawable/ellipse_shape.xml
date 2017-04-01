@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners
+        android:radius="@dimen/task_live_item_radius"/>
+    <stroke
+        android:width="0dp"
+        android:color="@color/band_aids"/>
+    <solid
+        android:color="@color/band_aids"/>
+    <padding
+        android:bottom="@dimen/small_padding"
+        android:left="@dimen/small_padding"
+        android:right="@dimen/large_padding"
+        android:top="@dimen/small_padding"/>
+</shape>

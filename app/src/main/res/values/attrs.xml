@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="month">
+        <item>1月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>4月</item>
+        <item>5月</item>
+        <item>6月</item>
+        <item>7月</item>
+        <item>8月</item>
+        <item>9月</item>
+        <item>10月</item>
+        <item>11月</item>
+        <item>12月</item>
+    </string-array>
+
+    <string-array name="DesignerStep">
+        <item>已量房</item>
+        <item>已看方案</item>
+        <item>设计签约</item>
+        <item>设计交付</item>
+    </string-array>
+
+    <string-array name="RefuseReason">
+        <item>时间排期不匹配</item>
+        <item>用户预算不匹配</item>
+        <item>地域信息不匹配</item>
+        <item>用户需求不满足</item>
+    </string-array>
+
+    <declare-styleable name="MyToolBar">
+        <attr name="title_text" format="string"/>
+        <attr name="right_text" format="string"/>
+        <attr name="right_icon" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="android:gravity"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity"/>
+    </declare-styleable>
+
+    <array name="fragments_main_tab">
+        <item>沟通</item>
+        <item>任务</item>
+        <item>订单</item>
+        <item>管理</item>
+        <item>个人</item>
+    </array>
+
+
+    <!-- 导购员 -->
+    <array name="task_tab_sales">
+        <item>预约单@tag@0</item>
+        <item>评价管理@tag@1</item>
+        <item>直播排片@tag@2</item>
+    </array>
+
+    <array name="order_tab_sales">
+        <item>商品订单@tag@0</item>
+        <item>预约单@tag@1</item>
+    </array>
+
+    <array name="personal_tab_sales">
+        <item>销售数据@tag@0</item>
+        <item>营销数据@tag@1</item>
+    </array>
+
+    <!-- 设计师 -->
+    <array name="task_tab_design">
+        <item>用户预约@tag@0</item>
+        <item>回复评价@tag@1</item>
+        <item>直播排片@tag@2</item>
+    </array>
+
+    <array name="order_tab_design">
+        <item>用户预约@tag@0</item>
+        <item>设计订单@tag@1</item>
+    </array>
+
+    <!-- 经纪人 -->
+    <array name="task_tab_agent">
+        <item>看房@tag@0</item>
+        <item>评价管理@tag@1</item>
+    </array>
+    <array name="order_tab_agent">
+        <item>进行中@tag@0</item>
+        <item>已完成@tag@1</item>
+    </array>
+
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@id/form_eidt1"
+        style="@style/inputWithLineStyle"
+        android:layout_marginRight="@dimen/large_padding"
+        android:layout_marginTop="@dimen/large_margin"
+        android:paddingBottom="@dimen/large_padding"
+        android:layout_marginBottom="@dimen/middle_padding"
+        android:paddingTop="@dimen/larger_padding"
+        tools:text="请输入手机号"/>
+
+    <LinearLayout
+        style="@style/inputWithLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/large_padding"
+        android:layout_marginRight="@dimen/large_padding"
+        android:orientation="horizontal"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp">
+
+        <EditText
+            android:id="@id/form_edit2"
+            style="@style/editValidateStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/please_input_verify_code"
+            android:paddingBottom="@dimen/large_padding"
+            android:paddingTop="@dimen/large_padding"/>
+
+        <TextView
+            android:id="@id/request_code"
+            style="@style/TextGrayNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/get_verify_code"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/font_size_32px"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@id/form_commit"
+        style="@style/BtnBlueStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/normal_margin"
+        android:layout_marginLeft="@dimen/large_padding"
+        android:layout_marginRight="@dimen/large_padding"
+        android:layout_marginTop="@dimen/personal_button_margin_top"
+        android:text="@string/next"
+        android:textSize="@dimen/font_size_32px"/>
+
+</LinearLayout>

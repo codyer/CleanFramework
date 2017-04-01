@@ -1,6 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="www.cody.dto.framework.presenter">
-
-    <application android:allowBackup="true"/>
-
-</manifest>

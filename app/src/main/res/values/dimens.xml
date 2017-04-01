@@ -1,0 +1,108 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--Quotation-->
+    <dimen name="create_quotation_info_height">170dp</dimen>
+    <dimen name="create_quotation_text_height">45dp</dimen>
+    <dimen name="create_quotation_edit_text_height">200dp</dimen>
+    <dimen name="create_quotation_btn_height">49dp</dimen>
+    <dimen name="quotation_ll_height">140dp</dimen>
+    <dimen name="quotation_icon">108dp</dimen>
+    <dimen name="quotation_ll_text_height">270dp</dimen>
+    <dimen name="quotation_ll_text_height2">166dp</dimen>
+    <dimen name="quotation_list_text_width">237dp</dimen>
+    <dimen name="search_little_icon">19dp</dimen>
+    <dimen name="search_bar_width">343dp</dimen>
+    <dimen name="search_bar_height">30dp</dimen>
+    <dimen name="create_qr_code">200dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!--图片尺寸-->
+    <dimen name="thumb_size">80dp</dimen>
+    <dimen name="avatar_offer_size">40dp</dimen>
+    <dimen name="good_icon_size">140dp</dimen>
+    <dimen name="good_icon_height">110dp</dimen>
+    <dimen name="good_icon_width">110dp</dimen>
+    <dimen name="address_icon">16dp</dimen>
+
+
+    <!--margin-->
+    <dimen name="extra_margin">25dp</dimen>
+    <dimen name="view_big_margin">55dp</dimen>
+    <dimen name="view_to_top">10dp</dimen>
+    <dimen name="view_to_top2">65dp</dimen>
+    <dimen name="icon_to_top">15dp</dimen>
+    <dimen name="text_to_top">4dp</dimen>
+    <dimen name="text_to_top2">14dp</dimen>
+    <dimen name="text_to_top3">19dp</dimen>
+    <dimen name="text_to_top4">27dp</dimen>
+    <dimen name="text_to_bottom">49dp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_2dp">2dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="small_padding">5dp</dimen>
+    <dimen name="middle_padding">10dp</dimen>
+    <dimen name="large_padding">15dp</dimen>
+    <dimen name="larger_padding">20dp</dimen>
+    <dimen name="widget_height">45dp</dimen>
+    <dimen name="btn_height">30dp</dimen>
+    <dimen name="width_height_30dp">30dp</dimen>
+    <!-- Common -->
+    <dimen name="header_height">44dp</dimen>
+    <dimen name="tap_height">50dp</dimen>
+    <dimen name="tap_divider_height">3dp</dimen>
+    <dimen name="large_margin">20dp</dimen>
+    <dimen name="middle_margin">15dp</dimen>
+    <dimen name="normal_margin">10dp</dimen>
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="list_item_margin">20dp</dimen>
+    <dimen name="small_portrait_size">30dp</dimen>
+    <dimen name="normal_portrait_size">40dp</dimen>
+    <dimen name="large_portrait_size">60dp</dimen>
+    <dimen name="border_width">1dp</dimen>
+    <dimen name="shadow_width">1dp</dimen>
+    <dimen name="back_button_size">20dp</dimen>
+    <dimen name="rating_item_height">50dp</dimen>
+    <dimen name="list_item_arrow_size">11dp</dimen>
+    <dimen name="task_live_item_radius">50dp</dimen>
+    <dimen name="gender_icon_width">10dp</dimen>
+    <dimen name="gender_icon_height">15dp</dimen>
+    <dimen name="btn_radius">3dp</dimen>
+
+    <!--Personal-->
+    <dimen name="personal_information_header_height">265dp</dimen>
+
+    <!-- Task -->
+    <dimen name="task_item_button_width">60dp</dimen>
+    <dimen name="task_item_button_height">30dp</dimen>
+
+    <dimen name="task_live_plan_enter_live_height">96dp</dimen>
+    <dimen name="task_live_plan_live_list_header_height">63dp</dimen>
+    <dimen name="task_live_item_height">293dp</dimen>
+    <dimen name="task_live_ico_size">22dp</dimen>
+    <dimen name="task_live_item_header_height">159dp</dimen>
+    <dimen name="task_live_item_header_margin_top">40dp</dimen>
+    <dimen name="task_live_item_header_time_margin_top">9dp</dimen>
+    <dimen name="task_live_item_header_user_margin_top">18dp</dimen>
+    <dimen name="task_live_item_header_user_margin_bottom">28dp</dimen>
+    <dimen name="task_live_item_header_user_size">30dp</dimen>
+    <dimen name="task_live_item_header_user_out_height_size">37dp</dimen>
+    <dimen name="task_live_item_info_margin_top">18dp</dimen>
+    <dimen name="task_live_item_info_height">117dp</dimen>
+    <dimen name="task_live_item_info_time_margin_top">30dp</dimen>
+    <dimen name="task_live_item_info_ready_go_width">70dp</dimen>
+    <dimen name="task_live_item_info_ready_go_height">30dp</dimen>
+    <dimen name="vertical_divider_height">35dp</dimen>
+    <dimen name="task_live_item_margin_top">23dp</dimen>
+    <dimen name="task_live_item_margin_bottom">20dp</dimen>
+
+    <dimen name="personal_button_margin_top">103dp</dimen>
+
+
+    <dimen name="big_margin_guide">128dp</dimen>
+    <dimen name="padding_16sp">16sp</dimen>
+</resources>

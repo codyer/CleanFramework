@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/14.
+  下线
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@drawable/btn_light_gray_shape"/>
+    <item android:state_enabled="false" android:drawable="@drawable/btn_login_shape"/>
+    <item android:drawable="@drawable/btn_light_gray_shape"/>
+</selector>

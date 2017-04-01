@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  字体大小由视觉规范定义，不应该随意添加
+  如果定义中没有，应该使用相近的，或者联系修改视觉规范
+  -->
+
+<resources>
+
+    <!--说明文案-->
+    <dimen name="small_13_text">13sp</dimen>
+    <!--内容文字-->
+    <dimen name="normal_15_text">15sp</dimen>
+    <!--列表、表单、标签、文章类-->
+    <dimen name="lager_16_text">16sp</dimen>
+    <!-- 用于标题文案 -->
+    <dimen name="big_18_text">18sp</dimen>
+
+
+    <!--font-->
+    <dimen name="tiny_text">8sp</dimen>
+    <dimen name="small_text">10sp</dimen>
+    <dimen name="smaller_text">11sp</dimen>
+    <dimen name="little_text">12sp</dimen>
+    <dimen name="less_normal_text">13sp</dimen>
+    <dimen name="common_text">14sp</dimen>
+    <dimen name="normal_text">15sp</dimen>
+    <dimen name="large_text">17sp</dimen>
+    <dimen name="big_text">18sp</dimen>
+    <dimen name="big_small_text">20sp</dimen>
+    <dimen name="big_large_text">24sp</dimen>
+    <dimen name="big_medium_text">22sp</dimen>
+
+    <!-- font -->
+    <dimen name="font_size_24px">12sp</dimen>
+    <dimen name="font_size_26px">13sp</dimen>
+    <dimen name="font_size_30px">15sp</dimen>
+    <dimen name="font_size_32px">16sp</dimen>
+    <dimen name="font_size_36px">18sp</dimen>
+    <dimen name="font_size_48px">24sp</dimen>
+</resources>

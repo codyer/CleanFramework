@@ -1,0 +1,13 @@
+<resources>
+    <!-- 顶部按钮栏高度 -->
+    <dimen name="xf_picker_view_top_bar_height">44dp</dimen>
+    <!-- 顶部按钮paddingLeft -->
+    <dimen name="xf_picker_view_top_bar_padding_left">10dp</dimen>
+    <!-- 顶部按钮paddingRight -->
+    <dimen name="xf_picker_view_top_bar_padding_right">30dp</dimen>
+    <!-- 顶部按钮文字大小 -->
+    <dimen name="xf_picker_view_top_bar_btn_text_size">20sp</dimen>
+    <dimen name="xf_picker_view_top_bar_title_text_size">21sp</dimen>
+    <!-- 选项文字大小 需要配合 bool s .xml 的 picker_view_custom_text_size 为 true 才有效果-->
+    <dimen name="xf_picker_view_text_size">20sp</dimen>
+</resources>

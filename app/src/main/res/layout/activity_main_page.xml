@@ -1,0 +1,48 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <!-- 定义变量: tab index -->
+        <import type="android.view.View" />
+
+        <variable
+        name="onClickListener"
+        type="android.view.View.OnClickListener" />
+
+        <variable
+        name="viewModel"
+            type="com.cody.handler.framework.viewmodel.WithHeaderViewModel" />
+    </data>
+
+    <android.support.v4.app.FragmentTabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_white"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tap_height"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_with_top_line"/>
+        </LinearLayout>
+
+    </android.support.v4.app.FragmentTabHost>
+</layout>

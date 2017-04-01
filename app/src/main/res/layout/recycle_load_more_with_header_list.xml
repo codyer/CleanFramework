@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class="RecycleLoadMoreWithHeaderBinding">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.common.ListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_transparent"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_magic_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/pullLoadMoreRecyclerView"
+            style="@style/ListViewNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</layout>

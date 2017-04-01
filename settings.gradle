@@ -1,1 +1,1 @@
-include ':presentation', ':interaction', ':model'
+include ':app', ':handler', ':repository', ':xfoundation'

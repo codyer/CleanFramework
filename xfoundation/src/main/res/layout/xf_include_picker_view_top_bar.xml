@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/xf_picker_view_top_bar_bg">
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|start"
+        android:paddingStart="@dimen/xf_picker_view_top_bar_padding_left"
+        android:paddingLeft="@dimen/xf_picker_view_top_bar_padding_left"
+        android:paddingEnd="@dimen/xf_picker_view_top_bar_padding_right"
+        android:paddingRight="@dimen/xf_picker_view_top_bar_padding_right"
+        android:text="@string/xf_picker_view_cancel"
+        android:textColor="@drawable/xf_selector_picker_view_btn"
+        android:textSize="@dimen/xf_picker_view_top_bar_btn_text_size" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/btnSubmit"
+        android:layout_toLeftOf="@+id/btnSubmit"
+        android:layout_toEndOf="@+id/btnCancel"
+        android:layout_toRightOf="@+id/btnCancel"
+        android:textColor="@color/xf_picker_view_top_bar_title"
+        android:textSize="@dimen/xf_picker_view_top_bar_title_text_size" />
+
+    <Button
+        android:id="@id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical|start"
+        android:paddingStart="@dimen/xf_picker_view_top_bar_padding_right"
+        android:paddingLeft="@dimen/xf_picker_view_top_bar_padding_right"
+        android:paddingEnd="@dimen/xf_picker_view_top_bar_padding_left"
+        android:paddingRight="@dimen/xf_picker_view_top_bar_padding_left"
+        android:text="@string/xf_picker_view_submit"
+        android:textColor="@drawable/xf_selector_picker_view_btn"
+        android:textSize="@dimen/xf_picker_view_top_bar_btn_text_size" />
+</RelativeLayout>

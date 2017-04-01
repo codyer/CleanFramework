@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="xf_picker_view">
+        <attr name="xf_picker_view_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="xf_picker_view_text_size" format="dimension"/>
+        <attr name="xf_picker_view_text_color_out" format="color"/>
+        <attr name="xf_picker_view_text_color_center" format="color"/>
+        <attr name="xf_picker_view_divider_color" format="color"/>
+    </declare-styleable>
+</resources>

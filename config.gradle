@@ -1,0 +1,47 @@
+ext {
+    versionCode = 1
+    versionName = "v1.0"
+    minSdkVersion = 16
+    targetSdkVersion = 24
+    compileSdkVersion = 24
+    buildToolsVersion = '24.0.2'
+    supportLibraryVersion = '24.2.1'
+
+    //libraries dependencies
+    dependencies = [
+
+            //foundation dependencies list
+            "support-v4"              : "com.android.support:support-v4:${supportLibraryVersion}",
+            "appcompat-v7"            : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            "design"                  : "com.android.support:design:${supportLibraryVersion}",
+            "recyclerview-v7"         : "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            "volley"                  : "com.android.volley:volley:1.0.0",
+            "glide-transformations"   : "jp.wasabeef:glide-transformations:2.0.1",
+            "glide"                   : "com.github.bumptech.glide:glide:3.7.0",
+            "okhttp3"                 : "com.squareup.okhttp3:okhttp:3.4.1",
+            "gson"                    : "com.google.code.gson:gson:2.6.1",
+            "okio"                    : "com.squareup.okio:okio:1.6.0",
+            "httpcore"                : "org.apache.httpcomponents:httpcore:4.4.5",
+            "leakcanary-android"      : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
+            "leakcanary-android-no-op": "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
+            "striker"                 : "com.chinaredstar:striker:1.1.5",
+            "multidex"                : "com.android.support:multidex:1.0.1",
+            "hotfix-lib"              : "com.chinaredstar.hotfix:hotfix-lib:1.0.5",
+
+            //longguo dependencies list
+            "junit"                   : "junit:junit:4.12",
+            "imagepicker"             : "com.lzy.widget:imagepicker:0.3.2",
+            //二维码生成
+            "zxing"                   : "com.journeyapps:zxing-android-embedded:3.3.0",
+            // https://github.com/barteksc/AndroidPdfViewer pdf阅读器
+            "android-pdfview"         : "com.joanzapata.pdfview:android-pdfview:1.0.4@aar",
+            //bugly崩溃日志上传
+            "bugly-crashreport"       : "com.tencent.bugly:crashreport:latest.release",
+            "bugly-nativecrashreport" : "com.tencent.bugly:nativecrashreport:latest.release",
+            //极光推送
+            "jpush"                   : "cn.jiguang:jpush:2.2.0"
+
+            //
+
+    ]
+}

@@ -1,0 +1,62 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class="CaseActivityBinding">
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.CaseViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_blue"
+        android:onClick="@{onClickListener.onClick}"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_magic_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <!--include包含传递viewmodel-->
+        <!--  <include
+              layout="@layout/demo_fragment"
+              bind:viewModel="@{viewModel}"/>-->
+        <!--双向绑定-->
+        <!--<EditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="@={viewModel.info}"/>-->
+        <!--单向绑定 & 控制显示-->
+        <TextView
+            android:id="@+id/testCase"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:onClick="@{onClickListener.onClick}"
+            android:text="@{viewModel.info}"/>
+        <!--<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{viewModel.info}"
+            android:visibility="@{viewModel.visibility?View.VISIBLE:View.GONE}"/>-->
+        <!-- 事件绑定 -->
+        <!--<Button
+            android:id="@+id/openPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{onClickListener.onClick}"
+            android:text="openPicker Test "/>-->
+
+    </LinearLayout>
+</layout>

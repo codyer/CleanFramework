@@ -6,3 +6,8 @@
 /build
 /captures
 .externalNativeBuild
+libs/
+src/androidTest/
+src/main/java/
+src/main/res/drawable/
+src/test/

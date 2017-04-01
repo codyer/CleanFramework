@@ -1,4 +1,4 @@
-package com.cody.repository.interaction.constant;
+package com.cody.repository.business.interaction.constant;
 
 /**
  * Created by cody.yi on 2017/3/8.

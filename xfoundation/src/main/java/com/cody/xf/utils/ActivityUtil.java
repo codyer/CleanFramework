@@ -3,8 +3,10 @@ package com.cody.xf.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
-import com.cody.xf.FoundationApplication;
+import java.lang.ref.Reference;
+import java.lang.ref.SoftReference;
 
 /**
  * Created by cody.yi on 2016.8.15
@@ -12,13 +14,45 @@ import com.cody.xf.FoundationApplication;
  */
 public class ActivityUtil {
 
+    private static ActivityUtil sInstance;
+    private Reference<Activity> mCurrentActivity;
+
+    public static void install() {
+        sInstance = new ActivityUtil();
+    }
+
+    public static void uninstall() {
+        getInstance().mCurrentActivity.clear();
+        getInstance().mCurrentActivity = null;
+        sInstance = null;
+    }
+
+    private static ActivityUtil getInstance() {
+        if (sInstance == null) {
+            throw new NullPointerException("You should call ActivityUtil.install() in you application first!");
+        } else {
+            return sInstance;
+        }
+    }
+
+    public static Activity getCurrentActivity() {
+        if (getInstance().mCurrentActivity == null) {
+            throw new NullPointerException("You should setCurrentActivity first!");
+        }
+        return getInstance().mCurrentActivity.get();
+    }
+
+    public static void setCurrentActivity(@NonNull Activity mCurrentActivity) {
+        getInstance().mCurrentActivity = new SoftReference<>(mCurrentActivity);
+    }
+
     /**
      * startActivity
      *
      * @param clazz
      */
     public static void navigateTo(Class<? extends Activity> clazz) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         activity.startActivity(intent);
     }
@@ -30,7 +64,7 @@ public class ActivityUtil {
      * @param bundle
      */
     public static void navigateTo(Class<? extends Activity> clazz, Bundle bundle) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
@@ -44,7 +78,7 @@ public class ActivityUtil {
      * @param clazz
      */
     public static void navigateToThenKill(Class<? extends Activity> clazz) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         activity.startActivity(intent);
         finish();
@@ -57,7 +91,7 @@ public class ActivityUtil {
      * @param bundle
      */
     public static void navigateToThenKill(Class<? extends Activity> clazz, Bundle bundle) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
@@ -73,7 +107,7 @@ public class ActivityUtil {
      * @param requestCode
      */
     public static void navigateToForResult(Class<? extends Activity> clazz, int requestCode) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         activity.startActivityForResult(intent, requestCode);
     }
@@ -86,7 +120,7 @@ public class ActivityUtil {
      * @param bundle
      */
     public static void navigateToForResult(Class<? extends Activity> clazz, int requestCode, Bundle bundle) {
-        Activity activity = FoundationApplication.getInstance().getCurrentActivity();
+        Activity activity = getCurrentActivity();
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
@@ -95,6 +129,6 @@ public class ActivityUtil {
     }
 
     public static void finish() {
-        FoundationApplication.getInstance().getCurrentActivity().finish();
+        getCurrentActivity().finish();
     }
 }

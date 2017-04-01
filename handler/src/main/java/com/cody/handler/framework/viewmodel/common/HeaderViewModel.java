@@ -10,7 +10,7 @@ import android.databinding.ObservableInt;
 
 import com.cody.handler.R;
 import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.xf.FoundationApplication;
+import com.cody.xf.utils.ResourceUtil;
 
 
 /**
@@ -39,8 +39,8 @@ public class HeaderViewModel extends BaseViewModel {
         mRightIsTextanddrawable.set(false);
         mLeftResId.set(R.drawable.h_back_arrow);//左边图标 返回
         mRightResId.set(R.drawable.h_setting);//右边图标 设置
-        mRightText = FoundationApplication.getContext().getString(R.string.h_save_now);//右边文字 保存
-        mTitle.set(FoundationApplication.getContext().getString(R.string.h_app_name)); //标题资源id
+        mRightText = ResourceUtil.getString(R.string.h_save_now);//右边文字 保存
+        mTitle.set(ResourceUtil.getString(R.string.h_app_name)); //标题资源id
     }
 
     public static HeaderViewModel createDefaultHeader() {

@@ -6,7 +6,7 @@ package com.cody.xf.utils;
 
 import android.content.Context;
 
-import com.cody.xf.FoundationApplication;
+import com.cody.xf.XFoundation;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -104,7 +104,7 @@ public class FetchRawUtil {
      */
     private <T> T readJson(Integer resId, Class<T> clazz) throws IOException {
         StringBuilder jsonStr = new StringBuilder();
-        InputStream in = FoundationApplication.getContext().getResources().openRawResource(resId);
+        InputStream in = XFoundation.getContext().getResources().openRawResource(resId);
         BufferedReader br;
         String rs;
         br = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -124,7 +124,7 @@ public class FetchRawUtil {
      */
     private <T> List<T> readJsonList(Integer resId, Class<T> clazz) throws IOException {
         StringBuilder jsonStr = new StringBuilder();
-        InputStream in = FoundationApplication.getContext().getResources().openRawResource(resId);
+        InputStream in = XFoundation.getContext().getResources().openRawResource(resId);
         BufferedReader br;
         String rs;
         br = new BufferedReader(new InputStreamReader(in, "utf-8"));
@@ -143,7 +143,7 @@ public class FetchRawUtil {
      * @return 资源id
      */
     private int getResource(String imageName) {
-        Context ctx = FoundationApplication.getContext();
+        Context ctx = XFoundation.getContext();
         return ctx.getResources().getIdentifier(imageName, "raw", ctx.getPackageName());
     }
 }

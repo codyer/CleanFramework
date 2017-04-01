@@ -15,7 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-import com.cody.xf.FoundationApplication;
+import com.cody.xf.XFoundation;
 import com.cody.xf.utils.ImageUtil;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.StringUtil;
@@ -50,7 +50,7 @@ public class HttpRequestFactory {
      */
     public static synchronized HttpRequestFactory getInstance() {
         if (sHttpClient == null) {
-            sHttpClient = new HttpRequestFactory(FoundationApplication.getContext());
+            sHttpClient = new HttpRequestFactory(XFoundation.getContext());
         }
         return sHttpClient;
     }
@@ -187,7 +187,7 @@ public class HttpRequestFactory {
         }
         request.setDestinationInExternalPublicDir(path, fileName);
         // get download service and enqueue file
-        DownloadManager manager = (DownloadManager) FoundationApplication.getContext().getSystemService(Context
+        DownloadManager manager = (DownloadManager) XFoundation.getContext().getSystemService(Context
                 .DOWNLOAD_SERVICE);
         return manager.enqueue(request);
     }

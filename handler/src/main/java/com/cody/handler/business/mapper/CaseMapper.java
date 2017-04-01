@@ -1,7 +1,7 @@
 package com.cody.handler.business.mapper;
 
 import com.cody.handler.business.viewmodel.CaseViewModel;
-import com.cody.repository.bean.CaseBean;
+import com.cody.repository.business.bean.CaseBean;
 import com.cody.xf.binding.handler.ModelMapper;
 
 /**

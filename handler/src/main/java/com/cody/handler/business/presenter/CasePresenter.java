@@ -3,9 +3,9 @@ package com.cody.handler.business.presenter;
 import com.cody.handler.business.mapper.CaseMapper;
 import com.cody.handler.business.viewmodel.CaseViewModel;
 import com.cody.handler.framework.DefaultCallback;
-import com.cody.repository.bean.CaseBean;
-import com.cody.repository.interaction.JzInteraction;
-import com.cody.xf.Repository;
+import com.cody.repository.business.bean.CaseBean;
+import com.cody.repository.business.interaction.JzInteraction;
+import com.cody.repository.framework.Repository;
 import com.cody.xf.binding.handler.Presenter;
 import com.cody.xf.utils.LogUtil;
 

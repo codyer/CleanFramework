@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
-import com.cody.xf.FoundationApplication;
+import com.cody.xf.XFoundation;
 import com.cody.xf.common.SimpleBean;
 
 
@@ -13,7 +13,7 @@ import com.cody.xf.common.SimpleBean;
  * TODO 统一样式
  */
 public class ToastUtil {
-//    private static Context sContext = FoundationApplication.getContext();
+//    private static Context sContext = Foundation.getContext();
 
     /**
      * 解析并显示http code
@@ -63,11 +63,11 @@ public class ToastUtil {
     }
 
     public static void showToast(String text) {
-        showToast(FoundationApplication.getContext(), text);
+        showToast(XFoundation.getContext(), text);
     }
 
     public static void showToast(int resId) {
-        showToast(FoundationApplication.getContext(), resId);
+        showToast(XFoundation.getContext(), resId);
     }
 
     private static void showToast(Context context, String text) {

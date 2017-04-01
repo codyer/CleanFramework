@@ -8,11 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.cody.xf.BR;
-import com.cody.xf.FoundationApplication;
 import com.cody.xf.binding.IDataBinding;
 import com.cody.xf.binding.IView;
 import com.cody.xf.binding.handler.Presenter;
 import com.cody.xf.binding.handler.ViewModel;
+import com.cody.xf.utils.ActivityUtil;
 
 
 /**
@@ -55,7 +55,7 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
-        FoundationApplication.getInstance().setCurrentActivity(this);
+        ActivityUtil.setCurrentActivity(this);
 
         /**
          * 绑定view
@@ -78,7 +78,7 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends Vi
     @Override
     protected void onResume() {
         super.onResume();
-        FoundationApplication.getInstance().setCurrentActivity(this);
+        ActivityUtil.setCurrentActivity(this);
     }
 
     @Override

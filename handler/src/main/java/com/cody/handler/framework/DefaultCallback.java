@@ -2,7 +2,7 @@ package com.cody.handler.framework;
 
 import android.support.annotation.CallSuper;
 
-import com.cody.xf.FoundationApplication;
+import com.cody.handler.framework.presenter.AppPresenter;
 import com.cody.xf.binding.ICallback;
 import com.cody.xf.binding.IView;
 import com.cody.xf.binding.handler.Presenter;
@@ -46,7 +46,7 @@ public abstract class DefaultCallback<T> implements ICallback<T> {
         LogUtil.d("Callback onFailure" + simpleBean);
         // 未登录统一处理
         if (simpleBean != null && Constant.HttpCode.UN_LOGIN.equals(simpleBean.getCode())) {
-            FoundationApplication.getInstance().logOut();
+            AppPresenter.getInstance().logOut();
         } else if (!isViewRecycled() && simpleBean != null) {
             mViewRef.get().showFailure(simpleBean.getMessage());
         }

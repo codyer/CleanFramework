@@ -3,7 +3,7 @@
  */
 package com.cody.xf.utils;
 
-import com.cody.xf.FoundationApplication;
+import com.cody.xf.XFoundation;
 
 /**
  * Created by cody.yi on 2016/9/1.
@@ -17,6 +17,6 @@ public class ResourceUtil {
      * @return 资源id对应的字符串
      */
     public static String getString(int id) {
-        return FoundationApplication.getContext().getString(id);
+        return XFoundation.getContext().getString(id);
     }
 }

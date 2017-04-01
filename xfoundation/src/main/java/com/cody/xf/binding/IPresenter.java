@@ -50,6 +50,11 @@ public interface IPresenter<VM extends ViewModel> {
     VM getViewModel();
 
     /**
+     * 刷新界面，并不是必须调用的，如果用的是
+     */
+    void refreshUI(Object... args);
+
+    /**
      * 判断是否和view有关联
      *
      * @return boolean

@@ -2,9 +2,10 @@ package com.cody.handler.business.presenter;
 
 import com.cody.handler.business.mapper.CaseMapper;
 import com.cody.handler.business.viewmodel.CaseViewModel;
+import com.cody.handler.framework.DefaultCallback;
 import com.cody.repository.bean.CaseBean;
 import com.cody.repository.interaction.JzInteraction;
-import com.cody.handler.framework.DefaultCallback;
+import com.cody.xf.Repository;
 import com.cody.xf.binding.handler.Presenter;
 import com.cody.xf.utils.LogUtil;
 
@@ -21,7 +22,7 @@ public class CasePresenter extends Presenter<CaseViewModel> {
 
     public CasePresenter() {
         mMapper = new CaseMapper();
-        mInteraction = com.cody.xf.Repositoryq.getInteraction(JzInteraction.class);
+        mInteraction = Repository.getInteraction(JzInteraction.class);
     }
 
     public void getCaseList(final Object tag) {
@@ -33,7 +34,7 @@ public class CasePresenter extends Presenter<CaseViewModel> {
             public void onSuccess(CaseBean bean) {
                 super.onSuccess(bean);
                 mMapper.mapper(getViewModel(), bean);
-                if (getView() != null) getView().onUpdate();
+                refreshUI();
             }
         });
         LogUtil.d("CasePresenter",getView().toString());

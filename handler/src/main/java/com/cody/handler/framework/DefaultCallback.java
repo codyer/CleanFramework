@@ -19,9 +19,9 @@ import java.lang.ref.WeakReference;
  * 所有View和ViewModel，ViewModel和Presenter之间的回调使用这个Callback
  * 默认回调函数，通用处理可以放在这里
  */
-public class DefaultCallback<T> implements ICallback<T> {
+public abstract class DefaultCallback<T> implements ICallback<T> {
 
-    private Reference<IView> mViewRef;
+    protected Reference<IView> mViewRef;
 
     public DefaultCallback(Presenter presenter) {
         this.mViewRef = new WeakReference<>(presenter.getView());
@@ -31,15 +31,13 @@ public class DefaultCallback<T> implements ICallback<T> {
     @CallSuper
     public void onBegin(Object tag) {
         LogUtil.d("Callback onBegin" + tag);
+        showLoading();
     }
 
     //操作执行结束
     @CallSuper
     public void onSuccess(T bean) {
         LogUtil.d("Callback onSuccess" + bean);
-        if (!isViewRecycled()) {
-            mViewRef.get().hideLoading();
-        }
     }
 
     //执行出错
@@ -57,10 +55,10 @@ public class DefaultCallback<T> implements ICallback<T> {
     //执行出错并取消
     @CallSuper
     public void onError(SimpleBean simpleBean) {
+        LogUtil.d("Callback showError" + simpleBean);
         if (!isViewRecycled() && simpleBean != null) {
             mViewRef.get().showError(simpleBean.toString());
         }
-        LogUtil.d("Callback showError" + simpleBean);
     }
 
     //执行进度
@@ -69,7 +67,13 @@ public class DefaultCallback<T> implements ICallback<T> {
         LogUtil.d("Callback onProgress count=" + count + " current=" + current);
     }
 
-    private boolean isViewRecycled() {
+    protected void showLoading() {
+        if (!isViewRecycled()) {
+            mViewRef.get().showLoading(null);
+        }
+    }
+
+    protected boolean isViewRecycled() {
         return mViewRef == null || mViewRef.get() == null;
     }
 }

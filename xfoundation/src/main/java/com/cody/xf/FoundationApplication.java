@@ -22,7 +22,7 @@ public abstract class FoundationApplication extends MultiDexApplication implemen
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-        com.cody.xf.Repositoryq.install(this);
+        Repository.install(this);
     }
 
     /**

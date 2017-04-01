@@ -59,6 +59,16 @@ public abstract class Presenter<VM extends ViewModel> implements IPresenter<VM> 
         return null;
     }
 
+    /**
+     * 刷新界面，并不是必须调用的，如果用的是
+     */
+    @Override
+    public void refreshUI(Object... args) {
+        if (isViewAttached()) {
+            mViewRef.get().onUpdate(args);
+        }
+    }
+
     @Override
     public boolean isViewAttached() {
         return mViewRef != null && mViewRef.get() != null;

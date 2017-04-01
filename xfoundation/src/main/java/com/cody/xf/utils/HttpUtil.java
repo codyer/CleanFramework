@@ -19,6 +19,7 @@ import com.cody.xf.common.SimpleBean;
 import com.cody.xf.utils.http.HeaderListener;
 import com.cody.xf.utils.http.HttpConnectException;
 import com.cody.xf.utils.http.HttpRequestFactory;
+import com.cody.xf.Repository;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
@@ -484,14 +485,14 @@ public class HttpUtil {
         }
         LogUtil.d("rebuild url = " + url);
 
-        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
         ResponseListener<T> listener = new ResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createMultipartRequest(tag,
                 url,
                 imageName,
                 bitmapList,
-                com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS),
+                Repository.getLocalMap(BaseLocalKey.HEADERS),
                 params,
                 type,
                 listener,
@@ -522,14 +523,14 @@ public class HttpUtil {
         LogUtil.d(url);
 
         Type type = CommonUtil.getType(SimpleBean.class);
-        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
         SimpleResponseListener listener = new SimpleResponseListener(callback);
 
         HttpRequestFactory.getInstance().createUploadBase64ImageRequest(tag,
                 url,
                 imageName,
                 bitmap,
-                com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS),
+                Repository.getLocalMap(BaseLocalKey.HEADERS),
                 params,
                 type,
                 listener,
@@ -619,7 +620,7 @@ public class HttpUtil {
                 break;
         }
 
-        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);;
+        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);;
         ResponseListener<T> listener = new ResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,
@@ -669,7 +670,7 @@ public class HttpUtil {
         }
 
         Type type = CommonUtil.getType(SimpleBean.class);
-        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
         SimpleResponseListener listener = new SimpleResponseListener(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,
@@ -714,7 +715,7 @@ public class HttpUtil {
                 break;
         }
 
-        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
         OriginalResponseListener listener = new OriginalResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,

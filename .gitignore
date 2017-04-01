@@ -37,5 +37,3 @@ captures/
 /.idea
 # Keystore files
 #*.jks
-
-#app/signing.properties

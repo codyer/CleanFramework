@@ -3,6 +3,8 @@ package com.cody.xf;
 import android.app.Application;
 import android.content.Context;
 
+import com.cody.xf.utils.ActivityUtil;
+
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 
@@ -36,10 +38,12 @@ public class XFoundation {
 
     public static void install(Application application) {
         sInstance = new XFoundation(application);
+        ActivityUtil.install();
     }
 
     public static void uninstall() {
         sInstance = null;
+        ActivityUtil.uninstall();
     }
 
     /**

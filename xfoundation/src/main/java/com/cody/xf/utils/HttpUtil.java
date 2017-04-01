@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.cody.xf.FoundationApplication;
-import com.cody.xf.Repository;
 import com.cody.xf.common.BaseLocalKey;
 import com.cody.xf.common.Constant;
 import com.cody.xf.common.Result;
@@ -485,14 +484,14 @@ public class HttpUtil {
         }
         LogUtil.d("rebuild url = " + url);
 
-        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
         ResponseListener<T> listener = new ResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createMultipartRequest(tag,
                 url,
                 imageName,
                 bitmapList,
-                Repository.getLocalMap(BaseLocalKey.HEADERS),
+                com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS),
                 params,
                 type,
                 listener,
@@ -523,14 +522,14 @@ public class HttpUtil {
         LogUtil.d(url);
 
         Type type = CommonUtil.getType(SimpleBean.class);
-        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
         SimpleResponseListener listener = new SimpleResponseListener(callback);
 
         HttpRequestFactory.getInstance().createUploadBase64ImageRequest(tag,
                 url,
                 imageName,
                 bitmap,
-                Repository.getLocalMap(BaseLocalKey.HEADERS),
+                com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS),
                 params,
                 type,
                 listener,
@@ -577,7 +576,7 @@ public class HttpUtil {
         }
         //检查网络情况
         if (NetworkUtil.isDisConnected(FoundationApplication.getContext())) {
-            callback.onError(new SimpleBean(Constant.HttpCode.NETWORK_DISCONNECTED, "无可用的网络连接,请修改网络连接属性！"));
+            callback.onFailure(new SimpleBean(Constant.HttpCode.NETWORK_DISCONNECTED, "无可用的网络连接,请修改网络连接属性！"));
             return true;
         }
         return false;
@@ -620,7 +619,7 @@ public class HttpUtil {
                 break;
         }
 
-        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);;
+        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);;
         ResponseListener<T> listener = new ResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,
@@ -670,7 +669,7 @@ public class HttpUtil {
         }
 
         Type type = CommonUtil.getType(SimpleBean.class);
-        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
         SimpleResponseListener listener = new SimpleResponseListener(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,
@@ -715,7 +714,7 @@ public class HttpUtil {
                 break;
         }
 
-        Map<String, String> token = Repository.getLocalMap(BaseLocalKey.HEADERS);
+        Map<String, String> token = com.cody.xf.Repositoryq.getLocalMap(BaseLocalKey.HEADERS);
         OriginalResponseListener listener = new OriginalResponseListener<>(callback);
 
         HttpRequestFactory.getInstance().createNormalRequest(tag,

@@ -21,6 +21,7 @@ public class DefaultCallAdapter extends CallAdapter {
     public void invokeSimple() {
         if (mMethod.getCallback() == null) return;
 
+        mMethod.getCallback().onBegin(mMethod.getTag());
         HttpUtil.getResult(mMethod.getTag(),
                 mMethod.getRequestMethod().ordinal(),
                 mMethod.getDomain() + mMethod.getUrl(),
@@ -47,6 +48,7 @@ public class DefaultCallAdapter extends CallAdapter {
     public void invokeOriginal() {
         if (mMethod.getCallback() == null) return;
 
+        mMethod.getCallback().onBegin(mMethod.getTag());
         HttpUtil.getOriginalResult(mMethod.getTag(),
                 mMethod.getRequestMethod().ordinal(),
                 mMethod.getDomain() + mMethod.getUrl(),
@@ -73,7 +75,7 @@ public class DefaultCallAdapter extends CallAdapter {
     @Override
     public void invokeBean() {
         if (mMethod.getCallback() == null) return;
-
+        mMethod.getCallback().onBegin(mMethod.getTag());
         HttpUtil.getData(mMethod.getTag(),
                 mMethod.getRequestMethod().ordinal(),
                 mMethod.getDomain() + mMethod.getUrl(),
@@ -101,6 +103,7 @@ public class DefaultCallAdapter extends CallAdapter {
     public void invokeListBean() {
         if (mMethod.getCallback() == null) return;
 
+        mMethod.getCallback().onBegin(mMethod.getTag());
         HttpUtil.getListData(mMethod.getTag(),
                 mMethod.getRequestMethod().ordinal(),
                 mMethod.getDomain() + mMethod.getUrl(),

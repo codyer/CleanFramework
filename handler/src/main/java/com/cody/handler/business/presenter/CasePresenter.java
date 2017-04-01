@@ -4,8 +4,7 @@ import com.cody.handler.business.mapper.CaseMapper;
 import com.cody.handler.business.viewmodel.CaseViewModel;
 import com.cody.repository.bean.CaseBean;
 import com.cody.repository.interaction.JzInteraction;
-import com.cody.xf.Repository;
-import com.cody.xf.binding.Callback;
+import com.cody.handler.framework.DefaultCallback;
 import com.cody.xf.binding.handler.Presenter;
 import com.cody.xf.utils.LogUtil;
 
@@ -22,14 +21,14 @@ public class CasePresenter extends Presenter<CaseViewModel> {
 
     public CasePresenter() {
         mMapper = new CaseMapper();
-        mInteraction = Repository.getInteraction(JzInteraction.class);
+        mInteraction = com.cody.xf.Repositoryq.getInteraction(JzInteraction.class);
     }
 
     public void getCaseList(final Object tag) {
         Map<String, String> params = new HashMap<>();
         params.put("pageNo", "1");
         params.put("pageSize", "20");
-        mInteraction.getCase(tag, params, CaseBean.class, new Callback<CaseBean>(this) {
+        mInteraction.getCase(tag, params, CaseBean.class, new DefaultCallback<CaseBean>(this) {
             @Override
             public void onSuccess(CaseBean bean) {
                 super.onSuccess(bean);

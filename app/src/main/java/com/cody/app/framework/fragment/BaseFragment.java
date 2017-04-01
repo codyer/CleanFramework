@@ -87,25 +87,17 @@ public abstract class BaseFragment<P extends Presenter<VM>, VM extends BaseViewM
 
     @CallSuper
     @Override
-    public void showError(String msg) {
-        this.hideLoading();
-        LogUtil.d(TAG, "BaseFragment ++ showError");
-    }
-
-    @CallSuper
-    @Override
-    public void showException(String msg) {
+    public void showFailure(String msg) {
         this.hideLoading();
         ToastUtil.showToast(msg);
-        LogUtil.d(TAG, "BaseFragment ++ showException");
+        LogUtil.d(TAG, "BaseFragment ++ showFailure msg = " + msg);
     }
 
     @CallSuper
     @Override
-    public void showNetError() {
+    public void showError(String msg) {
         this.hideLoading();
-        ToastUtil.showToast(getString(R.string.r_no_network_connection_toast));
-        LogUtil.d(TAG, "BaseFragment ++ showNetError");
+        LogUtil.d(TAG, "BaseFragment ++ showError msg = " + msg);
     }
 
     @CallSuper
@@ -126,7 +118,7 @@ public abstract class BaseFragment<P extends Presenter<VM>, VM extends BaseViewM
     @Override
     public void onCancel(DialogInterface dialog) {
         this.hideLoading();
-        LogUtil.d(TAG, "BaseFragment ++ onError");
+        LogUtil.d(TAG, "BaseFragment ++ showError");
         getPresenter().cancel(TAG);
     }
 }

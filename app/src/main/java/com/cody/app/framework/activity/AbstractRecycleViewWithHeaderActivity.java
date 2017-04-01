@@ -124,42 +124,10 @@ public abstract class AbstractRecycleViewWithHeaderActivity<P extends
     }
 
     @Override
-    public void onUpdate(Object... args) {
-        super.onUpdate(args);
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
-            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        }
-    }
-
-    @Override
-    public void showError(String msg) {
-        super.showError(msg);
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        }
-    }
-
-    @Override
-    public void showException(String msg) {
-        super.showException(msg);
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        }
-    }
-
-    @Override
-    public void showNetError() {
-        super.showNetError();
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        }
-    }
-
-    @Override
     public void hideLoading() {
         super.hideLoading();
         if (mPullLoadMoreRecyclerView != null) {
+            mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
     }

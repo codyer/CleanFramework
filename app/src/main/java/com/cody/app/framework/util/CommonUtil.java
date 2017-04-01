@@ -77,7 +77,7 @@ public class CommonUtil {
             if (m.matches()) {
                 return true;
             } else {
-                ToastUtil.showToast(R.string.mobile_valid);
+                ToastUtil.showFailure(R.string.mobile_valid);
                 return false;
             }
         }*/
@@ -92,11 +92,11 @@ public class CommonUtil {
      */
     public static boolean isAccordPassword(String password) {
        /* if (TextUtils.isEmpty(password)) {
-            ToastUtil.showToast(R.string.pwd_no_empty);
+            ToastUtil.showFailure(R.string.pwd_no_empty);
             return false;
         }
         if (password.length() < 6) {
-            ToastUtil.showToast(R.string.pwd_short);
+            ToastUtil.showFailure(R.string.pwd_short);
             return false;
         }
         Pattern patrn = Pattern.compile("[^%&',;=?$\\x22]+");
@@ -104,7 +104,7 @@ public class CommonUtil {
         if (m.matches()) { //zhy 数字或者字母都可以作为密码
             return true;
         }
-        ToastUtil.showToast(R.string.pwd_valid);*/
+        ToastUtil.showFailure(R.string.pwd_valid);*/
         return false;
     }
 
@@ -291,12 +291,12 @@ public class CommonUtil {
      */
     public static boolean isCashNum(String money) {
         /*if (TextUtils.isEmpty(money)) {
-            ToastUtil.showToast(R.string.enter_price);
+            ToastUtil.showFailure(R.string.enter_price);
             return false;
         }
         double money1 = Double.parseDouble(money);
         if (money1 == 0) {
-            ToastUtil.showToast(R.string.cash_zero_toast);
+            ToastUtil.showFailure(R.string.cash_zero_toast);
             return false;
         } else {
             return true;

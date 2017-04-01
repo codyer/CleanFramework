@@ -14,19 +14,17 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by cody.yi on 2017/3/30.
  * 初始化AppProfile
  */
-public class Repository {
+public class Repositoryq {
 
-    private static Repository mInstance;
+    private static com.cody.xf.Repositoryq mInstance;
     private LocalProfile mProfile;
-    private final InteractionProxy mProxy = new InteractionProxy();
-    private final Map<String, Object> mInteractionCache = new ConcurrentHashMap<>();
     private final Map<String, String> mLocalStringCache = new ConcurrentHashMap<>();
     private final Map<String, Integer> mLocalIntegerCache = new ConcurrentHashMap<>();
     private final Map<String, Boolean> mLocalBooleanCache = new ConcurrentHashMap<>();
     private final Map<String, Float> mLocalFloatCache = new ConcurrentHashMap<>();
     private final Map<String, Map<String, String>> mLocalMapCache = new ConcurrentHashMap<>();
 
-    private Repository(LocalProfile profile) {
+    private Repositoryq(LocalProfile profile) {
         mProfile = profile;
     }
 
@@ -34,21 +32,13 @@ public class Repository {
         if (mInstance != null) {
             throw new NormalException("please only call install Repository one time.");
         } else if (context != null && context instanceof Application) {
-            mInstance = new Repository(new LocalProfile(context.getApplicationContext()));
+            mInstance = new com.cody.xf.Repositoryq(new LocalProfile(context.getApplicationContext()));
         } else {
             throw new NormalException("context is invalid when call Repository.install.");
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T getInteraction(final Class<T> clazz) {
-/*        T interaction;
-        if (mInstance.mInteractionCache.containsKey(clazz.getCanonicalName())){
-            interaction = (T) mInstance.mInteractionCache.get(clazz.getCanonicalName());
-        }else {
-            interaction = mInstance.mProxy.create(clazz);
-            mInstance.mInteractionCache.put(clazz.getCanonicalName(),interaction);
-        }*/
         return new InteractionProxy().create(clazz);
     }
 

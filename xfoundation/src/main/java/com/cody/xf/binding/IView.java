@@ -25,19 +25,14 @@ public interface IView {
     void hideLoading();
 
     /**
-     * show error message
+     * 弹出消息 一般onFailure调用，需要用户知道的错误
+     */
+    void showFailure(String msg);
+
+    /**
+     * 出错，一般只记录，只打log，用户不用关心的错误
      */
     void showError(String msg);
-
-    /**
-     * show exception message
-     */
-    void showException(String msg);
-
-    /**
-     * show net error
-     */
-    void showNetError();
 
     /**
      * show Progress

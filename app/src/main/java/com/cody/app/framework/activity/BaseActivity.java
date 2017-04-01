@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.cody.app.R;
 import com.cody.app.BR;
+import com.cody.app.R;
 import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.xf.binding.activity.BaseBindingActivity;
 import com.cody.xf.binding.handler.Presenter;
@@ -98,25 +98,17 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
 
     @CallSuper
     @Override
-    public void showError(String msg) {
-        this.hideLoading();
-        LogUtil.d(TAG, "BaseActivity ++ showError");
-    }
-
-    @CallSuper
-    @Override
-    public void showException(String msg) {
+    public void showFailure(String msg) {
         this.hideLoading();
         ToastUtil.showToast(msg);
-        LogUtil.d(TAG, "BaseActivity ++ showException");
+        LogUtil.d(TAG, "BaseFragment ++ showFailure msg = " + msg);
     }
 
     @CallSuper
     @Override
-    public void showNetError() {
+    public void showError(String msg) {
         this.hideLoading();
-        ToastUtil.showToast(getString(R.string.r_no_network_connection_toast));
-        LogUtil.d(TAG, "BaseActivity ++ showNetError");
+        LogUtil.d(TAG, "BaseFragment ++ showError msg = " + msg);
     }
 
     @CallSuper
@@ -129,8 +121,8 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
     @Override
     public void onUpdate(Object... args) {
         this.hideLoading();
-        getBinding().setVariable(BR.viewModel, getViewModel());
         LogUtil.d(TAG, "BaseActivity ++ onUpdate");
+        getBinding().setVariable(BR.viewModel, getViewModel());
     }
 
     @CallSuper

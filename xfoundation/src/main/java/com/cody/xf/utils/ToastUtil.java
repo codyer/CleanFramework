@@ -25,7 +25,7 @@ public class ToastUtil {
 //        if (simpleBean != null && !"null".equals(simpleBean.getMessage())) {
         showToast(simpleBean.getMessage());
 //        } else {
-//            showToast(R.string.foundation_http_code_request_err);
+//            showFailure(R.string.foundation_http_code_request_err);
 //        }
         /* int message = R.string.foundation_http_code_unknown;
        if (simpleBean != null) {
@@ -54,12 +54,12 @@ public class ToastUtil {
             }
             //显示系统提示信息
             if (Constant.TOAST_DEBUG) {
-                showToast(simpleBean.getMessage());
-//                showToast(simpleBean.toString());
+                showFailure(simpleBean.getMessage());
+//                showFailure(simpleBean.toString());
                 return;
             }
         }
-         showToast(message);*/
+         showFailure(message);*/
     }
 
     public static void showToast(String text) {

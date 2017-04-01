@@ -48,4 +48,11 @@ public interface IPresenter<VM extends ViewModel> {
      * @return VM
      */
     VM getViewModel();
+
+    /**
+     * 判断是否和view有关联
+     *
+     * @return boolean
+     */
+    boolean isViewAttached();
 }

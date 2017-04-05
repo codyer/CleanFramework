@@ -1,6 +1,5 @@
 package com.cody.repository.framework.interaction;
 
-import com.cody.xf.binding.ICallback;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.http.HeaderListener;
 import com.google.gson.JsonObject;

@@ -1,5 +1,7 @@
 package com.cody.repository.framework.interaction;
 
+import com.cody.xf.utils.http.SimpleBean;
+
 /**
  * Created by cody.yi on 2017/3/29.
  * 可以根据具体项目需求实现自己的CallAdapter
@@ -13,7 +15,7 @@ public abstract class CallAdapter {
 
     /**
      * 返回服务器定义的原始对象，且原始对象为simpleBean
-     * @see com.cody.xf.common.SimpleBean
+     * @see SimpleBean
      */
     abstract void invokeSimple();
 

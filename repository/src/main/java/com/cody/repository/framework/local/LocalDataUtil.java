@@ -2,7 +2,7 @@
  * Copyright (c)  Created by Cody.yi on 2016/9/20.
  */
 
-package com.cody.xf.utils;
+package com.cody.repository.framework.local;
 
 /**
  * Created by cody.yi on 2016/7/18.
@@ -12,10 +12,11 @@ package com.cody.xf.utils;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.cody.repository.framework.interaction.ICallback;
 import com.cody.xf.R;
-import com.cody.xf.binding.ICallback;
 import com.cody.xf.common.Constant;
-import com.cody.xf.common.SimpleBean;
+import com.cody.xf.utils.http.SimpleBean;
+import com.cody.xf.utils.FetchRawUtil;
 
 import java.io.IOException;
 import java.util.List;

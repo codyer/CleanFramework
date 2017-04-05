@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.handler.framework.viewmodel.common.ListViewModel;
-import com.cody.xf.binding.handler.Presenter;
 
 import java.util.HashMap;
 import java.util.Map;

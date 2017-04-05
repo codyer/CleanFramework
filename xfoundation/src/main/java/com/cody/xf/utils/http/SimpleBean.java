@@ -2,7 +2,9 @@
  * Copyright (c)  Created by Cody.yi on 2016/9/6.
  */
 
-package com.cody.xf.common;
+package com.cody.xf.utils.http;
+
+import com.cody.xf.common.NotProguard;
 
 /**
  * Created by cody.yi on 2016/7/12.

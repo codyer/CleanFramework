@@ -1,6 +1,6 @@
 package com.cody.handler.framework;
 
-import com.cody.xf.binding.handler.Presenter;
+import com.cody.handler.framework.presenter.Presenter;
 
 /**
  * Created by cody.yi on 2016/8/5.

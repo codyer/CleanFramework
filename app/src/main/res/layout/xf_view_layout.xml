@@ -10,7 +10,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="viewModel"
-            type="com.cody.xf.binding.handler.ViewModel" />
+            type="com.cody.handler.framework.viewmodel.ViewModel" />
     </data>
 
     <LinearLayout

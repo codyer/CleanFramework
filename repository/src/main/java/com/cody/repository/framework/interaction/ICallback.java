@@ -1,6 +1,6 @@
-package com.cody.xf.binding;
+package com.cody.repository.framework.interaction;
 
-import com.cody.xf.common.SimpleBean;
+import com.cody.xf.utils.http.SimpleBean;
 
 /**
  * Created by cody.yi on 2016/8/5.

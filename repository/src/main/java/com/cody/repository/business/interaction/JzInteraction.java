@@ -4,7 +4,7 @@ package com.cody.repository.business.interaction;
 import com.cody.repository.business.bean.CaseBean;
 import com.cody.repository.business.interaction.constant.Domain;
 import com.cody.repository.business.interaction.constant.JzUrlPath;
-import com.cody.xf.binding.ICallback;
+import com.cody.repository.framework.interaction.ICallback;
 import com.cody.repository.framework.interaction.QueryCallBack;
 import com.cody.repository.framework.interaction.QueryClass;
 import com.cody.repository.framework.interaction.QueryJson;

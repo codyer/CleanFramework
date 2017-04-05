@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *      @see com.cody.xf.utils.http.HeaderListener
  * @see QueryClass 返回bean的类类型 Class<T>
  * @see QueryCallBack 回调函数类型
- *      @see com.cody.xf.binding.ICallback<>
+ *      @see ICallback <>
  */
 public class InteractionProxy {
     // TODO 各种异常检测需要添加

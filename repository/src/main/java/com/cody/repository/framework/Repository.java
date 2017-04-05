@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.cody.repository.framework.interaction.InteractionProxy;
 import com.cody.repository.framework.local.LocalProfile;
-import com.cody.xf.common.NormalException;
 import com.cody.xf.utils.StringUtil;
 
 import java.util.Map;
@@ -30,7 +29,7 @@ public class Repository {
 
     private static Repository getRepository() {
         if (sRepository == null){
-            throw new NormalException("you should call Repository.install(context) in you Application first.");
+            throw new NullPointerException("you should call Repository.install(context) in you Application first.");
         }else {
             return sRepository;
         }
@@ -38,11 +37,11 @@ public class Repository {
 
     public static void install(Context context) {
         if (sRepository != null) {
-            throw new NormalException("please only call install Repository one time.");
+            throw new NullPointerException("please only call install Repository one time.");
         } else if (context != null && context instanceof Application) {
             sRepository = new Repository(new LocalProfile(context.getApplicationContext()));
         } else {
-            throw new NormalException("context is invalid when call Repository.install.");
+            throw new NullPointerException("context is invalid when call Repository.install.");
         }
     }
 

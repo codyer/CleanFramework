@@ -4,8 +4,6 @@
 
 package com.cody.handler.framework.viewmodel;
 
-import com.cody.xf.binding.handler.ViewModel;
-
 /**
  * Created by cody.yi on 2016/8/11.
  * 继承foundation中的ViewModel，统一添加ID

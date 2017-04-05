@@ -1,4 +1,4 @@
-package com.cody.xf.binding.fragment;
+package com.cody.app.framework.fragment;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.xf.BR;
-import com.cody.xf.binding.IDataBinding;
-import com.cody.xf.binding.IView;
-import com.cody.xf.binding.handler.Presenter;
-import com.cody.xf.binding.handler.ViewModel;
+import com.cody.handler.framework.IDataBinding;
+import com.cody.handler.framework.IView;
+import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.ViewModel;
 
 
 /**

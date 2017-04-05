@@ -1,4 +1,4 @@
-package com.cody.xf.binding.activity;
+package com.cody.app.framework.activity;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.cody.xf.BR;
-import com.cody.xf.binding.IDataBinding;
-import com.cody.xf.binding.IView;
-import com.cody.xf.binding.handler.Presenter;
-import com.cody.xf.binding.handler.ViewModel;
+import com.cody.handler.framework.IDataBinding;
+import com.cody.handler.framework.IView;
+import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.xf.utils.ActivityUtil;
 
 

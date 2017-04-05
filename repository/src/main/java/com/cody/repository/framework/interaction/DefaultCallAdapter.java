@@ -2,7 +2,7 @@ package com.cody.repository.framework.interaction;
 
 import com.cody.repository.framework.Repository;
 import com.cody.repository.framework.local.BaseLocalKey;
-import com.cody.xf.common.SimpleBean;
+import com.cody.xf.utils.http.SimpleBean;
 import com.cody.xf.utils.HttpUtil;
 
 import java.util.Map;

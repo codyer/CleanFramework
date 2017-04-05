@@ -1,4 +1,4 @@
-package com.cody.xf.binding.handler;
+package com.cody.handler.framework.viewmodel;
 
 import java.io.Serializable;
 

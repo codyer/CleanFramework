@@ -1,6 +1,8 @@
-package com.cody.xf.binding;
+package com.cody.handler.framework.presenter;
 
-import com.cody.xf.binding.handler.ViewModel;
+
+import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.IView;
 
 /**
  * Created by cody.yi on 2016/8/5.

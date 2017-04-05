@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.xf.binding.handler.Presenter;
+import com.cody.handler.framework.presenter.Presenter;
 
 /**
  * MVVM架构的基类，将ViewModel的属性和行为进行拆分，行为交由P处理，属性由VM持有

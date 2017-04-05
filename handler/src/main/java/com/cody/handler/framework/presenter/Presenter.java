@@ -1,7 +1,7 @@
-package com.cody.xf.binding.handler;
+package com.cody.handler.framework.presenter;
 
-import com.cody.xf.binding.IPresenter;
-import com.cody.xf.binding.IView;
+import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.IView;
 import com.cody.xf.utils.HttpUtil;
 
 import java.lang.ref.Reference;

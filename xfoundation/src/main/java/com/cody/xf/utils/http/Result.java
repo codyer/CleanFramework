@@ -1,5 +1,6 @@
-package com.cody.xf.common;
+package com.cody.xf.utils.http;
 
+import com.cody.xf.common.NotProguard;
 import com.google.gson.annotations.SerializedName;
 
 /**

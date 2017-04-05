@@ -17,7 +17,7 @@ import com.cody.app.R;
 import com.cody.app.databinding.FragmentTabViewBinding;
 import com.cody.app.framework.adapter.ChildTabPageFragmentAdapter;
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.xf.binding.handler.Presenter;
+import com.cody.handler.framework.presenter.Presenter;
 
 import java.util.Arrays;
 import java.util.List;

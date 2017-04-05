@@ -6,7 +6,7 @@ import com.cody.handler.framework.DefaultCallback;
 import com.cody.repository.business.bean.CaseBean;
 import com.cody.repository.business.interaction.JzInteraction;
 import com.cody.repository.framework.Repository;
-import com.cody.xf.binding.handler.Presenter;
+import com.cody.handler.framework.presenter.Presenter;
 import com.cody.xf.utils.LogUtil;
 
 import java.util.HashMap;

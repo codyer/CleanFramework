@@ -5,7 +5,7 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.cody.xf.XFoundation;
-import com.cody.xf.common.SimpleBean;
+import com.cody.xf.utils.http.SimpleBean;
 
 
 /**

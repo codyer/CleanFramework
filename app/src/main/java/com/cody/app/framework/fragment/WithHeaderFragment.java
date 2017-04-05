@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 import com.cody.handler.framework.viewmodel.common.HeaderViewModel;
-import com.cody.xf.binding.handler.Presenter;
+import com.cody.handler.framework.presenter.Presenter;
 
 /**
  * A simple {@link Fragment} subclass.

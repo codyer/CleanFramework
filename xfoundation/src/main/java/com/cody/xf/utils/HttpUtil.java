@@ -12,12 +12,12 @@ import android.widget.ImageView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.cody.xf.XFoundation;
-import com.cody.xf.common.Constant;
-import com.cody.xf.common.Result;
-import com.cody.xf.common.SimpleBean;
 import com.cody.xf.utils.http.HeaderListener;
+import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.HttpConnectException;
 import com.cody.xf.utils.http.HttpRequestFactory;
+import com.cody.xf.utils.http.Result;
+import com.cody.xf.utils.http.SimpleBean;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
@@ -585,16 +585,16 @@ public class HttpUtil {
      */
     private static <T> boolean checkParameters(Object tag, String url, Callback<T> callback) {
         if (tag == null || StringUtil.isEmpty(url) || callback == null) {
-            if (Constant.DEBUG) {
+            if (HttpCode.DEBUG) {
                 throw new HttpConnectException("请求参数错误！");
             } else {
-                callback.onError(new SimpleBean(Constant.HttpCode.PARAMETER_ERROR, "请求参数错误！"));
+                callback.onError(new SimpleBean(HttpCode.PARAMETER_ERROR, "请求参数错误！"));
                 return true;
             }
         }
         //检查网络情况
         if (NetworkUtil.isDisConnected(XFoundation.getContext())) {
-            callback.onFailure(new SimpleBean(Constant.HttpCode.NETWORK_DISCONNECTED, "无可用的网络连接,请修改网络连接属性！"));
+            callback.onFailure(new SimpleBean(HttpCode.NETWORK_DISCONNECTED, "无可用的网络连接,请修改网络连接属性！"));
             return true;
         }
         return false;
@@ -777,7 +777,7 @@ public class HttpUtil {
             if (error.networkResponse != null) {
                 callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
             } else {
-                callback.onError(new SimpleBean(Constant.HttpCode.OTHER_ERROR, error.getMessage()));
+                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
             }
         }
     }
@@ -791,7 +791,7 @@ public class HttpUtil {
 
         @Override
         public void onResponse(Result<T> response) {
-            if (Constant.HttpCode.SUCCESS.equals((response).getCode())) {
+            if (HttpCode.SUCCESS.equals((response).getCode())) {
                 callback.onSuccess(response.getData());
             } else {
                 callback.onFailure(new SimpleBean(response.getCode(), response.getMessage()));
@@ -803,7 +803,7 @@ public class HttpUtil {
             if (error.networkResponse != null) {
                 callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
             } else {
-                callback.onError(new SimpleBean(Constant.HttpCode.OTHER_ERROR, error.getMessage()));
+                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
             }
         }
     }
@@ -817,7 +817,7 @@ public class HttpUtil {
 
         @Override
         public void onResponse(SimpleBean response) {
-            if (Constant.HttpCode.SUCCESS.equals((response).getCode())) {
+            if (HttpCode.SUCCESS.equals((response).getCode())) {
                 callback.onSuccess(response);
             } else {
                 callback.onFailure(response);
@@ -829,7 +829,7 @@ public class HttpUtil {
             if (error.networkResponse != null) {
                 callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
             } else {
-                callback.onError(new SimpleBean(Constant.HttpCode.OTHER_ERROR, error.getMessage()));
+                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
             }
         }
     }

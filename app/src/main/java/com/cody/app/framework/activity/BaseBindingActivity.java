@@ -1,17 +1,17 @@
 package com.cody.app.framework.activity;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.cody.xf.BR;
 import com.cody.handler.framework.IDataBinding;
-import com.cody.handler.framework.IView;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.xf.BR;
 import com.cody.xf.utils.ActivityUtil;
 
 
@@ -23,11 +23,7 @@ import com.cody.xf.utils.ActivityUtil;
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
 public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends ViewModel, B extends ViewDataBinding>
-        extends AppCompatActivity implements View.OnClickListener, IDataBinding<P, VM, B>, IView {
-    /**
-     * Log tag
-     */
-    public String TAG = null;
+        extends BaseActivity implements View.OnClickListener, IDataBinding<P, VM, B> {
 
     private P mPresenter;
     private VM mViewModel;
@@ -54,7 +50,6 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends Vi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TAG = this.getClass().getSimpleName();
         ActivityUtil.setCurrentActivity(this);
 
         /**
@@ -93,6 +88,20 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends Vi
             mPresenter.detachView();
         }
         super.onDestroy();
+    }
+
+    @CallSuper
+    @Override
+    public void onUpdate(Object... args) {
+        super.onUpdate(args);
+        getBinding().setVariable(com.cody.app.BR.viewModel, getViewModel());
+    }
+
+    @CallSuper
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+        getPresenter().cancel(TAG);
     }
 
     @Override

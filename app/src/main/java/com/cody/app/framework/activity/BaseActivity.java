@@ -5,33 +5,28 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.CallSuper;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.cody.app.BR;
 import com.cody.app.R;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.IView;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.StringUtil;
 import com.cody.xf.utils.ToastUtil;
 
 
-/**
- * MVVM架构的基类，将ViewModel的属性和行为进行拆分，行为交由P处理，属性由VM持有
- *
- * @param <P>  处理逻辑的类，从ViewModel拆出来的行为
- * @param <VM> 所有ViewModel中原来的属性；
- * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
- */
-public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewModel, B extends ViewDataBinding>
-        extends BaseBindingActivity<P, VM, B> implements View.OnClickListener, DialogInterface.OnCancelListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener,
+        DialogInterface.OnCancelListener , IView {
+    /**
+     * Log tag
+     */
+    protected String TAG = null;
     private ProgressDialog mLoading;
     private boolean isFirstVisible = true;
 
@@ -44,6 +39,7 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = this.getClass().getSimpleName();
 
         mLoading = new ProgressDialog(this);
         mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -121,7 +117,6 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
     public void onUpdate(Object... args) {
         this.hideLoading();
         LogUtil.d(TAG, "BaseActivity ++ onUpdate");
-        getBinding().setVariable(BR.viewModel, getViewModel());
     }
 
     @CallSuper
@@ -129,7 +124,6 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
     public void onCancel(DialogInterface dialog) {
         this.hideLoading();
         LogUtil.d(TAG, "BaseActivity ++ onCancel");
-        getPresenter().cancel(TAG);
     }
 
     @Override
@@ -154,13 +148,8 @@ public abstract class BaseActivity<P extends Presenter<VM>, VM extends BaseViewM
                     top = l[1],
                     bottom = top + v.getHeight(),
                     right = left + v.getWidth();
-            if (event.getX() > left && event.getX() < right
-                    && event.getY() > top && event.getY() < bottom) {
-                // 点击EditText的事件，忽略它。
-                return false;
-            } else {
-                return true;
-            }
+            return !(event.getX() > left && event.getX() < right
+                    && event.getY() > top && event.getY() < bottom);
         }
         // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditText上，和用户用轨迹球选择其他的焦点
         return false;

@@ -14,9 +14,9 @@ import android.os.Looper;
 
 import com.cody.repository.framework.interaction.ICallback;
 import com.cody.xf.R;
-import com.cody.xf.common.Constant;
-import com.cody.xf.utils.http.SimpleBean;
 import com.cody.xf.utils.FetchRawUtil;
+import com.cody.xf.utils.http.HttpCode;
+import com.cody.xf.utils.http.SimpleBean;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,7 +40,7 @@ public class LocalDataUtil {
                     callback.onSuccess(FetchRawUtil.getInstance().fetchBean(url, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onFailure(new SimpleBean(Constant.HttpCode.REQUEST_ERROR, e.getMessage()));
+                    callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
                 }
             }
         }, 500);
@@ -55,7 +55,7 @@ public class LocalDataUtil {
                     callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(url, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onFailure(new SimpleBean(Constant.HttpCode.REQUEST_ERROR, e.getMessage()));
+                    callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
                 }
             }
         }, 500);
@@ -69,7 +69,7 @@ public class LocalDataUtil {
                     callback.onSuccess(FetchRawUtil.getInstance().fetchBean(url, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onFailure(new SimpleBean(Constant.HttpCode.REQUEST_ERROR, e.getMessage()));
+                    callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
                 }
             }
         }, 500);
@@ -84,7 +84,7 @@ public class LocalDataUtil {
                     callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(url, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onFailure(new SimpleBean(Constant.HttpCode.REQUEST_ERROR, e.getMessage()));
+                    callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
                 }
             }
         }, 500);
@@ -98,7 +98,7 @@ public class LocalDataUtil {
                     callback.onSuccess(FetchRawUtil.getInstance().fetchBean(R.raw.simple_bean, SimpleBean.class));
                 } catch (IOException e) {
                     e.printStackTrace();
-                    callback.onFailure(new SimpleBean(Constant.HttpCode.REQUEST_ERROR, e.getMessage()));
+                    callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
                 }
             }
         }, 500);

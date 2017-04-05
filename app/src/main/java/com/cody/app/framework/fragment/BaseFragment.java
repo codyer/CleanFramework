@@ -8,33 +8,31 @@ package com.cody.app.framework.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cody.app.BR;
 import com.cody.app.R;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.IView;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.StringUtil;
 import com.cody.xf.utils.ToastUtil;
 
-/**
- * MVVM架构的基类，将ViewModel的属性和行为进行拆分，行为交由P处理，属性由VM持有
- *
- * @param <P>  处理逻辑的类，从ViewModel拆出来的行为
- * @param <VM> 所有ViewModel中原来的属性；
- * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
- */
-public abstract class BaseFragment<P extends Presenter<VM>, VM extends BaseViewModel, B extends ViewDataBinding> extends
-        BaseBindingFragment<P, VM, B> implements View.OnClickListener, DialogInterface.OnCancelListener {
+public abstract class BaseFragment extends Fragment implements View.OnClickListener,
+        DialogInterface.OnCancelListener, IView {
 
+    public String TAG = null;
     private ProgressDialog mLoading;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TAG = this.getClass().getSimpleName();
+    }
 
     @Nullable
     @Override
@@ -109,7 +107,6 @@ public abstract class BaseFragment<P extends Presenter<VM>, VM extends BaseViewM
     @Override
     public void onUpdate(Object... args) {
         this.hideLoading();
-        getBinding().setVariable(BR.viewModel, getViewModel());
         LogUtil.d(TAG, "BaseFragment ++ onUpdate");
     }
 
@@ -118,6 +115,5 @@ public abstract class BaseFragment<P extends Presenter<VM>, VM extends BaseViewM
     public void onCancel(DialogInterface dialog) {
         this.hideLoading();
         LogUtil.d(TAG, "BaseFragment ++ showError");
-        getPresenter().cancel(TAG);
     }
 }

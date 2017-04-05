@@ -10,17 +10,17 @@ import com.cody.xf.utils.http.SimpleBean;
 public interface ICallback<T> {
 
     // 操作执行前
-    public void onBegin(Object tag);
+    void onBegin(Object tag);
 
     //操作执行结束
-    public void onSuccess(T bean);
+    void onSuccess(T bean);
 
     //执行出错
-    public void onFailure(SimpleBean simpleBean);
+    void onFailure(SimpleBean simpleBean);
 
     //执行出错并取消
-    public void onError(SimpleBean simpleBean);
+    void onError(SimpleBean simpleBean);
 
     //执行进度
-    public void onProgress(long count, long current);
+    void onProgress(long count, long current);
 }

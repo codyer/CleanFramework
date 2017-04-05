@@ -16,9 +16,11 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 下拉刷新和上拉加载的Activity基类，包含头部
  */
 
-public abstract class AbstractRecycleViewWithHeaderActivity<P extends
-        AbstractRecycleViewPresenter<AbstractListViewModel,ItemViewModel>, ItemViewModel extends BaseViewModel,
-        AbstractListViewModel extends ListViewModel<ItemViewModel>, B extends ViewDataBinding> extends WithHeaderActivity<P,
+public abstract class AbstractRecycleViewWithHeaderActivity
+        <P extends AbstractRecycleViewPresenter<AbstractListViewModel, ItemViewModel>,
+                ItemViewModel extends BaseViewModel,
+                AbstractListViewModel extends ListViewModel<ItemViewModel>,
+                B extends ViewDataBinding> extends WithHeaderActivity<P,
         AbstractListViewModel, B> implements BaseRecycleViewAdapter.OnItemClickListener, PullLoadMoreRecyclerView
         .PullLoadMoreListener {
 

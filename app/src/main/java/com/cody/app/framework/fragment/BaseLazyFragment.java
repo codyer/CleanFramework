@@ -23,7 +23,7 @@ import com.cody.handler.framework.presenter.Presenter;
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
 public abstract class BaseLazyFragment<P extends Presenter<VM>, VM extends BaseViewModel, B extends ViewDataBinding>
-        extends BaseFragment<P, VM, B> {
+        extends BaseBindingFragment<P, VM, B> {
 
     private boolean isFirstResume = true;
     private boolean isFirstVisible = true;

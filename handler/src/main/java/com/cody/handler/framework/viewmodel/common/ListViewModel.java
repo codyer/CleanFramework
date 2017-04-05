@@ -73,7 +73,6 @@ public class ListViewModel<ItemViewModel extends BaseViewModel> extends WithHead
         mPageNO = pageNO;
     }
 
-
     //下次数据开始的位置
     public int getPosition() {
         return mIsRefresh ? 0 : size();
@@ -148,7 +147,7 @@ public class ListViewModel<ItemViewModel extends BaseViewModel> extends WithHead
     }
 
     /**
-     * 获取指定位置的item
+     * 指定位置添加item
      */
     public void add(int position, ItemViewModel item) {
         if (position < mItemViewModels.size() && position >= 0) {

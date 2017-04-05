@@ -3,6 +3,7 @@ package com.cody.repository.framework;
 import android.app.Application;
 import android.content.Context;
 
+import com.cody.repository.framework.interaction.CallAdapter;
 import com.cody.repository.framework.interaction.InteractionProxy;
 import com.cody.repository.framework.local.LocalProfile;
 import com.cody.xf.utils.StringUtil;
@@ -17,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Repository {
     private static Repository sRepository;
     private LocalProfile mProfile;
+    private CallAdapter mCallAdapter;
     private final Map<String, String> mLocalStringCache = new ConcurrentHashMap<>();
     private final Map<String, Integer> mLocalIntegerCache = new ConcurrentHashMap<>();
     private final Map<String, Boolean> mLocalBooleanCache = new ConcurrentHashMap<>();
@@ -28,11 +30,19 @@ public class Repository {
     }
 
     private static Repository getRepository() {
-        if (sRepository == null){
+        if (sRepository == null) {
             throw new NullPointerException("you should call Repository.install(context) in you Application first.");
-        }else {
+        } else {
             return sRepository;
         }
+    }
+
+    /**
+     * 自定义自己的CallAdapter
+     */
+    public static void installWithCallAdapter(Context context, CallAdapter callAdapter) {
+        install(context);
+        getRepository().mCallAdapter = callAdapter;
     }
 
     public static void install(Context context) {
@@ -46,7 +56,7 @@ public class Repository {
     }
 
     public static <T> T getInteraction(final Class<T> clazz) {
-        return new InteractionProxy().create(clazz);
+        return new InteractionProxy().setCallAdapter(getRepository().mCallAdapter).create(clazz);
     }
 
     public static String getLocalValue(String localKey) {

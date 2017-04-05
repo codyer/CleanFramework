@@ -6,7 +6,6 @@ package com.cody.app.framework.activity;
 
 import android.os.Bundle;
 import android.text.InputFilter;
-import com.cody.app.framework.util.CommonUtil;
 
 import com.cody.app.R;
 import com.cody.app.databinding.RecycleLoadMoreWithHeaderSearchBinding;
@@ -14,6 +13,7 @@ import com.cody.app.framework.widget.SearchEditView;
 import com.cody.handler.framework.presenter.RecycleViewPresenter;
 import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.handler.framework.viewmodel.common.ListViewModel;
+import com.cody.xf.utils.CommonUtil;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**

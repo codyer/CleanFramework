@@ -16,7 +16,7 @@ import com.cody.handler.framework.presenter.Presenter;
  * 包含头部的Activity
  */
 public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends WithHeaderViewModel, B extends
-        ViewDataBinding> extends BaseActivity<P, VM, B> {
+        ViewDataBinding> extends BaseBindingActivity<P, VM, B> {
 
     /**
      * 创建标题

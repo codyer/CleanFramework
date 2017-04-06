@@ -2,14 +2,13 @@
  * Copyright (c)  Created by Cody.yi on 2016/9/5.
  */
 
-package com.cody.handler.framework.viewmodel.common;
+package com.cody.handler.framework.viewmodel;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 
 import com.cody.handler.R;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.xf.utils.ResourceUtil;
 
 
@@ -20,26 +19,26 @@ import com.cody.xf.utils.ResourceUtil;
  *
  * @see res/layout/magic_header.xml
  */
-public class HeaderViewModel extends BaseViewModel {
-    private boolean mVisible;//是否有头部
+public class HeaderViewModel extends ViewModel {
+    private ObservableBoolean mVisible = new ObservableBoolean(false);//是否有头部
     private ObservableBoolean mLeft = new ObservableBoolean(false);//左边图标 -大部分情况是返回图标
     private ObservableBoolean mRight = new ObservableBoolean(false);//右边图标
     private ObservableBoolean mRightIsText = new ObservableBoolean(false);//右边文字
     private ObservableInt mLeftResId = new ObservableInt();//左边图标 返回
     private ObservableInt mRightResId = new ObservableInt();//右边图标 设置
-    private String mRightText;//右边文字 保存
+    private ObservableField<String> mRightText = new ObservableField<>("");//右边文字 保存
     private ObservableField<String> mTitle = new ObservableField<>("");//标题资源id
-    private ObservableBoolean mRightIsTextanddrawable = new ObservableBoolean(false);//右边文字（带小图标）
+    private ObservableBoolean mRightIsTextAndDrawable = new ObservableBoolean(false);//右边文字（带小图标）
 
     private HeaderViewModel() {
-        mVisible = true;//是否有头部
+        mVisible.set(true);//是否有头部
         mLeft.set(false);//左边图标 -大部分情况是返回图标
         mRight.set(false);//右边图标
         mRightIsText.set(false);//右边文字
-        mRightIsTextanddrawable.set(false);
+        mRightIsTextAndDrawable.set(false);
         mLeftResId.set(R.drawable.h_back_arrow);//左边图标 返回
         mRightResId.set(R.drawable.h_setting);//右边图标 设置
-        mRightText = ResourceUtil.getString(R.string.h_save_now);//右边文字 保存
+        mRightText.set(ResourceUtil.getString(R.string.h_save_now));//右边文字 保存
         mTitle.set(ResourceUtil.getString(R.string.h_app_name)); //标题资源id
     }
 
@@ -47,12 +46,12 @@ public class HeaderViewModel extends BaseViewModel {
         return new HeaderViewModel();
     }
 
-    public boolean isVisible() {
+    public ObservableBoolean isVisible() {
         return mVisible;
     }
 
     public void setVisible(boolean visible) {
-        mVisible = visible;
+        mVisible.set(visible);
     }
 
     public ObservableField<String> getTitle() {
@@ -86,12 +85,13 @@ public class HeaderViewModel extends BaseViewModel {
     public void setRightIsText(boolean rightIsText) {
         mRightIsText.set(rightIsText);
     }
-    public ObservableBoolean isRightIsTextanddrawable() {
-        return mRightIsTextanddrawable;
+
+    public ObservableBoolean isRightIsTextAndDrawable() {
+        return mRightIsTextAndDrawable;
     }
 
-    public void setRightIsTextanddrawable(boolean rightIsTextanddrawable) {
-        mRightIsTextanddrawable.set(rightIsTextanddrawable);
+    public void setRightIsTextAndDrawable(boolean rightIsTextAndDrawable) {
+        mRightIsTextAndDrawable.set(rightIsTextAndDrawable);
     }
 
     public ObservableInt getLeftResId() {
@@ -110,11 +110,11 @@ public class HeaderViewModel extends BaseViewModel {
         mRightResId.set(rightResId);
     }
 
-    public String getRightText() {
+    public ObservableField<String> getRightText() {
         return mRightText;
     }
 
     public void setRightText(String rightText) {
-        mRightText = rightText;
+        mRightText.set(rightText);
     }
 }

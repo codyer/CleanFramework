@@ -21,8 +21,8 @@ import com.cody.xf.utils.StringUtil;
 import com.cody.xf.utils.ToastUtil;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener,
-        DialogInterface.OnCancelListener , IView {
+public abstract class BaseActivity extends AppCompatActivity
+        implements View.OnClickListener, DialogInterface.OnCancelListener, IView {
     /**
      * Log tag
      */

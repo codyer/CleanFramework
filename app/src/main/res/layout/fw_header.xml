@@ -14,7 +14,7 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.common.HeaderViewModel" />
+            type="com.cody.handler.framework.viewmodel.HeaderViewModel" />
     </data>
 
     <FrameLayout
@@ -62,7 +62,7 @@
             android:drawablePadding="@dimen/small_padding"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/font_size_30px"
-            android:visibility="@{viewModel.rightIsTextanddrawable?View.VISIBLE:View.INVISIBLE}"/>
+            android:visibility="@{viewModel.rightIsTextAndDrawable?View.VISIBLE:View.INVISIBLE}"/>
     </FrameLayout>
 
 </layout>

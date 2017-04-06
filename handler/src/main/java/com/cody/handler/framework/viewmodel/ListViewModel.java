@@ -2,17 +2,12 @@
  * Copyright (c)  Created by Cody.yi on 2016/9/5.
  */
 
-package com.cody.handler.framework.viewmodel.common;
+package com.cody.handler.framework.viewmodel;
 
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 
-import com.cody.handler.R;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 import com.cody.xf.utils.PageUtil;
-import com.cody.xf.utils.ResourceUtil;
 
 
 /**
@@ -25,21 +20,7 @@ import com.cody.xf.utils.ResourceUtil;
  *
  * @param <ItemViewModel> ListView中的item ViewModel
  */
-public class ListViewModel<ItemViewModel extends BaseViewModel> extends WithHeaderViewModel {
-    private final ObservableField<String> keyWord = new ObservableField<>("");
-    private String hint = ResourceUtil.getString(R.string.h_search_hint);
-
-    public ObservableField<String> getKeyWord() {
-        return keyWord;
-    }
-
-    public String getHint() {
-        return hint;
-    }
-
-    public void setHint(String hint) {
-        this.hint = hint;
-    }
+public class ListViewModel<ItemViewModel extends ViewModel> extends ViewModel {
 
     /**
      * 每个listview都应该有页码和页大小

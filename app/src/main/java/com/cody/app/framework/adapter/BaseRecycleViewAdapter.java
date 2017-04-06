@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.app.BR;
+import com.cody.handler.framework.viewmodel.ViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.Collection;
  * 回收ViewHodler
  * 提供数据集等等
  */
-public abstract class BaseRecycleViewAdapter<ItemViewModel extends BaseViewModel> extends RecyclerView
+public abstract class BaseRecycleViewAdapter<ItemViewModel extends ViewModel> extends RecyclerView
         .Adapter<BaseRecycleViewAdapter<ItemViewModel>.ViewHolder> {
 
     private final WeakReferenceOnListChangedCallback<ItemViewModel> onListChangedCallback;
@@ -211,7 +211,7 @@ public abstract class BaseRecycleViewAdapter<ItemViewModel extends BaseViewModel
         }
     }
 
-    private static class WeakReferenceOnListChangedCallback<ItemViewModel extends BaseViewModel> extends ObservableList
+    private static class WeakReferenceOnListChangedCallback<ItemViewModel extends ViewModel> extends ObservableList
             .OnListChangedCallback<ObservableList<ItemViewModel>> {
 
         private final WeakReference<BaseRecycleViewAdapter<ItemViewModel>> adapterReference;

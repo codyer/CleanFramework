@@ -3,8 +3,8 @@ package com.cody.handler.framework.presenter;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.viewmodel.common.ListViewModel;
+import com.cody.handler.framework.viewmodel.ListViewModel;
+import com.cody.handler.framework.viewmodel.ViewModel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +13,8 @@ import java.util.Map;
  * Created by haiyan.chen on 2016/12/23.
  * 列表页抽象Presenter
  */
-public abstract class AbstractRecycleViewPresenter<AbstractListViewModel extends
-        ListViewModel<ItemViewModel>, ItemViewModel extends BaseViewModel> extends
-        Presenter<AbstractListViewModel> {
+public abstract class AbsListPresenter<AbsListViewModel extends ListViewModel<ItemViewModel>,
+        ItemViewModel extends ViewModel> extends Presenter<AbsListViewModel> {
     /**
      * 获取初始页数据
      *

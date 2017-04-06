@@ -8,10 +8,10 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
+import com.cody.app.BR;
 import com.cody.handler.framework.IDataBinding;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.handler.framework.viewmodel.ViewModel;
-import com.cody.xf.BR;
 import com.cody.xf.utils.ActivityUtil;
 
 
@@ -22,8 +22,11 @@ import com.cody.xf.utils.ActivityUtil;
  * @param <VM> 所有ViewModel中原来的属性；
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
-public abstract class BaseBindingActivity<P extends Presenter<VM>, VM extends ViewModel, B extends ViewDataBinding>
-        extends BaseActivity implements View.OnClickListener, IDataBinding<P, VM, B> {
+public abstract class BaseBindingActivity<P extends Presenter<VM>,
+        VM extends ViewModel,
+        B extends ViewDataBinding>
+        extends BaseActivity
+        implements View.OnClickListener, IDataBinding<P, VM, B> {
 
     private P mPresenter;
     private VM mViewModel;

@@ -12,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cody.app.BR;
 import com.cody.handler.framework.IDataBinding;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.handler.framework.viewmodel.ViewModel;
-import com.cody.xf.BR;
 
 
 /**

@@ -8,7 +8,7 @@ import com.cody.app.databinding.CaseActivityBinding;
 import com.cody.app.framework.activity.WithHeaderActivity;
 import com.cody.handler.business.presenter.CasePresenter;
 import com.cody.handler.business.viewmodel.CaseViewModel;
-import com.cody.handler.framework.viewmodel.common.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
 
 public class CaseActivity extends WithHeaderActivity<CasePresenter, CaseViewModel, CaseActivityBinding> {
 

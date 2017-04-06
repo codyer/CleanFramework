@@ -1,11 +1,11 @@
 <!--
-  ~ Copyright (c)  Created by Cody.yi on 2016/9/11.
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data class="RecycleLoadMoreWithHeaderSearchBinding">
+    <data class="ListWithHeaderBinding">
 
         <import type="android.view.View"/>
 
@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.common.ListViewModel" />
+            type="com.cody.handler.framework.viewmodel.ListWithHeaderViewModel" />
     </data>
 
     <LinearLayout
@@ -25,21 +25,13 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/include_magic_header"
+            android:id="@+id/fw_header"
+            layout="@layout/fw_header"
             bind:onClickListener="@{onClickListener}"
             bind:viewModel="@{viewModel.headerViewModel}"/>
 
-        <com.cody.app.framework.widget.SearchEditView
-            android:id="@+id/searchView"
-            style="@style/editSearchStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@{viewModel.hint}"
-            android:text="@={viewModel.keyWord}"
-        />
-
         <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/pullLoadMoreRecyclerView"
+            android:id="@+id/fw_list"
             style="@style/ListViewNormalStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

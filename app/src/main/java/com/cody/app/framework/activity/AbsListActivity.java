@@ -2,27 +2,27 @@ package com.cody.app.framework.activity;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.framework.adapter.BaseRecycleViewAdapter;
-import com.cody.handler.framework.presenter.AbstractRecycleViewPresenter;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.viewmodel.common.ListViewModel;
+import com.cody.handler.framework.presenter.AbsListPresenter;
+import com.cody.handler.framework.viewmodel.ListViewModel;
+import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
- * Created by haiyan.chen on 2016/12/23.
- * 下拉刷新和上拉加载的Activity基类，包含头部
+ * Created by Cody.yi on 2016/12/23.
+ * 下拉刷新和上拉加载的Activity基类，不包含头部和搜素框
  */
 
-public abstract class AbstractRecycleViewWithHeaderActivity
-        <P extends AbstractRecycleViewPresenter<AbstractListViewModel, ItemViewModel>,
-                ItemViewModel extends BaseViewModel,
-                AbstractListViewModel extends ListViewModel<ItemViewModel>,
-                B extends ViewDataBinding> extends WithHeaderActivity<P,
-        AbstractListViewModel, B> implements BaseRecycleViewAdapter.OnItemClickListener, PullLoadMoreRecyclerView
-        .PullLoadMoreListener {
+public abstract class AbsListActivity<
+        P extends AbsListPresenter<AbsListViewModel, ItemViewModel>,
+        AbsListViewModel extends ListViewModel<ItemViewModel>,
+        ItemViewModel extends ViewModel,
+        B extends ViewDataBinding>
+        extends BaseBindingActivity<P, AbsListViewModel, B>
+        implements BaseRecycleViewAdapter.OnItemClickListener,
+        PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     protected BaseRecycleViewAdapter<ItemViewModel> mRecyclerViewAdapter;
@@ -108,29 +108,19 @@ public abstract class AbstractRecycleViewWithHeaderActivity
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.headerText:
-                scrollToTop();
-                break;
+    public void hideLoading() {
+        super.hideLoading();
+        if (mPullLoadMoreRecyclerView != null) {
+            mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
+            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
     }
-
     /**
      * 滑动到顶部
      */
     public void scrollToTop() {
         if (mPullLoadMoreRecyclerView != null) {
             mPullLoadMoreRecyclerView.smoothScrollToTop();
-        }
-    }
-
-    @Override
-    public void hideLoading() {
-        super.hideLoading();
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
-            mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
     }
 }

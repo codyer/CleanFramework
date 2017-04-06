@@ -69,12 +69,12 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
         switch (view.getId()) {
             case R.id.headerText:
                 Fragment fragment = adapter.getItem(getBinding().viewPager.getCurrentItem());
-                if (fragment instanceof RecycleViewLoadMoreFragment) {
-                    ((RecycleViewLoadMoreFragment) fragment).scrollToTop();
-                } else if (fragment instanceof RecycleViewLoadMoreWithHeaderFragment) {
-                    ((RecycleViewLoadMoreWithHeaderFragment) fragment).scrollToTop();
-                } else if (fragment instanceof RecycleViewLoadMoreWithSearchFragment) {
-                    ((RecycleViewLoadMoreWithSearchFragment) fragment).scrollToTop();
+                if (fragment instanceof ListFragment) {
+                    ((ListFragment) fragment).scrollToTop();
+                } else if (fragment instanceof ListWithHeaderFragment) {
+                    ((ListWithHeaderFragment) fragment).scrollToTop();
+                } else if (fragment instanceof ListWithSearchFragment) {
+                    ((ListWithSearchFragment) fragment).scrollToTop();
                 }
                 break;
         }

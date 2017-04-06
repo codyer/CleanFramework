@@ -4,18 +4,10 @@
 
 package com.cody.handler.framework.viewmodel;
 
-import android.databinding.ObservableField;
-
-import com.cody.handler.framework.viewmodel.common.HeaderViewModel;
-
 /**
  * Created by cody.yi on 2016/8/27.
  * 包含头部的ViewModel
  */
-public class WithHeaderViewModel extends BaseViewModel {
-    private final ObservableField<HeaderViewModel> mHeaderViewModel = new ObservableField<>(HeaderViewModel.createDefaultHeader());//list view的头部
-
-    public HeaderViewModel getHeaderViewModel() {
-        return mHeaderViewModel.get();
-    }
+public class WithHeaderViewModel extends ViewModel {
+    public final HeaderViewModel headerViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
 }

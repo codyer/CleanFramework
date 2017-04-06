@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.common.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
 import com.cody.handler.framework.presenter.Presenter;
 
 /**
@@ -35,7 +35,7 @@ public abstract class WithHeaderFragment<P extends Presenter<VM>, VM extends Wit
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initHeader(getViewModel().getHeaderViewModel());
+        initHeader(getViewModel().headerViewModel);
         return view;
     }
 }

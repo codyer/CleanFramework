@@ -22,7 +22,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/include_magic_header"
+            layout="@layout/fw_header"
             bind:onClickListener="@{onClickListener}"
             bind:viewModel="@{viewModel.headerViewModel}"/>
 

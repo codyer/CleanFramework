@@ -8,7 +8,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.common.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
 import com.cody.handler.framework.presenter.Presenter;
 
 /**
@@ -29,6 +29,6 @@ public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends Wit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initHeader(getViewModel().getHeaderViewModel());
+        initHeader(getViewModel().headerViewModel);
     }
 }

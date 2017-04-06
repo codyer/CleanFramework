@@ -1,11 +1,11 @@
 <!--
-  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/11.
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data class="RecycleLoadMoreBinding">
+    <data class="ListWithHeaderAndSearchBinding">
 
         <import type="android.view.View"/>
 
@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.common.ListViewModel" />
+            type="com.cody.handler.framework.viewmodel.ListWithHeaderAndSearchViewModel"/>
     </data>
 
     <LinearLayout
@@ -24,8 +24,20 @@
         android:background="@color/light_transparent"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/fw_header"
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <include
+            android:id="@+id/fw_search"
+            layout="@layout/fw_search"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.searchViewModel}"/>
+
         <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/pullLoadMoreRecyclerView"
+            android:id="@+id/fw_list"
             style="@style/ListViewNormalStyle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

@@ -5,30 +5,40 @@
 package com.cody.app.framework.fragment;
 
 
+import android.os.Bundle;
+
 import com.cody.app.R;
-import com.cody.app.databinding.RecycleLoadMoreBinding;
-import com.cody.handler.framework.presenter.RecycleViewPresenter;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
+import com.cody.app.databinding.ListBinding;
+import com.cody.handler.framework.presenter.ListPresenter;
+import com.cody.handler.framework.viewmodel.ListViewModel;
+import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
  * 子fragment，最里层的包含recycle view的fragment，支持下拉上拉刷新，页码控制
  * 不包含头部
  */
-public abstract class RecycleViewLoadMoreFragment<P extends RecycleViewPresenter<ItemViewModel>, ItemViewModel extends
-        BaseViewModel> extends AbstractRecycleViewFragment<P, ItemViewModel, RecycleLoadMoreBinding> {
+public abstract class ListFragment<P extends ListPresenter<ItemViewModel>, ItemViewModel extends
+        ViewModel> extends AbsListFragment<P, ListViewModel<ItemViewModel>, ItemViewModel, ListBinding> {
+
+
+    @Override
+    protected ListViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
+        return new ListViewModel<>();
+    }
+
     /**
      * 通过binding 返回 pullLoadMoreRecyclerView
      * getBinding().pullLoadMoreRecyclerView;
      */
     @Override
     protected PullLoadMoreRecyclerView buildPullLoadMoreRecyclerView() {
-        return getBinding().pullLoadMoreRecyclerView;
+        return getBinding().fwList;
     }
 
     @Override
     protected int getLayoutID() {
-        return R.layout.recycle_load_more_list;
+        return R.layout.fw_list;
     }
 
     /**

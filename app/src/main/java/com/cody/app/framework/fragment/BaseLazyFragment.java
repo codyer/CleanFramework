@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cody.handler.framework.viewmodel.BaseViewModel;
 import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.ViewModel;
 
 /**
  * MVVM架构的基类，将ViewModel的属性和行为进行拆分，行为交由P处理，属性由VM持有
@@ -22,7 +22,7 @@ import com.cody.handler.framework.presenter.Presenter;
  * @param <VM> 所有ViewModel中原来的属性；
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
-public abstract class BaseLazyFragment<P extends Presenter<VM>, VM extends BaseViewModel, B extends ViewDataBinding>
+public abstract class BaseLazyFragment<P extends Presenter<VM>, VM extends ViewModel, B extends ViewDataBinding>
         extends BaseBindingFragment<P, VM, B> {
 
     private boolean isFirstResume = true;

@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.SearchViewModel"/>
+    </data>
+
+    <com.cody.app.framework.widget.SearchEditView
+        android:id="@+id/searchView"
+        style="@style/editSearchStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@{viewModel.hint}"
+        android:text="@={viewModel.keyWord}"
+        />
+</layout>

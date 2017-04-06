@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import com.cody.app.R;
 import com.cody.app.framework.adapter.BaseRecycleViewAdapter;
-import com.cody.handler.framework.presenter.RecycleViewPresenter;
-import com.cody.handler.framework.viewmodel.BaseViewModel;
-import com.cody.handler.framework.viewmodel.common.ListViewModel;
+import com.cody.handler.framework.presenter.AbsListPresenter;
+import com.cody.handler.framework.viewmodel.ListViewModel;
+import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -19,8 +19,11 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 下拉刷新和上拉加载的Activity基类，包含头部
  */
 
-public abstract class AbstractRecycleViewFragment<P extends RecycleViewPresenter<ItemViewModel>, ItemViewModel extends
-        BaseViewModel, B extends ViewDataBinding> extends BaseLazyFragment<P, ListViewModel<ItemViewModel>, B>
+public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewModel, ItemViewModel>,
+        AbsListViewModel extends ListViewModel<ItemViewModel>,
+        ItemViewModel extends ViewModel,
+        B extends ViewDataBinding>
+        extends BaseLazyFragment<P, AbsListViewModel, B>
         implements BaseRecycleViewAdapter.OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
@@ -69,11 +72,6 @@ public abstract class AbstractRecycleViewFragment<P extends RecycleViewPresenter
             mRecyclerViewAdapter.setItemLongClickListener(this);
         }
         return view;
-    }
-
-    @Override
-    protected ListViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
-        return new ListViewModel<>();
     }
 
     @Override
@@ -128,21 +126,21 @@ public abstract class AbstractRecycleViewFragment<P extends RecycleViewPresenter
         }
     }
 
-    /**
-     * 滑动到顶部
-     */
-    public void scrollToTop() {
-        if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.smoothScrollToTop();
-        }
-    }
-
     @Override
     public void hideLoading() {
         super.hideLoading();
         if (mPullLoadMoreRecyclerView != null) {
             mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        }
+    }
+
+    /**
+     * 滑动到顶部
+     */
+    public void scrollToTop() {
+        if (mPullLoadMoreRecyclerView != null) {
+            mPullLoadMoreRecyclerView.smoothScrollToTop();
         }
     }
 }

@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/29.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+        <!--TODO -->
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.WithHeaderViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_transparent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="@dimen/margin_25dp"
+            android:src="@drawable/fw_ic_default_no_data"
+            android:id="@+id/imageView"/>
+
+        <TextView
+            style="@style/infoStyle"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:background="@android:color/transparent"
+            android:text="@string/fw_no_data"/>
+
+    </LinearLayout>
+</layout>

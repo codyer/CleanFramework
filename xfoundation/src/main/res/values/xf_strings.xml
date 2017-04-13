@@ -2,7 +2,7 @@
     <string name="xf_name">xf</string>
 
     <!--下拉上拉刷新-->
-    <string name="xf_load_more_text">正在加载...</string>
+    <string name="xf_load_more_text">加载中</string>
     <string name="xf_no_data_text">没有数据</string>
 
     <!--picker view -->

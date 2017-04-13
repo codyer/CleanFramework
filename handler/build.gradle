@@ -48,9 +48,9 @@ android {
 
     // 产品特性
     productFlavors {
+        demo { void }
         dev { void }
         uat { void }
-        uat1 { void }
         stg { void }
         pro { void }
     }
@@ -58,15 +58,15 @@ android {
 }
 
 configurations {
+    demoDebugCompile
     devDebugCompile
     uatDebugCompile
-    uat1DebugCompile
     stgDebugCompile
     proDebugCompile
 
+    demoReleaseCompile
     devReleaseCompile
     uatReleaseCompile
-    uat1ReleaseCompile
     stgReleaseCompile
     proReleaseCompile
 }
@@ -77,15 +77,15 @@ dependencies {
     debugCompile project(path: ':xfoundation', configuration: 'debug')
     releaseCompile project(path: ':xfoundation', configuration: 'release')
 
+    demoDebugCompile project(path: ':repository', configuration: 'demoDebug')
     devDebugCompile project(path: ':repository', configuration: 'devDebug')
     uatDebugCompile project(path: ':repository', configuration: 'uatDebug')
-    uat1DebugCompile project(path: ':repository', configuration: 'uat1Debug')
     stgDebugCompile project(path: ':repository', configuration: 'stgDebug')
     proDebugCompile project(path: ':repository', configuration: 'proDebug')
 
+    demoReleaseCompile project(path: ':repository', configuration: 'demoRelease')
     devReleaseCompile project(path: ':repository', configuration: 'devRelease')
     uatReleaseCompile project(path: ':repository', configuration: 'uatRelease')
-    uat1ReleaseCompile project(path: ':repository', configuration: 'uat1Release')
     stgReleaseCompile project(path: ':repository', configuration: 'stgRelease')
     proReleaseCompile project(path: ':repository', configuration: 'proRelease')
 }

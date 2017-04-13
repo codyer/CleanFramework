@@ -4,6 +4,8 @@
     <color name="xf_green_dark">#ff669900</color>
     <color name="xf_blue_dark">#ff0099cc</color>
     <color name="xf_orange_dark">#ffff8800</color>
+    <color name="xf_white">#ffffff</color>
+    <color name="xf_blue">#439DF7</color>
 
     <!--action sheet-->
     <color name="xf_trans">#00000000</color>

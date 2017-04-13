@@ -49,7 +49,7 @@
             android:onClick="@{onClickListener.onClick}"
             android:text="@{viewModel.rightText}"
             android:textColor="@color/main_blue"
-            android:textSize="@dimen/font_size_30px"
+            android:textSize="@dimen/font_size_30"
             android:visibility="@{viewModel.rightIsText?View.VISIBLE:View.INVISIBLE}"/>
 
         <TextView
@@ -58,10 +58,10 @@
             android:layout_gravity="end"
             android:onClick="@{onClickListener.onClick}"
             android:text="@{viewModel.rightText}"
-            android:drawableLeft="@drawable/detail_help_icon"
-            android:drawablePadding="@dimen/small_padding"
+            android:drawableLeft="@drawable/fw_help_icon"
+            android:drawablePadding="@dimen/padding_10dp"
             android:textColor="@color/main_blue"
-            android:textSize="@dimen/font_size_30px"
+            android:textSize="@dimen/font_size_30"
             android:visibility="@{viewModel.rightIsTextAndDrawable?View.VISIBLE:View.INVISIBLE}"/>
     </FrameLayout>
 

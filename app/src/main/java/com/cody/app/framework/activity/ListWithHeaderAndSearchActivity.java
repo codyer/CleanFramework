@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithHeaderAndSearchBinding;
-import com.cody.app.framework.widget.SearchEditView;
+import com.cody.xf.widget.SearchEditView;
 import com.cody.handler.framework.presenter.ListWithHeaderAndSearchPresenter;
 import com.cody.handler.framework.viewmodel.ListWithHeaderAndSearchViewModel;
 import com.cody.handler.framework.viewmodel.ViewModel;

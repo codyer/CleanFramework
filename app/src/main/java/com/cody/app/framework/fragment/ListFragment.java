@@ -45,7 +45,7 @@ public abstract class ListFragment<P extends ListPresenter<ItemViewModel>, ItemV
      * 定制empty view
      */
     protected int getEmptyViewId() {
-        return R.layout.empty_view;
+        return R.layout.fw_empty_view;
     }
 
 }

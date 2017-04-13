@@ -17,7 +17,7 @@
             type="com.cody.handler.framework.viewmodel.SearchViewModel"/>
     </data>
 
-    <com.cody.app.framework.widget.SearchEditView
+    <com.cody.xf.widget.SearchEditView
         android:id="@+id/searchView"
         style="@style/editSearchStyle"
         android:layout_width="match_parent"

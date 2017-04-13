@@ -6,7 +6,7 @@ package com.cody.app.framework.fragment;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithSearchBinding;
-import com.cody.app.framework.widget.SearchEditView;
+import com.cody.xf.widget.SearchEditView;
 import com.cody.handler.framework.presenter.ListWithSearchPresenter;
 import com.cody.handler.framework.viewmodel.ListWithSearchViewModel;
 import com.cody.handler.framework.viewmodel.ViewModel;

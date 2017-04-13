@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="form_eidt1" type="id" />
-    <item name="form_edit2" type="id" />
-    <item name="form_commit" type="id" />
-    <item name="request_code" type="id" />
-</resources>

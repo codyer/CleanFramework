@@ -7,184 +7,37 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <!--图片选择布局的样式-->
-    <style name="ImagePickerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:fitsSystemWindows">true</item>
-    </style>
-
-    <style name="ImagePickerThemeFullScreen" parent="ImagePickerTheme">
-        <item name="android:fitsSystemWindows">false</item>
-    </style>
-
-    <!-- 全屏提示框 经纪人抢单用到-->
-    <style name="Dialog.FullScreen" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
     <!-- 通用编辑框样式-->
     <style name="EditStyle">
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColorHint">@color/dark_gray</item>
-        <item name="android:textSize">@dimen/normal_text</item>
-        <item name="android:paddingTop">@dimen/middle_padding</item>
-        <item name="android:paddingBottom">@dimen/middle_padding</item>
+        <item name="android:textColorHint">@color/info_gray</item>
+        <item name="android:textSize">@dimen/font_size_24</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:textColor">@color/main_gray</item>
-        <item name="android:layout_height">@dimen/widget_height</item>
-    </style>
-
-    <!-- 通用编辑框样式-->
-    <style name="EditStyle.Edge" parent="EditStyle">
-        <item name="background">@drawable/edit_bg_selector</item>
-        <item name="android:padding">@dimen/middle_padding</item>
-    </style>
-
-    <!-- 通用密码框样式-->
-    <style name="EditPwdStyle" parent="EditStyle">
-        <item name="android:inputType">textPassword</item>
-        <item name="android:maxLength">20</item>
-        <item name="android:textCursorDrawable">@drawable/cuisor_shap</item>
-    </style>
-
-    <!-- 验证码输入框样式 -->
-    <style name="editValidateStyle" parent="EditStyle">
-        <item name="android:inputType">number</item>
-        <item name="android:maxLength">6</item>
-    </style>
-
-    <style name="editPhoneStyle" parent="EditStyle">
-        <item name="android:inputType">phone</item>
-        <item name="android:maxLength">11</item>
+        <item name="android:layout_height">50dp</item>
     </style>
 
     <style name="editSearchStyle" parent="EditStyle">
         <item name="android:background">@color/background_gray</item>
-        <item name="android:layout_marginTop">@dimen/normal_margin</item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginBottom">@dimen/normal_margin</item>
+        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
-    <!--蓝色button的样式-->
-    <style name="BtnBlueStyle">
-        <item name="android:singleLine">true</item>
-        <item name="android:background">@drawable/btn_blue_selector</item>
-        <item name="android:textColor">@color/main_white</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-        <item name="android:paddingTop">@dimen/middle_padding</item>
-        <item name="android:paddingBottom">@dimen/middle_padding</item>
-        <item name="android:paddingLeft">@dimen/large_padding</item>
-        <item name="android:paddingRight">@dimen/large_padding</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-    <!--蓝色button 接单的样式-->
-    <style name="BtnEdgeBlueStyle">
-        <item name="android:background">@drawable/btn_blue_selector</item>
-        <item name="android:textColor">@color/main_white</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-        <item name="android:paddingTop">@dimen/small_padding</item>
-        <item name="android:paddingBottom">@dimen/small_padding</item>
-        <item name="android:paddingLeft">@dimen/middle_padding</item>
-        <item name="android:paddingRight">@dimen/middle_padding</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <!-- 蓝色边框button样式-->
-    <style name="BtnEdgeStyle">
-        <item name="android:background">@drawable/btn_edge_blue_selector</item>
-        <item name="android:textColor">@color/color_list_button_item</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-        <item name="android:paddingTop">@dimen/small_padding</item>
-        <item name="android:paddingBottom">@dimen/small_padding</item>
-        <item name="android:paddingLeft">@dimen/middle_padding</item>
-        <item name="android:paddingRight">@dimen/middle_padding</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="BtnChatEdgeStyle">
-        <item name="android:background">@drawable/btn_edge_blue_selector</item>
-        <item name="android:textColor">@color/color_list_button_item</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-        <item name="android:paddingTop">@dimen/middle_padding</item>
-        <item name="android:paddingBottom">@dimen/middle_padding</item>
-        <item name="android:paddingLeft">@dimen/small_padding</item>
-        <item name="android:paddingRight">@dimen/small_padding</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <!-- 被抢单-->
-    <style name="BtnRobedStyle">
-        <item name="android:textColor">@color/btn_robed_color</item>
-        <item name="android:textSize">@dimen/font_size_30px</item>
-        <item name="android:paddingTop">@dimen/small_padding</item>
-        <item name="android:paddingBottom">@dimen/small_padding</item>
-        <item name="android:paddingLeft">@dimen/middle_padding</item>
-        <item name="android:paddingRight">@dimen/middle_padding</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="agentTextStyle">
-        <item name="android:textSize">@dimen/font_size_30px</item>
-        <item name="android:textColor">@color/other_gray</item>
-        <item name="android:paddingBottom">@dimen/large_padding</item>
-        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:paddingTop">@dimen/large_padding</item>
-        <item name="android:paddingRight">@dimen/middle_padding</item>
-    </style>
-
-    <style name="agentIntentHouseStyle">
-        <item name="android:textSize">@dimen/font_size_30px</item>
-        <item name="android:textColor">@color/other_gray</item>
-    </style>
-
-    <style name="btnNormalBlueStyle" parent="BtnBlueStyle">
-        <item name="android:textSize">@dimen/font_size_32px</item>
-        <item name="android:background">@drawable/btn_blue_normal_selector</item>
-    </style>
-
-    <style name="btnNormalGrayStyle" parent="BtnBlueStyle">
-        <item name="android:textSize">@dimen/font_size_32px</item>
-        <item name="android:background">@drawable/btn_gray_normal_selector</item>
-    </style>
-
-    <!--  添加通用列表样式 -->
-    <style name="ListViewNormalStyle">
-        <item name="android:cacheColorHint">@color/white</item>
-        <item name="android:dividerHeight">@dimen/divider_height</item>
-        <item name="android:divider">@color/line_gray</item>android:background
-    </style>
-    y
-
     <!-- header container style for header container-->
     <style name="headerLayoutStyle">
-        <item name="android:background">@drawable/header_with_line_touch_selector</item>
+        <item name="android:background">@drawable/fw_header_with_line_touch_selector</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/header_height</item>
     </style>
 
     <!-- item with bottom line and with click reflect style -->
     <style name="itemWithLineStyle">
-        <item name="android:background">@drawable/item_with_line_touch_selector</item>
+        <item name="android:background">@drawable/fw_item_with_line_touch_selector</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <!--<item name="android:paddingTop">@dimen/middle_padding</item>-->
@@ -195,38 +48,13 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <!-- right arrow in item style -->
-    <style name="itemArrowStyle">
-        <item name="android:background">@drawable/right_arrow</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">@dimen/small_padding</item>
-        <item name="android:layout_marginLeft">@dimen/small_margin</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:contentDescription">@null</item>
-    </style>
-
-    <!-- 弹幕 -->
-    <style name="style_chat_danmu_name">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/mid_gray</item>
-        <item name="android:textSize">@dimen/font_size_24px</item>
-    </style>
-
-    <!-- 带下划线输入框 style -->
-    <style name="inputWithLineStyle" parent="itemStyle">
-        <item name="android:background">@drawable/bg_with_bottom_line</item>
-    </style>
-
     <!-- back button style -->
     <style name="headerButtonStyle">
-        <item name="android:background">@drawable/header_touch_selector</item>
+        <item name="android:background">@drawable/fw_header_touch_selector</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:paddingTop">@dimen/middle_padding</item>
-        <item name="android:paddingBottom">@dimen/middle_padding</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -235,10 +63,10 @@
 
     <!-- header style for textView-->
     <style name="headerStyle">
-        <item name="android:background">@drawable/header_with_line_touch_selector</item>
+        <item name="android:background">@drawable/fw_header_with_line_touch_selector</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/main_gray</item>
-        <item name="android:textSize">@dimen/font_size_36px</item>
+        <item name="android:textSize">@dimen/font_size_36</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/header_height</item>
         <item name="android:gravity">center</item>
@@ -257,41 +85,28 @@
     <!-- 主标题 样式-->
     <style name="mainTitleStyle" parent="singleStyle">
         <item name="android:textColor">@color/main_gray</item>
-        <item name="android:textSize">@dimen/font_size_36px</item>
+        <item name="android:textSize">@dimen/font_size_36</item>
     </style>
 
     <!-- 副标题 样式-->
     <style name="subTitleStyle" parent="mainTitleStyle">
-        <item name="android:textSize">@dimen/font_size_32px</item>
+        <item name="android:textSize">@dimen/font_size_32</item>
     </style>
 
     <!--tab 字体样式-->
     <style name="tabTextStyle" parent="TextAppearance.Design.Tab">
         <!--Tab字体的大小-->
-        <item name="android:textSize">@dimen/font_size_32px</item>
+        <item name="android:textSize">@dimen/font_size_32</item>
         <!--Tab字体的默认的颜色-->
         <item name="android:textColor">@color/main_gray</item>
         <!--Tab字体是否为大写-->
         <item name="textAllCaps">true</item>
     </style>
 
-    <!--通用文字样式-->
-    <style name="TextBlackNormalStyle">
-        <item name="android:textColor">@color/main_gray</item>
-        <item name="android:textSize">@dimen/normal_text</item>
-        <!--Tab字体是否为大写-->
-        <item name="textAllCaps">true</item>
-    </style>
-
-    <style name="TextGrayNormalStyle">
-        <item name="android:textColor">@color/mid_gray</item>
-        <item name="android:textSize">@dimen/normal_text</item>
-    </style>
-
     <!--tab 样式-->
     <style name="tabLayoutStyle" parent="Widget.Design.TabLayout">
         <!--tab 下划线-->
-        <item name="android:background">@drawable/bg_with_bottom_line</item>
+        <item name="android:background">@drawable/fw_bg_with_bottom_line</item>
         <!--tab的宽度-->
         <item name="android:layout_width">match_parent</item>
         <!--tab的高度-->
@@ -313,12 +128,12 @@
     <!-- 主要正文 样式-->
     <style name="infoStyle" parent="singleStyle">
         <item name="android:textColor">@color/other_gray</item>
-        <item name="android:textSize">@dimen/font_size_30px</item>
+        <item name="android:textSize">@dimen/font_size_30</item>
     </style>
 
     <!-- 普通正文 样式-->
     <style name="subInfoStyle" parent="singleStyle">
-        <item name="android:textSize">@dimen/font_size_26px</item>
+        <item name="android:textSize">@dimen/font_size_26</item>
         <item name="android:textColor">@color/info_gray</item>
     </style>
 
@@ -327,29 +142,21 @@
         <item name="android:textColor">@color/info_gray</item>
     </style>
 
-    <!-- 设计师个人中心 数据报表样式  <item name="android:ems">8</item>-->
-    <style name="dataInfoStyle" parent="subInfoStyle">
-        <item name="android:layout_weight">1</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:textColor">@color/mid_gray</item>
-    </style>
 
     <!-- 普通正文 蓝色样式-->
     <style name="subInfoBlueStyle" parent="singleStyle">
         <item name="android:textColor">@color/main_blue</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
+        <item name="android:textSize">@dimen/font_size_26</item>
     </style>
 
     <style name="subInfoBigBlueStyle" parent="singleStyle">
         <item name="android:textColor">@color/main_blue</item>
-        <item name="android:textSize">@dimen/font_size_48px</item>
+        <item name="android:textSize">@dimen/font_size_48</item>
     </style>
 
     <!-- 小字正文 样式-->
     <style name="subSmallInfoStyle" parent="singleStyle">
-        <item name="android:textSize">@dimen/font_size_24px</item>
+        <item name="android:textSize">@dimen/font_size_24</item>
     </style>
 
     <!-- List的item 样式-->
@@ -359,7 +166,7 @@
         <item name="android:orientation">horizontal</item>
         <!--<item name="android:paddingTop">@dimen/list_item_margin</item>-->
         <!--<item name="android:paddingBottom">@dimen/list_item_margin</item>-->
-        <item name="android:background">@drawable/item_touch_selector</item>
+        <item name="android:background">@drawable/fw_item_touch_selector</item>
         <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
     </style>
@@ -367,181 +174,35 @@
     <!--通用文字样式-->
     <style name="TextBlackStyle">
         <item name="android:textColor">@color/main_gray</item>
-        <item name="android:textSize">@dimen/font_size_32px</item>
+        <item name="android:textSize">@dimen/font_size_32</item>
     </style>
     <!--通用文字样式-->
     <style name="TextGrayStyle">
         <item name="android:textColor">@color/other_gray</item>
-        <item name="android:textSize">@dimen/font_size_32px</item>
+        <item name="android:textSize">@dimen/font_size_32</item>
     </style>
 
     <!--通用文字样式-->
     <style name="TextLBlackStyle">
         <item name="android:textColor">@color/main_gray</item>
-        <item name="android:textSize">@dimen/font_size_30px</item>
+        <item name="android:textSize">@dimen/font_size_30</item>
     </style>
     <!--通用文字样式-->
     <style name="TextLGrayStyle">
         <item name="android:textColor">@color/other_gray</item>
-        <item name="android:textSize">@dimen/font_size_30px</item>
+        <item name="android:textSize">@dimen/font_size_30</item>
     </style>
 
     <style name="managerStyle">
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@drawable/item_touch_selector</item>
+        <item name="android:background">@drawable/fw_item_touch_selector</item>
         <item name="android:gravity">center</item>
     </style>
-    <!--管理界面 text 样式-->、
 
-    <style name="TextManager" parent="TextBlackStyle">
-        <item name="android:gravity">center</item>
-        <item name="android:ems">10</item>
-        <item name="android:textColor">@color/mid_gray</item>
-        <item name="android:layout_centerInParent">true</item>
-        <item name="android:drawablePadding">@dimen/middle_padding</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <!--  添加通用列表样式 -->
+    <style name="ListViewNormalStyle">
+        <item name="android:cacheColorHint">@color/main_white</item>
+        <item name="android:dividerHeight">@dimen/divider_height</item>
+        <item name="android:divider">@color/line_gray</item>
     </style>
-    <!--优导天地 text 样式-->、
-
-    <style name="TextItemStyle" parent="TextBlackStyle">
-        <item name="android:drawablePadding">@dimen/middle_padding</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="CommonItemStyle">
-        <item name="android:background">@drawable/item_touch_selector</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">@dimen/large_padding</item>
-    </style>
-
-    <!-- 设计师订单详情页样式  start-->
-
-    <style name="itemDesignerOrderDetail">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/main_white</item>
-        <item name="android:padding">@dimen/large_padding</item>
-        <item name="android:orientation">vertical</item>
-    </style>
-
-    <style name="DividerStyle.Designer" parent="DividerStyle">
-        <item name="android:layout_height">@dimen/divider_height</item>
-        <item name="android:layout_width">match_parent</item>
-    </style>
-
-
-    <style name="RadioButtonOrderText">
-        <item name="android:layout_width">60dp</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/bg_designer_order_selector</item>
-        <item name="android:textColor">@drawable/tv_designer_order_selector</item>
-        <item name="android:button">@null</item>
-        <item name="android:textSize">@dimen/font_size_26px</item>
-    </style>
-    <!-- <item name="android:clickable">false</item>-->
-
-    <!-- 设计师订单详情页样式 end -->
-
-    <!--订单详情页文字样式-->
-    <style name="TextOrder" parent="TextLGrayStyle">
-        <item name="android:ems">5</item>
-    </style>
-
-    <style name="TextOrder.ChangePrice" parent="TextBlackStyle">
-        <item name="android:ems">5</item>
-    </style>
-
-    <style name="TextOrder.Content" parent="TextGrayNormalStyle">
-        <item name="android:layout_marginLeft">@dimen/middle_padding</item>
-    </style>
-
-    <style name="OrderItem">
-        <item name="android:layout_marginLeft">@dimen/large_padding</item>
-        <item name="android:layout_marginRight">@dimen/large_padding</item>
-        <item name="android:paddingTop">@dimen/middle_padding</item>
-    </style>
-
-    <!-- 分割线样式 -->
-    <style name="DividerStyle">
-        <item name="android:background">@color/line_gray</item>
-    </style>
-
-    <style name="QuotationDividerStyle" parent="DividerStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/divider_height</item>
-        <item name="android:layout_marginLeft">@dimen/fab_margin</item>
-    </style>
-
-    <style name="TextQuotation">
-        <item name="android:layout_marginTop">@dimen/text_to_top2</item>
-        <item name="android:layout_marginLeft">@dimen/fab_margin</item>
-        <item name="android:textSize">@dimen/font_size_30px</item>
-        <item name="android:textColor">@color/other_gray</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <!--蓝色标志条-->
-    <style name="BlueBar">
-        <item name="android:layout_width">5dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/main_blue</item>
-    </style>
-
-    <!-- 头像样式 small-->
-    <style name="smallAvatar">
-        <item name="android:layout_width">@dimen/small_portrait_size</item>
-        <item name="android:layout_height">@dimen/small_portrait_size</item>
-        <!--<item name="android:src">@drawable/small_portrait</item>-->
-        <!--<item name="border_width">@dimen/border_width</item>-->
-        <!--<item name="border_color">@color/main_white</item>-->
-        <!--<item name="shadow_width">@dimen/shadow_width</item>-->
-        <!--<item name="shadow_color">@color/main_white</item>-->
-        <!--<item name="android:gravity">center</item>-->
-    </style>
-
-    <!-- 头像样式 normal-->
-    <style name="normalAvatar">
-        <item name="android:layout_width">@dimen/normal_portrait_size</item>
-        <item name="android:layout_height">@dimen/normal_portrait_size</item>
-        <!--<item name="android:src">@drawable/normal_portrait</item>-->
-        <!--<item name="border_width">@dimen/border_width</item>-->
-        <!--<item name="border_color">@color/main_white</item>-->
-        <!--<item name="shadow_width">@dimen/shadow_width</item>-->
-        <!--<item name="shadow_color">@color/main_white</item>-->
-        <!--<item name="android:gravity">center</item>-->
-    </style>
-
-    <!-- 头像样式 large-->
-    <style name="largeAvatar">
-        <item name="android:layout_width">@dimen/large_portrait_size</item>
-        <item name="android:layout_height">@dimen/large_portrait_size</item>
-        <!--<item name="android:src">@drawable/large_portrait</item>-->
-        <!--<item name="border_width">@dimen/border_width</item>-->
-        <!--<item name="border_color">@color/main_white</item>-->
-        <!--<item name="shadow_width">@dimen/shadow_width</item>-->
-        <!--<item name="shadow_color">@color/main_white</item>-->
-        <!--<item name="android:gravity">center</item>-->
-    </style>
-
-    <style name="ratingBarSmall" parent="android:Widget.RatingBar">
-        <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
-        <item name="android:indeterminateDrawable">@drawable/rating_bar_selector</item>
-        <item name="android:minHeight">16dp</item>
-        <item name="android:maxHeight">16dp</item>
-        <item name="android:isIndicator">true</item>
-        <item name="android:thumb">@null</item>
-    </style>
-
-    <!--photosTextSelectorStyle-->
-    <style name="photosTextSelectorStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/font_size_32px</item>
-        <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
-    </style>
-
 </resources>

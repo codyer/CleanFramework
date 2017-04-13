@@ -72,10 +72,6 @@ public abstract class AbsListActivity<
             mPullLoadMoreRecyclerView.setPushRefreshEnable(true);
             //设置下拉刷新是否可见 : 显示下拉刷新
             mPullLoadMoreRecyclerView.setRefreshing(false);
-            //设置上拉刷新文字
-            mPullLoadMoreRecyclerView.setFooterViewText(getString(R.string.load_more_text));
-            //设置上拉刷新文字颜色
-            mPullLoadMoreRecyclerView.setFooterViewTextColor(R.color.white);
             //设置加载更多背景色
             mPullLoadMoreRecyclerView.setFooterViewBackgroundColor(R.color.background_gray);
             //设置线性布局

@@ -44,7 +44,7 @@ public abstract class ListWithHeaderActivity<P extends ListWithHeaderPresenter<I
      * 定制empty view
      */
     protected int getEmptyViewId() {
-        return R.layout.empty_view;
+        return R.layout.fw_empty_view;
     }
 
     @Override

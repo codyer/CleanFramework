@@ -9,6 +9,7 @@ import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 public class CaseViewModel extends WithHeaderViewModel{
     private String mInfo;
     private boolean mVisibility;
+    private String mImageUrl;
 
     public String getInfo() {
         return mInfo;
@@ -24,5 +25,13 @@ public class CaseViewModel extends WithHeaderViewModel{
 
     public void setVisibility(boolean visibility) {
         mVisibility = visibility;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
     }
 }

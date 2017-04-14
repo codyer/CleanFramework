@@ -40,5 +40,4 @@ public class CasePresenter extends Presenter<CaseViewModel> {
         LogUtil.d("CasePresenter",getView().toString());
         LogUtil.d("CasePresenter",getViewModel().toString());
     }
-
 }

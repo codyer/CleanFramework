@@ -1,4 +1,4 @@
-package com.cody.app.business;
+package com.cody.app.business.binding;
 
 import android.os.Bundle;
 import android.view.View;

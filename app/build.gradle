@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 // 产品名
-def MODULE_NAME = "CleanApp"
+def MODULE_NAME = "Clean_"
 
 // 打包时间
 def packageTime() {
@@ -37,7 +37,7 @@ android {
 //    publishNonDefault true
 
     // 资源前缀
-//    resourcePrefix MODULE_NAME + '_'
+//    resourcePrefix MODULE_NAME
 
     // 默认配置
     defaultConfig {
@@ -45,8 +45,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName // 版本号
-        versionNameSuffix '_' + MODULE_NAME
+        versionName MODULE_NAME + rootProject.ext.versionName // 版本号
         // dex突破65535的限制
         multiDexEnabled true
         // Android 单元测试 test runner
@@ -55,6 +54,18 @@ android {
 
     // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
     buildTypes {
+        debug {
+            // 读取设置的签名文件
+            signingConfig signingConfigs.DefaultConfig
+            // 不进行代码优化
+            minifyEnabled false
+            // 不进行zip对齐
+            zipAlignEnabled false
+            // 为包名添加后缀，使调试与正式包可以并存
+            applicationIdSuffix ".debug"
+            // 在调试包中禁用lint
+            project.gradle.startParameter.excludedTaskNames.add("lint")
+        }
         // release 包的配置
         release {
             // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
@@ -68,6 +79,15 @@ android {
             // 指定签名配置
             signingConfig signingConfigs.DefaultConfig
         }
+        buildTypes.all { type ->
+            if (name.equals("debug")) {
+                println("debug +++++++++++++++++++ name=" + name);
+                type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
+            } else {
+                println("release +++++++++++++++++++ name=" + name);
+                type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
+            }
+        }
     }
     // 产品特性
     productFlavors {
@@ -80,9 +100,9 @@ android {
         // 自动替换AndroidManifest.xml中的渠道号，同时根据产品特性修改应用名
         productFlavors.all { flavor ->
             if (name.equals("pro")) {
-                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
+                flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: "@string/app_name", CHANNEL_ID: name]
             } else {
-                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "Clean_" + name, CHANNEL_ID: name]
+                flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: MODULE_NAME + name, CHANNEL_ID: name]
             }
         }
     }
@@ -147,6 +167,6 @@ dependencies {
     uatReleaseCompile project(path: ':handler', configuration: 'uatRelease')
     stgReleaseCompile project(path: ':handler', configuration: 'stgRelease')
     proReleaseCompile project(path: ':handler', configuration: 'proRelease')
-    compile 'com.android.support:appcompat-v7:24.2.1'
+
     testCompile 'junit:junit:4.12'
 }

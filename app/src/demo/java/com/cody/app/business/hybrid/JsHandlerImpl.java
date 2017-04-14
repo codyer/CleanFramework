@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.cody.xf.common.NotProguard;
 import com.google.gson.JsonObject;
 import com.cody.xf.hybrid.core.JsCallback;
 import com.cody.xf.hybrid.core.JsCode;
@@ -23,6 +24,7 @@ import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
  * Created by Cody.yi on 16/4/19.
  * Js handler 实现类
  */
+@NotProguard
 public class JsHandlerImpl implements JsHandler {
 
     public static void showToast(WebView webView, JsonObject params, JsCallback callback) {

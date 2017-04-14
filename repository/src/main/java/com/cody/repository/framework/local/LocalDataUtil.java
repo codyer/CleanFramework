@@ -12,8 +12,8 @@ package com.cody.repository.framework.local;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.cody.repository.R;
 import com.cody.repository.framework.interaction.ICallback;
-import com.cody.xf.R;
 import com.cody.xf.utils.FetchRawUtil;
 import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.SimpleBean;
@@ -95,7 +95,7 @@ public class LocalDataUtil {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(R.raw.simple_bean, SimpleBean.class));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(R.raw.r_simple_bean, SimpleBean.class));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));

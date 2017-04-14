@@ -15,7 +15,7 @@ public class HtmlActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_html);
+        setContentView(R.layout.hybrid_activity_html);
         mWebView = (WebView) findViewById(R.id.webview);
 
         JsBridge.addJsHandler(JsHandlerImpl.class).build(mWebView);

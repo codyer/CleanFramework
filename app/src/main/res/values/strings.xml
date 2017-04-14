@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">CleanApp</string>
     <string name="fw_no_data">无数据</string>
-    <string name="action_settings">Settings</string>
-
 </resources>

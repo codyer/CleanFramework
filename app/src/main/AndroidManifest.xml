@@ -41,7 +41,6 @@
             android:name="UMENG_CHANNEL"
             android:value="${CHANNEL_ID}"/>
 
-        <activity android:name=".business.CaseActivity"/>
         <activity android:name=".business.MainActivity"
             android:theme="@style/xf_AppTheme.Launcher">
             <intent-filter>

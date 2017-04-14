@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cody.app.R;
+import com.cody.app.business.binding.CaseActivity;
+import com.cody.app.business.binding.ImageViewActivity;
 import com.cody.app.business.hybrid.HtmlActivity;
 
 import java.util.ArrayList;
@@ -34,8 +36,11 @@ public class DemoMainActivity extends AppCompatActivity {
 
         List<ItemBean> mDemoList = new ArrayList<>();
         ItemBean item = new ItemBean("Hybrid调用", "演示Hybrid调用", HtmlActivity.class);
+        ItemBean item1 = new ItemBean("Binding调用", "演示Binding调用", CaseActivity.class);
+        ItemBean item2 = new ItemBean("Https调用", "演示Https调用", ImageViewActivity.class);
         mDemoList.add(item);
-        mDemoList.add(item);
+        mDemoList.add(item1);
+        mDemoList.add(item2);
 
         recyclerView.setAdapter(new DemoRecycleViewAdapter(this, mDemoList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

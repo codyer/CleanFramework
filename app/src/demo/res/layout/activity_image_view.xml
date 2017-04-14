@@ -1,7 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data class="CaseActivityBinding">
+    <data class="ImageViewActivityBinding">
 
         <import type="android.view.View"/>
 
@@ -37,13 +37,24 @@
             android:layout_gravity="center"
             android:text="@={viewModel.info}"/>-->
         <!--单向绑定 & 控制显示-->
-        <TextView
-            android:id="@+id/testCase"
+        <Button
+            android:id="@+id/testImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="@{onClickListener.onClick}"
+            android:padding="@dimen/activity_horizontal_margin"
             android:text="@{viewModel.info}"/>
+
+        <ImageView
+            android:id="@+id/portrait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            bind:error="@{@drawable/normal_portrait}"
+            bind:imageUrl="@{viewModel.imageUrl}"
+            bind:placeholder="@{@drawable/normal_portrait}"/>
+
         <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

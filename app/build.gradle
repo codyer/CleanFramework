@@ -79,10 +79,17 @@ android {
             // 指定签名配置
             signingConfig signingConfigs.DefaultConfig
         }
+
+        demo {initWith(debug)}
+        dev { initWith(debug) }
+        uat { initWith(debug) }
+        stg { initWith(debug) }
+        pro { initWith(release) }
+
         buildTypes.all { type ->
-            if (name.equals("debug")) {
+            if (name.equals("pro")) {
                 println("debug +++++++++++++++++++ name=" + name);
-                type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
+                type.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
             } else {
                 println("release +++++++++++++++++++ name=" + name);
                 type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
@@ -91,20 +98,24 @@ android {
     }
     // 产品特性
     productFlavors {
+/*
         demo { void }
         dev { void }
         uat { void }
         stg { void }
         pro { void }
+*/
 
         // 自动替换AndroidManifest.xml中的渠道号，同时根据产品特性修改应用名
-        productFlavors.all { flavor ->
+/*        productFlavors.all { flavor ->
             if (name.equals("pro")) {
+                println("productFlavors +++++++++++++++++++ name=" + name+flavor);
                 flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: "@string/app_name", CHANNEL_ID: name]
             } else {
+                println("productFlavors +++++++++++++++++++ name=" + name+flavor);
                 flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: MODULE_NAME + name, CHANNEL_ID: name]
             }
-        }
+        }*/
     }
 
     // 打包后自动修改apk的名字
@@ -115,8 +126,8 @@ android {
             def outputFile = output.outputFile
             if (null != outputFile && outputFile.name.endsWith('.apk')) {
                 File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
-                def baseName = MODULE_NAME + "_${defaultConfig.versionName}" +
-                        "_" + variant.productFlavors[0].name
+                def baseName = MODULE_NAME + "_${defaultConfig.versionName}" /*+
+                        "_" + variant.productFlavors[0].name*/
                 def newApkName = baseName + "_" + variant.buildType.name + "_${packageTime()}.apk"
 
                 /*  if (variant.buildType.name.equals('release')) {
@@ -134,17 +145,13 @@ android {
 
 // 多渠道配置
 configurations {
-    demoDebugCompile
-    devDebugCompile
-    uatDebugCompile
-    stgDebugCompile
-    proDebugCompile
-
-    demoReleaseCompile
-    devReleaseCompile
-    uatReleaseCompile
-    stgReleaseCompile
-    proReleaseCompile
+    debugCompile
+    ReleaseCompile
+    demoCompile
+    devCompile
+    uatCompile
+    stgCompile
+    proCompile
 }
 
 dependencies {
@@ -155,18 +162,17 @@ dependencies {
 
     debugCompile project(path: ':xfoundation', configuration: 'debug')
     releaseCompile project(path: ':xfoundation', configuration: 'release')
+    demoCompile project(path: ':xfoundation', configuration: 'debug')
+    devCompile project(path: ':xfoundation', configuration: 'debug')
+    uatCompile project(path: ':xfoundation', configuration: 'debug')
+    stgCompile project(path: ':xfoundation', configuration: 'debug')
+    proCompile project(path: ':xfoundation', configuration: 'release')
 
-    demoDebugCompile project(path: ':handler', configuration: 'demoDebug')
-    devDebugCompile project(path: ':handler', configuration: 'devDebug')
-    uatDebugCompile project(path: ':handler', configuration: 'uatDebug')
-    stgDebugCompile project(path: ':handler', configuration: 'stgDebug')
-    proDebugCompile project(path: ':handler', configuration: 'proDebug')
-
-    demoReleaseCompile project(path: ':handler', configuration: 'demoRelease')
-    devReleaseCompile project(path: ':handler', configuration: 'devRelease')
-    uatReleaseCompile project(path: ':handler', configuration: 'uatRelease')
-    stgReleaseCompile project(path: ':handler', configuration: 'stgRelease')
-    proReleaseCompile project(path: ':handler', configuration: 'proRelease')
-
-    testCompile 'junit:junit:4.12'
+    debugCompile project(path: ':handler', configuration: 'debug')
+    releaseCompile project(path: ':handler', configuration: 'release')
+    demoCompile project(path: ':handler', configuration: 'demo')
+    devCompile project(path: ':handler', configuration: 'dev')
+    uatCompile project(path: ':handler', configuration: 'uat')
+    stgCompile project(path: ':handler', configuration: 'stg')
+    proCompile project(path: ':handler', configuration: 'pro')
 }

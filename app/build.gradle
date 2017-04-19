@@ -80,22 +80,21 @@ android {
             signingConfig signingConfigs.DefaultConfig
         }
 
-        demo {initWith(debug)}
-        dev { initWith(debug) }
+        demo { initWith(debug) }
         uat { initWith(debug) }
-        stg { initWith(debug) }
-        pro { initWith(release) }
+        stg { initWith(release) }
+    }
 
-        buildTypes.all { type ->
-            if (name.equals("pro")) {
-                println("debug +++++++++++++++++++ name=" + name);
-                type.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
-            } else {
-                println("release +++++++++++++++++++ name=" + name);
-                type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
-            }
+    buildTypes.all { type ->
+        if (name.equals("release")) {
+            println("release +++++++++++++++++++ name=" + name);
+            type.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
+        } else {
+            println("not release +++++++++++++++++++ name=" + name);
+            type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
         }
     }
+
     // 产品特性
     productFlavors {
 /*
@@ -107,15 +106,15 @@ android {
 */
 
         // 自动替换AndroidManifest.xml中的渠道号，同时根据产品特性修改应用名
-/*        productFlavors.all { flavor ->
-            if (name.equals("pro")) {
-                println("productFlavors +++++++++++++++++++ name=" + name+flavor);
-                flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: "@string/app_name", CHANNEL_ID: name]
+        productFlavors.all { flavor ->
+            if (name.equals("release")) {
+                println("productFlavors +++++++++++++++++++ name=" + name + flavor);
+                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
             } else {
-                println("productFlavors +++++++++++++++++++ name=" + name+flavor);
-                flavor.manifestPlaceholders = [APP_BUILD_FLAVOR: MODULE_NAME + name, CHANNEL_ID: name]
+                println("productFlavors +++++++++++++++++++ name=" + name + flavor);
+                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
             }
-        }*/
+        }
     }
 
     // 打包后自动修改apk的名字
@@ -126,7 +125,7 @@ android {
             def outputFile = output.outputFile
             if (null != outputFile && outputFile.name.endsWith('.apk')) {
                 File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
-                def baseName = MODULE_NAME + "_${defaultConfig.versionName}" /*+
+                def baseName = "${defaultConfig.versionName}" /*+
                         "_" + variant.productFlavors[0].name*/
                 def newApkName = baseName + "_" + variant.buildType.name + "_${packageTime()}.apk"
 
@@ -143,15 +142,12 @@ android {
     return void
 }
 
-// 多渠道配置
 configurations {
     debugCompile
-    ReleaseCompile
+    releaseCompile
     demoCompile
-    devCompile
     uatCompile
     stgCompile
-    proCompile
 }
 
 dependencies {
@@ -163,16 +159,12 @@ dependencies {
     debugCompile project(path: ':xfoundation', configuration: 'debug')
     releaseCompile project(path: ':xfoundation', configuration: 'release')
     demoCompile project(path: ':xfoundation', configuration: 'debug')
-    devCompile project(path: ':xfoundation', configuration: 'debug')
     uatCompile project(path: ':xfoundation', configuration: 'debug')
-    stgCompile project(path: ':xfoundation', configuration: 'debug')
-    proCompile project(path: ':xfoundation', configuration: 'release')
+    stgCompile project(path: ':xfoundation', configuration: 'release')
 
     debugCompile project(path: ':handler', configuration: 'debug')
     releaseCompile project(path: ':handler', configuration: 'release')
     demoCompile project(path: ':handler', configuration: 'demo')
-    devCompile project(path: ':handler', configuration: 'dev')
     uatCompile project(path: ':handler', configuration: 'uat')
     stgCompile project(path: ':handler', configuration: 'stg')
-    proCompile project(path: ':handler', configuration: 'pro')
 }

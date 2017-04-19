@@ -44,12 +44,9 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         demo {initWith(debug)}
-        dev { initWith(debug) }
         uat { initWith(debug) }
-        stg { initWith(debug) }
-        pro { initWith(release) }
+        stg { initWith(release) }
     }
 
     // 产品特性
@@ -60,13 +57,10 @@ android {
 
 configurations {
     debugCompile
-    ReleaseCompile
+    releaseCompile
     demoCompile
-    devCompile
     uatCompile
     stgCompile
-    proCompile
-
 }
 
 dependencies {
@@ -74,8 +68,6 @@ dependencies {
     debugCompile project(path: ':xfoundation', configuration: 'debug')
     releaseCompile project(path: ':xfoundation', configuration: 'release')
     demoCompile project(path: ':xfoundation', configuration: 'debug')
-    devCompile project(path: ':xfoundation', configuration: 'debug')
     uatCompile project(path: ':xfoundation', configuration: 'debug')
-    stgCompile project(path: ':xfoundation', configuration: 'debug')
-    proCompile project(path: ':xfoundation', configuration: 'release')
+    stgCompile project(path: ':xfoundation', configuration: 'release')
 }

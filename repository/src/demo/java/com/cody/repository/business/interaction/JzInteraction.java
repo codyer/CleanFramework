@@ -2,7 +2,7 @@ package com.cody.repository.business.interaction;
 
 
 import com.cody.repository.business.bean.CaseBean;
-import com.cody.repository.interaction.constant.Domain;
+import com.cody.repository.Domain;
 import com.cody.repository.business.interaction.constant.JzUrlPath;
 import com.cody.repository.framework.interaction.ICallback;
 import com.cody.repository.framework.interaction.QueryCallBack;

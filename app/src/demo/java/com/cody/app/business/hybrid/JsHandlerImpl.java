@@ -2,6 +2,7 @@ package com.cody.app.business.hybrid;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -13,12 +14,13 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.cody.xf.common.NotProguard;
-import com.google.gson.JsonObject;
+import com.cody.xf.hybrid.JsBridge;
 import com.cody.xf.hybrid.core.JsCallback;
 import com.cody.xf.hybrid.core.JsCode;
 import com.cody.xf.hybrid.core.JsHandler;
 import com.cody.xf.hybrid.core.JsResult;
 import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
+import com.google.gson.JsonObject;
 
 /**
  * Created by Cody.yi on 16/4/19.
@@ -26,6 +28,18 @@ import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
  */
 @NotProguard
 public class JsHandlerImpl implements JsHandler {
+
+    public static void login(WebView webView, JsonObject params, final JsCallback callback) {
+        if (webView.getContext() instanceof Activity) {
+            Intent intent = new Intent(webView.getContext(), LoginActivity.class);
+            JsBridge.startActivityForResult(intent, 1001, new JsBridge.OnActivityResultListener() {
+                @Override
+                public void onActivityResult(int resultCode, Intent data) {
+                    callback.success("onActivityResult" + "\nresultCode=" + resultCode);
+                }
+            });
+        }
+    }
 
     public static void showToast(WebView webView, JsonObject params, JsCallback callback) {
         Toast.makeText(webView.getContext(), params.toString(), Toast.LENGTH_SHORT).show();

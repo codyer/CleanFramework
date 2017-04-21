@@ -97,14 +97,6 @@ android {
 
     // 产品特性
     productFlavors {
-/*
-        demo { void }
-        dev { void }
-        uat { void }
-        stg { void }
-        pro { void }
-*/
-
         // 自动替换AndroidManifest.xml中的渠道号，同时根据产品特性修改应用名
         productFlavors.all { flavor ->
             if (name.equals("release")) {
@@ -128,12 +120,6 @@ android {
                 def baseName = "${defaultConfig.versionName}" /*+
                         "_" + variant.productFlavors[0].name*/
                 def newApkName = baseName + "_" + variant.buildType.name + "_${packageTime()}.apk"
-
-                /*  if (variant.buildType.name.equals('release')) {
-                      newApkName = baseName + '_Release.apk'
-                  } else if (variant.buildType.name.equals('debug')) {
-                      newApkName = baseName + "_Debug_${packageTime()}.apk"
-                  }*/
 
                 output.outputFile = new File(outputDir, newApkName)
             }
@@ -167,4 +153,6 @@ dependencies {
     demoCompile project(path: ':handler', configuration: 'demo')
     uatCompile project(path: ':handler', configuration: 'uat')
     stgCompile project(path: ':handler', configuration: 'stg')
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
 }

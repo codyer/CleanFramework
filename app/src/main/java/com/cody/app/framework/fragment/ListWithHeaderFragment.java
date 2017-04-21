@@ -50,7 +50,7 @@ public abstract class ListWithHeaderFragment<P extends ListWithHeaderPresenter<I
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initHeader(getViewModel().headerViewModel);
+        initHeader(getViewModel().getHeaderViewModel());
         return view;
     }
 

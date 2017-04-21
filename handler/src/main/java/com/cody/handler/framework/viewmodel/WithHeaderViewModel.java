@@ -9,5 +9,9 @@ package com.cody.handler.framework.viewmodel;
  * 包含头部的ViewModel
  */
 public class WithHeaderViewModel extends ViewModel {
-    public final HeaderViewModel headerViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
+    private final HeaderViewModel mHeaderViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
+
+    public HeaderViewModel getHeaderViewModel() {
+        return mHeaderViewModel;
+    }
 }

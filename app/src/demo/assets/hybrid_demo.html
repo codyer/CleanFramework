@@ -54,7 +54,17 @@
             测试
         </button>
     </li>
-
+    <br/>
+    <li>
+        登录 startActivityForResult<br/>
+        代码：<br/>
+        <div>
+            JsBridge.callMethod('JsHandlerImpl','login',{},function(msg){alert(JSON.stringify(msg))});
+        </div>
+        <button onclick="JsBridge.callMethod('JsHandlerImpl','login',{},function(msg){alert(JSON.stringify(msg))});">
+            测试
+        </button>
+    </li>
     <br/>
     <li>
         获取AppName<br/>

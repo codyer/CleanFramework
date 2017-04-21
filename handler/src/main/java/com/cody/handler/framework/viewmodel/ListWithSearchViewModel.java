@@ -12,5 +12,9 @@ package com.cody.handler.framework.viewmodel;
  * @param <ItemViewModel> ListView中的item ViewModel
  */
 public class ListWithSearchViewModel<ItemViewModel extends ViewModel> extends ListViewModel<ItemViewModel> {
-    public final SearchViewModel searchViewModel = SearchViewModel.createDefaultSearch();
+    private final SearchViewModel mSearchViewModel = SearchViewModel.createDefaultSearch();
+
+    public SearchViewModel getSearchViewModel() {
+        return mSearchViewModel;
+    }
 }

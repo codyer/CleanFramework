@@ -1,5 +1,6 @@
 package com.cody.app.business.hybrid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,9 +8,12 @@ import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.cody.app.R;
+import com.cody.repository.framework.Repository;
+import com.cody.repository.framework.local.BaseLocalKey;
 import com.cody.xf.hybrid.JsBridge;
 
 public class HtmlActivity extends AppCompatActivity {
+
     private WebView mWebView;
 
     @Override
@@ -18,16 +22,34 @@ public class HtmlActivity extends AppCompatActivity {
         setContentView(R.layout.hybrid_activity_html);
         mWebView = (WebView) findViewById(R.id.webview);
 
-        JsBridge.addJsHandler(JsHandlerImpl.class).build(mWebView);
-        mWebView.loadUrl("file:///android_asset/hybrid_demo.html");
+        String url = "file:///android_asset/hybrid_demo.html";
+        JsBridge.addJsHandler(JsHandlerImpl.class)
+                .syncCookie(this, url, Repository.getLocalMap(BaseLocalKey.HEADERS))
+                .build(mWebView,null);
+
+        if (null != savedInstanceState) {
+            mWebView.restoreState(savedInstanceState);
+        } else {
+            mWebView.loadUrl(url);
+        }
     }
 
     @Override
     protected void onDestroy() {
-        if (mWebView != null) {
-            mWebView.destroy();
-        }
+        JsBridge.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        JsBridge.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mWebView.saveState(outState);
     }
 
     @Override

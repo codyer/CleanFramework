@@ -1,0 +1,81 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2017/4/21.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+        <!--TODO -->
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.HtmlViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_transparent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/fw_header"
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <ProgressBar
+            android:id="@+id/fw_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_height"
+            android:max="@{viewModel.MAX_PROGRESS}"
+            android:progress="@{viewModel.progress}"
+            android:progressDrawable="@drawable/fw_html_progress"
+            android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <WebView
+                android:id="@+id/fw_webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_transparent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_25dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@null"
+                    android:src="@drawable/fw_ic_default_no_data"/>
+
+                <TextView
+                    style="@style/infoStyle"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/fw_html_loading"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
+</layout>

@@ -35,7 +35,7 @@ public abstract class WithHeaderFragment<P extends Presenter<VM>, VM extends Wit
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        initHeader(getViewModel().headerViewModel);
+        initHeader(getViewModel().getHeaderViewModel());
         return view;
     }
 }

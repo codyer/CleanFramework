@@ -12,5 +12,9 @@ package com.cody.handler.framework.viewmodel;
  * @param <ItemViewModel> ListView中的item ViewModel
  */
 public class ListWithHeaderViewModel<ItemViewModel extends ViewModel> extends ListViewModel<ItemViewModel> {
-    public final HeaderViewModel headerViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
+    private final HeaderViewModel mHeaderViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
+
+    public HeaderViewModel getHeaderViewModel() {
+        return mHeaderViewModel;
+    }
 }

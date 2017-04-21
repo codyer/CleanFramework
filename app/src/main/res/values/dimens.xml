@@ -63,6 +63,7 @@
     <dimen name="tap_height">50dp</dimen>
     <dimen name="tap_divider_height">3dp</dimen>
     <dimen name="divider_height">1dp</dimen>
+    <dimen name="progress_height">2dp</dimen>
     <dimen name="btn_radius">3dp</dimen>
 
 </resources>

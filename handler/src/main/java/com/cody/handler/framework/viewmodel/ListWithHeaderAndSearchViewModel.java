@@ -12,6 +12,14 @@ package com.cody.handler.framework.viewmodel;
  * @param <ItemViewModel> ListView中的item ViewModel
  */
 public class ListWithHeaderAndSearchViewModel<ItemViewModel extends ViewModel> extends ListViewModel<ItemViewModel> {
-    public final HeaderViewModel headerViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
-    public final SearchViewModel searchViewModel = SearchViewModel.createDefaultSearch();
+    private final HeaderViewModel mHeaderViewModel = HeaderViewModel.createDefaultHeader();//list view的头部
+    private final SearchViewModel mSearchViewModel = SearchViewModel.createDefaultSearch();
+
+    public HeaderViewModel getHeaderViewModel() {
+        return mHeaderViewModel;
+    }
+
+    public SearchViewModel getSearchViewModel() {
+        return mSearchViewModel;
+    }
 }

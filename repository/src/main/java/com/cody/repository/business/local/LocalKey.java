@@ -8,7 +8,6 @@ import com.cody.repository.framework.local.BaseLocalKey;
  * 目前只提供sharePreference方式
  */
 public interface LocalKey extends BaseLocalKey {
-    String BASE = "local_";
     String APPTYPE = BASE + "type";
     String OPENID = BASE + "openid";
     String USERROLE = BASE + "userrole";

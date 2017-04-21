@@ -29,6 +29,6 @@ public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends Wit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initHeader(getViewModel().headerViewModel);
+        initHeader(getViewModel().getHeaderViewModel());
     }
 }

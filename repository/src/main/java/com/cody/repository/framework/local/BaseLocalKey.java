@@ -7,7 +7,7 @@ package com.cody.repository.framework.local;
  */
 
 public interface BaseLocalKey {
-    String BASE = "XF_";
+    String BASE = "R_";
     String WITH_HEADERS = BASE + "with_headers";
     String HEADERS = BASE + "headers";
 }

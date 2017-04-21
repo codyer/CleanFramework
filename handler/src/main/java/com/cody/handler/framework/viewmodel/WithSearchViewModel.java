@@ -9,5 +9,9 @@ package com.cody.handler.framework.viewmodel;
  * 包含搜索的ViewModel
  */
 public class WithSearchViewModel extends ViewModel {
-    public final SearchViewModel searchViewModel = SearchViewModel.createDefaultSearch();
+    private final SearchViewModel mSearchViewModel = SearchViewModel.createDefaultSearch();
+
+    public SearchViewModel getSearchViewModel() {
+        return mSearchViewModel;
+    }
 }

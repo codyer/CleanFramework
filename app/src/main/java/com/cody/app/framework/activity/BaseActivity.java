@@ -16,13 +16,14 @@ import android.widget.EditText;
 
 import com.cody.app.R;
 import com.cody.handler.framework.IView;
+import com.cody.xf.utils.ActivityUtil;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.StringUtil;
 import com.cody.xf.utils.ToastUtil;
 
 
 public abstract class BaseActivity extends AppCompatActivity
-        implements View.OnClickListener, DialogInterface.OnCancelListener, IView {
+        implements DialogInterface.OnCancelListener, IView {
     /**
      * Log tag
      */
@@ -40,18 +41,20 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
+        ActivityUtil.setCurrentActivity(this);
 
         mLoading = new ProgressDialog(this);
         mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mLoading.setCanceledOnTouchOutside(false);
         mLoading.setCancelable(true);
-        mLoading.setMessage(getString(R.string.r_load_more_text));
+        mLoading.setMessage(getString(R.string.xf_load_more_text));
         mLoading.setOnCancelListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        ActivityUtil.setCurrentActivity(this);
         if (isFirstVisible) {
             isFirstVisible = false;
             onFirstUserVisible();
@@ -73,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity
     public void showLoading(String msg) {
         LogUtil.d(TAG, "BaseActivity ++ showLoading");
         if (StringUtil.isEmpty(msg)) {
-            mLoading.setMessage(getString(R.string.r_load_more_text));
+            mLoading.setMessage(getString(R.string.xf_load_more_text));
         } else {
             mLoading.setMessage(msg);
         }

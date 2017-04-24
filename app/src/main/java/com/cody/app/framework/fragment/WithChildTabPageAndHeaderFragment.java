@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.app.R;
-import com.cody.app.databinding.FragmentTabViewBinding;
+import com.cody.app.databinding.FwFragmentTabViewBinding;
 import com.cody.app.framework.adapter.ChildTabPageFragmentAdapter;
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 import com.cody.handler.framework.presenter.Presenter;
@@ -28,7 +28,7 @@ import java.util.List;
  * 只包含一个头部和一个viewpager
  */
 public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<WithHeaderViewModel>>
-        extends WithHeaderFragment<P, WithHeaderViewModel, FragmentTabViewBinding> {
+        extends WithHeaderFragment<P, WithHeaderViewModel, FwFragmentTabViewBinding> {
     private ChildTabPageFragmentAdapter adapter;
     private String[] titles;
 
@@ -52,7 +52,7 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
 
     @Override
     protected int getLayoutID() {
-        return R.layout.fragment_tab_view;
+        return R.layout.fw_fragment_tab_view;
     }
 
     @Nullable
@@ -69,12 +69,8 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
         switch (view.getId()) {
             case R.id.headerText:
                 Fragment fragment = adapter.getItem(getBinding().viewPager.getCurrentItem());
-                if (fragment instanceof ListFragment) {
-                    ((ListFragment) fragment).scrollToTop();
-                } else if (fragment instanceof ListWithHeaderFragment) {
-                    ((ListWithHeaderFragment) fragment).scrollToTop();
-                } else if (fragment instanceof ListWithSearchFragment) {
-                    ((ListWithSearchFragment) fragment).scrollToTop();
+                if (fragment instanceof AbsListFragment) {
+                    ((AbsListFragment) fragment).scrollToTop();
                 }
                 break;
         }

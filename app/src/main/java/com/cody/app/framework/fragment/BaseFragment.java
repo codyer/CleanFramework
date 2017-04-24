@@ -22,8 +22,7 @@ import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.StringUtil;
 import com.cody.xf.utils.ToastUtil;
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener,
-        DialogInterface.OnCancelListener, IView {
+public abstract class BaseFragment extends Fragment implements DialogInterface.OnCancelListener, IView {
 
     public String TAG = null;
     private ProgressDialog mLoading;
@@ -43,7 +42,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mLoading.setCanceledOnTouchOutside(false);
         mLoading.setCancelable(true);
-        mLoading.setMessage(getString(R.string.r_load_more_text));
+        mLoading.setMessage(getString(R.string.xf_load_more_text));
         mLoading.setOnCancelListener(this);
         return view;
     }
@@ -64,7 +63,7 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     public void showLoading(String msg) {
         LogUtil.d(TAG, "BaseFragment ++ showLoading");
         if (StringUtil.isEmpty(msg)) {
-            mLoading.setMessage(getString(R.string.r_load_more_text));
+            mLoading.setMessage(getString(R.string.xf_load_more_text));
         } else {
             mLoading.setMessage(msg);
         }

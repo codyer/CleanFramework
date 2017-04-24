@@ -6,7 +6,7 @@ package com.cody.repository.framework.local;
 
 /**
  * Created by cody.yi on 2016/7/18.
- * 网络请求工具
+ * 模拟网络请求工具
  */
 
 import android.os.Handler;
@@ -23,11 +23,11 @@ import java.util.List;
 
 /**
  * 管理所有数据，对应用提供一致的数据接口，隐藏数据来源
- * 内存、SD卡、网络
+ * 内存、SD卡
  */
-public class LocalDataUtil {
+public class MockDataUtil {
 
-    private LocalDataUtil() {
+    private MockDataUtil() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("HttpUtil cannot be instantiated");
     }
@@ -95,7 +95,7 @@ public class LocalDataUtil {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(R.raw.r_simple_bean, SimpleBean.class));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(R.raw.xf_simple_bean, SimpleBean.class));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));

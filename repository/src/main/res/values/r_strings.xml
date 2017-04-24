@@ -1,6 +1,0 @@
-<resources>
-
-    <!--下拉上拉刷新-->
-    <string name="r_load_more_text">正在加载…</string>
-    <string name="r_no_network_connection_toast">网络连接有问题！</string>
-</resources>

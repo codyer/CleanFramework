@@ -2,4 +2,8 @@
     <string name="app_name">CleanApp</string>
     <string name="fw_no_data">无数据</string>
     <string name="fw_html_loading">努力加载中&#8230;</string>
+    <string name="fw_click_back_two_times">再按一次退出程序</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

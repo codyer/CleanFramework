@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <array name="fragments_main_tab">
-        <item>沟通</item>
-        <item>任务</item>
-        <item>订单</item>
-        <item>管理</item>
-        <item>个人</item>
-    </array>
-
     <array name="order_tab_agent">
         <item>进行中@tag@0</item>
         <item>已完成@tag@1</item>

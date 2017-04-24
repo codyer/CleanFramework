@@ -60,7 +60,7 @@ public abstract class Presenter<VM extends ViewModel> implements IPresenter<VM> 
     }
 
     /**
-     * 刷新界面，并不是必须调用的，如果用的是
+     * 刷新界面，并不是必须调用的，如果ViewModel不是observable变量需要调用强制刷新，否则不需要调用，框架会自动刷新
      */
     @Override
     public void refreshUI(Object... args) {

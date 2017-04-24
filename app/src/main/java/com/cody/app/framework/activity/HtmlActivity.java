@@ -134,6 +134,9 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
             case R.id.headerLeftBtn:
                 finish();
                 break;
+            case R.id.headerText:
+                getBinding().fwWebView.scrollTo(0,0);
+                break;
         }
     }
 

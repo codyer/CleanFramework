@@ -19,11 +19,10 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_transparent"
-        android:orientation="vertical">
+        android:background="@color/light_transparent">
 
         <include
             android:id="@+id/fw_header"
@@ -31,51 +30,49 @@
             bind:onClickListener="@{onClickListener}"
             bind:viewModel="@{viewModel.headerViewModel}"/>
 
+        <WebView
+            android:id="@+id/fw_webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fw_header"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fw_header"
+            android:background="@color/light_transparent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_25dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@null"
+                android:src="@drawable/xf_ic_default_no_data"/>
+
+            <TextView
+                style="@style/infoStyle"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@android:color/transparent"
+                android:text="@string/fw_html_loading"/>
+
+        </LinearLayout>
+
         <ProgressBar
             android:id="@+id/fw_progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/progress_height"
+            android:layout_below="@id/fw_header"
             android:max="@{viewModel.MAX_PROGRESS}"
             android:progress="@{viewModel.progress}"
             android:progressDrawable="@drawable/fw_html_progress"
             android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <WebView
-                android:id="@+id/fw_webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light_transparent"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_25dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    android:src="@drawable/fw_ic_default_no_data"/>
-
-                <TextView
-                    style="@style/infoStyle"
-                    android:layout_marginTop="@dimen/margin_10dp"
-                    android:background="@android:color/transparent"
-                    android:text="@string/fw_html_loading"/>
-
-            </LinearLayout>
-
-        </FrameLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

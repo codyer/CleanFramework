@@ -4,6 +4,8 @@
 
 package com.cody.app.framework.fragment;
 
+import android.view.View;
+
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithHeaderAndSearchBinding;
 import com.cody.xf.widget.SearchEditView;
@@ -40,4 +42,12 @@ public abstract class ListWithHeaderAndSearchFragment<
         return R.layout.fw_list_with_header_and_search;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.headerText:
+                scrollToTop();
+                break;
+        }
+    }
 }

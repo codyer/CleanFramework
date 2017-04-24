@@ -42,7 +42,7 @@
             android:value="${CHANNEL_ID}"/>
 
         <activity
-            android:name=".business.MainActivity"
+            android:name=".business.MainPageActivity"
             android:theme="@style/xf_AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

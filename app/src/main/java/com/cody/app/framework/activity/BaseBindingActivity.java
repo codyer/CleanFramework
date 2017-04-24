@@ -12,7 +12,6 @@ import com.cody.app.BR;
 import com.cody.handler.framework.IDataBinding;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.handler.framework.viewmodel.ViewModel;
-import com.cody.xf.utils.ActivityUtil;
 
 
 /**
@@ -53,7 +52,6 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityUtil.setCurrentActivity(this);
 
         /**
          * 绑定view
@@ -76,7 +74,6 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     @Override
     protected void onResume() {
         super.onResume();
-        ActivityUtil.setCurrentActivity(this);
     }
 
     @Override

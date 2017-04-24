@@ -3,7 +3,6 @@ package com.cody.app.business;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,15 +17,17 @@ import com.cody.app.R;
 import com.cody.app.business.binding.CaseActivity;
 import com.cody.app.business.binding.ImageViewActivity;
 import com.cody.app.business.hybrid.HtmlActivity;
+import com.cody.app.framework.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemoMainActivity extends AppCompatActivity {
+public class DemoMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_demo_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.demo_list);
@@ -114,8 +115,13 @@ public class DemoMainActivity extends AppCompatActivity {
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, bean.mClazz);
-                    mContext.startActivity(intent);
+                    if (bean.mClazz == com.cody.app.framework.activity.HtmlActivity.class){
+                        String url = "http://mp.weixin.qq.com/s/_jdVkQ1Jxx62IojPLpbyHA";
+                        com.cody.app.framework.activity.HtmlActivity.startHtml(bean.mTitle,url);
+                    }else {
+                        Intent intent = new Intent(mContext, bean.mClazz);
+                        mContext.startActivity(intent);
+                    }
                 }
             });
         }

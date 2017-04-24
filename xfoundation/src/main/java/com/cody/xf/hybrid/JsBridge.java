@@ -64,7 +64,7 @@ public class JsBridge {
      * 同步指定地址的cookie到webView
      */
     public JsBridge syncCookie(Context context, String url, Map<String, String> cookies) {
-        if (context == null || TextUtils.isEmpty(url) || cookies == null){
+        if (context == null || TextUtils.isEmpty(url) || cookies == null) {
             return sInstance;
         }
 
@@ -93,7 +93,7 @@ public class JsBridge {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         String userAgentString = settings.getUserAgentString();
-        settings.setUserAgentString(userAgentString+";android;chinaredstar");
+        settings.setUserAgentString(userAgentString + ";android;chinaredstar");
 //		settings.setPluginState(PluginState.ON_DEMAND);
         settings.setAllowFileAccess(true);
         // 设置 缓存模式
@@ -137,7 +137,8 @@ public class JsBridge {
     /**
      * 替换Activity中的startActivityForResult
      */
-    public static void startActivityForResult(Intent intent, int requestCode, OnActivityResultListener listener) {
+    public static void startActivityForResult(Intent intent, OnActivityResultListener listener) {
+        int requestCode = getInstance().mResultListener.size();
         getInstance().mResultListener.put(requestCode, listener);
         if (getInstance().mWebViewRef != null && getInstance().mWebViewRef.get() != null) {
             WebView webView = getInstance().mWebViewRef.get();
@@ -156,6 +157,7 @@ public class JsBridge {
         OnActivityResultListener listener = getInstance().mResultListener.get(requestCode);
         if (listener != null) {
             listener.onActivityResult(resultCode, data);
+            getInstance().mResultListener.remove(requestCode);
         }
     }
 

@@ -7,15 +7,15 @@
 
     <data>
         <!-- 定义变量: tab index -->
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <variable
-        name="onClickListener"
-        type="android.view.View.OnClickListener" />
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
 
         <variable
-        name="viewModel"
-            type="com.cody.handler.framework.viewmodel.WithHeaderViewModel" />
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.MainPageViewModel"/>
     </data>
 
     <android.support.v4.app.FragmentTabHost

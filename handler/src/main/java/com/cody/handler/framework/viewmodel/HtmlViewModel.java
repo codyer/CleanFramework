@@ -19,7 +19,9 @@ public class HtmlViewModel extends WithHeaderViewModel {
 
     public void setProgress(int progress) {
         mProgress.set(progress);
-        isLoaded.set(progress >= MAX_PROGRESS);
+        if (progress >= MAX_PROGRESS){
+            isLoaded.set(true);
+        }
     }
 
     private String mUrl;

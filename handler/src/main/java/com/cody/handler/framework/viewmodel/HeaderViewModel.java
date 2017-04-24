@@ -36,10 +36,10 @@ public class HeaderViewModel extends ViewModel {
         mRight.set(false);//右边图标
         mRightIsText.set(false);//右边文字
         mRightIsTextAndDrawable.set(false);
-        mLeftResId.set(R.drawable.h_back_arrow);//左边图标 返回
-        mRightResId.set(R.drawable.h_setting);//右边图标 设置
-        mRightText.set(ResourceUtil.getString(R.string.h_save_now));//右边文字 保存
-        mTitle.set(ResourceUtil.getString(R.string.h_app_name)); //标题资源id
+        mLeftResId.set(R.drawable.xf_back_arrow);//左边图标 返回
+        mRightResId.set(R.drawable.xf_setting);//右边图标 设置
+        mRightText.set(ResourceUtil.getString(R.string.xf_save_now));//右边文字 保存
+        mTitle.set(ResourceUtil.getString(R.string.xf_title)); //标题资源id
     }
 
     public static HeaderViewModel createDefaultHeader() {

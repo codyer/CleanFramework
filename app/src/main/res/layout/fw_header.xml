@@ -53,12 +53,12 @@
             android:visibility="@{viewModel.rightIsText?View.VISIBLE:View.INVISIBLE}"/>
 
         <TextView
-            android:id="@+id/headerRightTextandDrawable"
+            android:id="@+id/headerRightTextAndDrawable"
             style="@style/headerButtonStyle"
             android:layout_gravity="end"
             android:onClick="@{onClickListener.onClick}"
             android:text="@{viewModel.rightText}"
-            android:drawableLeft="@drawable/fw_help_icon"
+            android:drawableLeft="@drawable/xf_help_icon"
             android:drawablePadding="@dimen/padding_10dp"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/font_size_30"

@@ -32,7 +32,7 @@ public class JsHandlerImpl implements JsHandler {
     public static void login(WebView webView, JsonObject params, final JsCallback callback) {
         if (webView.getContext() instanceof Activity) {
             Intent intent = new Intent(webView.getContext(), LoginActivity.class);
-            JsBridge.startActivityForResult(intent, 1001, new JsBridge.OnActivityResultListener() {
+            JsBridge.startActivityForResult(intent, new JsBridge.OnActivityResultListener() {
                 @Override
                 public void onActivityResult(int resultCode, Intent data) {
                     callback.success("onActivityResult" + "\nresultCode=" + resultCode);

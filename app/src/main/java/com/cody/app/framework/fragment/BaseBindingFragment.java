@@ -25,8 +25,11 @@ import com.cody.handler.framework.viewmodel.ViewModel;
  * @param <VM> 所有ViewModel中原来的属性；
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
-public abstract class BaseBindingFragment<P extends Presenter<VM>, VM extends ViewModel, B extends ViewDataBinding>
-        extends BaseFragment implements IDataBinding<P, VM, B> {
+public abstract class BaseBindingFragment<P extends Presenter<VM>,
+        VM extends ViewModel,
+        B extends ViewDataBinding>
+        extends BaseFragment
+        implements View.OnClickListener, IDataBinding<P, VM, B> {
 
     private P mPresenter;
     private VM mViewModel;

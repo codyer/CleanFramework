@@ -59,4 +59,12 @@ public abstract class ListWithHeaderFragment<P extends ListWithHeaderPresenter<I
         return R.layout.fw_list_with_header;
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.headerText:
+                scrollToTop();
+                break;
+        }
+    }
 }

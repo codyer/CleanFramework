@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="fragments_main_tab">
+        <item>个人</item>
+        <item>个人</item>
+        <item>个人</item>
+        <item>个人</item>
+    </array>
+
+</resources>

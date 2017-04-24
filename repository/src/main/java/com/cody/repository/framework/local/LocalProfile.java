@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class LocalProfile {
 
-    private final static String FILENAME = "FoundationProfile";
+    private final static String FILENAME = "XFProfile";
     private final SharedPreferences mSharedPreferences;
     private final Gson mParseUtil = new Gson();
 

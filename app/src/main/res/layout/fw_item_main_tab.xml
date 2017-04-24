@@ -15,30 +15,29 @@
         <!--TODO -->
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.WithHeaderViewModel" />
-
+            type="com.cody.handler.framework.viewmodel.MainPageViewModel"/>
     </data>
 
     <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_transparent"
         android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/item_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginBottom="@dimen/margin_25dp"
-            android:src="@drawable/xf_ic_default_no_data"
-            android:id="@+id/imageView"/>
+            android:contentDescription="@null"/>
 
         <TextView
-            style="@style/infoStyle"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:background="@android:color/transparent"
-            android:text="@string/fw_no_data"/>
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@drawable/item_main_tab_mine_text_selector"
+            android:textSize="@dimen/font_size_26"
+            tools:text="沟通"/>
 
     </LinearLayout>
 </layout>

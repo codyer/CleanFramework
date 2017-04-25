@@ -1,24 +1,14 @@
 package com.cody.app.business.hybrid;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.cody.xf.common.NotProguard;
 import com.cody.xf.hybrid.JsBridge;
 import com.cody.xf.hybrid.core.JsCallback;
-import com.cody.xf.hybrid.core.JsCode;
-import com.cody.xf.hybrid.core.JsHandler;
-import com.cody.xf.hybrid.core.JsResult;
 import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
 import com.google.gson.JsonObject;
 

@@ -2,7 +2,7 @@ package com.cody.handler.framework;
 
 import android.support.annotation.CallSuper;
 
-import com.cody.handler.framework.presenter.AppPresenter;
+import com.cody.handler.business.presenter.AppPresenter;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.repository.framework.interaction.ICallback;
 import com.cody.xf.utils.LogUtil;

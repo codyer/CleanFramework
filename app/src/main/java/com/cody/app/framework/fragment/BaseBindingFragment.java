@@ -124,7 +124,7 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     @Override
     public void onUpdate(Object... args) {
         super.onUpdate(args);
-        getBinding().setVariable(com.cody.app.BR.viewModel, getViewModel());
+        getBinding().setVariable(BR.viewModel, getViewModel());
     }
 
     @CallSuper

@@ -7,7 +7,6 @@ import android.databinding.ObservableInt;
  * Created by cody.yi on 2017/4/21.
  * Html ViewModel
  */
-
 public class HtmlViewModel extends WithHeaderViewModel {
     public final static int MAX_PROGRESS = 100;
     public final ObservableBoolean isLoaded = new ObservableBoolean(false);//是否加载完成

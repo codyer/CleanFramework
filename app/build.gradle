@@ -153,7 +153,4 @@ dependencies {
     demoCompile project(path: ':handler', configuration: 'demo')
     uatCompile project(path: ':handler', configuration: 'uat')
     stgCompile project(path: ':handler', configuration: 'stg')
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:support-v4:24.2.1'
 }

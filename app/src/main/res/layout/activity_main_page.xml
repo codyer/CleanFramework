@@ -15,7 +15,7 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.MainPageViewModel"/>
+            type="com.cody.handler.business.viewmodel.MainPageViewModel"/>
     </data>
 
     <android.support.v4.app.FragmentTabHost

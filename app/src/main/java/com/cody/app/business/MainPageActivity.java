@@ -18,8 +18,8 @@ import com.cody.app.R;
 import com.cody.app.business.mine.MineFragment;
 import com.cody.app.databinding.ActivityMainPageBinding;
 import com.cody.app.framework.activity.BaseBindingActivity;
-import com.cody.handler.framework.presenter.MainPagePresenter;
-import com.cody.handler.framework.viewmodel.MainPageViewModel;
+import com.cody.handler.business.presenter.MainPagePresenter;
+import com.cody.handler.business.viewmodel.MainPageViewModel;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.ToastUtil;
 

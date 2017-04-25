@@ -2,7 +2,7 @@
  * Copyright (c)  Created by Cody.yi on 2016/9/20.
  */
 
-package com.cody.repository.framework.local;
+package com.cody.repository.framework;
 
 /**
  * Created by cody.yi on 2016/7/18.
@@ -25,19 +25,19 @@ import java.util.List;
  * 管理所有数据，对应用提供一致的数据接口，隐藏数据来源
  * 内存、SD卡
  */
-public class MockDataUtil {
+public class MockRepository {
 
-    private MockDataUtil() {
+    private MockRepository() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("HttpUtil cannot be instantiated");
     }
 
-    public static <T> void getData(final int url, final Class<T> clazz, final ICallback<T> callback) {
+    public static <T> void getData(final int resId, final Class<T> clazz, final ICallback<T> callback) {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(url, clazz));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(resId, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
@@ -46,13 +46,13 @@ public class MockDataUtil {
         }, 500);
     }
 
-    public static <T> void getListData(final int url, final Class<T> clazz, final ICallback<List<T>> callback) {
+    public static <T> void getListData(final int resId, final Class<T> clazz, final ICallback<List<T>> callback) {
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(url, clazz));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(resId, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
@@ -61,12 +61,12 @@ public class MockDataUtil {
         }, 500);
     }
 
-    public static <T> void getData(final String url, final Class<T> clazz, final ICallback<T> callback) {
+    public static <T> void getData(final String resId, final Class<T> clazz, final ICallback<T> callback) {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(url, clazz));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchBean(resId, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));
@@ -75,13 +75,13 @@ public class MockDataUtil {
         }, 500);
     }
 
-    public static <T> void getListData(final String url, final Class<T> clazz, final ICallback<List<T>> callback) {
+    public static <T> void getListData(final String resId, final Class<T> clazz, final ICallback<List<T>> callback) {
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(url, clazz));
+                    callback.onSuccess(FetchRawUtil.getInstance().fetchListBean(resId, clazz));
                 } catch (IOException e) {
                     e.printStackTrace();
                     callback.onFailure(new SimpleBean(HttpCode.REQUEST_ERROR, e.getMessage()));

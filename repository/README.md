@@ -74,3 +74,7 @@ eg:
 
 9、@QueryCallBack
 注解在请求数据的方法查询参数上，请求回调，http请求的回调接口，使用ICallback定义
+
+
+Mock
+使用MockRepository进行伪造数据，将服务器返回的json保存在res/raw目录下,调用MockRepository可以直接读取对应json作为接口返回。

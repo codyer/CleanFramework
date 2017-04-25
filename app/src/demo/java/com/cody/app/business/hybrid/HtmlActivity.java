@@ -19,7 +19,7 @@ public class HtmlActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.hybrid_activity_html);
+        setContentView(R.layout.activity_hybrid_html);
         mWebView = (WebView) findViewById(R.id.webview);
 
         String url = "file:///android_asset/hybrid_demo.html";

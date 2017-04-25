@@ -27,7 +27,7 @@ import com.google.gson.JsonObject;
  * Js handler 实现类
  */
 @NotProguard
-public class JsHandlerImpl implements JsHandler {
+public class JsHandlerImpl extends JsHandlerBaseImpl {
 
     public static void login(WebView webView, JsonObject params, final JsCallback callback) {
         if (webView.getContext() instanceof Activity) {
@@ -38,54 +38,6 @@ public class JsHandlerImpl implements JsHandler {
                     callback.success("onActivityResult" + "\nresultCode=" + resultCode);
                 }
             });
-        }
-    }
-
-    public static void showToast(WebView webView, JsonObject params, JsCallback callback) {
-        Toast.makeText(webView.getContext(), params.toString(), Toast.LENGTH_SHORT).show();
-
-        JsResult<JsonObject> result = new JsResult<>();
-        result.setCode(JsCode.SUCCESS);
-        result.setMessage("成功了");
-
-        callback.callJs(result);
-    }
-
-    public static void getIMSI(WebView webView, JsonObject params, JsCallback callback) {
-        TelephonyManager telephonyManager = ((TelephonyManager) webView.getContext().getSystemService(Context.TELEPHONY_SERVICE));
-        String imsi = telephonyManager.getSubscriberId();
-        if (TextUtils.isEmpty(imsi)) {
-            imsi = telephonyManager.getDeviceId();
-        }
-        JsonObject data = new JsonObject();
-        data.addProperty("imsi", imsi);
-        callback.success("成功了", data);
-    }
-
-    public static void getAppName(WebView webView, JsonObject params, JsCallback callback) {
-        String appName;
-        try {
-            PackageManager packageManager = webView.getContext().getApplicationContext().getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(webView.getContext().getApplicationContext().getPackageName(), 0);
-            appName = packageManager.getApplicationLabel(applicationInfo).toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            appName = "";
-        }
-        JsonObject data = new JsonObject();
-        data.addProperty("result", appName);
-        callback.success("成功了", data);
-    }
-
-    public static void getOsSdk(WebView webView, JsonObject params, JsCallback callback) {
-        JsonObject data = new JsonObject();
-        data.addProperty("os_sdk", Build.VERSION.SDK_INT);
-        callback.success("成功了", data);
-    }
-
-    public static void finish(WebView webView, JsonObject params, JsCallback callback) {
-        if (webView.getContext() instanceof Activity) {
-            ((Activity) webView.getContext()).finish();
         }
     }
 

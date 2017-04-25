@@ -15,7 +15,7 @@
         <!--TODO -->
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.MainPageViewModel"/>
+            type="com.cody.handler.business.viewmodel.MainPageViewModel"/>
     </data>
 
     <LinearLayout

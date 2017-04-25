@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.cody.app.R;
-import com.cody.app.business.hybrid.JsHandlerBaseImpl;
+import com.cody.app.business.hybrid.JsHandlerCommonImpl;
 import com.cody.app.databinding.FwActivityHtmlBinding;
 import com.cody.handler.framework.presenter.HtmlPresenter;
 import com.cody.handler.framework.viewmodel.HeaderViewModel;
@@ -76,7 +76,8 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
             getViewModel().getHeaderViewModel().setTitle(title);
             getViewModel().setUrl(url);
         }
-        JsBridge.addJsHandler(JsHandlerBaseImpl.class)
+        JsBridge.getInstance()
+                .addJsHandler(JsHandlerCommonImpl.class)
                 .syncCookie(this, getViewModel().getUrl(), Repository.getLocalMap(BaseLocalKey.HEADERS))
                 .build(getBinding().fwWebView, new JsBridge.OnProgressListener() {
                     @Override

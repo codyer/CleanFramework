@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
  * Js handler 实现类
  */
 @NotProguard
-public class JsHandlerBaseImpl implements JsHandler {
+public final class JsHandlerCommonImpl implements JsHandler {
 
     public static void showToast(WebView webView, JsonObject params, JsCallback callback) {
         Toast.makeText(webView.getContext(), params.toString(), Toast.LENGTH_SHORT).show();

@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import com.cody.xf.common.NotProguard;
 import com.cody.xf.hybrid.JsBridge;
 import com.cody.xf.hybrid.core.JsCallback;
+import com.cody.xf.hybrid.core.JsHandler;
 import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
 import com.google.gson.JsonObject;
 
@@ -17,7 +18,7 @@ import com.google.gson.JsonObject;
  * Js handler 实现类
  */
 @NotProguard
-public class JsHandlerImpl extends JsHandlerBaseImpl {
+public final class JsHandlerImpl implements JsHandler {
 
     public static void login(WebView webView, JsonObject params, final JsCallback callback) {
         if (webView.getContext() instanceof Activity) {

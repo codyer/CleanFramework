@@ -1,11 +1,11 @@
 package com.cody.xf.hybrid.core;
 
-import android.util.Log;
 import android.webkit.WebView;
 
+import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
+import com.cody.xf.utils.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
 
 import java.lang.ref.WeakReference;
 import java.util.Locale;
@@ -44,7 +44,7 @@ public class JsCallback {
     public void callJs(JsResult result) {
         final WebView webView = mWebViewWeakRef.get();
         if (webView == null) {
-            Log.d("JsCallback", "The WebView related to the JsCallback has been recycled!");
+            LogUtil.d("JsCallback", "The WebView related to the JsCallback has been recycled!");
         } else {
             final String callbackJs = getCallBackUrl(result);
             if (AsyncTaskExecutor.isMainThread()) {
@@ -66,6 +66,7 @@ public class JsCallback {
     public void failure(String message){
         JsResult<Object> result = new JsResult<>(JsCode.FAILURE, message, null);
         callJs(result);
+        LogUtil.d("JsCallback", message);
     }
 
     /**

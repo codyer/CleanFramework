@@ -48,9 +48,9 @@
         Toast弹出<br/>
         代码：<br/>
         <div>
-            JsBridge.callMethod('JsHandlerImpl','showToast',{'message':'我是Js调起的Toast'},function(){});
+            JsBridge.callMethod('JsHandlerCommonImpl','showToast',{'message':'我是Js调起的Toast'},function(msg){alert(JSON.stringify(msg))}));
         </div>
-        <button onclick="JsBridge.callMethod('JsHandlerImpl','showToast',{'message':'我是Js调起的Toast'},function(){});">
+        <button onclick="JsBridge.callMethod('JsHandlerCommonImpl','showToast',{'message':'我是Js调起的Toast'},function(msg){alert(JSON.stringify(msg))});">
             测试
         </button>
     </li>
@@ -70,9 +70,9 @@
         获取AppName<br/>
         代码：<br/>
         <div>
-            JsBridge.callMethod('JsHandlerImpl','getAppName',{},function(msg){alert(JSON.stringify(msg))});
+            JsBridge.callMethod('JsHandlerCommonImpl','getAppName',{},function(msg){alert(JSON.stringify(msg))});
         </div>
-        <button onclick="JsBridge.callMethod('JsHandlerImpl','getAppName',{},function(msg){alert(JSON.stringify(msg))});">
+        <button onclick="JsBridge.callMethod('JsHandlerCommonImpl','getAppName',{},function(msg){alert(JSON.stringify(msg))});">
             测试
         </button>
     </li>
@@ -92,9 +92,9 @@
         获取IMSI<br/>
         代码：<br/>
         <div>
-            JsBridge.callMethod('JsHandlerImpl','getIMSI',{},function(msg){alert(JSON.stringify(msg))});
+            JsBridge.callMethod('JsHandlerCommonImpl','getIMSI',{},function(msg){alert(JSON.stringify(msg))});
         </div>
-        <button onclick="JsBridge.callMethod('JsHandlerImpl','getIMSI',{},function(msg){alert(JSON.stringify(msg))});">
+        <button onclick="JsBridge.callMethod('JsHandlerCommonImpl','getIMSI',{},function(msg){alert(JSON.stringify(msg))});">
             测试
         </button>
     </li>
@@ -103,9 +103,9 @@
         获取当前设备OsSDK版本<br/>
         代码：<br/>
         <div>
-            JsBridge.callMethod('JsHandlerImpl','getOsSdk',{},function(result){alert(JSON.stringify(result))});
+            JsBridge.callMethod('JsHandlerCommonImpl','getOsSdk',{},function(result){alert(JSON.stringify(result))});
         </div>
-        <button onclick="JsBridge.callMethod('JsHandlerImpl','getOsSdk',{},function(result){alert(JSON.stringify(result))});">
+        <button onclick="JsBridge.callMethod('JsHandlerCommonImpl','getOsSdk',{},function(result){alert(JSON.stringify(result))});">
             测试
         </button>
     </li>
@@ -125,9 +125,9 @@
         关闭Activity<br/>
         代码：<br/>
         <div>
-            JsBridge.callMethod('JsHandlerImpl','finish',{},function(result){alert(JSON.stringify(result))});
+            JsBridge.callMethod('JsHandlerCommonImpl','finish',{},function(result){alert(JSON.stringify(result))});
         </div>
-        <button onclick="JsBridge.callMethod('JsHandlerImpl','finish',{},function(result){alert(JSON.stringify(result))});">
+        <button onclick="JsBridge.callMethod('JsHandlerCommonImpl','finish',{},function(result){alert(JSON.stringify(result))});">
             测试
         </button>
     </li>

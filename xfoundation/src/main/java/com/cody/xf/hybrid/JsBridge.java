@@ -39,7 +39,7 @@ public class JsBridge {
         mResultListener = new SparseArray<>();
     }
 
-    private static JsBridge getInstance() {
+    public static JsBridge getInstance() {
         if (sInstance == null) {
             synchronized (JsBridge.class) {
                 if (sInstance == null) {
@@ -55,9 +55,9 @@ public class JsBridge {
      *
      * @param clazz 处理类类型
      */
-    public static JsBridge addJsHandler(Class<? extends JsHandler> clazz) {
-        getInstance().mJsHandlerFactory.register(clazz);
-        return sInstance;
+    public JsBridge addJsHandler(Class<? extends JsHandler> clazz) {
+        sInstance.mJsHandlerFactory.register(clazz);
+        return this;
     }
 
     /**
@@ -65,7 +65,7 @@ public class JsBridge {
      */
     public JsBridge syncCookie(Context context, String url, Map<String, String> cookies) {
         if (context == null || TextUtils.isEmpty(url) || cookies == null) {
-            return sInstance;
+            return this;
         }
 
         CookieManager cookieManager = CookieManager.getInstance();
@@ -77,7 +77,7 @@ public class JsBridge {
             CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(context);
             cookieSyncManager.sync();
         }
-        return sInstance;
+        return this;
     }
 
     /**

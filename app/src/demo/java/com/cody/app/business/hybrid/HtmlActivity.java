@@ -23,7 +23,9 @@ public class HtmlActivity extends AppCompatActivity {
         mWebView = (WebView) findViewById(R.id.webview);
 
         String url = "file:///android_asset/hybrid_demo.html";
-        JsBridge.addJsHandler(JsHandlerImpl.class)
+        JsBridge.getInstance()
+                .addJsHandler(JsHandlerCommonImpl.class)
+                .addJsHandler(JsHandlerImpl.class)
                 .syncCookie(this, url, Repository.getLocalMap(BaseLocalKey.HEADERS))
                 .build(mWebView,null);
 

@@ -11,4 +11,20 @@
         <attr name="xf_picker_view_text_color_center" format="color"/>
         <attr name="xf_picker_view_divider_color" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="xf_Banner">
+        <attr name="xf_interval" format="integer" />
+        <attr name="xf_showIndicator" format="boolean" />
+        <attr name="xf_autoPlaying" format="boolean" />
+        <attr name="xf_indicatorSelectedSrc" format="color|reference" />
+        <attr name="xf_indicatorUnselectedSrc" format="color|reference" />
+        <attr name="xf_indicatorSize" format="dimension|reference" />
+        <attr name="xf_indicatorSpace" format="dimension|reference" />
+        <attr name="xf_indicatorMargin" format="dimension|reference" />
+        <attr name="xf_indicatorGravity" format="enum">
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

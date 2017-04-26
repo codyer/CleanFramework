@@ -4,7 +4,7 @@
  * native结果数据返回格式:
  * var resultJs = {
     code: '200',//200成功，400失败
-    msg: '请求超时',//失败时候的提示，成功可为空
+    message: '请求超时',//失败时候的提示，成功可为空
     data: {}//数据,无数据可以为空
 };
  协定协议:js_bridge://class:port/method?params;

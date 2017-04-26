@@ -26,6 +26,7 @@
         <activity android:name=".business.hybrid.HtmlActivity"/>
         <activity android:name=".business.binding.CaseActivity"/>
         <activity android:name=".business.binding.ImageViewActivity"/>
+        <activity android:name=".business.binding.BannerActivity"/>
         <activity android:name=".business.hybrid.LoginActivity"/>
     </application>
 

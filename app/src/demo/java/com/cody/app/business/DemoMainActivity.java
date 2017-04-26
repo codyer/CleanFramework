@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cody.app.R;
+import com.cody.app.business.binding.BannerActivity;
 import com.cody.app.business.binding.CaseActivity;
 import com.cody.app.business.binding.ImageViewActivity;
 import com.cody.app.business.hybrid.HtmlActivity;
@@ -37,10 +38,12 @@ public class DemoMainActivity extends BaseActivity {
         ItemBean item1 = new ItemBean("Binding调用", "演示Binding调用", CaseActivity.class);
         ItemBean item2 = new ItemBean("Https调用", "演示Https调用", ImageViewActivity.class);
         ItemBean item3 = new ItemBean("HTMLActivity调用", "演示HTMLActivity调用", com.cody.app.framework.activity.HtmlActivity.class);
+        ItemBean item4 = new ItemBean("Banner调用", "演示Banner调用", BannerActivity.class);
         mDemoList.add(item);
         mDemoList.add(item1);
         mDemoList.add(item2);
         mDemoList.add(item3);
+        mDemoList.add(item4);
 
         recyclerView.setAdapter(new DemoRecycleViewAdapter(this, mDemoList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

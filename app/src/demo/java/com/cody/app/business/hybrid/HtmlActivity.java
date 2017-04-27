@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.RelativeLayout;
 
 import com.cody.app.R;
 import com.cody.repository.framework.Repository;
@@ -15,12 +17,18 @@ import com.cody.xf.hybrid.JsBridge;
 public class HtmlActivity extends AppCompatActivity {
 
     private WebView mWebView;
+    private RelativeLayout webViewContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hybrid_html);
-        mWebView = (WebView) findViewById(R.id.webview);
+        webViewContainer = (RelativeLayout) findViewById(R.id.webViewContainer);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        mWebView = new WebView(getApplicationContext());
+        mWebView.setLayoutParams(params);
+        webViewContainer.addView(mWebView);
 
         String url = "file:///android_asset/hybrid_demo.html";
         JsBridge.getInstance()

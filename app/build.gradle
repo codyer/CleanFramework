@@ -80,9 +80,21 @@ android {
             signingConfig signingConfigs.DefaultConfig
         }
 
-        demo { initWith(debug) }
-        uat { initWith(debug) }
-        stg { initWith(release) }
+        demo {
+            initWith(debug)
+            // 为包名添加后缀，使调试与正式包可以并存
+            applicationIdSuffix ".demo"
+        }
+        uat {
+            initWith(debug)
+            // 为包名添加后缀，使调试与正式包可以并存
+            applicationIdSuffix ".uat"
+        }
+        stg {
+            initWith(release)
+            // 为包名添加后缀，使调试与正式包可以并存
+            applicationIdSuffix ".stg"
+        }
     }
 
     buildTypes.all { type ->
@@ -138,12 +150,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    debugCompile project(path: ':xfoundation', configuration: 'debug')
-    releaseCompile project(path: ':xfoundation', configuration: 'release')
-    demoCompile project(path: ':xfoundation', configuration: 'debug')
-    uatCompile project(path: ':xfoundation', configuration: 'debug')
-    stgCompile project(path: ':xfoundation', configuration: 'release')
 
     debugCompile project(path: ':handler', configuration: 'debug')
     releaseCompile project(path: ':handler', configuration: 'release')

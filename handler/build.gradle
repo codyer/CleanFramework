@@ -65,12 +65,6 @@ configurations {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    debugCompile project(path: ':xfoundation', configuration: 'debug')
-    releaseCompile project(path: ':xfoundation', configuration: 'release')
-    demoCompile project(path: ':xfoundation', configuration: 'debug')
-    uatCompile project(path: ':xfoundation', configuration: 'debug')
-    stgCompile project(path: ':xfoundation', configuration: 'release')
-
     debugCompile project(path: ':repository', configuration: 'debug')
     releaseCompile project(path: ':repository', configuration: 'release')
     demoCompile project(path: ':repository', configuration: 'demo')

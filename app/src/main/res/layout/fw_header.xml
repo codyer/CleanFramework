@@ -24,13 +24,13 @@
         <TextView
             android:id="@+id/headerText"
             style="@style/headerStyle"
-            android:onClick="@{onClickListener.onClick}"
+            android:onClick="@{onClickListener::onClick}"
             android:text="@{viewModel.title}"/>
 
         <ImageView
             android:id="@+id/headerLeftBtn"
             style="@style/headerButtonStyle"
-            android:onClick="@{onClickListener.onClick}"
+            android:onClick="@{onClickListener::onClick}"
             android:src="@{viewModel.leftResId}"
             android:visibility="@{viewModel.left?View.VISIBLE:View.INVISIBLE}"/>
 
@@ -38,7 +38,7 @@
             android:id="@+id/headerRightBtn"
             style="@style/headerButtonStyle"
             android:layout_gravity="end"
-            android:onClick="@{onClickListener.onClick}"
+            android:onClick="@{onClickListener::onClick}"
             android:src="@{viewModel.rightResId}"
             android:visibility="@{viewModel.right?View.VISIBLE:View.INVISIBLE}"/>
 
@@ -46,7 +46,7 @@
             android:id="@+id/headerRightText"
             style="@style/headerButtonStyle"
             android:layout_gravity="end"
-            android:onClick="@{onClickListener.onClick}"
+            android:onClick="@{onClickListener::onClick}"
             android:text="@{viewModel.rightText}"
             android:textColor="@color/main_blue"
             android:textSize="@dimen/font_size_30"
@@ -56,7 +56,7 @@
             android:id="@+id/headerRightTextAndDrawable"
             style="@style/headerButtonStyle"
             android:layout_gravity="end"
-            android:onClick="@{onClickListener.onClick}"
+            android:onClick="@{onClickListener::onClick}"
             android:text="@{viewModel.rightText}"
             android:drawableLeft="@drawable/xf_help_icon"
             android:drawablePadding="@dimen/padding_10dp"

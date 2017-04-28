@@ -2,10 +2,21 @@
 <resources>
 
     <array name="fragments_main_tab">
+        <item>任务</item>
+        <item>工地</item>
         <item>个人</item>
-        <item>个人</item>
-        <item>个人</item>
-        <item>个人</item>
+    </array>
+
+    <!-- 任务 -->
+    <array name="task_tab">
+        <item>今日@tag@0</item>
+        <item>本周@tag@1</item>
+    </array>
+
+    <!-- 工地 -->
+    <array name="work_site_tab">
+        <item>进行中@tag@0</item>
+        <item>竣工@tag@1</item>
     </array>
 
 </resources>

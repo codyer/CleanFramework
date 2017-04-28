@@ -23,7 +23,7 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
         AbsListViewModel extends ListViewModel<ItemViewModel>,
         ItemViewModel extends ViewModel,
         B extends ViewDataBinding>
-        extends BaseLazyFragment<P, AbsListViewModel, B>
+        extends BaseBindingFragment<P, AbsListViewModel, B>
         implements BaseRecycleViewAdapter.OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;

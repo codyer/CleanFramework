@@ -21,7 +21,6 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 public abstract class ListFragment<P extends ListPresenter<ItemViewModel>, ItemViewModel extends
         ViewModel> extends AbsListFragment<P, ListViewModel<ItemViewModel>, ItemViewModel, ListBinding> {
 
-
     @Override
     protected ListViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
         return new ListViewModel<>();

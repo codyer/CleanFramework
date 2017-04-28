@@ -1,6 +1,5 @@
 package com.cody.handler.framework.presenter;
 
-import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
 import com.cody.handler.framework.viewmodel.ListViewModel;
@@ -36,7 +35,7 @@ public abstract class AbsListPresenter<AbsListViewModel extends ListViewModel<It
         if (getViewModel() != null) {
             getViewModel().setRefresh(true);
         }
-        getRecycleList(tag, new HashMap<String, String>());
+        getDefaultRecycleList(tag, new HashMap<String, String>());
     }
 
     /**
@@ -48,7 +47,7 @@ public abstract class AbsListPresenter<AbsListViewModel extends ListViewModel<It
         if (getViewModel() != null) {
             getViewModel().setRefresh(false);
         }
-        getRecycleList(tag, new HashMap<String, String>());
+        getDefaultRecycleList(tag, new HashMap<String, String>());
     }
 
     /**
@@ -59,9 +58,11 @@ public abstract class AbsListPresenter<AbsListViewModel extends ListViewModel<It
      *               page:1
      *               pageSize:20
      */
-    @CallSuper
-    public void getRecycleList(Object tag, @NonNull Map<String, String> params) {
+    public void getDefaultRecycleList(Object tag, @NonNull Map<String, String> params) {
         params.put("pageNo", getViewModel().getPageNO() + "");
         params.put("pageSize", getViewModel().getPageSize() + "");
+        getRecycleList(tag, params);
     }
+
+    public abstract void getRecycleList(Object tag, @NonNull Map<String, String> params);
 }

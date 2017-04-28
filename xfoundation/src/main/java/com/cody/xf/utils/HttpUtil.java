@@ -59,7 +59,7 @@ public class HttpUtil {
                                    Map<String, String> token,
                                    Class<T> clazz,
                                    final Callback<T> callback) {
-        HttpUtil.getData(tag, method, url,token, null, null, clazz, null, callback);
+        HttpUtil.getData(tag, method, url, token, null, null, clazz, null, callback);
     }
 
     /**
@@ -79,7 +79,7 @@ public class HttpUtil {
                                    Map<String, String> params,
                                    Class<T> clazz,
                                    final Callback<T> callback) {
-        HttpUtil.getData(tag, method, url,token, params, null, clazz, null, callback);
+        HttpUtil.getData(tag, method, url, token, params, null, clazz, null, callback);
     }
 
     /**
@@ -101,7 +101,7 @@ public class HttpUtil {
                                  Class<T> clazz,
                                  HeaderListener headerListener,
                                  final Callback<T> callback) {
-        HttpUtil.getData(tag, method, url,token, params, null, clazz, headerListener, callback);
+        HttpUtil.getData(tag, method, url, token, params, null, clazz, headerListener, callback);
     }
 
     /**
@@ -121,7 +121,7 @@ public class HttpUtil {
                                    JsonObject jsonParams,
                                    Class<T> clazz,
                                    final Callback<T> callback) {
-        HttpUtil.getData(tag, method, url,token, null, jsonParams, clazz, null, callback);
+        HttpUtil.getData(tag, method, url, token, null, jsonParams, clazz, null, callback);
     }
 
     /**
@@ -144,7 +144,7 @@ public class HttpUtil {
                                    HeaderListener headerListener,
                                    final Callback<T> callback) {
         Type type = CommonUtil.getType(Result.class, clazz);
-        doNormalRequest(tag, method, url,token, params, jsonParams, type, headerListener, callback);
+        doNormalRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
     }
 
     /**
@@ -163,7 +163,7 @@ public class HttpUtil {
                                        Map<String, String> token,
                                        Class<T> clazz,
                                        final Callback<List<T>> callback) {
-        HttpUtil.getListData(tag, method, url,token, null, null, clazz, callback);
+        HttpUtil.getListData(tag, method, url, token, null, null, clazz, callback);
     }
 
     /**
@@ -183,7 +183,7 @@ public class HttpUtil {
                                        Map<String, String> params,
                                        Class<T> clazz,
                                        final Callback<List<T>> callback) {
-        HttpUtil.getListData(tag, method, url,token, params, null, clazz, callback);
+        HttpUtil.getListData(tag, method, url, token, params, null, clazz, callback);
     }
 
     /**
@@ -204,7 +204,7 @@ public class HttpUtil {
                                        JsonObject jsonParams,
                                        Class<T> clazz,
                                        final Callback<List<T>> callback) {
-        HttpUtil.getListData(tag, method, url,token, null, jsonParams, clazz, callback);
+        HttpUtil.getListData(tag, method, url, token, null, jsonParams, clazz, callback);
     }
 
     /**
@@ -226,7 +226,7 @@ public class HttpUtil {
                                        JsonObject jsonParams,
                                        Class<T> clazz,
                                        final Callback<List<T>> callback) {
-        HttpUtil.getListData(tag, method, url,token, params, jsonParams, clazz, null, callback);
+        HttpUtil.getListData(tag, method, url, token, params, jsonParams, clazz, null, callback);
     }
 
     /**
@@ -250,7 +250,7 @@ public class HttpUtil {
                                        final Callback<List<T>> callback) {
         //解析Type
         Type type = CommonUtil.getType(Result.class, CommonUtil.getType(List.class, clazz));
-        doNormalRequest(tag, method, url,token, params, jsonParams, type, headerListener, callback);
+        doNormalRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
     }
 
     /**
@@ -266,7 +266,7 @@ public class HttpUtil {
                                  String url,
                                  Map<String, String> token,
                                  final Callback<SimpleBean> callback) {
-        HttpUtil.getResult(tag, method, url,token, null, null, null, callback);
+        HttpUtil.getResult(tag, method, url, token, null, null, null, callback);
     }
 
     /**
@@ -285,7 +285,7 @@ public class HttpUtil {
                                  Map<String, String> token,
                                  Map<String, String> params,
                                  final Callback<SimpleBean> callback) {
-        HttpUtil.getResult(tag, method, url,token, params, null, null, callback);
+        HttpUtil.getResult(tag, method, url, token, params, null, null, callback);
     }
 
     /**
@@ -304,7 +304,7 @@ public class HttpUtil {
                                  Map<String, String> token,
                                  JsonObject jsonParams,
                                  final Callback<SimpleBean> callback) {
-        HttpUtil.getResult(tag, method, url,token, null, jsonParams, null, callback);
+        HttpUtil.getResult(tag, method, url, token, null, jsonParams, null, callback);
     }
 
     /**
@@ -324,7 +324,7 @@ public class HttpUtil {
                                  JsonObject jsonParams,
                                  HeaderListener headerListener,
                                  final Callback<SimpleBean> callback) {
-        doSimpleBeanRequest(tag, method, url,token, params, jsonParams, headerListener, callback);
+        doSimpleBeanRequest(tag, method, url, token, params, jsonParams, headerListener, callback);
     }
 
     /**
@@ -346,7 +346,7 @@ public class HttpUtil {
                                              HeaderListener headerListener,
                                              final Callback<T> callback) {
         Type type = CommonUtil.getType(clazz);
-        doOriginalBeanRequest(tag, method, url,token, params, jsonParams, type, headerListener, callback);
+        doOriginalBeanRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
     }
 
     /**
@@ -387,14 +387,14 @@ public class HttpUtil {
      * 上传图片 base64
      */
     @SuppressWarnings("unused")
-    public static void uploadImage(Object tag,
-                                   String url,
-                                   String imageName,
-                                   Bitmap bitmap,
-                                   Map<String, String> token,
-                                   Map<String, String> params,
-                                   final Callback<SimpleBean> callback) {
-        doUploadImage(tag, url, imageName, bitmap,token, params, callback);
+    public static void uploadImageBase64(Object tag,
+                                         String url,
+                                         String imageName,
+                                         Bitmap bitmap,
+                                         Map<String, String> token,
+                                         Map<String, String> params,
+                                         final Callback<SimpleBean> callback) {
+        doUploadImageBase64(tag, url, imageName, bitmap, token, params, callback);
     }
 
     /**
@@ -403,7 +403,7 @@ public class HttpUtil {
     @SuppressWarnings("unused")
     public static <T> void uploadImageMultipart(Object tag,
                                                 String url,
-                                                String imageName,
+                                                String name,
                                                 Bitmap bitmap,
                                                 Map<String, String> token,
                                                 Map<String, String> params,
@@ -412,39 +412,39 @@ public class HttpUtil {
         List<Bitmap> bitmapList = new ArrayList<>();
         bitmapList.add(bitmap);
         Type type = CommonUtil.getType(Result.class, clazz);
-        doUploadImageMultipart(tag, url, imageName, bitmapList,token, params, type, callback);
+        doUploadImageMultipart(tag, url, name, bitmapList, token, params, type, callback);
     }
 
     /**
-     * 上传图片 表单 multipart  多张图片上传
+     * 上传图片 表单 multipart  多张图片上传，成功后返回图片地址列表
      */
     @SuppressWarnings("unused")
-    public static <T> void uploadImageListMultipart(Object tag,
-                                                    String url,
-                                                    String imageName,
-                                                    List<Bitmap> bitmapList,
-                                                    Map<String, String> token,
-                                                    Map<String, String> params,
-                                                    Class<T> clazz,
-                                                    final Callback<List<T>> callback) {
+    public static <T> void uploadImagesWithUrlsMultipart(Object tag,
+                                                         String url,
+                                                         String name,
+                                                         List<Bitmap> bitmapList,
+                                                         Map<String, String> token,
+                                                         Map<String, String> params,
+                                                         Class<T> clazz,
+                                                         final Callback<List<T>> callback) {
         Type type = CommonUtil.getType(Result.class, CommonUtil.getType(List.class, clazz));
-        doUploadImageMultipart(tag, url, imageName, bitmapList,token, params, type, callback);
+        doUploadImageMultipart(tag, url, name, bitmapList, token, params, type, callback);
     }
 
     /**
-     * 上传图片 表单 multipart
+     * 上传图片 表单 multipart 多张图片上传，成功后返回其他信息
      */
     @SuppressWarnings("unused")
-    public static <T> void uploadImageMultipart(Object tag,
+    public static <T> void uploadImagesMultipart(Object tag,
                                                 String url,
-                                                String imageName,
-                                                List<Bitmap> bitmapList,
+                                                String name,
+                                                List<Bitmap> bitmaps,
                                                 Map<String, String> token,
                                                 Map<String, String> params,
                                                 Class<T> clazz,
                                                 final Callback<T> callback) {
         Type type = CommonUtil.getType(Result.class, clazz);
-        doUploadImageMultipart(tag, url, imageName, bitmapList,token, params, type, callback);
+        doUploadImageMultipart(tag, url, name, bitmaps, token, params, type, callback);
     }
 
     /**
@@ -486,7 +486,7 @@ public class HttpUtil {
     @SuppressWarnings("unused")
     private static <T> void doUploadImageMultipart(Object tag,
                                                    String url,
-                                                   String imageName,
+                                                   String name,
                                                    List<Bitmap> bitmapList,
                                                    Map<String, String> token,
                                                    Map<String, String> params,
@@ -507,7 +507,7 @@ public class HttpUtil {
 
         HttpRequestFactory.getInstance().createMultipartRequest(tag,
                 url,
-                imageName,
+                name,
                 bitmapList,
                 token,
                 params,
@@ -520,13 +520,13 @@ public class HttpUtil {
      * 上传图片 base64
      */
     @SuppressWarnings("unused")
-    private static void doUploadImage(Object tag,
-                                      String url,
-                                      String imageName,
-                                      Bitmap bitmap,
-                                      Map<String, String> token,
-                                      Map<String, String> params,
-                                      final Callback<SimpleBean> callback) {
+    private static void doUploadImageBase64(Object tag,
+                                            String url,
+                                            String imageName,
+                                            Bitmap bitmap,
+                                            Map<String, String> token,
+                                            Map<String, String> params,
+                                            final Callback<SimpleBean> callback) {
         //检查参数
         if (checkParameters(tag, url, callback)) {
             return;

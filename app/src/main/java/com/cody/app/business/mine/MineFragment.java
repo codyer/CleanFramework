@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.app.R;
-import com.cody.app.framework.fragment.BaseFragment;
+import com.cody.app.framework.fragment.BaseLazyFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseLazyFragment {
 
 
     public MineFragment() {

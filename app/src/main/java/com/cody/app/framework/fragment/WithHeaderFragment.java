@@ -21,7 +21,7 @@ import com.cody.handler.framework.presenter.Presenter;
  * A simple {@link Fragment} subclass.
  */
 public abstract class WithHeaderFragment<P extends Presenter<VM>, VM extends WithHeaderViewModel, B extends
-        ViewDataBinding> extends BaseLazyFragment<P, VM, B> {
+        ViewDataBinding> extends BaseBindingFragment<P, VM, B> {
 
     /**
      * 创建标题

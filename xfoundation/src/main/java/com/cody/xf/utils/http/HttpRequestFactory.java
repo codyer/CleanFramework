@@ -118,7 +118,7 @@ public class HttpRequestFactory {
      */
     public <T> Request<T> createMultipartRequest(Object tag,
                                                  String url,
-                                                 String inputName,
+                                                 String name,
                                                  List<Bitmap> bitmapList,
                                                  Map<String, String> headers,
                                                  Map<String, String> params,
@@ -128,7 +128,7 @@ public class HttpRequestFactory {
         Map<String, DataPart> byteData = new HashMap<>();
         for (int i = 0; i < bitmapList.size(); i++) {
             String fileName = new Date(System.currentTimeMillis()).getTime() + "_" + i + ".jpg";
-            byteData.put(fileName, new DataPart(inputName, fileName, ImageUtil.getFileDataFromBitmap(bitmapList.get(i)),
+            byteData.put(fileName, new DataPart(name, fileName, ImageUtil.getFileDataFromBitmap(bitmapList.get(i)),
                     "image/jpeg"));
         }
         MultipartRequest<T> multipartRequest = new MultipartRequest<>(url, headers, params, byteData, type, listener, errorListener);

@@ -28,7 +28,7 @@ import com.cody.handler.framework.viewmodel.ViewModel;
 public abstract class BaseBindingFragment<P extends Presenter<VM>,
         VM extends ViewModel,
         B extends ViewDataBinding>
-        extends BaseFragment
+        extends BaseLazyFragment
         implements View.OnClickListener, IDataBinding<P, VM, B> {
 
     private P mPresenter;

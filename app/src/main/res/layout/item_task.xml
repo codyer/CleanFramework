@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2017/4/21.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.TaskViewModel"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/line_gray"
+        android:gravity="center">
+
+        <TextView
+            style="@style/infoStyle"
+            android:layout_margin="@dimen/margin_10dp"
+            android:background="@android:color/transparent"
+            android:text="@{viewModel.id}"/>
+
+    </RelativeLayout>
+
+</layout>

@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.cody.app.R;
 import com.cody.app.business.mine.MineFragment;
+import com.cody.app.business.task.TaskFragment;
+import com.cody.app.business.worksite.WorkSiteFragment;
 import com.cody.app.databinding.ActivityMainPageBinding;
 import com.cody.app.framework.activity.BaseBindingActivity;
 import com.cody.handler.business.presenter.MainPagePresenter;
@@ -31,7 +33,6 @@ public class MainPageActivity extends BaseBindingActivity<MainPagePresenter,
 
     private static final int REQUEST_PERMISSION = 0X1;
     private static Boolean isExit = false;
-    private FragmentTabHost fragmentTabHost;
 
     /**
      * 获取对应的icons
@@ -40,12 +41,10 @@ public class MainPageActivity extends BaseBindingActivity<MainPagePresenter,
             R.drawable.item_main_tab_mine_ico_selector,
             R.drawable.item_main_tab_mine_ico_selector,
             R.drawable.item_main_tab_mine_ico_selector,
-            R.drawable.item_main_tab_mine_ico_selector,
     };
     private final static Class[] fragments = new Class[]{
-            MineFragment.class,
-            MineFragment.class,//无tab
-            MineFragment.class,
+            TaskFragment.class,//无tab
+            WorkSiteFragment.class,
             MineFragment.class,
     };
     /**
@@ -88,7 +87,7 @@ public class MainPageActivity extends BaseBindingActivity<MainPagePresenter,
     //初始化主页选项卡视图
     private void initTabHost() {
         //实例化FragmentTabHost对象
-        fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        FragmentTabHost fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         //去掉分割线
@@ -115,7 +114,6 @@ public class MainPageActivity extends BaseBindingActivity<MainPagePresenter,
         LogUtil.d("tag", tabId + "");
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[]
             grantResults) {

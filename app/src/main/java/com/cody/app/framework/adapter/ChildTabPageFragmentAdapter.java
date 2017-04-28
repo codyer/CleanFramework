@@ -41,9 +41,7 @@ public class ChildTabPageFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public android.support.v4.app.Fragment getItem(int position) {
-        String[] title = mTitles.get(position).split(TAB_TAG);
-        Fragment fragment = mFragments.get(position);
-        return fragment;
+        return mFragments.get(position);
     }
 
     @Override

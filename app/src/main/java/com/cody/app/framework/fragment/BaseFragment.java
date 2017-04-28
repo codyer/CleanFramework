@@ -33,20 +33,23 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
         TAG = this.getClass().getSimpleName();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
-            savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         mLoading = new ProgressDialog(getActivity());
         mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mLoading.setCanceledOnTouchOutside(false);
         mLoading.setCancelable(true);
         mLoading.setMessage(getString(R.string.xf_load_more_text));
         mLoading.setOnCancelListener(this);
-        return view;
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
     public void onAttach(Context context) {

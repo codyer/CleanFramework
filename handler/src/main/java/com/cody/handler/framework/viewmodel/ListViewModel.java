@@ -136,6 +136,10 @@ public class ListViewModel<ItemViewModel extends ViewModel> extends ViewModel {
         }
     }
 
+    public void add(ItemViewModel item) {
+        mItemViewModels.add(item);
+    }
+
     public int size() {
         return mItemViewModels.size();
     }

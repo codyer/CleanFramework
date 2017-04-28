@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.cody.repository.framework.interaction.CallAdapter;
 import com.cody.repository.framework.interaction.InteractionProxy;
+import com.cody.repository.framework.interaction.common.UploadInteraction;
 import com.cody.repository.framework.local.LocalProfile;
 import com.cody.xf.utils.StringUtil;
 
@@ -24,6 +25,13 @@ public class Repository {
     private final Map<String, Boolean> mLocalBooleanCache = new ConcurrentHashMap<>();
     private final Map<String, Float> mLocalFloatCache = new ConcurrentHashMap<>();
     private final Map<String, Map<String, String>> mLocalMapCache = new ConcurrentHashMap<>();
+
+    /**
+     * 获取上传图片Interaction
+     */
+    public static UploadInteraction getUploadInteraction() {
+        return new UploadInteraction();
+    }
 
     private Repository(LocalProfile profile) {
         mProfile = profile;
@@ -53,6 +61,10 @@ public class Repository {
         } else {
             throw new NullPointerException("context is invalid when call Repository.install.");
         }
+    }
+
+    public static UploadInteraction getInteraction() {
+            return new UploadInteraction();
     }
 
     public static <T> T getInteraction(final Class<T> clazz) {

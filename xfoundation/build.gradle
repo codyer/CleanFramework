@@ -63,6 +63,7 @@ dependencies {
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["httpcore"]
     compile rootProject.ext.dependencies["multidex"]
+    compile rootProject.ext.dependencies["imagepicker"]
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
     testCompile rootProject.ext.dependencies["leakcanary-android-no-op"]

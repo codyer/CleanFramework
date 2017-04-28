@@ -5,6 +5,7 @@
 package com.cody.app.framework.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -16,8 +17,8 @@ import android.view.ViewGroup;
 import com.cody.app.R;
 import com.cody.app.databinding.FwFragmentTabViewBinding;
 import com.cody.app.framework.adapter.ChildTabPageFragmentAdapter;
-import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -84,6 +85,7 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
         getBinding().viewPager.setOffscreenPageLimit(titles.length);
     }
 
+    @ArrayRes
     protected abstract int getChildTabTitles();
 
     protected abstract List<Fragment> getFragments();

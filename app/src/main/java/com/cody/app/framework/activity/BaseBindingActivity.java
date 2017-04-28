@@ -94,14 +94,18 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     @Override
     public void onUpdate(Object... args) {
         super.onUpdate(args);
-        getBinding().setVariable(BR.viewModel, getViewModel());
+        if (mBinding != null && mViewModel != null){
+            mBinding.setVariable(BR.viewModel, mViewModel);
+        }
     }
 
     @CallSuper
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        getPresenter().cancel(TAG);
+        if (mPresenter != null){
+            mPresenter.cancel(TAG);
+        }
     }
 
     @Override

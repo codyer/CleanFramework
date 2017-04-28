@@ -114,22 +114,36 @@ class InteractionMethod {
                     if (methodParameterAnnotation instanceof QueryTag) {
                         mTag = args[i];
                     } else if (methodParameterAnnotation instanceof QueryMap) {
-                        mParams = (Map<String, String>) args[i];
+                        if (args[i] instanceof Map) {
+                            mParams = (Map<String, String>) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryMap params !");
+                        }
                     } else if (methodParameterAnnotation instanceof QueryJson) {
-                        mJsonObject = (JsonObject) args[i];
+                        if (args[i] instanceof JsonObject) {
+                            mJsonObject = (JsonObject) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryJson params !");
+                        }
                     } else if (methodParameterAnnotation instanceof QueryClass) {
-                        mClazz = (Class<?>) args[i];
+                        if (args[i] instanceof Class) {
+                            mClazz = (Class<?>) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryClass params !");
+                        }
                     } else if (methodParameterAnnotation instanceof QueryCallBack) {
                         if (args[i] instanceof ICallback) {
                             mCallback = (ICallback<Object>) args[i];
                         } else if (args[i] instanceof HeaderListener) {
                             mHeaderListener = (HeaderListener) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryCallBack params !");
                         }
                     } else if (methodParameterAnnotation instanceof QueryHeaderListener) {
                         if (args[i] instanceof HeaderListener) {
                             mHeaderListener = (HeaderListener) args[i];
                         } else {
-                            throw parameterError(i, "parseParameterAnnotation", "err", "you should use Query*** !");
+                            throw parameterError(i, "parseParameterAnnotation", "err", "you should use HeaderListener !");
                         }
                     } else if (methodParameterAnnotation instanceof QueryString) {
                         if (mParams == null) {

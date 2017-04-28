@@ -59,38 +59,21 @@ public class ImageUtil {
         return byteArrayOutputStream.toByteArray();
     }
 
-
-    public static Bitmap compressBySize(String pathName) {
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        opts.inJustDecodeBounds = true;// 不去真的解析图片，只是获取图片的头部信息，包含宽高等；
-        Bitmap bitmap = BitmapFactory.decodeFile(pathName, opts);
-        // 得到图片的宽度、高度；
-        int imgWidth = opts.outWidth;
-        int imgHeight = opts.outHeight;
-        // 分别计算图片宽度、高度与目标宽度、高度的比例；取大于等于该比例的最小整数；
-        int widthRatio = (int) Math.ceil(imgWidth / (float) 500);
-        int heightRatio = (int) Math.ceil(imgHeight / (float) 500);
-        if (widthRatio > 1 || heightRatio > 1) {
-            if (widthRatio > heightRatio) {
-                opts.inSampleSize = widthRatio;
-            } else {
-                opts.inSampleSize = heightRatio;
-            }
-        }
-        // 设置好缩放比例后，加载图片进内容；
-        opts.inJustDecodeBounds = false;
-        bitmap = BitmapFactory.decodeFile(pathName, opts);
-        return bitmap;
+    public static byte[] getFileDataFromPath(String filePath,int reqWidth, int reqHeight) {
+        Bitmap bitmap = getBitmap(filePath,reqWidth,reqHeight);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 
     // 根据路径获得图片并压缩，返回bitmap用于显示
-    public static Bitmap getSmallBitmap(String filePath) {
+    public static Bitmap getBitmap(String filePath,int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, options);
 
         // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, 480, 800);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;

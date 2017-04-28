@@ -77,11 +77,10 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
         if (mBinding != null && mViewModel != null) {
             mBinding.setVariable(BR.viewModel, mViewModel);
             mBinding.setVariable(BR.onClickListener, this);
-        } else {
-            return inflater.inflate(getLayoutID(), container, false);
+            return mBinding.getRoot();
         }
 
-        return getBinding().getRoot();
+        return inflater.inflate(getLayoutID(), container, false);
     }
 
     @Override
@@ -124,22 +123,18 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     @Override
     public void onUpdate(Object... args) {
         super.onUpdate(args);
-        getBinding().setVariable(BR.viewModel, getViewModel());
+        if (mBinding != null && mViewModel != null) {
+            mBinding.setVariable(BR.viewModel, mViewModel);
+        }
     }
 
     @CallSuper
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        getPresenter().cancel(TAG);
-    }
-
-    @Override
-    public P getPresenter() {
-        if (this.mPresenter == null) {
-            throw new NullPointerException("You should createPresenter first!");
+        if (mPresenter != null) {
+            mPresenter.cancel(TAG);
         }
-        return mPresenter;
     }
 
     @Override
@@ -156,6 +151,14 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
             throw new NullPointerException("You should setBinding first!");
         }
         return mBinding;
+    }
+
+    @Override
+    public P getPresenter() {
+        if (this.mPresenter == null) {
+            throw new NullPointerException("You should createPresenter first!");
+        }
+        return mPresenter;
     }
 
     /**

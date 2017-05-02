@@ -58,10 +58,10 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         /**
          * 绑定view
          */
@@ -98,16 +98,6 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
             mPresenter.detachView();
         }
         super.onDetach();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override

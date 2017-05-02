@@ -33,22 +33,13 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
         TAG = this.getClass().getSimpleName();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mLoading = new ProgressDialog(getActivity());
-        mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mLoading.setCanceledOnTouchOutside(false);
-        mLoading.setCancelable(true);
-        mLoading.setMessage(getString(R.string.xf_load_more_text));
-        mLoading.setOnCancelListener(this);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        initLoading();
+        return view;
     }
 
     @Override
@@ -117,5 +108,16 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
     public void onCancel(DialogInterface dialog) {
         this.hideLoading();
         LogUtil.d(TAG, "BaseFragment ++ showError");
+    }
+
+    private void initLoading() {
+        if (mLoading == null) {
+            mLoading = new ProgressDialog(getActivity());
+            mLoading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mLoading.setCanceledOnTouchOutside(false);
+            mLoading.setCancelable(true);
+            mLoading.setMessage(getString(R.string.xf_load_more_text));
+            mLoading.setOnCancelListener(this);
+        }
     }
 }

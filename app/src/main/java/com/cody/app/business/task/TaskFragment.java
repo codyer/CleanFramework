@@ -38,8 +38,8 @@ public class TaskFragment extends WithChildTabPageAndHeaderFragment<DefaultWithH
     @Override
     protected List<Fragment> getFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new TaskWeekFragment());
         fragments.add(new TaskTodayFragment());
+        fragments.add(new TaskWeekFragment());
         return fragments;
     }
 

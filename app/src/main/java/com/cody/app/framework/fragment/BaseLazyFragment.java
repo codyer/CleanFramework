@@ -7,15 +7,16 @@ package com.cody.app.framework.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * 懒加载
  */
 public abstract class BaseLazyFragment extends BaseFragment {
 
-    private boolean isFirstResume = true;
     private boolean isFirstVisible = true;
-    private boolean isFirstInvisible = true;
     private boolean isPrepared = false;
 
     /**
@@ -30,21 +31,17 @@ public abstract class BaseLazyFragment extends BaseFragment {
     protected void onUserVisible() {
     }
 
-    /**
-     * when fragment is invisible for the first time
-     */
-    private void onFirstUserInvisible() {
-        // here we do not recommend do something
-    }
-
-    /**
-     * this method like the fragment's lifecycle method onPause()
-     */
-    protected void onUserInvisible() {
-    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
+            savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        isPrepared = true;
+        return view;
     }
 
     @Override
@@ -54,50 +51,26 @@ public abstract class BaseLazyFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (isFirstResume) {
-            isFirstResume = false;
-            return;
-        }
-        if (getUserVisibleHint()) {
-            onUserVisible();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (getUserVisibleHint()) {
-            onUserInvisible();
-        }
-    }
-
-    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && isPrepared) {
             if (isFirstVisible) {
                 isFirstVisible = false;
-                initPrepare();
+                onFirstUserVisible();
             } else {
                 onUserVisible();
-            }
-        } else {
-            if (isFirstInvisible) {
-                isFirstInvisible = false;
-                onFirstUserInvisible();
-            } else {
-                onUserInvisible();
             }
         }
     }
 
     private void initPrepare() {
-        if (isPrepared) {
-            onFirstUserVisible();
-        } else {
-            isPrepared = true;
+        if (getUserVisibleHint()) {
+            if (isFirstVisible) {
+                isFirstVisible = false;
+                onFirstUserVisible();
+            } else {
+                onUserVisible();
+            }
         }
     }
 }

@@ -2,29 +2,43 @@ package com.cody.app.business.mine;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cody.app.R;
-import com.cody.app.framework.fragment.BaseLazyFragment;
+import com.cody.app.databinding.FragmentMineBinding;
+import com.cody.app.framework.fragment.WithHeaderFragment;
+import com.cody.handler.framework.presenter.DefaultWithHeaderPresenter;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 个人
  */
-public class MineFragment extends BaseLazyFragment {
+public class MineFragment extends WithHeaderFragment<DefaultWithHeaderPresenter,WithHeaderViewModel,FragmentMineBinding> {
 
-
-    public MineFragment() {
-        // Required empty public constructor
+    @Override
+    protected void initHeader(HeaderViewModel header) {
+        header.setTitle("个人");
+        header.setVisible(true);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+    protected int getLayoutID() {
+        return R.layout.fragment_mine;
     }
 
+    @Override
+    protected DefaultWithHeaderPresenter buildPresenter() {
+        return new DefaultWithHeaderPresenter();
+    }
+
+    @Override
+    protected WithHeaderViewModel buildViewModel(Bundle savedInstanceState) {
+        return new WithHeaderViewModel();
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

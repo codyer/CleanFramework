@@ -33,11 +33,6 @@ public class TaskWeekFragment extends ListFragment<TaskPresenter, TaskViewModel>
     }
 
     @Override
-    public void onItemClick(RecyclerView parent, View view, int position, long id) {
-
-    }
-
-    @Override
     protected TaskPresenter buildPresenter() {
         return new TaskPresenter();
     }
@@ -49,6 +44,11 @@ public class TaskWeekFragment extends ListFragment<TaskPresenter, TaskViewModel>
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemClick(RecyclerView parent, View view, int position, long id) {
 
     }
 }

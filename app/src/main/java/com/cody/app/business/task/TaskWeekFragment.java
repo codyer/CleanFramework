@@ -1,7 +1,6 @@
 package com.cody.app.business.task;
 
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -10,7 +9,6 @@ import com.cody.app.framework.adapter.BaseRecycleViewAdapter;
 import com.cody.app.framework.fragment.ListFragment;
 import com.cody.handler.business.presenter.TaskPresenter;
 import com.cody.handler.business.viewmodel.TaskViewModel;
-import com.cody.handler.framework.viewmodel.ListWithHeaderViewModel;
 
 /**
  * 任务-本周
@@ -28,18 +26,8 @@ public class TaskWeekFragment extends ListFragment<TaskPresenter, TaskViewModel>
     }
 
     @Override
-    protected int getEmptyViewId() {
-        return R.layout.fw_empty_view;
-    }
-
-    @Override
     protected TaskPresenter buildPresenter() {
         return new TaskPresenter();
-    }
-
-    @Override
-    protected ListWithHeaderViewModel<TaskViewModel> buildViewModel(Bundle savedInstanceState) {
-        return new ListWithHeaderViewModel<>();
     }
 
     @Override

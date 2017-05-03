@@ -1,5 +1,4 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -24,59 +23,17 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <FrameLayout
-                style="@style/headerLayoutStyle"
-                app:layout_scrollFlags="scroll|enterAlways"
-                android:visibility="@{viewModel.headerViewModel.visible?View.VISIBLE:View.GONE}">
 
-                <TextView
-                    android:id="@+id/headerText"
-                    style="@style/headerStyle"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:text="@{viewModel.headerViewModel.title}"/>
-
-                <ImageView
-                    android:id="@+id/headerLeftBtn"
-                    style="@style/headerButtonStyle"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:src="@{viewModel.headerViewModel.leftResId}"
-                    android:visibility="@{viewModel.headerViewModel.left?View.VISIBLE:View.INVISIBLE}"/>
-
-                <ImageView
-                    android:id="@+id/headerRightBtn"
-                    style="@style/headerButtonStyle"
-                    android:layout_gravity="end"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:src="@{viewModel.headerViewModel.rightResId}"
-                    android:visibility="@{viewModel.headerViewModel.right?View.VISIBLE:View.INVISIBLE}"/>
-
-                <TextView
-                    android:id="@+id/headerRightText"
-                    style="@style/headerButtonStyle"
-                    android:layout_gravity="end"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:text="@{viewModel.headerViewModel.rightText}"
-                    android:textColor="@color/main_blue"
-                    android:textSize="@dimen/font_size_30"
-                    android:visibility="@{viewModel.headerViewModel.rightIsText?View.VISIBLE:View.INVISIBLE}"/>
-
-                <TextView
-                    android:id="@+id/headerRightTextAndDrawable"
-                    style="@style/headerButtonStyle"
-                    android:layout_gravity="end"
-                    android:onClick="@{onClickListener::onClick}"
-                    android:text="@{viewModel.headerViewModel.rightText}"
-                    android:drawableLeft="@drawable/xf_help_icon"
-                    android:drawablePadding="@dimen/padding_10dp"
-                    android:textColor="@color/main_blue"
-                    android:textSize="@dimen/font_size_30"
-                    android:visibility="@{viewModel.headerViewModel.rightIsTextAndDrawable?View.VISIBLE:View.INVISIBLE}"/>
-            </FrameLayout>
+            <include
+                android:id="@+id/fw_header"
+                layout="@layout/fw_header"
+                bind:onClickListener="@{onClickListener}"
+                bind:viewModel="@{viewModel.headerViewModel}"/>
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
-                app:layout_scrollFlags="scroll|enterAlways"
-                style="@style/tabLayoutStyle"/>
+                style="@style/tabLayoutStyle"
+                bind:layout_scrollFlags="scroll|enterAlways"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -84,7 +41,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            bind:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

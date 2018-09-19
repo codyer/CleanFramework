@@ -1,24 +1,21 @@
 package com.cody.xf.utils;
 
-/**
- * Created by cody.yi on 2016/7/18.
- * 网络请求工具
- */
-
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.JsonObject;
+import com.cody.xf.R;
 import com.cody.xf.XFoundation;
-import com.cody.xf.utils.http.HeaderListener;
 import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.HttpConnectException;
 import com.cody.xf.utils.http.HttpRequestFactory;
+import com.cody.xf.utils.http.IHeaderListener;
+import com.cody.xf.utils.http.OnUploadListener;
 import com.cody.xf.utils.http.Result;
 import com.cody.xf.utils.http.SimpleBean;
-import com.google.gson.JsonObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -27,18 +24,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Created by cody.yi on 2016/7/18.
+ * <p>
  * 管理所有数据，对应用提供一致的数据接口，隐藏数据来源
  * 内存、SD卡、网络
+ * 网络请求工具
  */
+@SuppressWarnings("unused")
 public class HttpUtil {
-    /**
-     * 调用方式
-     */
-    public interface Method {
-        int GET = 0;
-        int POST = 1;
-    }
-
     private HttpUtil() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("HttpUtil cannot be instantiated");
@@ -99,7 +92,7 @@ public class HttpUtil {
                                  Map<String, String> token,
                                  Map<String, String> params,
                                  Class<T> clazz,
-                                 HeaderListener headerListener,
+                                 IHeaderListener headerListener,
                                  final Callback<T> callback) {
         HttpUtil.getData(tag, method, url, token, params, null, clazz, headerListener, callback);
     }
@@ -141,7 +134,7 @@ public class HttpUtil {
                                    Map<String, String> params,
                                    JsonObject jsonParams,
                                    Class<T> clazz,
-                                   HeaderListener headerListener,
+                                   IHeaderListener headerListener,
                                    final Callback<T> callback) {
         Type type = CommonUtil.getType(Result.class, clazz);
         doNormalRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
@@ -156,7 +149,6 @@ public class HttpUtil {
      * @param clazz    请求返回解析的bean类
      * @param callback 请求回调
      */
-    @SuppressWarnings("unused")
     public static <T> void getListData(Object tag,
                                        int method,
                                        String url,
@@ -196,7 +188,6 @@ public class HttpUtil {
      * @param clazz      请求返回解析的bean类
      * @param callback   请求回调
      */
-    @SuppressWarnings("unused")
     public static <T> void getListData(Object tag,
                                        int method,
                                        String url,
@@ -217,7 +208,6 @@ public class HttpUtil {
      * @param clazz      请求返回解析的bean类
      * @param callback   请求回调
      */
-    @SuppressWarnings("unused")
     public static <T> void getListData(Object tag,
                                        int method,
                                        String url,
@@ -246,7 +236,7 @@ public class HttpUtil {
                                        Map<String, String> params,
                                        JsonObject jsonParams,
                                        Class<T> clazz,
-                                       HeaderListener headerListener,
+                                       IHeaderListener headerListener,
                                        final Callback<List<T>> callback) {
         //解析Type
         Type type = CommonUtil.getType(Result.class, CommonUtil.getType(List.class, clazz));
@@ -278,7 +268,6 @@ public class HttpUtil {
      * @param params   请求的参数
      * @param callback 请求回调
      */
-    @SuppressWarnings("unused")
     public static void getResult(Object tag,
                                  int method,
                                  String url,
@@ -297,7 +286,6 @@ public class HttpUtil {
      * @param jsonParams 请求的参数
      * @param callback   请求回调
      */
-    @SuppressWarnings("unused")
     public static void getResult(Object tag,
                                  int method,
                                  String url,
@@ -322,7 +310,7 @@ public class HttpUtil {
                                  Map<String, String> token,
                                  Map<String, String> params,
                                  JsonObject jsonParams,
-                                 HeaderListener headerListener,
+                                 IHeaderListener headerListener,
                                  final Callback<SimpleBean> callback) {
         doSimpleBeanRequest(tag, method, url, token, params, jsonParams, headerListener, callback);
     }
@@ -336,15 +324,15 @@ public class HttpUtil {
      * @param jsonParams json格式参数
      * @param callback   数据返回的回调
      */
-    public static <T> void getOriginalResult(Object tag,
-                                             int method,
-                                             String url,
-                                             Map<String, String> token,
-                                             Map<String, String> params,
-                                             JsonObject jsonParams,
-                                             Class<T> clazz,
-                                             HeaderListener headerListener,
-                                             final Callback<T> callback) {
+    public static void getOriginalResult(Object tag,
+                                         int method,
+                                         String url,
+                                         Map<String, String> token,
+                                         Map<String, String> params,
+                                         JsonObject jsonParams,
+                                         Class<JsonObject> clazz,
+                                         IHeaderListener headerListener,
+                                         final Callback<JsonObject> callback) {
         Type type = CommonUtil.getType(clazz);
         doOriginalBeanRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
     }
@@ -359,7 +347,6 @@ public class HttpUtil {
      * @param path        下载后存放的路径
      * @param fileName    下载后文件的名字，需要带文件格式后缀,如：filename.txt
      */
-    @SuppressWarnings("unused")
     public static long getFile(Object tag,
                                @NonNull String url,
                                @NonNull String description,
@@ -372,7 +359,6 @@ public class HttpUtil {
     /**
      * 获取图片
      */
-    @SuppressWarnings("unused")
     public static void getImage(Object tag,
                                 String url,
                                 int maxWidth,
@@ -386,7 +372,6 @@ public class HttpUtil {
     /**
      * 上传图片 base64
      */
-    @SuppressWarnings("unused")
     public static void uploadImageBase64(Object tag,
                                          String url,
                                          String imageName,
@@ -400,17 +385,16 @@ public class HttpUtil {
     /**
      * 上传图片 表单 multipart  单张图片上传
      */
-    @SuppressWarnings("unused")
     public static <T> void uploadImageMultipart(Object tag,
                                                 String url,
                                                 String name,
-                                                Bitmap bitmap,
+                                                String bitmapPath,
                                                 Map<String, String> token,
                                                 Map<String, String> params,
                                                 Class<T> clazz,
                                                 final Callback<T> callback) {
-        List<Bitmap> bitmapList = new ArrayList<>();
-        bitmapList.add(bitmap);
+        List<String> bitmapList = new ArrayList<>();
+        bitmapList.add(bitmapPath);
         Type type = CommonUtil.getType(Result.class, clazz);
         doUploadImageMultipart(tag, url, name, bitmapList, token, params, type, callback);
     }
@@ -418,31 +402,30 @@ public class HttpUtil {
     /**
      * 上传图片 表单 multipart  多张图片上传，成功后返回图片地址列表
      */
-    @SuppressWarnings("unused")
     public static <T> void uploadImagesWithUrlsMultipart(Object tag,
                                                          String url,
                                                          String name,
-                                                         List<Bitmap> bitmapList,
+                                                         List<String> bitmapList,
                                                          Map<String, String> token,
                                                          Map<String, String> params,
                                                          Class<T> clazz,
-                                                         final Callback<List<T>> callback) {
-        Type type = CommonUtil.getType(Result.class, CommonUtil.getType(List.class, clazz));
+                                                         final Callback<T> callback) {
+//        Type type = CommonUtil.getType(Result.class, CommonUtil.getType(List.class, clazz));
+        Type type = CommonUtil.getType(Result.class, clazz);
         doUploadImageMultipart(tag, url, name, bitmapList, token, params, type, callback);
     }
 
     /**
      * 上传图片 表单 multipart 多张图片上传，成功后返回其他信息
      */
-    @SuppressWarnings("unused")
     public static <T> void uploadImagesMultipart(Object tag,
-                                                String url,
-                                                String name,
-                                                List<Bitmap> bitmaps,
-                                                Map<String, String> token,
-                                                Map<String, String> params,
-                                                Class<T> clazz,
-                                                final Callback<T> callback) {
+                                                 String url,
+                                                 String name,
+                                                 List<String> bitmaps,
+                                                 Map<String, String> token,
+                                                 Map<String, String> params,
+                                                 Class<T> clazz,
+                                                 final Callback<T> callback) {
         Type type = CommonUtil.getType(Result.class, clazz);
         doUploadImageMultipart(tag, url, name, bitmaps, token, params, type, callback);
     }
@@ -450,7 +433,6 @@ public class HttpUtil {
     /**
      * 获取图片
      */
-    @SuppressWarnings("unused")
     private static void doGetImage(Object tag,
                                    String url,
                                    int maxWidth,
@@ -483,11 +465,10 @@ public class HttpUtil {
     /**
      * 上传图片 表单 multipart  多张图片上传
      */
-    @SuppressWarnings("unused")
     private static <T> void doUploadImageMultipart(Object tag,
                                                    String url,
                                                    String name,
-                                                   List<Bitmap> bitmapList,
+                                                   List<String> bitmapList,
                                                    Map<String, String> token,
                                                    Map<String, String> params,
                                                    Type type,
@@ -499,9 +480,9 @@ public class HttpUtil {
         //执行请求
         LogUtil.d("url = " + url);
         if (url.contains("{")) {
-            url = CommonUtil.reBuildRestFulUrl(url, params);
+            url = CommonUtil.buildRestFulPathUrl(url, params);
+            LogUtil.d("rebuild url = " + url);
         }
-        LogUtil.d("rebuild url = " + url);
 
         ResponseListener<T> listener = new ResponseListener<>(callback);
 
@@ -513,13 +494,13 @@ public class HttpUtil {
                 params,
                 type,
                 listener,
-                listener);
+                listener,
+                callback);
     }
 
     /**
      * 上传图片 base64
      */
-    @SuppressWarnings("unused")
     private static void doUploadImageBase64(Object tag,
                                             String url,
                                             String imageName,
@@ -537,8 +518,11 @@ public class HttpUtil {
 
         //加密，解密
 
-        //执行请求
-        LogUtil.d(url);
+        LogUtil.d("url = " + url);
+        if (url.contains("{")) {
+            url = CommonUtil.buildRestFulPathUrl(url, params);
+            LogUtil.d("rebuild url = " + url);
+        }
 
         Type type = CommonUtil.getType(SimpleBean.class);
         SimpleResponseListener listener = new SimpleResponseListener(callback);
@@ -585,16 +569,16 @@ public class HttpUtil {
      */
     private static <T> boolean checkParameters(Object tag, String url, Callback<T> callback) {
         if (tag == null || StringUtil.isEmpty(url) || callback == null) {
-            if (HttpCode.DEBUG) {
-                throw new HttpConnectException("请求参数错误！");
+            if (HttpCode.DEBUG || callback == null) {
+                throw new HttpConnectException(ResourceUtil.getString(R.string.xf_http_code_parameter_err));
             } else {
-                callback.onError(new SimpleBean(HttpCode.PARAMETER_ERROR, "请求参数错误！"));
+                callback.onError(new SimpleBean(HttpCode.PARAMETER_ERROR, ResourceUtil.getString(R.string.xf_http_code_parameter_err)));
                 return true;
             }
         }
         //检查网络情况
         if (NetworkUtil.isDisConnected(XFoundation.getContext())) {
-            callback.onFailure(new SimpleBean(HttpCode.NETWORK_DISCONNECTED, "无可用的网络连接,请修改网络连接属性！"));
+            callback.onError(new SimpleBean(HttpCode.NETWORK_DISCONNECTED, ResourceUtil.getString(R.string.xf_http_code_no_network_err)));
             return true;
         }
         return false;
@@ -612,7 +596,7 @@ public class HttpUtil {
                                             Map<String, String> params,
                                             JsonObject jsonParams,
                                             Type type,
-                                            HeaderListener headerListener,
+                                            IHeaderListener headerListener,
                                             @NonNull final Callback<T> callback) {
 
         if (checkParameters(tag, url, callback)) {
@@ -622,19 +606,25 @@ public class HttpUtil {
         //添加公用参数
         params = initParams(params);
 
-        //加密，解密
-
+        LogUtil.d("url = " + url);
+        if (url.contains("{")) {
+            url = CommonUtil.buildRestFulPathUrl(url, params);
+            LogUtil.d("rebuild url = " + url);
+        }
         //执行请求
         switch (method) {
             case Method.GET:
-                LogUtil.d(url);
                 //get请求重建url，拼接参数
-                url = CommonUtil.reBuildUrl(url, params);
-                LogUtil.d("reBuildUrl=" + url);
+                url = CommonUtil.buildPathUrl(url, params);
+                LogUtil.d("reBuild get Url=" + url);
                 break;
             case Method.POST:
-                LogUtil.d(url);
-                LogUtil.d("post params =" + params);
+                if (params != null) {
+                    LogUtil.d("post params =" + params);
+                }
+                if (jsonParams != null) {
+                    LogUtil.d("post jsonParams =" + jsonParams);
+                }
                 break;
         }
 
@@ -663,7 +653,7 @@ public class HttpUtil {
                                             Map<String, String> token,
                                             Map<String, String> params,
                                             JsonObject jsonParams,
-                                            HeaderListener headerListener,
+                                            IHeaderListener headerListener,
                                             @NonNull final Callback<SimpleBean> callback) {
         if (checkParameters(tag, url, callback)) {
             return;
@@ -671,19 +661,26 @@ public class HttpUtil {
         //添加公用参数
         params = initParams(params);
 
-        //加密，解密
+        LogUtil.d("url = " + url);
+        if (url.contains("{")) {
+            url = CommonUtil.buildRestFulPathUrl(url, params);
+            LogUtil.d("rebuild url = " + url);
+        }
 
         //执行请求
         switch (method) {
             case Method.GET:
-                LogUtil.d(url);
                 //get请求重建url，拼接参数
-                url = CommonUtil.reBuildUrl(url, params);
-                LogUtil.d("reBuildUrl=" + url);
+                url = CommonUtil.buildPathUrl(url, params);
+                LogUtil.d("reBuild get Url=" + url);
                 break;
             case Method.POST:
-                LogUtil.d(url);
-                LogUtil.d("post params =" + params);
+                if (params != null) {
+                    LogUtil.d("post params =" + params);
+                }
+                if (jsonParams != null) {
+                    LogUtil.d("post jsonParams =" + jsonParams);
+                }
                 break;
         }
 
@@ -702,34 +699,41 @@ public class HttpUtil {
                 listener);
     }
 
-    private static <T> void doOriginalBeanRequest(Object tag,
-                                                  int method,
-                                                  @NonNull String url,
-                                                  Map<String, String> token,
-                                                  Map<String, String> params,
-                                                  JsonObject jsonParams,
-                                                  Type type,
-                                                  HeaderListener headerListener,
-                                                  @NonNull final Callback<T> callback) {
+    private static void doOriginalBeanRequest(Object tag,
+                                              int method,
+                                              @NonNull String url,
+                                              Map<String, String> token,
+                                              Map<String, String> params,
+                                              JsonObject jsonParams,
+                                              Type type,
+                                              IHeaderListener headerListener,
+                                              @NonNull final Callback<JsonObject> callback) {
         if (checkParameters(tag, url, callback)) {
             return;
         }
         //添加公用参数
         params = initParams(params);
 
-        //加密，解密
+        LogUtil.d("url = " + url);
+        if (url.contains("{")) {
+            url = CommonUtil.buildRestFulPathUrl(url, params);
+            LogUtil.d("rebuild url = " + url);
+        }
 
         //执行请求
         switch (method) {
             case Method.GET:
-                LogUtil.d(url);
                 //get请求重建url，拼接参数
-                url = CommonUtil.reBuildUrl(url, params);
-                LogUtil.d("reBuildUrl=" + url);
+                url = CommonUtil.buildPathUrl(url, params);
+                LogUtil.d("reBuild get Url=" + url);
                 break;
             case Method.POST:
-                LogUtil.d(url);
-                LogUtil.d("post params =" + params);
+                if (params != null) {
+                    LogUtil.d("post params =" + params);
+                }
+                if (jsonParams != null) {
+                    LogUtil.d("post jsonParams =" + jsonParams);
+                }
                 break;
         }
 
@@ -747,12 +751,30 @@ public class HttpUtil {
                 listener);
     }
 
+    private static void parseVolleyError(Callback callback, VolleyError error) {
+        if (error == null) {
+            callback.onError(new SimpleBean(HttpCode.REQUEST_ERROR, "VolleyError"));
+        } else if (error.networkResponse != null && error.getCause() != null) {
+            callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getCause().toString()));
+        } else {
+            callback.onError(new SimpleBean(HttpCode.REQUEST_ERROR, error.toString()));
+        }
+    }
+
+    /**
+     * 调用方式
+     */
+    public interface Method {
+        int GET = 0;
+        int POST = 1;
+    }
+
     /**
      * 上层和httpUtil回调使用的接口
      *
      * @param <T> 返回数据类型
      */
-    public interface Callback<T> {
+    public interface Callback<T> extends OnUploadListener {
         void onSuccess(T data);
 
         void onFailure(SimpleBean result);
@@ -774,12 +796,9 @@ public class HttpUtil {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            if (error.networkResponse != null) {
-                callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
-            } else {
-                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
-            }
+            parseVolleyError(callback, error);
         }
+
     }
 
     private static class ResponseListener<T> implements Response.Listener<Result<T>>, Response.ErrorListener {
@@ -800,11 +819,7 @@ public class HttpUtil {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            if (error.networkResponse != null) {
-                callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
-            } else {
-                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
-            }
+            parseVolleyError(callback, error);
         }
     }
 
@@ -817,7 +832,7 @@ public class HttpUtil {
 
         @Override
         public void onResponse(SimpleBean response) {
-            if (HttpCode.SUCCESS.equals((response).getCode())) {
+            if (HttpCode.EMPTY.equals((response).getCode()) || HttpCode.SUCCESS.equals((response).getCode())) {
                 callback.onSuccess(response);
             } else {
                 callback.onFailure(response);
@@ -826,11 +841,7 @@ public class HttpUtil {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            if (error.networkResponse != null) {
-                callback.onError(new SimpleBean(error.networkResponse.statusCode + "", error.getMessage()));
-            } else {
-                callback.onError(new SimpleBean(HttpCode.OTHER_ERROR, error.getMessage()));
-            }
+            parseVolleyError(callback, error);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.cody.xf.widget.popup;
 
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,10 +20,10 @@ public class WheelRegionPop extends BasePopupWindow implements View.OnClickListe
     private List<String> mList;
 
     public WheelRegionPop(Activity activity, List<String> mList, ICallBackTime iCallBackTime) {
-        super(activity, R.layout.xf_pop_wheel_region, false);
+        super(activity, R.layout.xf_pop_wheel_region);
         this.iCallBackTime = iCallBackTime;
         this.mList = mList;
-        initView();
+        showPop();
     }
 
 
@@ -40,6 +41,11 @@ public class WheelRegionPop extends BasePopupWindow implements View.OnClickListe
         lvOrder.setCyclic(false);
         lvOrder.setCurrentItem(0);
 
+    }
+
+    @Override
+    protected int setGravity() {
+        return Gravity.BOTTOM;
     }
 
     @Override

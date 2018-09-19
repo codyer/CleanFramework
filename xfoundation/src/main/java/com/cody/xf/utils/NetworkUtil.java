@@ -9,12 +9,14 @@ import android.net.NetworkInfo;
 
 /**
  * Created by cody.yi on 2016/7/21.
+ * 网络工具
  */
 public class NetworkUtil {
     private NetworkUtil() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("NetworkUtil cannot be instantiated");
     }
+
     /**
      * 判断网络是否连接
      *
@@ -24,6 +26,7 @@ public class NetworkUtil {
     public static boolean isDisConnected(Context context) {
         return !isConnected(context);
     }
+
     /**
      * 判断网络是否连接
      *
@@ -57,7 +60,6 @@ public class NetworkUtil {
         if (cm == null)
             return false;
         return cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
-
     }
 
     /**
@@ -71,5 +73,4 @@ public class NetworkUtil {
         intent.setAction("android.intent.action.VIEW");
         activity.startActivityForResult(intent, 0);
     }
-
 }

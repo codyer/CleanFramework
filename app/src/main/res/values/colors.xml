@@ -4,17 +4,35 @@
     <color name="colorPrimaryDark">#333333</color>
     <color name="colorAccent">#439DF7</color>
     <color name="transparent">#00000000</color>
-    <color name="light_transparent">#f9f9f9</color>
+    <color name="transparent_mask">#60000000</color>
+    <color name="green">#44DB5E</color>
 
+    <color name="gray_999999">#999999</color>
+    <color name="gray_666666">#666666</color>
+    <color name="gray_333333">#333333</color>
+    <color name="gray_F5F5F5">#F5F5F5</color>
+    <color name="gray_E0E0E0">#E0E0E0</color>
+    <color name="gray_E1E1E1">#E1E1E1</color>
+    <color name="gray_E4E4E4">#E4E4E4</color>
+    <color name="yellow_c09d5b">#c09d5b</color>
 
-    <color name="main_black">#000</color>
-    <color name="main_gray">#333333</color>
+    <color name="dull_gray">#444444</color>
     <color name="main_blue">#439DF7</color>
     <color name="main_white">#FFFFFF</color>
-    <color name="other_gray">#666666</color>
-    <color name="info_gray">#999999</color>
-    <color name="line_gray">#E4E4E4</color>
     <color name="background_gray">#F5F5F5</color>
-    <color name="header_gray">#FCFCFC</color>
 
+    <color name="red_f24957">#F24957</color>
+    <color name="dot_red">#f80606</color>
+    <color name="gray_f2f2f2">#F2F2F2</color>
+    <color name="light_pink">#FCE9E9</color>
+    <!-- END 原来chat下的资源 -->
+    <color name="white_99">#99FFFFFF</color>
+    <color name="red_F24957">#F24957</color>
+    <color name="gold_dfaf7d">#DFAF7D</color>
+
+    <color name="gray_b4b6ba">#B4B6BA</color>
+    <color name="gray_fdfdfe">#FDFDFE</color>
+    <color name="gray_dcdcdc">#DCDCDC</color>
+    <color name="gray_cccccc">#CCCCCC</color>
+    <color name="gray_F7FBFF">#F7FBFF</color>
 </resources>

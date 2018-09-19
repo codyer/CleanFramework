@@ -8,10 +8,10 @@ import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithHeaderAndSearchBinding;
-import com.cody.xf.widget.SearchEditView;
 import com.cody.handler.framework.presenter.ListWithHeaderAndSearchPresenter;
 import com.cody.handler.framework.viewmodel.ListWithHeaderAndSearchViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
+import com.cody.xf.widget.SearchEditView;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -20,7 +20,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  */
 public abstract class ListWithHeaderAndSearchFragment<
         P extends ListWithHeaderAndSearchPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListFragment<P,
         ListWithHeaderAndSearchViewModel<ItemViewModel>,
         ItemViewModel,
@@ -35,6 +35,11 @@ public abstract class ListWithHeaderAndSearchFragment<
     protected PullLoadMoreRecyclerView buildPullLoadMoreRecyclerView() {
         getBinding().fwSearch.searchView.setOnSearchClickListener(this);
         return getBinding().fwList;
+    }
+
+    @Override
+    protected int getEmptyViewId() {
+        return R.layout.fw_empty_view;
     }
 
     @Override

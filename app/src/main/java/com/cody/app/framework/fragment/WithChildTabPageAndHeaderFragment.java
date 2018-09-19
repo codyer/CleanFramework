@@ -30,19 +30,19 @@ import java.util.List;
  */
 public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<WithHeaderViewModel>>
         extends WithHeaderFragment<P, WithHeaderViewModel, FwFragmentTabViewBinding> {
-    private ChildTabPageFragmentAdapter adapter;
-    private String[] titles;
+    private ChildTabPageFragmentAdapter mChildTabPageFragmentAdapter;
+    private String[] mTitles;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //获取标签数据
-        titles = getResources().getStringArray(getChildTabTitles());
+        mTitles = getResources().getStringArray(getChildTabTitles());
         //创建一个viewpager的adapter
-        adapter = new ChildTabPageFragmentAdapter(getChildFragmentManager(), Arrays
-                .asList(titles));
-        adapter.setFragments(getFragments());
+        mChildTabPageFragmentAdapter = new ChildTabPageFragmentAdapter(getChildFragmentManager(), Arrays
+                .asList(mTitles));
+        mChildTabPageFragmentAdapter.setFragments(getFragments());
     }
 
     @NonNull
@@ -69,7 +69,7 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.headerText:
-                Fragment fragment = adapter.getItem(getBinding().viewPager.getCurrentItem());
+                Fragment fragment = mChildTabPageFragmentAdapter.getItem(getBinding().viewPager.getCurrentItem());
                 if (fragment instanceof AbsListFragment) {
                     ((AbsListFragment) fragment).scrollToTop();
                 }
@@ -78,11 +78,11 @@ public abstract class WithChildTabPageAndHeaderFragment<P extends Presenter<With
     }
 
     private void initData() {
-        getBinding().viewPager.setAdapter(adapter);
+        getBinding().viewPager.setAdapter(mChildTabPageFragmentAdapter);
         getBinding().tabLayout.setTabMode(TabLayout.MODE_FIXED);
         //将TabLayout和ViewPager关联起来
         getBinding().tabLayout.setupWithViewPager(getBinding().viewPager);
-        getBinding().viewPager.setOffscreenPageLimit(titles.length);
+        getBinding().viewPager.setOffscreenPageLimit(mTitles.length);
     }
 
     @ArrayRes

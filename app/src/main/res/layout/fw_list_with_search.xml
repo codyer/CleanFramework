@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_transparent"
+        android:background="@color/background_gray"
         android:orientation="vertical">
 
         <include
@@ -32,9 +32,7 @@
 
         <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
             android:id="@+id/fw_list"
-            style="@style/ListViewNormalStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            style="@style/ListViewNormalStyle"/>
     </LinearLayout>
 
 </layout>

@@ -1,7 +1,7 @@
 package com.cody.handler.framework.presenter;
 
-import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.handler.framework.IView;
+import com.cody.handler.framework.viewmodel.IViewModel;
 import com.cody.xf.utils.HttpUtil;
 
 import java.lang.ref.Reference;
@@ -20,23 +20,23 @@ import java.lang.ref.WeakReference;
  * Presenter和ViewModel，Binding，View相关，因此将其接口添加泛型支持
  * 在继承此类时，根据情况将ViewModel，Binding，View（Activity，Fragment）在合适的地方指定
  */
-public abstract class Presenter<VM extends ViewModel> implements IPresenter<VM> {
+public class Presenter<VM extends IViewModel> implements IPresenter<VM> {
     private Reference<IView> mViewRef;
     private Reference<VM> mViewModelRef;
 
     @Override
-    public void cancel(Object tag){
+    public void cancel(Object tag) {
         HttpUtil.cancel(tag);
     }
 
     @Override
-    public void attachView(IView view, VM viewModel) {
+    public void attachView(Object tag, IView view, VM viewModel) {
         mViewRef = new WeakReference<>(view);
         mViewModelRef = new WeakReference<>(viewModel);
     }
 
     @Override
-    public void detachView() {
+    public void detachView(Object tag) {
         if (mViewRef != null) {
             mViewRef.clear();
             mViewRef = null;

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'realm-android'
 def MODULE_NAME = 'r_'
 
 android {
@@ -28,10 +29,36 @@ android {
         versionName MODULE_NAME + rootProject.ext.versionName // 版本号
         // dex突破65535的限制
         multiDexEnabled true
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            // 后面的还未提供 'armeabi','mips64', 'x86_64'
+        }
+    }
+
+    sourceSets {
+        debug {
+            java.srcDirs = ['src/debug', 'src/debug/java', 'src/debug/java/']
+        }
+        release {
+            java.srcDirs = ['src/release', 'src/release/java', 'src/release/java/']
+        }
+        demo {
+            java.srcDirs = ['src/demo', 'src/demo/java', 'src/demo/java/']
+        }
+        uat {
+            java.srcDirs = ['src/uat', 'src/uat/java', 'src/uat/java/']
+        }
+        stg {
+            java.srcDirs = ['src/stg', 'src/stg/java', 'src/stg/java/']
+        }
     }
 
     // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
     buildTypes {
+        debug {
+            debuggable true
+        }
         // release 包的配置
         release {
             // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
@@ -43,9 +70,15 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        demo {initWith(debug)}
-        uat { initWith(debug) }
-        stg { initWith(release) }
+        demo {
+            initWith(debug)
+        }
+        uat {
+            initWith(debug)
+        }
+        stg {
+            initWith(release)
+        }
     }
 
     // 产品特性
@@ -66,7 +99,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     debugCompile project(path: ':xfoundation', configuration: 'debug')
     releaseCompile project(path: ':xfoundation', configuration: 'release')
-    demoCompile project(path: ':xfoundation', configuration: 'debug')
-    uatCompile project(path: ':xfoundation', configuration: 'debug')
-    stgCompile project(path: ':xfoundation', configuration: 'release')
+    demoCompile project(path: ':xfoundation', configuration: 'demo')
+    uatCompile project(path: ':xfoundation', configuration: 'uat')
+    stgCompile project(path: ':xfoundation', configuration: 'stg')
 }

@@ -57,6 +57,17 @@ public class SystemBarUtil {
     }
 
     /**
+     * Android4.4以上的状态栏着白色色
+     */
+    public static void tintWhiteStatusBar(Activity activity, boolean white) {
+        if (isSetStatusBarDarkMode(activity, white)) {
+            tintStatusBar(activity, Color.WHITE, 0.0f);
+        } else {
+            tintStatusBar(activity, Color.LTGRAY, DEFAULT_ALPHA);
+        }
+    }
+
+    /**
      * Android4.4以上的状态栏着色
      *
      * @param window         一般都是用于Activity的window,也可以是其他的例如Dialog,DialogFragment
@@ -74,7 +85,7 @@ public class SystemBarUtil {
      * @param alpha          透明栏透明度[0.0-1.0]
      */
     public static void tintStatusBar(Window window, @ColorInt int statusBarColor, @FloatRange(from = 0.0, to = 1.0) float alpha) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
 
@@ -239,21 +250,75 @@ public class SystemBarUtil {
 
     /**
      * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
+     * 只有在状态栏是变态的白色才要去设置颜色变化，否则直接全透明效果会更好
      */
-    public static void setStatusBarDarkMode(Activity activity) {
-        setStatusBarDarkMode(activity.getWindow());
+    public static void setStatusBarDarkMode(Activity activity, boolean dark, boolean immersive) {
+        if (activity != null)
+            setStatusBarDarkMode(activity.getWindow(), dark, immersive);
+    }
+
+    /**
+     * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
+     * 只有在状态栏是变态的白色才要去设置颜色变化，否则直接全透明效果会更好
+     */
+    public static void setStatusBarDarkMode(Activity activity, boolean dark) {
+        if (activity != null)
+            setStatusBarDarkMode(activity.getWindow(), dark, true);
+    }
+
+    /**
+     * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
+     * 要先设置成白色沉浸式再调用
+     */
+    public static void setStatusBarDarkMode(Window window, boolean dark, boolean immersive) {
+        if (isFlyme4Later()) {
+            setStatusBarDarkModeForFlyme4(window, dark);
+        } else if (isMIUI6Later()) {
+            setStatusBarDarkModeForMIUI6(window, dark);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                setStatusBarDarkModeForM(window, dark);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setStatusBarDarkModeForM(window, dark);
+        } else if (immersive) {
+            if (dark) {//无法变色，直接把全透明效果变成非全透明
+                immersiveStatusBar(window);
+            } else {
+                immersiveStatusBar(window, 0.0f);
+            }
+        } else if (dark) {//无法变色，直接把状态栏
+            tintStatusBar(window, Color.LTGRAY);
+        } else {
+            tintStatusBar(window, Color.WHITE);
+        }
+    }
+
+
+    /**
+     * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
+     */
+    public static boolean isSetStatusBarDarkMode(Activity activity, boolean dark) {
+        return isSetStatusBarDarkMode(activity.getWindow(), dark);
     }
 
     /**
      * 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上)
      */
-    public static void setStatusBarDarkMode(Window window) {
+    public static boolean isSetStatusBarDarkMode(Window window, boolean dark) {
         if (isFlyme4Later()) {
-            setStatusBarDarkModeForFlyme4(window, true);
+            setStatusBarDarkModeForFlyme4(window, dark);
+            return true;
         } else if (isMIUI6Later()) {
-            setStatusBarDarkModeForMIUI6(window, true);
+            setStatusBarDarkModeForMIUI6(window, dark);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                setStatusBarDarkModeForM(window, dark);
+            }
+            return true;
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            setStatusBarDarkModeForM(window);
+            setStatusBarDarkModeForM(window, dark);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -264,13 +329,16 @@ public class SystemBarUtil {
      * android 6.0设置字体颜色
      */
     @TargetApi(Build.VERSION_CODES.M)
-    public static void setStatusBarDarkModeForM(Window window) {
+    public static void setStatusBarDarkModeForM(Window window, boolean dark) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.TRANSPARENT);
-
         int systemUiVisibility = window.getDecorView().getSystemUiVisibility();
-        systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        if (dark) {
+            systemUiVisibility |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        } else {
+            systemUiVisibility &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        }
         window.getDecorView().setSystemUiVisibility(systemUiVisibility);
     }
 
@@ -392,7 +460,18 @@ public class SystemBarUtil {
     public static boolean isFlyme4Later() {
         return Build.FINGERPRINT.contains("Flyme_OS_4")
                 || Build.VERSION.INCREMENTAL.contains("Flyme_OS_4")
-                || Pattern.compile("Flyme OS [4|5|6]", Pattern.CASE_INSENSITIVE).matcher(Build.DISPLAY).find();
+                || Pattern.compile("Flyme OS [4|5|6]", Pattern.CASE_INSENSITIVE).matcher(Build.DISPLAY).find()
+                || isFlyme();
+    }
+
+    public static boolean isFlyme() {
+        try {
+            // Invoke Build.hasSmartBar()
+            final Method method = Build.class.getMethod("hasSmartBar");
+            return method != null;
+        } catch (final Exception e) {
+            return false;
+        }
     }
 
     /**

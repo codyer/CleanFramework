@@ -1,14 +1,17 @@
 package com.cody.xf.widget.pickerview.utils;
 
 import android.view.Gravity;
+
 import com.cody.xf.R;
 
 
 /**
  * Created by Sai on 15/8/9.
+ * PickerViewAnimateUtil
  */
 public class PickerViewAnimateUtil {
     private static final int INVALID = -1;
+
     /**
      * Get default animation resource when not defined by the user
      *

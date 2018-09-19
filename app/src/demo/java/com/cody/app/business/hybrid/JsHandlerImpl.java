@@ -6,11 +6,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.webkit.WebView;
 
+import com.cody.app.framework.hybrid.JsBridge;
+import com.cody.app.framework.hybrid.core.JsCallback;
+import com.cody.app.framework.hybrid.core.JsHandler;
+import com.cody.app.framework.hybrid.core.async.AsyncTaskExecutor;
 import com.cody.xf.common.NotProguard;
-import com.cody.xf.hybrid.JsBridge;
-import com.cody.xf.hybrid.core.JsCallback;
-import com.cody.xf.hybrid.core.JsHandler;
-import com.cody.xf.hybrid.core.async.AsyncTaskExecutor;
 import com.google.gson.JsonObject;
 
 /**
@@ -22,7 +22,7 @@ public final class JsHandlerImpl implements JsHandler {
 
     public static void login(WebView webView, JsonObject params, final JsCallback callback) {
         if (webView.getContext() instanceof Activity) {
-            Intent intent = new Intent(webView.getContext(), LoginActivity.class);
+            Intent intent = new Intent(webView.getContext(), DemoLoginActivity.class);
             JsBridge.startActivityForResult(intent, new JsBridge.OnActivityResultListener() {
                 @Override
                 public void onActivityResult(int resultCode, Intent data) {

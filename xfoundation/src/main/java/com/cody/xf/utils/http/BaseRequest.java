@@ -3,17 +3,19 @@ package com.cody.xf.utils.http;
 import android.support.annotation.NonNull;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.cody.xf.utils.LogUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.cody.xf.utils.LogUtil;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -45,38 +47,32 @@ class BaseRequest<T> extends Request<T> {
     private static Map<String, String> mHeaders;//所有的请求用一个头部，只有在登录之后设置，否则没有头部
 
     private final Gson mParseTool = new Gson();
-
+    /**
+     * json格式的请求参数
+     */
+    private final String mRequestBody;
+    /**
+     * params格式的请求参数
+     */
+    private final Map<String, String> mParams;
+    /**
+     * response的返回监听器
+     */
+    private final WeakReference<Response.Listener<T>> mListener;
+    /**
+     * response header的返回监听器
+     */
+    private final WeakReference<IHeaderListener> mHeaderListener;
     /**
      * 是json参数还是params参数
      * json: true
      * params: false default
      */
     private Boolean mIsJsonParams = false;
-
-    /**
-     * json格式的请求参数
-     */
-    private final String mRequestBody;
-
-    /**
-     * params格式的请求参数
-     */
-    private final Map<String, String> mParams;
-
     /**
      * response的bean类型
      */
     private Type mType;
-
-    /**
-     * response的返回监听器
-     */
-    private final Response.Listener<T> mListener;
-
-    /**
-     * response header的返回监听器
-     */
-    private final HeaderListener mHeaderListener;
 
     /**
      * 包含全部参数的构造函数
@@ -97,15 +93,16 @@ class BaseRequest<T> extends Request<T> {
                 Type type,
                 @NonNull Response.Listener<T> listener,
                 Response.ErrorListener errorListener,
-                HeaderListener headerListener) {
+                IHeaderListener headerListener) {
         super(method, url, errorListener);
-        mHeaderListener = headerListener;
-        mListener = listener;
+        mHeaderListener = new WeakReference<>(headerListener);
+        mListener = new WeakReference<>(listener);
         mHeaders = headers;
         mParams = requestParams;
         mRequestBody = requestBody == null ? null : requestBody.toString();
         mType = type;
         mIsJsonParams = mRequestBody != null;
+        setRetryPolicy(new DefaultRetryPolicy(15 * 1000, 0, 1f));
     }
 
     @Override
@@ -145,8 +142,8 @@ class BaseRequest<T> extends Request<T> {
             String jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
             LogUtil.d("BaseRequest parseNetworkResponse response.headers ->", response.headers.toString());
             LogUtil.d("BaseRequest parseNetworkResponse data ->", jsonString);
-            if (mHeaderListener != null) {
-                mHeaderListener.onHeaderResponse(response.headers);
+            if (mHeaderListener != null && mHeaderListener.get() != null) {
+                mHeaderListener.get().onHeaderResponse(response.headers);
             }
             jsonString = fixBugForDataMap(jsonString);
             T result = mParseTool.fromJson(jsonString, mType);
@@ -168,8 +165,8 @@ class BaseRequest<T> extends Request<T> {
 
     @Override
     protected void deliverResponse(T response) {
-        if (mListener != null) {
-            mListener.onResponse(response);
+        if (mListener != null && mListener.get() != null) {
+            mListener.get().onResponse(response);
         }
     }
 }

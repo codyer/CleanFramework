@@ -20,26 +20,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.cody.xf.R;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.cody.xf.R;
 
 /**
  * Created by chy on 8/29/16.
  * 弹出编辑框的dialog
  */
 public class AlertEditDialog {
-    private Context context;
-    private Dialog dialog;
-    private LinearLayout lLayout_bg;
-    private TextView txt_title;
-    private TextView txt_msg;
-    private EditText et_content;
-    private Button btn_neg;
-    private Button btn_pos;
-    private ImageView img_line;
-    private Display display;
-
     InputFilter emojiFilter = new InputFilter() {
 
         Pattern emoji = Pattern.compile(
@@ -58,6 +48,16 @@ public class AlertEditDialog {
             return null;
         }
     };
+    private Context context;
+    private Dialog dialog;
+    private LinearLayout lLayout_bg;
+    private TextView txt_title;
+    private TextView txt_msg;
+    private EditText et_content;
+    private Button btn_neg;
+    private Button btn_pos;
+    private ImageView img_line;
+    private Display display;
 
     public AlertEditDialog(Context context) {
         this.context = context;
@@ -108,6 +108,13 @@ public class AlertEditDialog {
         return this;
     }
 
+    public AlertEditDialog setMaxLenth(int maxlength) {
+        if (maxlength >= 0) {
+            et_content.setFilters(new InputFilter[] { new InputFilter.LengthFilter(maxlength) });
+        }
+        return this;
+    }
+
     public AlertEditDialog setEditHint(String msg) {
         if ("".equals(msg)) {
             et_content.setHint("内容");
@@ -120,6 +127,7 @@ public class AlertEditDialog {
     public AlertEditDialog setEditText(String content) {
         if (!TextUtils.isEmpty(content)) {
             et_content.setText(content);
+            et_content.setSelection(content.length());
         }
         return this;
     }

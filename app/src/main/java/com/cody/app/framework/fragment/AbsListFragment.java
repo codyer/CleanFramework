@@ -9,9 +9,13 @@ import android.view.ViewGroup;
 
 import com.cody.app.R;
 import com.cody.app.framework.adapter.BaseRecycleViewAdapter;
+import com.cody.app.framework.adapter.OnItemClickListener;
 import com.cody.handler.framework.presenter.AbsListPresenter;
 import com.cody.handler.framework.viewmodel.ListViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
+import com.cody.xf.utils.RecyclerViewUtil;
+import com.cody.xf.utils.http.HttpCode;
+import com.cody.xf.utils.http.SimpleBean;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -21,10 +25,10 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewModel, ItemViewModel>,
         AbsListViewModel extends ListViewModel<ItemViewModel>,
-        ItemViewModel extends ViewModel,
+        ItemViewModel extends XItemViewModel,
         B extends ViewDataBinding>
         extends BaseBindingFragment<P, AbsListViewModel, B>
-        implements BaseRecycleViewAdapter.OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
+        implements OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     protected BaseRecycleViewAdapter<ItemViewModel> mRecyclerViewAdapter;
@@ -41,6 +45,14 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
      * 定制empty view
      */
     protected abstract int getEmptyViewId();
+
+    protected View getNoNetWorkView() {
+        return LayoutInflater.from(getActivity()).inflate(R.layout.fw_no_network_view, null);
+    }
+
+    protected View getServerErrorView() {
+        return LayoutInflater.from(getActivity()).inflate(R.layout.fw_server_error_view, null);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +99,7 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
             //设置下拉刷新是否可见 : 显示下拉刷新
             mPullLoadMoreRecyclerView.setRefreshing(false);
             //设置加载更多背景色
-            mPullLoadMoreRecyclerView.setFooterViewBackgroundColor(R.color.background_gray);
+            mPullLoadMoreRecyclerView.setFooterViewBackgroundColor(R.color.main_white);
             //设置线性布局
             mPullLoadMoreRecyclerView.setLinearLayout();
             //设置事件监听
@@ -118,7 +130,40 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
         super.onPause();
         if (mPullLoadMoreRecyclerView != null) {
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-            getPresenter().cancel(TAG);
+        }
+    }
+
+    @Override
+    public void showFailure(SimpleBean simpleBean) {
+        super.showFailure(simpleBean);
+        parseCode(simpleBean);
+    }
+
+    @Override
+    public void showError(SimpleBean simpleBean) {
+        super.showError(simpleBean);
+        parseCode(simpleBean);
+    }
+
+    private void parseCode(SimpleBean simpleBean) {
+        if (simpleBean != null) {
+            View v = null;
+            switch (simpleBean.getCode()) {
+                case HttpCode.NETWORK_DISCONNECTED:
+                    v = getNoNetWorkView();
+                    break;
+                case HttpCode.SERVER_ERROR:
+                    v = getServerErrorView();
+                    break;
+                case HttpCode.REQUEST_ERROR:
+                case HttpCode.PARAMETER_ERROR:
+                case HttpCode.NOT_FOUND:
+                default:
+                    break;
+            }
+            if (v != null && mPullLoadMoreRecyclerView != null) {
+                mPullLoadMoreRecyclerView.setDefaultView(v, true);
+            }
         }
     }
 
@@ -136,7 +181,7 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
      */
     public void scrollToTop() {
         if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.smoothScrollToTop();
+            RecyclerViewUtil.smoothScrollToTop(mPullLoadMoreRecyclerView.getRecyclerView());
         }
     }
 }

@@ -11,7 +11,7 @@ import com.cody.app.R;
 import com.cody.app.databinding.ListBinding;
 import com.cody.handler.framework.presenter.ListPresenter;
 import com.cody.handler.framework.viewmodel.ListViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -19,7 +19,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 不包含头部
  */
 public abstract class ListFragment<P extends ListPresenter<ItemViewModel>, ItemViewModel extends
-        ViewModel> extends AbsListFragment<P, ListViewModel<ItemViewModel>, ItemViewModel, ListBinding> {
+        XItemViewModel> extends AbsListFragment<P, ListViewModel<ItemViewModel>, ItemViewModel, ListBinding> {
 
     @Override
     protected ListViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
@@ -35,17 +35,13 @@ public abstract class ListFragment<P extends ListPresenter<ItemViewModel>, ItemV
         return getBinding().fwList;
     }
 
-    @Override
-    protected int getLayoutID() {
-        return R.layout.fw_list;
-    }
-
-    /**
-     * 定制empty view
-     */
     protected int getEmptyViewId() {
         return R.layout.fw_empty_view;
     }
 
+    @Override
+    protected int getLayoutID() {
+        return R.layout.fw_list;
+    }
 }
 

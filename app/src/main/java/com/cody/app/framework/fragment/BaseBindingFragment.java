@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.cody.app.BR;
 import com.cody.handler.framework.IDataBinding;
 import com.cody.handler.framework.presenter.Presenter;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.IViewModel;
 
 
 /**
@@ -26,7 +26,7 @@ import com.cody.handler.framework.viewmodel.ViewModel;
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
 public abstract class BaseBindingFragment<P extends Presenter<VM>,
-        VM extends ViewModel,
+        VM extends IViewModel,
         B extends ViewDataBinding>
         extends BaseLazyFragment
         implements View.OnClickListener, IDataBinding<P, VM, B> {
@@ -70,7 +70,7 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
             mViewModel = buildViewModel(savedInstanceState);
             mPresenter = buildPresenter();
             if (mPresenter != null && mViewModel != null) {
-                mPresenter.attachView(this, mViewModel);
+                mPresenter.attachView(TAG, this, mViewModel);
             }
         }
 
@@ -87,7 +87,7 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     public void onAttach(Context context) {
         super.onAttach(context);
         if (mPresenter != null && isBound()) {
-            mPresenter.attachView(this, mViewModel);
+            mPresenter.attachView(TAG, this, mViewModel);
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     public void onDetach() {
         if (mPresenter != null) {
             mPresenter.cancel(TAG);
-            mPresenter.detachView();
+            mPresenter.detachView(TAG);
         }
         super.onDetach();
     }
@@ -104,7 +104,7 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     public void onDestroy() {
         if (mPresenter != null) {
             mPresenter.cancel(TAG);
-            mPresenter.detachView();
+            mPresenter.detachView(TAG);
         }
         super.onDestroy();
     }

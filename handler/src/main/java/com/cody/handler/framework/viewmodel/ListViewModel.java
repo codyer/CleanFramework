@@ -5,7 +5,7 @@
 package com.cody.handler.framework.viewmodel;
 
 import android.databinding.ObservableArrayList;
-import android.databinding.ObservableList;
+import android.databinding.ObservableBoolean;
 
 import com.cody.xf.utils.PageUtil;
 
@@ -20,135 +20,154 @@ import com.cody.xf.utils.PageUtil;
  *
  * @param <ItemViewModel> ListView中的item ViewModel
  */
-public class ListViewModel<ItemViewModel extends ViewModel> extends ViewModel {
+public class ListViewModel<ItemViewModel extends XItemViewModel> extends ObservableArrayList<ItemViewModel> implements IListViewModel<ItemViewModel> {
 
+    private final ObservableBoolean mViewModelValid = new ObservableBoolean(true);
     /**
-     * 每个listview都应该有页码和页大小
+     * 可以用来做key键
      */
-    private int mPageSize = PageUtil.PageSize;//每个list view的page size是固定的
+    private Object mId;
+    /**
+     * 每个list view都应该有页码和页大小
+     */
     private int mPageNO = PageUtil.FirstPage;
+    private int mPageSize = PageUtil.PageSize;//每个list view的page size是固定的
     private boolean mIsRefresh;//列表更新状态 刷新为true 加载更多为false
     private boolean mHasMore = true;//是否有更多页
-    private final ObservableList<ItemViewModel> mItemViewModels = new ObservableArrayList<>();
+    private boolean mHasEndInfo = true;//是否有尾部没有更多提示信息
 
+    public ListViewModel() {
+    }
+
+    @Override
+    public void removeRange(int fromIndex, int toIndex) {
+        super.removeRange(fromIndex, toIndex);
+    }
+
+    @Override
+    public Object getId() {
+        if (mId == null) {
+            mId = new Object();
+        }
+        return mId;
+    }
+
+    @Override
+    public void setId(Object id) {
+        mId = id;
+    }
+
+    @Override
+    public ObservableBoolean isValid() {
+        return mViewModelValid;
+    }
+
+    @Override
     public int getPageSize() {
         return mPageSize;
     }
 
+    @Override
     public void setPageSize(int pageSize) {
         mPageSize = pageSize;
     }
 
+    @Override
     public int getPageNO() {
         if (mIsRefresh) {
             mPageNO = 1;
         } else {
-            mPageNO = (mItemViewModels.size() / mPageSize + 1);
+            mPageNO = (size() / mPageSize + 1);
         }
-
         return mPageNO;
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void setPageNO(int pageNO) {
         mPageNO = pageNO;
     }
 
     //下次数据开始的位置
+    @Override
     public int getPosition() {
         return mIsRefresh ? 0 : size();
     }
 
+    @Override
     public boolean getHasMore() {
         return mHasMore;
     }
 
-    @SuppressWarnings("unused")
+    @Override
     public void setHasMore(boolean hasMore) {
         mHasMore = hasMore;
     }
 
-    public ObservableList<ItemViewModel> getItemViewModels() {
-        return mItemViewModels;
+    @Override
+    public boolean getHasEndInfo() {
+        return mHasEndInfo;
     }
 
     /**
-     * h
-     * 判断是否已经包含了相同的item
+     * 是否显示没有更多
+     *
+     * @param hasEndInfo boolean
      */
-    public boolean contains(ItemViewModel item) {
-        if (item == null) return false;
-        for (int i = 0; i < mItemViewModels.size(); i++) {
-            if (item.getId().equals(mItemViewModels.get(i).getId())) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public void setHasEndInfo(boolean hasEndInfo) {
+        mHasEndInfo = hasEndInfo;
     }
 
-    /**
-     * 重置数据
-     */
-    public void reset() {
-        while (mItemViewModels.size() >= mPageSize) {
-            mItemViewModels.remove(mItemViewModels.size() - 1);
-        }
-        mHasMore = true;
-    }
-
-    /**
-     * 移除指定id的item
-     */
-    public void removeById(Object id) {
-        if (id == null) return;
-        for (int i = 0; i < mItemViewModels.size(); i++) {
-            if (id.equals(mItemViewModels.get(i).getId())) {
-                mItemViewModels.remove(i);
-            }
-        }
-    }
-
-    /**
-     * 移除指定位置的item
-     */
-    public void remove(int position) {
-        if (position < mItemViewModels.size() && position >= 0) {
-            mItemViewModels.remove(position);
-        }
-    }
-
-    /**
-     * 获取指定位置的item
-     */
-    public ItemViewModel get(int position) {
-        if (position < mItemViewModels.size() && position >= 0) {
-            return mItemViewModels.get(position);
-        }
-        return null;
-    }
-
-    /**
-     * 指定位置添加item
-     */
-    public void add(int position, ItemViewModel item) {
-        if (position < mItemViewModels.size() && position >= 0) {
-            mItemViewModels.add(position, item);
-        }
-    }
-
-    public void add(ItemViewModel item) {
-        mItemViewModels.add(item);
-    }
-
-    public int size() {
-        return mItemViewModels.size();
-    }
-
+    @Override
     public boolean isRefresh() {
         return mIsRefresh;
     }
 
+    @Override
     public void setRefresh(boolean mIsRefresh) {
         this.mIsRefresh = mIsRefresh;
+    }
+
+    private ItemViewModel getLastViewModel() {
+        if (size() > 0) {
+            return get(size() - 1);
+        }
+        return null;
+    }
+
+    public void changeValid() {
+        isValid().set(size() > 0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        ListViewModel<?> that = (ListViewModel<?>) o;
+
+        if (mPageNO != that.mPageNO) return false;
+        if (mPageSize != that.mPageSize) return false;
+        if (mIsRefresh != that.mIsRefresh) return false;
+        if (mHasMore != that.mHasMore) return false;
+        if (mHasEndInfo != that.mHasEndInfo) return false;
+        return  mViewModelValid.get() == that.mViewModelValid.get();
+//            return false;
+//        return mId != null ? mId.equals(that.mId) : that.mId == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (mViewModelValid.get() ? 1 : 0);
+//        result = 31 * result + (mId != null ? mId.hashCode() : 0);
+        result = 31 * result + mPageNO;
+        result = 31 * result + mPageSize;
+        result = 31 * result + (mIsRefresh ? 1 : 0);
+        result = 31 * result + (mHasMore ? 1 : 0);
+        result = 31 * result + (mHasEndInfo ? 1 : 0);
+        return result;
     }
 }

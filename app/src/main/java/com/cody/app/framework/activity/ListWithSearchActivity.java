@@ -10,7 +10,7 @@ import com.cody.app.R;
 import com.cody.app.databinding.ListWithSearchBinding;
 import com.cody.handler.framework.presenter.ListWithSearchPresenter;
 import com.cody.handler.framework.viewmodel.ListWithSearchViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -19,7 +19,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  */
 public abstract class ListWithSearchActivity<
         P extends ListWithSearchPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListActivity<P,
         ListWithSearchViewModel<ItemViewModel>,
         ItemViewModel,

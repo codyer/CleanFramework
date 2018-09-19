@@ -29,9 +29,22 @@ public class UploadBase64ImageRequest<T> extends BaseRequest<T> {
                                     Map<String, String> params, Type type,
                                     Response.Listener<T> listener,
                                     Response.ErrorListener errorListener) {
-        super(Method.POST, url, headers,params,null,type, listener, errorListener,null);
+        super(Method.POST, url, headers, params, null, type, listener, errorListener, null);
         mImageName = imageName;
         mBitmap = bitmap;
+    }
+
+    /**
+     * convert Bitmap to base64 String.
+     *
+     * @param bmp bitmap
+     * @return base64
+     */
+    public static String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
     @Override
@@ -40,7 +53,7 @@ public class UploadBase64ImageRequest<T> extends BaseRequest<T> {
         String image = getStringImage(mBitmap);
 
         //getting parameters
-        Map<String,String> params = super.getParams();
+        Map<String, String> params = super.getParams();
 
         if (params == null) params = new HashMap<>();
         //Adding parameters
@@ -49,17 +62,5 @@ public class UploadBase64ImageRequest<T> extends BaseRequest<T> {
 
         //returning parameters
         return params;
-    }
-
-    /**
-     * convert Bitmap to base64 String.
-     * @param bmp bitmap
-     * @return base64
-     */
-    public static String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 }

@@ -16,9 +16,13 @@ import android.widget.TextView;
 import com.cody.app.R;
 import com.cody.app.business.binding.BannerActivity;
 import com.cody.app.business.binding.CaseActivity;
-import com.cody.app.business.binding.ImageViewActivity;
-import com.cody.app.business.hybrid.HtmlActivity;
+import com.cody.app.business.binding.ConstraintDemoActivity;
+import com.cody.app.business.binding.DemoDesignerMainActivity;
+import com.cody.app.business.binding.DemoImageViewActivity;
+import com.cody.app.business.hybrid.DemoHtmlActivity;
+import com.cody.app.business.launch.LauncherPageActivity;
 import com.cody.app.framework.activity.BaseActivity;
+import com.cody.app.framework.activity.HtmlActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +38,15 @@ public class DemoMainActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.demo_list);
 
         List<ItemBean> mDemoList = new ArrayList<>();
-        ItemBean item = new ItemBean("Hybrid调用", "演示Hybrid调用", HtmlActivity.class);
-        ItemBean item1 = new ItemBean("Binding调用", "演示Binding调用", CaseActivity.class);
-        ItemBean item2 = new ItemBean("Https调用", "演示Https调用", ImageViewActivity.class);
-        ItemBean item3 = new ItemBean("HTMLActivity调用", "演示HTMLActivity调用", com.cody.app.framework.activity.HtmlActivity.class);
-        ItemBean item4 = new ItemBean("Banner调用", "演示Banner调用", BannerActivity.class);
-        mDemoList.add(item);
-        mDemoList.add(item1);
-        mDemoList.add(item2);
-        mDemoList.add(item3);
-        mDemoList.add(item4);
+        mDemoList.add(new ItemBean("Launcher demo", "Launcher", LauncherPageActivity.class));
+        mDemoList.add(new ItemBean("设计师主页面", "设计师主页面", DemoDesignerMainActivity.class));
+        mDemoList.add(new ItemBean("HTMLActivity调用", "file:///android_asset/hybrid_demo.html", HtmlActivity.class));
+        mDemoList.add(new ItemBean("HTMLActivity调用", "http://mp.weixin.qq.com/s/_jdVkQ1Jxx62IojPLpbyHA", HtmlActivity.class));
+        mDemoList.add(new ItemBean("DemoHtmlActivity调用", "http://mp.weixin.qq.com/s/_jdVkQ1Jxx62IojPLpbyHA", DemoHtmlActivity.class));
+        mDemoList.add(new ItemBean("Binding调用", "演示Binding调用", CaseActivity.class));
+        mDemoList.add(new ItemBean("Https调用", "演示Https调用", DemoImageViewActivity.class));
+        mDemoList.add(new ItemBean("Banner调用", "演示Banner调用", BannerActivity.class));
+        mDemoList.add(new ItemBean("ConstraintLayout调用", "演示ConstraintLayout调用", ConstraintDemoActivity.class));
 
         recyclerView.setAdapter(new DemoRecycleViewAdapter(this, mDemoList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -118,10 +121,9 @@ public class DemoMainActivity extends BaseActivity {
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (bean.mClazz == com.cody.app.framework.activity.HtmlActivity.class){
-                        String url = "http://mp.weixin.qq.com/s/_jdVkQ1Jxx62IojPLpbyHA";
-                        com.cody.app.framework.activity.HtmlActivity.startHtml(bean.mTitle,url);
-                    }else {
+                    if (bean.mClazz == HtmlActivity.class) {
+                        HtmlActivity.startHtml(bean.mTitle, bean.mDetail);
+                    } else {
                         Intent intent = new Intent(mContext, bean.mClazz);
                         mContext.startActivity(intent);
                     }

@@ -6,10 +6,10 @@ package com.cody.app.framework.fragment;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithSearchBinding;
-import com.cody.xf.widget.SearchEditView;
 import com.cody.handler.framework.presenter.ListWithSearchPresenter;
 import com.cody.handler.framework.viewmodel.ListWithSearchViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
+import com.cody.xf.widget.SearchEditView;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -17,7 +17,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 包含搜索框
  */
 public abstract class ListWithSearchFragment<P extends ListWithSearchPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListFragment<P,
         ListWithSearchViewModel<ItemViewModel>,
         ItemViewModel,
@@ -32,6 +32,11 @@ public abstract class ListWithSearchFragment<P extends ListWithSearchPresenter<I
     protected PullLoadMoreRecyclerView buildPullLoadMoreRecyclerView() {
         getBinding().fwSearch.searchView.setOnSearchClickListener(this);
         return getBinding().fwList;
+    }
+
+    @Override
+    protected int getEmptyViewId() {
+        return R.layout.fw_empty_view;
     }
 
     @Override

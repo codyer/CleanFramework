@@ -1,10 +1,17 @@
 apply plugin: 'com.android.application'
 
+//多渠道打包
+apply plugin: 'packer'
+apply plugin: 'bugly'
+apply plugin: 'realm-android'
+
 // 产品名
 def MODULE_NAME = "Clean_"
+def APP_NAME = "cody."
+def PKG_NAME = "com.cody.app"
 
 // 打包时间
-def packageTime() {
+static def packageTime() {
     return new Date().format("yyyyMMdd_HHmm", TimeZone.getTimeZone("GMT+8"))
 }
 //加载签名配置的文件
@@ -41,45 +48,80 @@ android {
 
     // 默认配置
     defaultConfig {
-        applicationId "com.cody.app" // apk包名
+        applicationId PKG_NAME // apk包名
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode rootProject.ext.versionCode
-        versionName MODULE_NAME + rootProject.ext.versionName // 版本号
+        versionName rootProject.ext.versionName // 版本号
         // dex突破65535的限制
         multiDexEnabled true
-        // Android 单元测试 test runner
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            // 后面的还未提供 'armeabi','mips64', 'x86_64'
+        }
+    }
+
+    sourceSets {
+        debug {
+            java.srcDirs = ['src/debug', 'src/debug/java', 'src/debug/java/']
+        }
+        release {
+            java.srcDirs = ['src/release', 'src/release/java', 'src/release/java/']
+        }
+        demo {
+            java.srcDirs = ['src/demo', 'src/demo/java', 'src/demo/java/']
+        }
+        uat {
+            java.srcDirs = ['src/uat', 'src/uat/java', 'src/uat/java/']
+        }
+        stg {
+            java.srcDirs = ['src/stg', 'src/stg/java', 'src/stg/java/']
+        }
     }
 
     // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
     buildTypes {
         debug {
-            // 读取设置的签名文件
-            signingConfig signingConfigs.DefaultConfig
+            debuggable true
             // 不进行代码优化
             minifyEnabled false
             // 不进行zip对齐
             zipAlignEnabled false
+            // 指定混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 读取设置的签名文件
+            signingConfig signingConfigs.DefaultConfig
+
             // 为包名添加后缀，使调试与正式包可以并存
             applicationIdSuffix ".debug"
             // 在调试包中禁用lint
             project.gradle.startParameter.excludedTaskNames.add("lint")
+
+            bugly {
+                appId = "e9750f4265"
+                appKey = "88e3150c-d764-449f-af71-f406a9c4c91a"
+                upload = false
+            }
         }
         // release 包的配置
         release {
             // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
-//            shrinkResources true
+            shrinkResources true
             // 开启代码压缩
-            minifyEnabled false
+            minifyEnabled true
             // 对齐
             zipAlignEnabled true
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 指定签名配置
             signingConfig signingConfigs.DefaultConfig
+            bugly {
+                appId = "13501369e4"
+                appKey = "f8eecab9-c570-4e0d-bf81-504bc1ffeb12"
+            }
         }
-
         demo {
             initWith(debug)
             // 为包名添加后缀，使调试与正式包可以并存
@@ -97,43 +139,54 @@ android {
         }
     }
 
-    buildTypes.all { type ->
-        if (name.equals("release")) {
-            type.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
-        } else {
-            type.manifestPlaceholders = [APP_BUILD_TYPE: MODULE_NAME + name, CHANNEL_ID: name]
-        }
-    }
-
     // 产品特性
-    productFlavors {
-        // 自动替换AndroidManifest.xml中的渠道号，同时根据产品特性修改应用名
-        productFlavors.all { flavor ->
-            if (name.equals("release")) {
-                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
-            } else {
-                println("productFlavors +++++++++++++++++++ name=" + name + flavor);
-                flavor.manifestPlaceholders = [APP_BUILD_TYPE: "@string/app_name", CHANNEL_ID: name]
-            }
-        }
+    buildTypes.all { type ->
+        type.manifestPlaceholders = [
+                APPLICATION_ID     : name == "release" ? PKG_NAME : (PKG_NAME + applicationIdSuffix),
+                JPUSH_PKGNAME      : name == "release" ? PKG_NAME : (PKG_NAME + applicationIdSuffix),
+                JPUSH_APPKEY       : "@string/r_j_push_key", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL       : "developer-default", //暂时填写默认值即可.
+                APP_LABEL            : "@string/r_app_name",
+                BaiduMobAd_CHANNEL_ID: "@string/r_build_type",
+                UMENG_CHANNEL_ID     : "@string/r_build_type",
+                AMAP_KEY             : "@string/r_a_map_key",
+                qqappid              : "1106446561"
+        ]
     }
-
     // 打包后自动修改apk的名字
     // release 包的命名格式为：产品名_版本号_渠道号_release_打包时间.apk
     // debug 包的命名格式为：产品名_版本号_渠道号_debug_打包时间.apk
     applicationVariants.all { variant ->
-        if (variant.buildType.name.equals('release')) {
-            variant.outputs.each { output ->
-                def outputFile = output.outputFile
-                if (null != outputFile && outputFile.name.endsWith('.apk')) {
-                    File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
-                    def newApkName = "${defaultConfig.versionName}" + "_" + variant.buildType.name + "_${packageTime()}.apk"
-
-                    output.outputFile = new File(outputDir, newApkName)
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (null != outputFile && outputFile.name.endsWith('.apk')) {
+                def suffix = ".apk";
+                if (variant.buildType.name == 'release') {
+                    suffix = "_${packageTime()}.apk"
                 }
+                File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
+                def newApkName = MODULE_NAME + "${defaultConfig.versionName}" + "_" + variant.buildType.name + suffix
+
+                output.outputFile = new File(outputDir, newApkName)
             }
         }
     }
+
+    packer {
+        // 指定渠道打包输出文件名格式
+        archiveNameFormat = MODULE_NAME + '${buildType}-v${versionName}-${channel}'
+        // 指定渠道打包输出目录
+        archiveOutput = new File(project.rootProject.buildDir, "apks")
+//    channelList = ['*Douban*', 'Google/', '中文/@#市场', 'Hello@World',
+//                   'GradleTest', '20070601!@#$%^&*(){}:"<>?-=[];\',./']
+        channelFile = new File(project.rootDir, "markets.txt")
+//        channelMap = [
+//                "Cat" : project.rootProject.file("channels/cat.txt"),
+//                "Dog" : project.rootProject.file("channels/dog.txt"),
+//                "Fish": project.rootProject.file("channels/channels.txt")
+//        ]
+    }
+
     return void
 }
 
@@ -145,12 +198,15 @@ configurations {
     stgCompile
 }
 
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
     debugCompile project(path: ':handler', configuration: 'debug')
     releaseCompile project(path: ':handler', configuration: 'release')
     demoCompile project(path: ':handler', configuration: 'demo')

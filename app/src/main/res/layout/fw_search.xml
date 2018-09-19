@@ -6,23 +6,26 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="onClickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.SearchViewModel"/>
+            type="com.cody.handler.framework.viewmodel.SearchViewModel" />
     </data>
 
-    <com.cody.xf.widget.SearchEditView
-        android:id="@+id/searchView"
-        style="@style/editSearchStyle"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@{viewModel.hint}"
-        android:text="@={viewModel.keyWord}"
-        />
+        android:background="@drawable/bg_with_bottom_line">
+
+        <com.cody.xf.widget.SearchEditView
+            android:id="@+id/searchView"
+            style="@style/editSearchStyle"
+            android:hint="@{viewModel.hint}"
+            android:text="@={viewModel.keyWord}" />
+    </RelativeLayout>
 </layout>

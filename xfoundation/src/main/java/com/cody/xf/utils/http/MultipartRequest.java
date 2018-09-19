@@ -17,11 +17,14 @@ import java.util.Map;
  * 表单文件上传
  */
 public class MultipartRequest<T> extends BaseRequest<T> {
+
     private final String twoHyphens = "--";
     private final String lineEnd = "\r\n";
     private final String boundary = "apiclient-" + System.currentTimeMillis();
-
+    private final OnUploadListener mOnUploadListener;
     private Map<String, DataPart> mByteData = new HashMap<>();
+    private int mProgress;
+    private int mMax;
 
     /**
      * Default constructor with predefined header and post method.
@@ -32,9 +35,10 @@ public class MultipartRequest<T> extends BaseRequest<T> {
      * @param errorListener on error http or library timeout
      */
     public MultipartRequest(String url, Map<String, String> headers, Map<String, String> params, Map<String, DataPart>
-            byteData, Type type, Response.Listener<T> listener, Response.ErrorListener errorListener) {
+            byteData, Type type, Response.Listener<T> listener, Response.ErrorListener errorListener, OnUploadListener onUploadListener) {
         super(Method.POST, url, headers, params, null, type, listener, errorListener, null);
         this.mByteData = byteData;
+        this.mOnUploadListener = onUploadListener;
     }
 
     @Override
@@ -107,8 +111,16 @@ public class MultipartRequest<T> extends BaseRequest<T> {
      * @throws IOException
      */
     private void dataParse(DataOutputStream dataOutputStream, Map<String, DataPart> data) throws IOException {
+        mProgress = 0;
+        mMax = data.size() * 10;
         for (Map.Entry<String, DataPart> entry : data.entrySet()) {
+            if (mOnUploadListener != null) {
+                mOnUploadListener.onProgress(mProgress, mMax);
+            }
             buildDataPart(dataOutputStream, entry.getValue(), entry.getKey());
+        }
+        if (mOnUploadListener != null) {
+            mOnUploadListener.onProgress(mMax, mMax);
         }
     }
 
@@ -123,7 +135,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
     private void buildTextPart(DataOutputStream dataOutputStream, String parameterName, String parameterValue) throws
             IOException {
         dataOutputStream.writeBytes(twoHyphens + boundary + lineEnd);
-        dataOutputStream.writeBytes( "Content-Disposition: form-data; name=\"" + parameterName + "\"");
+        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + parameterName + "\"");
         dataOutputStream.writeBytes(lineEnd);
         dataOutputStream.writeBytes(lineEnd);
         dataOutputStream.write(parameterValue.getBytes());
@@ -135,7 +147,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
      *
      * @param dataOutputStream data output stream handle data parsing
      * @param dataFile         data byte as DataPart from collection
-     * @param fileName        name of data input
+     * @param fileName         name of data input
      * @throws IOException
      */
     private void buildDataPart(DataOutputStream dataOutputStream, DataPart dataFile, String fileName) throws
@@ -150,6 +162,8 @@ public class MultipartRequest<T> extends BaseRequest<T> {
 
         ByteArrayInputStream fileInputStream = new ByteArrayInputStream(dataFile.getContent());
         int bytesAvailable = fileInputStream.available();
+        int max = bytesAvailable;
+        int progress = 0;
 
         int maxBufferSize = 1024 * 1024;
         int bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -158,12 +172,17 @@ public class MultipartRequest<T> extends BaseRequest<T> {
         int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
         while (bytesRead > 0) {
+            progress = progress + bytesRead;
+            mProgress = mProgress + progress * 10 / max;
+            if (mOnUploadListener != null) {
+                mOnUploadListener.onProgress(mProgress, mMax);
+            }
+
             dataOutputStream.write(buffer, 0, bufferSize);
             bytesAvailable = fileInputStream.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
             bytesRead = fileInputStream.read(buffer, 0, bufferSize);
         }
-
         dataOutputStream.writeBytes(lineEnd);
     }
 }

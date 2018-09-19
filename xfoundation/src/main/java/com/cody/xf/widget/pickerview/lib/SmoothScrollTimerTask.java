@@ -4,10 +4,10 @@ import java.util.TimerTask;
 
 final class SmoothScrollTimerTask extends TimerTask {
 
+    final WheelView loopView;
     int realTotalOffset;
     int realOffset;
     int offset;
-    final WheelView loopView;
 
     SmoothScrollTimerTask(WheelView loopview, int offset) {
         this.loopView = loopview;
@@ -43,7 +43,7 @@ final class SmoothScrollTimerTask extends TimerTask {
                 float itemHeight = loopView.itemHeight;
                 float top = (float) (-loopView.initPosition) * itemHeight;
                 float bottom = (float) (loopView.getItemsCount() - 1 - loopView.initPosition) * itemHeight;
-                if (loopView.totalScrollY <= top||loopView.totalScrollY >= bottom) {
+                if (loopView.totalScrollY <= top || loopView.totalScrollY >= bottom) {
                     loopView.totalScrollY = loopView.totalScrollY - realOffset;
                     loopView.cancelFuture();
                     loopView.handler.sendEmptyMessage(MessageHandler.WHAT_ITEM_SELECTED);

@@ -9,9 +9,11 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.cody.xf.utils.CommonUtil;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +31,31 @@ public class LocalProfile {
      */
     public LocalProfile(Context context) {
         mSharedPreferences = context.getSharedPreferences(FILENAME, Context.MODE_PRIVATE);
+    }
+
+    /**
+     * 获取本地化数据模型
+     *
+     * @param key 键
+     * @param cls 指定返回类型
+     * @param <T> 返回任意类型
+     * @return T -> cls
+     */
+    public final <T> T getViewModel(String key,Class cls) {
+        String mapStr = getValue(key, null);
+        Type type = CommonUtil.getType(cls);
+        return mParseUtil.fromJson(mapStr, type);
+    }
+
+    /**
+     * 保存本地化数据模型
+     *
+     * @param key       键
+     * @param viewModel 要保存的数据
+     * @param <T>       数据类型
+     */
+    public final <T> void setViewModel(String key, T viewModel) {
+        setValue(key, mParseUtil.toJson(viewModel));
     }
 
     public final Map<String, String> getMap(String key) {
@@ -138,5 +165,15 @@ public class LocalProfile {
     public final void registerCallback(SharedPreferences.OnSharedPreferenceChangeListener listener) {
         if (listener == null) return;
         mSharedPreferences.registerOnSharedPreferenceChangeListener(listener);
+    }
+    public final List<String> getList(String key) {
+        String listStr = getValue(key, null);
+        Type type = new TypeToken<List<String>>() {
+        }.getType();
+        return mParseUtil.fromJson(listStr, type);
+    }
+
+    public final void setList(String key, List<String> list) {
+        setValue(key, mParseUtil.toJson(list));
     }
 }

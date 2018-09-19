@@ -2,11 +2,11 @@ package com.cody.xf.utils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 
 /**
  * Created by cody.yi on 2016.8.15
@@ -15,14 +15,13 @@ import java.lang.ref.SoftReference;
 public class ActivityUtil {
 
     private static ActivityUtil sInstance;
-    private Reference<Activity> mCurrentActivity;
+    private Activity mCurrentActivity;
 
     public static void install() {
         sInstance = new ActivityUtil();
     }
 
     public static void uninstall() {
-        getInstance().mCurrentActivity.clear();
         getInstance().mCurrentActivity = null;
         sInstance = null;
     }
@@ -35,36 +34,51 @@ public class ActivityUtil {
         }
     }
 
-    public static Activity getCurrentActivity() {
-        if (getInstance().mCurrentActivity == null) {
-            throw new NullPointerException("You should setCurrentActivity first!");
-        }
-        return getInstance().mCurrentActivity.get();
+    /**
+     * 用getCurrentActivity 前判断是否为空
+     */
+    public static boolean isActivityDestroyed() {
+        return getInstance().mCurrentActivity == null ||
+                getInstance().mCurrentActivity.isDestroyed();
     }
 
-    public static void setCurrentActivity(@NonNull Activity mCurrentActivity) {
-        getInstance().mCurrentActivity = new SoftReference<>(mCurrentActivity);
+    public static Activity getCurrentActivity() {
+        if (getInstance().mCurrentActivity == null) {
+            LogUtil.e("You should setCurrentActivity first!");
+            return null;
+        }
+        return getInstance().mCurrentActivity;
+    }
+
+    public static void setCurrentActivity(@NonNull Activity currentActivity) {
+        getInstance().mCurrentActivity = currentActivity;
     }
 
     /**
      * startActivity
-     *
-     * @param clazz
+     */
+    public static void navigateTo(Intent intent) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+        activity.startActivity(intent);
+    }
+
+    /**
+     * startActivity
      */
     public static void navigateTo(Class<? extends Activity> clazz) {
         Activity activity = getCurrentActivity();
+        if (activity == null) return;
         Intent intent = new Intent(activity, clazz);
         activity.startActivity(intent);
     }
 
     /**
      * startActivity with bundle
-     *
-     * @param clazz
-     * @param bundle
      */
     public static void navigateTo(Class<? extends Activity> clazz, Bundle bundle) {
         Activity activity = getCurrentActivity();
+        if (activity == null) return;
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
@@ -74,11 +88,22 @@ public class ActivityUtil {
 
     /**
      * startActivity then finish
+     */
+    public static void navigateToThenKill(Intent intent) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+        activity.startActivity(intent);
+        finish();
+    }
+
+    /**
+     * startActivity then finish
      *
      * @param clazz
      */
     public static void navigateToThenKill(Class<? extends Activity> clazz) {
         Activity activity = getCurrentActivity();
+        if (activity == null) return;
         Intent intent = new Intent(activity, clazz);
         activity.startActivity(intent);
         finish();
@@ -92,6 +117,7 @@ public class ActivityUtil {
      */
     public static void navigateToThenKill(Class<? extends Activity> clazz, Bundle bundle) {
         Activity activity = getCurrentActivity();
+        if (activity == null) return;
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
@@ -102,33 +128,75 @@ public class ActivityUtil {
 
     /**
      * startActivityForResult
-     *
-     * @param clazz
-     * @param requestCode
      */
     public static void navigateToForResult(Class<? extends Activity> clazz, int requestCode) {
-        Activity activity = getCurrentActivity();
-        Intent intent = new Intent(activity, clazz);
-        activity.startActivityForResult(intent, requestCode);
+        navigateToForResult(null, clazz, requestCode);
+    }
+
+    /**
+     * startActivityForResult with bundle
+     */
+    public static void navigateToForResult(Class<? extends Activity> clazz, int requestCode, Bundle bundle) {
+        navigateToForResult(null, clazz, requestCode, bundle);
     }
 
     /**
      * startActivityForResult with bundle
      *
-     * @param clazz
-     * @param requestCode
-     * @param bundle
+     * @param context     上下文
+     * @param clazz       跳转的activity
+     * @param requestCode requestCode
      */
-    public static void navigateToForResult(Class<? extends Activity> clazz, int requestCode, Bundle bundle) {
+    public static void navigateToForResult(Object context, Class<? extends Activity> clazz, int requestCode) {
+        navigateToForResult(context, clazz, requestCode, null);
+    }
+
+    /**
+     * startActivityForResult with bundle
+     *
+     * @param context     上下文
+     * @param clazz       跳转的activity
+     * @param requestCode requestCode
+     * @param bundle      bundle
+     */
+    public static void navigateToForResult(Object context, Class<? extends Activity> clazz, int requestCode, Bundle bundle) {
         Activity activity = getCurrentActivity();
+        if (activity == null) return;
         Intent intent = new Intent(activity, clazz);
         if (null != bundle) {
             intent.putExtras(bundle);
         }
-        activity.startActivityForResult(intent, requestCode);
+        if (context == null) {
+            context = activity;
+        }
+        startForResult(context, intent, requestCode);
+    }
+
+    public static void openDialPage(String tel) {
+        if (TextUtils.isEmpty(tel)) return;
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (intent.resolveActivity(getCurrentActivity().getPackageManager()) != null) {
+            getCurrentActivity().startActivity(intent);
+        }
     }
 
     public static void finish() {
-        getCurrentActivity().finish();
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+        activity.finish();
+    }
+
+
+    private static void startForResult(Object context, Intent intent, int request) {
+        if (context instanceof Activity) {
+            ((Activity) context).startActivityForResult(intent, request);
+        } else if (context instanceof Fragment) {
+            ((Fragment) context).startActivityForResult(intent, request);
+        } else {
+            throw new IllegalArgumentException("only use activity or fragment as a context:" + context);
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
  * Created by cody.yi on 2017/3/30.
  * 案例模型
  */
-public class CaseViewModel extends WithHeaderViewModel{
+public class CaseViewModel extends WithHeaderViewModel {
     private String mInfo;
     private boolean mVisibility;
     private String mImageUrl;

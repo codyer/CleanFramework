@@ -6,8 +6,8 @@ package com.cody.xf.utils;
 
 import android.content.Context;
 
-import com.cody.xf.XFoundation;
 import com.google.gson.Gson;
+import com.cody.xf.XFoundation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

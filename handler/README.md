@@ -13,3 +13,5 @@ Handler一共分成三个部分mapper、presenter、viewModel
 
 模块：viewModel
 视图模型，控制视图的显示隐藏，以及界面数据，以及少量的视图逻辑
+
+包含Observable的ViewModel必须重写equals函数和hashCode函数

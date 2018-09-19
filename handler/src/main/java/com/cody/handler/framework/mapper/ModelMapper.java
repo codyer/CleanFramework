@@ -1,6 +1,8 @@
 package com.cody.handler.framework.mapper;
 
-import com.android.annotations.NonNull;
+import com.cody.handler.framework.viewmodel.IViewModel;
+import com.cody.handler.framework.viewmodel.ListViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * 将 DataModel 映射到 ViewModel
  * 当获取的数据和ViewModel有差距时需要使用mapper
  */
-public abstract class ModelMapper<VM, DM> {
+public abstract class ModelMapper<VM extends IViewModel, DM> {
 
     /**
      * 将dataModel装饰成viewModel
@@ -18,7 +20,7 @@ public abstract class ModelMapper<VM, DM> {
      * @param dataModel 数据模型，对应网络请求获取的bean或entity
      * @return 视图模型，对应data binding中的viewModel
      */
-    public abstract VM mapper(DM dataModel);
+    public abstract VM mapper(DM dataModel, int position);
 
     /**
      * 将dataModel装饰成viewModel
@@ -28,7 +30,6 @@ public abstract class ModelMapper<VM, DM> {
      */
     public abstract VM mapper(VM viewModel, DM dataModel);
 
-
     /**
      * 将dataModel装饰成viewModel
      * 没有分页的时候使用此函数
@@ -37,7 +38,7 @@ public abstract class ModelMapper<VM, DM> {
      * @return 视图模型，对应data binding中的viewModel
      */
     @Deprecated
-    public List<VM> mapperList(@NonNull List<DM> dataModels) {
+    public <XVM extends XItemViewModel> ListViewModel<XVM> mapperList(List<DM> dataModels) {
         return mapperList(dataModels, 0);
     }
 
@@ -48,9 +49,9 @@ public abstract class ModelMapper<VM, DM> {
      * @param start      viewModels 中需要mapper的开始的位置，默认从0开始
      * @return 视图模型，对应data binding中的viewModel
      */
-    public List<VM> mapperList(@NonNull List<DM> dataModels, int start) {
-        List<VM> items = new ArrayList<>();
-        return mapperList(items, dataModels, start);
+    public <XVM extends XItemViewModel> ListViewModel<XVM> mapperList(List<DM> dataModels, int start) {
+        ListViewModel<XVM> items = new ListViewModel<>();
+        return mapperList(items, dataModels, start, true);
     }
 
     /**
@@ -62,8 +63,8 @@ public abstract class ModelMapper<VM, DM> {
      * @return 视图模型，对应data binding中的viewModel
      */
     @Deprecated
-    public List<VM> mapperList(@NonNull List<VM> viewModels, @NonNull List<DM> dataModels) {
-        return mapperList(viewModels, dataModels, 0);
+    public <XVM extends XItemViewModel> ListViewModel<XVM> mapperList(ListViewModel<XVM> viewModels, List<DM> dataModels) {
+        return mapperList(viewModels, dataModels, 0, true);
     }
 
     /**
@@ -74,7 +75,20 @@ public abstract class ModelMapper<VM, DM> {
      * @param start      viewModels 中需要mapper的开始的位置，默认从0开始，getViewModel().getPosition()分页时调用
      * @return 视图模型，对应data binding中的viewModel
      */
-    public List<VM> mapperList(@NonNull List<VM> viewModels, @NonNull List<DM> dataModels, int start) {
+    @Deprecated
+    public <XVM extends XItemViewModel> ListViewModel<XVM> mapperList(ListViewModel<XVM> viewModels, List<DM> dataModels, int start) {
+        return mapperList(viewModels, dataModels, start, true);
+    }
+
+    /**
+     * 将dataModel装饰成viewModel
+     *
+     * @param viewModels 页面模型
+     * @param dataModels 数据模型，对应网络请求获取的bean或entity, dataModel最好是已经排好序的
+     * @param start      viewModels 中需要mapper的开始的位置，默认从0开始，getViewModel().getPosition()分页时调用
+     * @return 视图模型，对应data binding中的viewModel
+     */
+    public <XVM extends XItemViewModel> ListViewModel<XVM> mapperList(ListViewModel<XVM> viewModels, List<DM> dataModels, int start, boolean hasMore) {
 
         if (viewModels == null) {
             return mapperList(dataModels, start);
@@ -84,7 +98,7 @@ public abstract class ModelMapper<VM, DM> {
             dataModels = new ArrayList<>();
         }
 
-        VM vm;
+        XVM xvm;
         int vmSize = viewModels.size();
         int dmSize = dataModels.size() + start;//所有的dataModel
 
@@ -94,17 +108,23 @@ public abstract class ModelMapper<VM, DM> {
         }
 
         for (int i = start; i < dmSize; i++) {
-            vm = mapper(dataModels.get(i - start));
+            xvm = (XVM) mapper(dataModels.get(i - start), i);
+            xvm.setId(i);
+
+            xvm.setFirstItem(i == 0);
+            xvm.setLastItem(!hasMore && i == dmSize - 1);
+
             if (i < vmSize) {
-                if (vm.equals(viewModels.get(i))) {
+                if (xvm.equals(viewModels.get(i))) {
                     continue;
                 }
-                viewModels.set(i, vm);
+                viewModels.set(i, xvm);
             } else {
-                viewModels.add(vm);
+                viewModels.add(xvm);
             }
         }
 
+        viewModels.setHasMore(hasMore);
         return viewModels;
     }
 }

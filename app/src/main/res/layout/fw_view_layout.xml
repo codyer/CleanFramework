@@ -1,5 +1,4 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -8,9 +7,10 @@
         <variable
             name="onClickListener"
             type="android.view.View.OnClickListener"/>
+
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.ViewModel" />
+            type="com.cody.handler.framework.viewmodel.ViewModel"/>
     </data>
 
     <LinearLayout
@@ -20,9 +20,9 @@
         android:orientation="vertical">
 
         <!--include包含传递viewmodel-->
-      <!--  <include
-            layout="@layout/demo_fragment"
-            bind:viewModel="@{viewModel}"/>-->
+        <!--  <include
+              layout="@layout/demo_fragment"
+              bind:viewModel="@{viewModel}"/>-->
         <!--双向绑定-->
         <!--<EditText
             android:layout_width="match_parent"

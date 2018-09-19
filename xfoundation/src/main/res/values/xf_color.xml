@@ -6,20 +6,23 @@
     <color name="xf_orange_dark">#ffff8800</color>
     <color name="xf_white">#ffffff</color>
     <color name="xf_blue">#439DF7</color>
-
+    <color name="xf_btn_cancel">#333333</color>
+    <color name="xf_btn_ok">#498EFF</color>
     <!--action sheet-->
     <color name="xf_trans">#00000000</color>
     <color name="xf_black">#000000</color>
+    <color name="xf_light_black">#222222</color>
     <color name="xf_alertDialogLine">#c6c6c6</color>
     <color name="xf_actionSheetBlue">#037BFF</color>
     <color name="xf_actionSheetRed">#FD4A2E</color>
     <color name="xf_actionSheetGray">#8F8F8F</color>
     <color name="xf_dark_gray">#333333</color>
+    <color name="xf_dark_gray_666">#666666</color>
 
 
     <!--picker view -->
-    <color name="xf_picker_view_time_btn_normal">#057dff</color>
-    <color name="xf_picker_view_time_btn_pressed">#c2daf5</color>
+    <color name="xf_picker_view_time_btn_normal">#C09D5B</color>
+    <color name="xf_picker_view_time_btn_pressed">#C09D5B</color>
     <color name="xf_picker_view_top_bar_bg">#f5f5f5</color>
     <color name="xf_picker_view_top_bar_title">#000000</color>
     <color name="xf_picker_view_wheel_view_text_color_out">#a8a8a8</color>

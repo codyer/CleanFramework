@@ -1,17 +1,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data class="ImageViewActivityBinding">
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="onClickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
-            type="com.cody.handler.business.viewmodel.CaseViewModel"/>
+            type="com.cody.handler.business.viewmodel.CaseViewModel" />
     </data>
 
     <LinearLayout
@@ -24,7 +24,7 @@
         <include
             layout="@layout/fw_header"
             bind:onClickListener="@{onClickListener}"
-            bind:viewModel="@{viewModel.headerViewModel}"/>
+            bind:viewModel="@{viewModel.headerViewModel}" />
 
         <!--include包含传递viewmodel-->
         <!--  <include
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:onClick="@{onClickListener::onClick}"
             android:padding="@dimen/activity_horizontal_margin"
-            android:text="@{viewModel.info}"/>
+            android:text="@{viewModel.info}" />
 
         <ImageView
             android:id="@+id/portrait"
@@ -53,7 +53,7 @@
             android:padding="@dimen/activity_horizontal_margin"
             bind:error="@{@drawable/normal_portrait}"
             bind:imageUrl="@{viewModel.imageUrl}"
-            bind:placeholder="@{@drawable/normal_portrait}"/>
+            bind:placeholder="@{@drawable/normal_portrait}" />
 
         <!--<TextView
             android:layout_width="match_parent"

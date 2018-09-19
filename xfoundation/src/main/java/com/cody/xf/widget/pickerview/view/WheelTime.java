@@ -3,6 +3,7 @@ package com.cody.xf.widget.pickerview.view;
 import android.content.Context;
 import android.view.View;
 
+import com.cody.xf.R;
 import com.cody.xf.widget.pickerview.TimePickerView;
 import com.cody.xf.widget.pickerview.adapter.NumericWheelAdapter;
 import com.cody.xf.widget.pickerview.lib.WheelView;
@@ -12,10 +13,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
-import com.cody.xf.R;
 
 
 public class WheelTime {
+    public static final int DEFULT_START_YEAR = 1990;
+    public static final int DEFULT_END_YEAR = 2100;
     public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private View view;
     private WheelView wv_year;
@@ -23,10 +25,7 @@ public class WheelTime {
     private WheelView wv_day;
     private WheelView wv_hours;
     private WheelView wv_mins;
-
     private TimePickerView.Type type;
-    public static final int DEFULT_START_YEAR = 1990;
-    public static final int DEFULT_END_YEAR = 2100;
     private int startYear = DEFULT_START_YEAR;
     private int endYear = DEFULT_END_YEAR;
 
@@ -190,11 +189,19 @@ public class WheelTime {
                 break;
             case MONTH:
                 textSize = textSize * 5;
-                wv_month.setPadding(0,0,20,0);
+                wv_month.setPadding(0, 0, 20, 0);
                 wv_year.setVisibility(View.GONE);
                 wv_day.setVisibility(View.GONE);
                 wv_hours.setVisibility(View.GONE);
                 wv_mins.setVisibility(View.GONE);
+            case YEAR:
+                textSize = textSize * 4;
+                wv_year.setLabel("");
+                wv_day.setVisibility(View.GONE);
+                wv_hours.setVisibility(View.GONE);
+                wv_mins.setVisibility(View.GONE);
+                wv_month.setVisibility(View.GONE);
+                break;
         }
         wv_day.setTextSize(textSize);
         wv_month.setTextSize(textSize);

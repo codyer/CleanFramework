@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <array name="fragments_main_tab">
-        <item>任务</item>
-        <item>工地</item>
-        <item>个人</item>
-    </array>
+    <declare-styleable name="ParallaxView">
+        <attr name="speed" format="dimension" />
+        <attr name="src" format="reference" />
+        <attr name="sceneLength" format="integer" />
+        <attr name="randomness" format="reference" />
+        <attr name="initialState" format="enum">
+            <enum name="started" value="0" />
+            <enum name="stopped" value="1" />
+        </attr>
+    </declare-styleable>
 
-    <!-- 任务 -->
-    <array name="task_tab">
-        <item>今日@tag@0</item>
-        <item>本周@tag@1</item>
-    </array>
+    <declare-styleable name="TagFlowLayout">
+        <attr name="max_select" format="integer" />
+        <attr name="tag_gravity">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
 
-    <!-- 工地 -->
-    <array name="work_site_tab">
-        <item>进行中@tag@0</item>
-        <item>竣工@tag@1</item>
-    </array>
+    <declare-styleable name="MyToolBar">
+        <attr name="title_text" format="string" />
+        <attr name="right_text" format="string" />
+        <attr name="right_icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout_Layout">
+        <attr name="android:layout_gravity" />
+    </declare-styleable>
+
+    <!--ease chat -->
+    <declare-styleable name="EaseChatExtendMenu">
+        <attr name="numColumns" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="EaseImageView">
+        <attr name="ease_border_color" format="color" />
+        <attr name="ease_border_width" format="dimension" />
+        <attr name="ease_press_alpha" format="integer" />
+        <attr name="ease_press_color" format="color" />
+        <attr name="ease_radius" format="dimension" />
+        <attr name="ease_shape_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="round" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+    </declare-styleable>
 
 </resources>

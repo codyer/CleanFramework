@@ -2,12 +2,17 @@ package com.cody.app.framework.activity;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.framework.adapter.BaseRecycleViewAdapter;
+import com.cody.app.framework.adapter.OnItemClickListener;
 import com.cody.handler.framework.presenter.AbsListPresenter;
-import com.cody.handler.framework.viewmodel.ListViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.IListViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
+import com.cody.xf.utils.RecyclerViewUtil;
+import com.cody.xf.utils.http.HttpCode;
+import com.cody.xf.utils.http.SimpleBean;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -17,11 +22,11 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 public abstract class AbsListActivity<
         P extends AbsListPresenter<AbsListViewModel, ItemViewModel>,
-        AbsListViewModel extends ListViewModel<ItemViewModel>,
-        ItemViewModel extends ViewModel,
+        AbsListViewModel extends IListViewModel<ItemViewModel>,
+        ItemViewModel extends XItemViewModel,
         B extends ViewDataBinding>
         extends BaseBindingActivity<P, AbsListViewModel, B>
-        implements BaseRecycleViewAdapter.OnItemClickListener,
+        implements OnItemClickListener,
         PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
@@ -40,13 +45,21 @@ public abstract class AbsListActivity<
      */
     protected abstract int getEmptyViewId();
 
+    protected View getNoNetWorkView() {
+        return getLayoutInflater().inflate(R.layout.fw_no_network_view, null);
+    }
+
+    protected View getServerErrorView() {
+        return getLayoutInflater().inflate(R.layout.fw_server_error_view, null);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mRecyclerViewAdapter = buildRecycleViewAdapter();
-
         mRecyclerViewAdapter.setItemClickListener(this);
+        mRecyclerViewAdapter.setItemLongClickListener(this);
         //获取数据
         initRecycleView();
         getPresenter().getInitPage(TAG);
@@ -99,7 +112,40 @@ public abstract class AbsListActivity<
         super.onPause();
         if (mPullLoadMoreRecyclerView != null) {
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-            getPresenter().cancel(TAG);
+        }
+    }
+
+    @Override
+    public void showFailure(SimpleBean simpleBean) {
+        super.showFailure(simpleBean);
+        parseCode(simpleBean);
+    }
+
+    @Override
+    public void showError(SimpleBean simpleBean) {
+        super.showError(simpleBean);
+        parseCode(simpleBean);
+    }
+
+    private void parseCode(SimpleBean simpleBean) {
+        if (simpleBean != null) {
+            View v = null;
+            switch (simpleBean.getCode()) {
+                case HttpCode.NETWORK_DISCONNECTED:
+                    v = getNoNetWorkView();
+                    break;
+                case HttpCode.SERVER_ERROR:
+                    v = getServerErrorView();
+                    break;
+                case HttpCode.REQUEST_ERROR:
+                case HttpCode.PARAMETER_ERROR:
+                case HttpCode.NOT_FOUND:
+                default:
+                    break;
+            }
+            if (v != null && mPullLoadMoreRecyclerView != null) {
+                mPullLoadMoreRecyclerView.setDefaultView(v, true);
+            }
         }
     }
 
@@ -111,12 +157,13 @@ public abstract class AbsListActivity<
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
     }
+
     /**
      * 滑动到顶部
      */
     public void scrollToTop() {
         if (mPullLoadMoreRecyclerView != null) {
-            mPullLoadMoreRecyclerView.smoothScrollToTop();
+            RecyclerViewUtil.smoothScrollToTop(mPullLoadMoreRecyclerView.getRecyclerView());
         }
     }
 }

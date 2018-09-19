@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.cody.xf.R;
 import com.cody.xf.widget.pickerview.listener.OnDismissListener;
 import com.cody.xf.widget.pickerview.utils.PickerViewAnimateUtil;
-import com.cody.xf.R;
 
 /**
  * Created by Sai on 15/11/22.
@@ -20,8 +20,8 @@ import com.cody.xf.R;
  */
 public class BasePickerView {
 
-    private Context context;
     protected ViewGroup contentContainer;
+    private Context context;
     private ViewGroup decorView;//activity的根View
     private ViewGroup rootView;//附加View 的 根View
 
@@ -31,9 +31,21 @@ public class BasePickerView {
     private Animation outAnim;
     private Animation inAnim;
     private boolean isShowing;
+    /**
+     * Called when the user touch on black overlay in order to dismiss the dialog
+     */
+    private final View.OnTouchListener onCancelableTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                dismiss();
+            }
+            return false;
+        }
+    };
     private int gravity = Gravity.BOTTOM;
 
-    public BasePickerView(Context context){
+    public BasePickerView(Context context) {
         this.context = context;
 
         initViews();
@@ -41,9 +53,9 @@ public class BasePickerView {
         initEvents();
     }
 
-    protected void initViews(){
+    protected void initViews() {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        decorView = (ViewGroup) ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
+        decorView = (ViewGroup) ((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content);
         rootView = (ViewGroup) layoutInflater.inflate(R.layout.xf_layout_base_picker_view, decorView, false);
         contentContainer = (ViewGroup) rootView.findViewById(R.id.content_container);
     }
@@ -52,8 +64,10 @@ public class BasePickerView {
         inAnim = getInAnimation();
         outAnim = getOutAnimation();
     }
+
     protected void initEvents() {
     }
+
     /**
      * show的时候调用
      *
@@ -63,6 +77,7 @@ public class BasePickerView {
         decorView.addView(view);
         contentContainer.startAnimation(inAnim);
     }
+
     /**
      * 添加这个View到Activity的根视图
      */
@@ -73,8 +88,10 @@ public class BasePickerView {
         isShowing = true;
         onAttached(rootView);
     }
+
     /**
      * 检测该View是不是已经添加到根视图
+     *
      * @return 如果视图已经存在该View返回true
      */
     public boolean isShowing() {
@@ -121,8 +138,9 @@ public class BasePickerView {
         if (onDismissListener != null) {
             onDismissListener.onDismiss(BasePickerView.this);
         }
-
+        decorView.setOnKeyListener(null);
     }
+
     public Animation getInAnimation() {
         int res = PickerViewAnimateUtil.getAnimationResource(this.gravity, true);
         return AnimationUtils.loadAnimation(context, res);
@@ -143,26 +161,13 @@ public class BasePickerView {
 
         if (isCancelable) {
             view.setOnTouchListener(onCancelableTouchListener);
-        }
-        else{
+        } else {
             view.setOnTouchListener(null);
         }
         return this;
     }
-    /**
-     * Called when the user touch on black overlay in order to dismiss the dialog
-     */
-    private final View.OnTouchListener onCancelableTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                dismiss();
-            }
-            return false;
-        }
-    };
 
-    public View findViewById(int id){
+    public View findViewById(int id) {
         return contentContainer.findViewById(id);
     }
 }

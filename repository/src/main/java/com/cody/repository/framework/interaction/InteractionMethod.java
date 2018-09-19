@@ -1,12 +1,13 @@
 package com.cody.repository.framework.interaction;
 
-import com.cody.xf.utils.LogUtil;
-import com.cody.xf.utils.http.HeaderListener;
 import com.google.gson.JsonObject;
+import com.cody.xf.utils.LogUtil;
+import com.cody.xf.utils.http.IHeaderListener;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,9 +17,11 @@ import java.util.Map;
 class InteractionMethod {
     private final Object mTag;
     private final Map<String, String> mParams;
+    private final List<String> mImages;
+    private final String mImage;
     private final JsonObject mJsonObject;
     private final Class<?> mClazz;
-    private final HeaderListener mHeaderListener;
+    private final IHeaderListener mHeaderListener;
     private final ICallback<Object> mCallback;
     private final String mDomain;
     private final String mUrl;
@@ -30,6 +33,8 @@ class InteractionMethod {
     private InteractionMethod(Builder builder) {
         this.mTag = builder.mTag;
         this.mParams = builder.mParams;
+        this.mImages = builder.mImages;
+        this.mImage = builder.mImage;
         this.mJsonObject = builder.mJsonObject;
         this.mClazz = builder.mClazz;
         this.mHeaderListener = builder.mHeaderListener;
@@ -60,26 +65,81 @@ class InteractionMethod {
             case LIST_BEAN:
                 mCallAdapter.invokeListBean();
                 break;
+            case UPLOAD_BEAN:
+                mCallAdapter.invokeUploadImage();
+                break;
+            case UPLOAD_LIST_BEAN:
+                mCallAdapter.invokeUploadImages();
+                break;
         }
         return null;
     }
 
-    static final class Builder {
-        private Object mTag;
-        private String mUrl;
-        private Class<?> mClazz;
-        private ResultType mResultType;
-        private HeaderListener mHeaderListener;
-        private ICallback<Object> mCallback;
-        private JsonObject mJsonObject;
-        private Map<String, String> mParams;
-        private RequestMethod mRequestMethod;
-        private CallAdapter mCallAdapter;
+    public Object getTag() {
+        return mTag;
+    }
 
+    public Map<String, String> getParams() {
+        return mParams;
+    }
+
+    public List<String> getImages() {
+        return mImages;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public JsonObject getJsonObject() {
+        return mJsonObject;
+    }
+
+    Class<?> getClazz() {
+        return mClazz;
+    }
+
+    public ICallback<Object> getCallback() {
+        return mCallback;
+    }
+
+    String getDomain() {
+        return mDomain;
+    }
+
+    String getUrl() {
+        return mUrl;
+    }
+
+    RequestMethod getRequestMethod() {
+        return mRequestMethod;
+    }
+
+    public ResultType getResultType() {
+        return mResultType;
+    }
+
+    IHeaderListener getHeaderListener() {
+        return mHeaderListener;
+    }
+
+    static final class Builder {
         private final Method mMethod;
         private final String mDomain;
         private final Annotation[] mMethodAnnotations;
         private final Annotation[][] mParameterAnnotationsArray;
+        private Object mTag;
+        private String mUrl;
+        private Class<?> mClazz;
+        private ResultType mResultType;
+        private IHeaderListener mHeaderListener;
+        private ICallback<Object> mCallback;
+        private JsonObject mJsonObject;
+        private List<String> mImages;
+        private String mImage;
+        private Map<String, String> mParams;
+        private RequestMethod mRequestMethod;
+        private CallAdapter mCallAdapter;
 
         Builder(Method method, String domain) {
             this.mDomain = domain;
@@ -125,6 +185,18 @@ class InteractionMethod {
                         } else {
                             throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryJson params !");
                         }
+                    } else if (methodParameterAnnotation instanceof QueryImage) {
+                        if (args[i] instanceof String) {
+                            mImage = (String) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryImage params !");
+                        }
+                    } else if (methodParameterAnnotation instanceof QueryImages) {
+                        if (args[i] instanceof List) {
+                            mImages = (List) args[i];
+                        } else {
+                            throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryImages params !");
+                        }
                     } else if (methodParameterAnnotation instanceof QueryClass) {
                         if (args[i] instanceof Class) {
                             mClazz = (Class<?>) args[i];
@@ -134,14 +206,14 @@ class InteractionMethod {
                     } else if (methodParameterAnnotation instanceof QueryCallBack) {
                         if (args[i] instanceof ICallback) {
                             mCallback = (ICallback<Object>) args[i];
-                        } else if (args[i] instanceof HeaderListener) {
-                            mHeaderListener = (HeaderListener) args[i];
+                        } else if (args[i] instanceof IHeaderListener) {
+                            mHeaderListener = (IHeaderListener) args[i];
                         } else {
                             throw parameterError(i, "parseParameterAnnotation", "err", "invalid QueryCallBack params !");
                         }
                     } else if (methodParameterAnnotation instanceof QueryHeaderListener) {
-                        if (args[i] instanceof HeaderListener) {
-                            mHeaderListener = (HeaderListener) args[i];
+                        if (args[i] instanceof IHeaderListener) {
+                            mHeaderListener = (IHeaderListener) args[i];
                         } else {
                             throw parameterError(i, "parseParameterAnnotation", "err", "you should use HeaderListener !");
                         }
@@ -194,41 +266,5 @@ class InteractionMethod {
         private RuntimeException parameterError(int p, String message, Object... args) {
             return parameterError(null, p, message, args);
         }
-    }
-
-    public Object getTag() {
-        return mTag;
-    }
-
-    public Map<String, String> getParams() {
-        return mParams;
-    }
-
-    public JsonObject getJsonObject() {
-        return mJsonObject;
-    }
-
-    Class<?> getClazz() {
-        return mClazz;
-    }
-
-    public ICallback<Object> getCallback() {
-        return mCallback;
-    }
-
-    String getDomain() {
-        return mDomain;
-    }
-
-    String getUrl() {
-        return mUrl;
-    }
-
-    RequestMethod getRequestMethod() {
-        return mRequestMethod;
-    }
-
-    HeaderListener getHeaderListener() {
-        return mHeaderListener;
     }
 }

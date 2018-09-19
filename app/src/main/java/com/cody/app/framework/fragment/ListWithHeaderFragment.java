@@ -16,7 +16,7 @@ import com.cody.app.databinding.ListWithHeaderBinding;
 import com.cody.handler.framework.presenter.ListWithHeaderPresenter;
 import com.cody.handler.framework.viewmodel.HeaderViewModel;
 import com.cody.handler.framework.viewmodel.ListWithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -24,7 +24,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 如果设置headerItem 可以显示头部
  */
 public abstract class ListWithHeaderFragment<P extends ListWithHeaderPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListFragment<P,
         ListWithHeaderViewModel<ItemViewModel>,
         ItemViewModel,
@@ -52,6 +52,11 @@ public abstract class ListWithHeaderFragment<P extends ListWithHeaderPresenter<I
         View view = super.onCreateView(inflater, container, savedInstanceState);
         initHeader(getViewModel().getHeaderViewModel());
         return view;
+    }
+
+    @Override
+    protected int getEmptyViewId() {
+        return R.layout.fw_empty_view;
     }
 
     @Override

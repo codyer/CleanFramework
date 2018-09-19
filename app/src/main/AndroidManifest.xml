@@ -1,56 +1,367 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.cody.app">
+    package="com.cody.app">
 
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <!-- Required ⼀一些系统要求的权限，如访问网络等 -->
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <!-- Optional for location -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <!-- 相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <!-- shell sdk -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <!-- baidu -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 打开Camera的权限 -->
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.autofocus" />
+    <uses-feature android:name="android.hardware.camera2" />
+    <uses-feature android:name="android.hardware.camera2.flash" />
+    <!-- 开启闪光灯权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
-        android:name=".framework.BaseApplication"
-        android:allowBackup="true"
+        android:name=".LongGuoApp"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="${APP_BUILD_TYPE}"
+        android:label="${APP_LABEL}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- 高德地图key -->
         <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${CHANNEL_ID}"/>
+            android:name="com.amap.api.v2.apikey"
+            android:value="${AMAP_KEY}" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <!-- 您从百度网站获取的APP KEY，根据实际您的APP申请的APP_KEY进行修改 -->
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="078dda5738" /> <!-- 龙果：078dda5738  监理： 905166a8cc 设计师： efec10745f  设计猫： fa509099f7  自己的： 20afd8e471 -->
+        <!-- 渠道商编号 -->
+        <meta-data
+            android:name="BaiduMobAd_CHANNEL"
+            android:value="${BaiduMobAd_CHANNEL_ID}" />
+
+        <!-- 是否开启错误日志统计，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_EXCEPTION_LOG"
+            android:value="true" />
+        <!-- 日志发送策略，可选值：APP_START、ONCE_A_DAY、SET_TIME_INTERVAL，默认为APP_START -->
+        <meta-data
+            android:name="BaiduMobAd_SEND_STRATEGY"
+            android:value="APP_START" />
+        <!-- 日志发送策略 为SET_TIME_INTERVAL时，需设定时间间隔(取消下行注释)。取值为1-24的整数，默认为1 -->
+        <!-- <meta-data android:name="BaiduMobAd_TIME_INTERVAL" android:value="2" /> -->
+        <!-- 日志仅在wifi网络下发送，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_ONLY_WIFI"
+            android:value="false" />
+        <!-- 是否获取基站位置信息 ,默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_CELL_LOCATION"
+            android:value="true" />
+        <!-- 是否获取GPS位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_GPS_LOCATION"
+            android:value="true" />
+        <!-- 是否获取WIFI位置信息，默认为true -->
+        <meta-data
+            android:name="BaiduMobAd_WIFI_LOCATION"
+            android:value="true" />
+
+        <!-- 友盟分享添加 start -->
 
         <activity
-            android:name=".business.MainPageActivity"
+            android:name="${APPLICATION_ID}.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b6d471db27b0a305b000031" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_ID}" />
+        <!-- 友盟分享添加 end -->
+        <!-- User defined.  For test only  用户自定义的广播接收器 -->
+        <receiver
+            android:name=".framework.receiver.HandlerJPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required since 3.0.7 -->
+        <!-- 目前新tag/alias接口设置结果会在该广播接收器对应的方法中回调 -->
+        <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
+        <receiver
+            android:name=".framework.receiver.JPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".framework.upgrade.DownloadService" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${APPLICATION_ID}.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".framework.activity.HtmlActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".framework.activity.ImagePreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity
+            android:name=".business.SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/xf_AppTheme.Launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".framework.activity.HtmlActivity"/>
+
+        <!-- end framework -->
+
+        <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".business.chat.RecommendGoodsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".business.SettingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.personal.PersonalInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.personal.SelfIntroductionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.chat.ChooseCouponImActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="chinaredStar.chat.chooseCoupon" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".business.chat.SwitchSaleActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="chinaredStar.chat.switchSale" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".business.manager.CreateReleaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.manager.CreateQrCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.scan.ScanActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 地图 -->
+        <activity
+            android:name=".business.easeui.ui.EaseGaodeMapActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 视频聊天页面 -->
+        <activity
+            android:name=".business.easeui.ui.VideoCallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <!-- 视频拍摄页面 -->
+        <activity
+            android:name=".business.easeui.ui.RecorderVideoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".business.easeui.ui.EaseShowVideoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".business.LoginNewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".business.UserInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".business.easeui.ui.ModifyRemarkActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".business.QuickReplyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".business.SystemMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.order.BusinessOrderListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".business.order.BusinessOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".business.order.SearchBusinessOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.customer.MyCustomerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.VerifyPhoneNewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.im.ImTabActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.im.SearchContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.im.ChatActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".business.im.ChatHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.CustomerOrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.im.GroupModifyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.QuickReplySettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.SystemGreetingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.EventMarketingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.PromotionListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.CouponListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.CouponAddActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".business.customer.PotentialCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.customer.IntentionCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.im.GroupManageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.customer.BargainCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.customer.CouponsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.CouponOrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.MiniAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".business.promotion.CouponFailListActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -5,50 +5,55 @@ package com.cody.xf.widget.pickerview.adapter;
  * Numeric Wheel adapter.
  */
 public class NumericWheelAdapter implements WheelAdapter {
-	
-	/** The default min value */
-	public static final int DEFAULT_MAX_VALUE = 9;
 
-	/** The default max value */
-	private static final int DEFAULT_MIN_VALUE = 0;
-	
-	// Values
-	private int minValue;
-	private int maxValue;
+    /**
+     * The default min value
+     */
+    public static final int DEFAULT_MAX_VALUE = 9;
 
-	/**
-	 * Default constructor
-	 */
-	public NumericWheelAdapter() {
-		this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
-	}
+    /**
+     * The default max value
+     */
+    private static final int DEFAULT_MIN_VALUE = 0;
 
-	/**
-	 * Constructor
-	 * @param minValue the wheel min value
-	 * @param maxValue the wheel max value
-	 */
-	public NumericWheelAdapter(int minValue, int maxValue) {
-		this.minValue = minValue;
-		this.maxValue = maxValue;
-	}
+    // Values
+    private int minValue;
+    private int maxValue;
 
-	@Override
-	public Object getItem(int index) {
-		if (index >= 0 && index < getItemsCount()) {
-			int value = minValue + index;
-			return value;
-		}
-		return 0;
-	}
+    /**
+     * Default constructor
+     */
+    public NumericWheelAdapter() {
+        this(DEFAULT_MIN_VALUE, DEFAULT_MAX_VALUE);
+    }
 
-	@Override
-	public int getItemsCount() {
-		return maxValue - minValue + 1;
-	}
-	
-	@Override
-	public int indexOf(Object o){
-		return (int)o - minValue;
-	}
+    /**
+     * Constructor
+     *
+     * @param minValue the wheel min value
+     * @param maxValue the wheel max value
+     */
+    public NumericWheelAdapter(int minValue, int maxValue) {
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+    }
+
+    @Override
+    public Object getItem(int index) {
+        if (index >= 0 && index < getItemsCount()) {
+            int value = minValue + index;
+            return value;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getItemsCount() {
+        return maxValue - minValue + 1;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return (int) o - minValue;
+    }
 }

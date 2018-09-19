@@ -5,16 +5,15 @@
 package com.cody.app.framework.activity;
 
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithHeaderAndSearchBinding;
-import com.cody.xf.widget.SearchEditView;
 import com.cody.handler.framework.presenter.ListWithHeaderAndSearchPresenter;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
 import com.cody.handler.framework.viewmodel.ListWithHeaderAndSearchViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
-import com.cody.xf.utils.CommonUtil;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
+import com.cody.xf.widget.SearchEditView;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -22,7 +21,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  * 可以加载更多的Activity基类,包含头部及搜索框
  */
 public abstract class ListWithHeaderAndSearchActivity<P extends ListWithHeaderAndSearchPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListActivity<P,
         ListWithHeaderAndSearchViewModel<ItemViewModel>,
         ItemViewModel,
@@ -31,9 +30,19 @@ public abstract class ListWithHeaderAndSearchActivity<P extends ListWithHeaderAn
 
     protected SearchEditView mSearchEditView;
 
+    /**
+     * 创建标题
+     * 返回空或者默认的HeaderViewModel不会显示头部，必须设置头部的visible
+     *
+     * @see HeaderViewModel#setVisible
+     */
+    protected abstract void initHeader(HeaderViewModel header);
+
     @Override
     protected ListWithHeaderAndSearchViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
-        return new ListWithHeaderAndSearchViewModel<>();
+        ListWithHeaderAndSearchViewModel<ItemViewModel> listWithHeaderViewModel = new ListWithHeaderAndSearchViewModel<>();
+        initHeader(listWithHeaderViewModel.getHeaderViewModel());
+        return listWithHeaderViewModel;
     }
 
     @Override
@@ -47,8 +56,6 @@ public abstract class ListWithHeaderAndSearchActivity<P extends ListWithHeaderAn
 
         mSearchEditView = getBinding().fwSearch.searchView;
         mSearchEditView.setOnSearchClickListener(this);
-        InputFilter[] filters = {CommonUtil.getEmojFilter()};
-        mSearchEditView.setFilters(filters);
     }
 
     @Override
@@ -57,8 +64,11 @@ public abstract class ListWithHeaderAndSearchActivity<P extends ListWithHeaderAn
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.headerLeftBtn:
+                finish();
+                break;
             case R.id.headerText:
                 scrollToTop();
                 break;

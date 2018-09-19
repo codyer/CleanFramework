@@ -10,7 +10,7 @@ import com.cody.app.R;
 import com.cody.app.databinding.ListBinding;
 import com.cody.handler.framework.presenter.ListPresenter;
 import com.cody.handler.framework.viewmodel.ListViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -19,7 +19,7 @@ import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
  */
 public abstract class ListActivity<
         P extends ListPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
+        ItemViewModel extends XItemViewModel>
         extends AbsListActivity<
         P,
         ListViewModel<ItemViewModel>,

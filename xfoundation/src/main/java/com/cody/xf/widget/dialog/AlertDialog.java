@@ -2,6 +2,8 @@ package com.cody.xf.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +13,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cody.xf.R;
 
 
 /**
  * Created by liuqiang on 10/23/15.
+ * 提示框
  */
 public class AlertDialog {
     private Context context;
@@ -70,7 +74,7 @@ public class AlertDialog {
 
     public AlertDialog setTitle(String title) {
         showTitle = true;
-        if ("".equals(title)) {
+        if (TextUtils.isEmpty(title)) {
             txt_title.setText("标题");
         } else {
             txt_title.setText(title);
@@ -80,10 +84,17 @@ public class AlertDialog {
 
     public AlertDialog setMsg(String msg) {
         showMsg = true;
-        if ("".equals(msg)) {
+        if (TextUtils.isEmpty(msg)) {
             txt_msg.setText("内容");
         } else {
             txt_msg.setText(msg);
+        }
+        return this;
+    }
+
+    public AlertDialog setMsgGravity(int gravity) {
+        if (txt_msg != null) {
+            txt_msg.setGravity(gravity);
         }
         return this;
     }
@@ -93,10 +104,18 @@ public class AlertDialog {
         return this;
     }
 
+    public void setOnKeyListener(DialogInterface.OnKeyListener onKeyListener) {
+        dialog.setOnKeyListener(onKeyListener);
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
     public AlertDialog setPositiveButton(String text,
                                          final View.OnClickListener listener) {
         showPosBtn = true;
-        if ("".equals(text)) {
+        if (TextUtils.isEmpty(text)) {
             btn_pos.setText("确定");
         } else {
             btn_pos.setText(text);
@@ -104,7 +123,9 @@ public class AlertDialog {
         btn_pos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v);
+                if (listener != null) {
+                    listener.onClick(v);
+                }
                 dialog.dismiss();
             }
         });
@@ -114,7 +135,7 @@ public class AlertDialog {
     public AlertDialog setNegativeButton(String text,
                                          final View.OnClickListener listener) {
         showNegBtn = true;
-        if ("".equals(text)) {
+        if (TextUtils.isEmpty(text)) {
             btn_neg.setText("取消");
         } else {
             btn_neg.setText(text);
@@ -122,7 +143,9 @@ public class AlertDialog {
         btn_neg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(v);
+                if (listener != null) {
+                    listener.onClick(v);
+                }
                 dialog.dismiss();
             }
         });
@@ -146,7 +169,7 @@ public class AlertDialog {
         if (!showPosBtn && !showNegBtn) {
             btn_pos.setText("确定");
             btn_pos.setVisibility(View.VISIBLE);
-            btn_pos.setBackgroundResource(R.drawable.xf_alertdialog_single_selector);
+            btn_pos.setBackgroundResource(R.drawable.xf_alert_dialog_single_selector);
             btn_pos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,20 +180,20 @@ public class AlertDialog {
 
         if (showPosBtn && showNegBtn) {
             btn_pos.setVisibility(View.VISIBLE);
-            btn_pos.setBackgroundResource(R.drawable.xf_alertdialog_right_selector);
+            btn_pos.setBackgroundResource(R.drawable.xf_alert_dialog_right_selector);
             btn_neg.setVisibility(View.VISIBLE);
-            btn_neg.setBackgroundResource(R.drawable.xf_alertdialog_left_selector);
+            btn_neg.setBackgroundResource(R.drawable.xf_alert_dialog_left_selector);
             img_line.setVisibility(View.VISIBLE);
         }
 
         if (showPosBtn && !showNegBtn) {
             btn_pos.setVisibility(View.VISIBLE);
-            btn_pos.setBackgroundResource(R.drawable.xf_alertdialog_single_selector);
+            btn_pos.setBackgroundResource(R.drawable.xf_alert_dialog_single_selector);
         }
 
         if (!showPosBtn && showNegBtn) {
             btn_neg.setVisibility(View.VISIBLE);
-            btn_neg.setBackgroundResource(R.drawable.xf_alertdialog_single_selector);
+            btn_neg.setBackgroundResource(R.drawable.xf_alert_dialog_single_selector);
         }
     }
 

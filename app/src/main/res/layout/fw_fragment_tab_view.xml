@@ -17,12 +17,14 @@
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_white"
+        android:background="@color/background_gray"
         android:clickable="true">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:stateListAnimator="@null"
+            bind:elevation="0dp">
 
             <include
                 android:id="@+id/fw_header"
@@ -33,7 +35,7 @@
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
                 style="@style/tabLayoutStyle"
-                bind:layout_scrollFlags="scroll|enterAlways"/>
+                bind:tabGravity="center"/>
 
         </android.support.design.widget.AppBarLayout>
 

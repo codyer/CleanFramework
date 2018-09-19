@@ -2,8 +2,7 @@
   ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data class="ListBinding">
 
@@ -15,20 +14,18 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.ListViewModel" />
+            type="com.cody.handler.framework.viewmodel.ListViewModel"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_transparent"
+        android:background="@color/background_gray"
         android:orientation="vertical">
 
         <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
             android:id="@+id/fw_list"
-            style="@style/ListViewNormalStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            style="@style/ListViewNormalStyle"/>
     </LinearLayout>
 
 </layout>

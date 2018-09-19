@@ -1,17 +1,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data class="CaseActivityBinding">
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="onClickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
-            type="com.cody.handler.business.viewmodel.CaseViewModel"/>
+            type="com.cody.handler.business.viewmodel.CaseViewModel" />
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
         <include
             layout="@layout/fw_header"
             bind:onClickListener="@{onClickListener}"
-            bind:viewModel="@{viewModel.headerViewModel}"/>
+            bind:viewModel="@{viewModel.headerViewModel}" />
 
         <!--include包含传递viewmodel-->
         <!--  <include
@@ -40,10 +40,10 @@
             android:id="@+id/testCase"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/activity_horizontal_margin"
             android:layout_gravity="center"
             android:onClick="@{onClickListener::onClick}"
-            android:text="@{viewModel.info}"/>
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="@{viewModel.info}" />
         <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

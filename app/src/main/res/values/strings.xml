@@ -1,9 +1,289 @@
 <resources>
-    <string name="app_name">CleanApp</string>
-    <string name="fw_no_data">无数据</string>
+    <string name="app_name">龙果</string>
+    <string name="fw_refresh">刷新一下试试</string>
+    <string name="fw_ignore">忽略本次错误</string>
     <string name="fw_html_loading">努力加载中&#8230;</string>
-    <string name="fw_click_back_two_times">再按一次退出程序</string>
+    <string name="fw_html_url_null">链接地址错误</string>
+    <string name="find_password">找回密码</string>
+    <string name="image_upload">图片上传中</string>
+    <string name="the_end_of_list">--- 我是有底线的 ---</string>
+    <string name="from_photos">从相册中选择</string>
+    <string name="from_camera">拍照</string>
+    <!--// 删除到这里-->
+    <string name="error_alias_empty">alias不能为空</string>
+    <string name="error_tag_empty">tag不能为空</string>
+    <string name="error_tag_gs_empty">格式不对</string>
+    <string name="recommend_goods">推荐商品</string>
+
+    <!-- design 设计 -->
+
+    <string name="button_pushtotalk">按住说话</string>
+    <string name="button_send">发送</string>
+    <string name="attach_picture">照片</string>
+    <string name="attach_take_pic">拍摄</string>
+    <string name="attach_video">视频聊天</string>
+    <string name="attach_goods">推荐商品</string>
+    <string name="attach_guide">切换导购</string>
+    <string name="attach_coupon">优惠券</string>
+    <string name="move_up_to_cancel">手指上滑，取消发送</string>
+    <string name="release_to_cancel">松开手指，取消发送</string>
+    <string name="network_unavailable">网络连接不可用，请检查网络</string>
+    <string name="ok">确定</string>
+    <string name="prompt">提示</string>
+    <string name="recoding_fail">录音失败，请重试！</string>
+    <string name="downwaiting">正在下载文件请稍后</string>
+    <string name="hang_up">挂断</string>
+    <string name="not_download">未下载:</string>
+    <string name="is_down_please_wait">正在下载视频请稍候</string>
+    <string name="call_duration">通话时长</string>
+    <string name="Refused">已拒绝</string>
+    <string name="The_other_party_has_refused_to">对方已拒绝</string>
+    <string name="The_other_is_not_online">对方不在线</string>
+    <string name="The_other_is_on_the_phone">对方正在通话中</string>
+    <string name="The_other_party_did_not_answer">对方未接听</string>
+    <string name="did_not_answer">未接听</string>
+    <string name="Has_been_cancelled">已取消</string>
+    <string name="unable_to_get_loaction">无法获取到您的位置信息!</string>
+    <string name="not_connect_to_server">尚未连接至服务器，请稍后重试</string>
+    <string name="Send_voice_need_sdcard_support">发送语音需要sdcard支持</string>
+    <string name="Recording_without_permission">无录音权限</string>
+    <string name="The_recording_time_is_too_short">录音时间太短</string>
+    <string name="send_failure_please">发送失败，请检测服务器是否连接</string>
+    <string name="can_not_connect_chat_server_connection">连接不到聊天服务器</string>
+    <string name="Whether_to_send">是否发送？</string>
+    <string name="Open_the_equipment_failure">打开设备失败!</string>
+    <string name="Download_the_pictures">下载图片: 0%</string>
+    <string name="Download_the_pictures_new">下载图片:</string>
+    <string name="Failed_to_download_file">下载文件失败:</string>
+    <string name="Are_connected_to_each_other">正在等待对方接受邀请...</string>
+    <string name="Is_not_yet_connected_to_the_server">尚未连接至服务器</string>
+    <string name="The_other_party_refused_to_accept">对方拒绝接受！……</string>
+    <string name="Connection_failure">连接建立失败！……</string>
+    <string name="The_other_party_is_not_online">对方不在线，请稍后再拨……</string>
+    <string name="The_other_is_on_the_phone_please">对方正在通话中，请稍后再拨</string>
+    <string name="The_other_is_hang_up">对方已经挂断</string>
+    <string name="were_mentioned">[有人@我]</string>
+    <string name="hanging_up">正在挂断..</string>
+    <string name="illegal_user_name">用户名不合法</string>
+    <string name="location">位置</string>
+    <string name="call_version_inconsistent">通话协议版本不一致</string>
+
+    <string name="no_network">网络异常</string>
+    <string name="no_data">啊哦，没有数据</string>
+    <string name="server_error">服务器异常</string>
+    <string name="no_customer_data">还没有用户，敬请期待！</string>
+
+    <!-- 个人信息 -->
+
+
+    <!-- 1.4.0 -->
+
+    <!--behavior-->
+    <string name="action_settings">Settings</string>
+    <string name="click_back_two_times">再按一次退出程序</string>
+
+    <!--缺省页-->
+    <string name="err_no_data">列表是空的</string>
+
+    <!--登录-->
+    <string name="login">登录</string>
+    <string name="lost_pwd">忘记密码</string>
+    <string name="guide">向导</string>
+    <string name="input_phone">请输入手机号</string>
+    <string name="input_pwd">请输入密码</string>
+    <string name="mobile_no_empty">手机号不能为空！</string>
+    <string name="mobile_valid">请输入有效手机号码！</string>
+    <string name="pwd_no_empty">密码不能为空！</string>
+    <string name="input_code">输入验证码</string>
+    <string name="code_valid">请输入有效验证码！</string>
+    <string name="pwd_valid">请输入有效的密码！</string>
+    <string name="pwd_short">密码位数不能少于6位！</string>
+    <string name="get_code">获取验证码</string>
+    <string name="no_smsCode">验证码不能为空！</string>
+    <string name="verify_text">建议使用字母、数字和符号两种及以上的组合，6-20个字符</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--main tab names-->
+
+    <!-- manager -->
+    <string name="edit_title">编辑标题</string>
+
+    <!--下拉上拉刷新-->
+    <string name="load_more_text">正在加载…</string>
+
+    <!-- user_record 客户档案 -->
+    <string name="chat_history">聊天记录</string>
+    <string name="change_customer_nickname">更改备注名称</string>
+    <string name="bracket">（%1$s）</string>
+    <string name="coupon_c">：%1$s</string>
+
+
+    <!-- im 软键盘中的功能 -->
+
+    <!--good order 商品订单-->
+    <string name="customer_name">客户姓名</string>
+
+    <!--good order detail 订单详情页-->
+
+    <string name="remark_info">备注信息</string>
+
+
+    <!-- 设计师预约订单详情 -->
+    po
+
+    <!-- 设计师拒绝接单原因 -->
+
+    <!--chang order price 修改商品价格-->
+
+
+    <!--tip task -->
+    <string name="cancel_scan">取消扫码</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="submit_execute">正在提交…</string>
+
+    <!-- personal -->
+    <string name="month">月</string>
+    <string name="nick_name">昵称</string>
+    <string name="personal_information">个人资料</string>
+    <string name="portrait">头像</string>
+    <string name="real_name">真实姓名</string>
+    <string name="tel_phone">手机号</string>
+    <string name="gender">性别</string>
+    <string name="self_introduction">自我介绍</string>
+    <string name="create_personal_qr_code">生成个人主页二维码</string>
+    <string name="save_now">保存</string>
+    <string name="please_input_self_introduction">输入自我介绍</string>
+    <string name="setting">个人设置</string>
+    <string name="feedback">意见建议</string>
+    <string name="logout">退出当前账户</string>
+    <string name="are_you_sure_quit_out">您确定要退出吗？</string>
+    <string name="leave">离开</string>
+    <string name="online">在线</string>
+
+    <!--经纪人-->
+
+    <!-- 设计师  -->
+
+
+    <!-- 报价单页面 -->
+    <string name="create_qr">生成二维码</string>
+
+    <string name="enter_price">请输入报价金额</string>
+    <string name="next">下一步</string>
+    <string name="cash_zero_toast">输入金额不能为零！</string>
+
+    <string name="upgrade_title">发现新版本</string>
+
+    <!--预约设置开关界面-->
+    <!--上海，南京，苏州，杭州，无锡，宁波，嘉兴，北京、-->
+    <!--天津，广州，深圳，成都，长沙、武汉、青岛、福州，厦门-->
+
+    <!--上传材料-->
+
+    <!-- activity_design_order -->
+
+    <!-- activity_user_booking_detail -->
+    <string name="permission_remind">须开启存储权限和拍照权限才能正常使用此功能，是否授权？</string>
+    <string name="permission_record">须开启存储权限和录音权限才能正常使用此功能，是否授权？</string>
+    <string name="permission_video">须开启相机权限和录音权限才能正常使用此功能，是否授权？</string>
+    <string name="permission_deny">授权失败，无法使用</string>
+    <string name="light_on">轻触照亮</string>
+    <string name="light_off">轻触关闭</string>
+    <string name="select_qrcode">选择二维码图片</string>
+    <string name="without_ablum">您的系统未安装相册应用</string>
+    <string name="error_qrcode">未识别到二维码</string>
+
+    <!-- IM -->
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
+    <string name="group">分组</string>
+    <string name="edit_group1">修改分组</string>
+
+    <!-- START 原来chat下的资源 -->
+    <string name="switch_sale">切换导购</string>
+    <string name="choose_coupon">选择优惠劵</string>
+
+    <string name="remark">备注</string>
+    <string name="remark_hint">顾客意向或其他信息备注，修改后点击右上角保存生效</string>
+    <string name="modify_remark">修改备注名称</string>
+    <string name="loading">正在加载...</string>
+
+    <string name="quick_reply_setting_title">快捷回复设置</string>
+    <string name="quick_reply_title">快捷回复</string>
+    <string name="sys_welcome_words">系统欢迎语</string>
+    <string name="create_sys_welcome_words">您还没有创建系统欢迎语，请 \n创建系统欢迎语</string>
+    <string name="create_quick_reply_words">您还没有创建快捷回复语，请 \n打开快捷回复语</string>
+
+    <string name="customer_management">客户管理</string>
+    <string name="wrong_qr_code">二维码格式不正确，请扫商品价签二维码</string>
+    <string name="main_scan">扫码开单</string>
+    <string name="main_manual">手工开单</string>
+    <string name="main_my_customer">我的客户</string>
+    <string name="main_my_customer_hint">精准营销我的客户</string>
+    <string name="main_customer_message">客户消息</string>
+    <string name="main_activity_marketing">活动营销</string>
+    <string name="main_activity_marketing_hint">口袋里的店铺营销助手</string>
+    <string name="main_order_manage">订单管理</string>
+    <string name="main_order_manage_hint">便捷管理订单</string>
+    <string name="main_customer_manage_hint">维护客户关系</string>
+    <string name="main_shop_manage">店铺管理</string>
+    <string name="main_shop_manage_hint">即时关注经营</string>
+    <string name="setting_scan">扫一扫</string>
+    <string name="hybrid_demo">交互自测</string>
+    <string name="choice_group">选择分组</string>
+    <string name="create_group">创建分组</string>
+    <string name="modify_group">管理分组</string>
+    <!-- END 原来chat下的资源 -->
+
+    <string name="version_update">版本更新中</string>
+    <string name="downLoading">下载中 -</string>
+    <string name="permission_un_granted">缺少权限！</string>
+    <string name="update_progress">更新进度：0/100</string>
+    <string name="update_now">现在升级</string>
+    <string name="not_now">暂时忽略</string>
+    <string name="download_finished">下载完成！</string>
+    <string name="download_progress_format">下载进度：%1$s/%2$s</string>
+    <string name="less_than_three">最多3个</string>
+    <string name="salutatory">欢迎语</string>
+    <string name="system_greeting_hint">请输入您的欢迎语、并选择推荐商品</string>
+    <string name="delete">删除</string>
+
+    <string name="activity_promotion">活动营销</string>
+    <string name="promotion_manage">活动页管理</string>
+    <string name="coupon_manage">优惠券管理</string>
+    <string name="promotion_list">活动页列表</string>
+    <string name="coupon_list">优惠券列表</string>
+    <string name="select_coupon">选择优惠券</string>
+    <string name="send_coupons">发券</string>
+    <string name="check_all">全选</string>
+    <string name="customer_class">客户类别</string>
+    <string name="update_time">人(每日更新)</string>
+    <string name="new_customer">新增</string>
+    <string name="total_customer">客户总数</string>
+    <string name="new_customer_in_month">最近30天新增</string>
+    <string name="marketing_in_month">最近30天营销</string>
+    <string name="sales_conversion">促成销售转化</string>
+
+    <!-- Toast -->
+    <string name="toast_create_group">创建分组成功</string>
+    <string name="toast_modify_group">修改分组成功</string>
+    <string name="toast_max_group">最多只能创建12个分组</string>
+    <string name="new_coupons">NEW</string>
+    <string name="share">分享</string>
+    <string name="preview">预览</string>
+    <string name="add_more">增发</string>
+    <string name="discount">折</string>
+    <string name="most">最高</string>
+    <string name="unit">¥</string>
+    <string name="add_success">增发成功</string>
+    <string name="input_add_counts_hint">请输入增发数量(1–10000)</string>
+    <string name="input_add_counts">请输入正确的增发数量</string>
+    <string name="mini_app">店铺小程序二维码</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="share_mini_app">分享小程序</string>
+    <string name="share_mini_app_success">分享成功</string>
+    <string name="share_mini_app_cancel">取消分享</string>
+    <string name="save_to_album">保存到相册</string>
+
 </resources>

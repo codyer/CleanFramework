@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'realm-android'
 
 def MODULE_NAME = 'xf'
 
 android {
-
     dataBinding {
         enabled true
     }
@@ -29,10 +29,18 @@ android {
         versionNameSuffix '_' + MODULE_NAME
         // dex突破65535的限制
         multiDexEnabled true
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            // 后面的还未提供 'armeabi','mips64', 'x86_64'
+        }
     }
 
     // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
     buildTypes {
+        debug {
+            debuggable true
+        }
         // release 包的配置
         release {
             // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
@@ -44,13 +52,39 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        demo {
+            initWith(debug)
+        }
+        uat {
+            initWith(debug)
+        }
+        stg {
+            initWith(release)
+        }
     }
 
     return void
 }
 
+configurations {
+    debugCompile
+    releaseCompile
+    demoCompile
+    uatCompile
+    stgCompile
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.hyphenate:hyphenate-sdk:3.3.9'
+    //高德地图
+    compile 'com.amap.api:map2d:5.2.0'
+//    compile 'com.amap.api:location:3.7.0'
+    compile 'com.amap.api:search:6.1.0'
+    //生成二维码
+    compile rootProject.ext.dependencies["zxing"]
+//    compile rootProject.ext.dependencies["android-pdfview"]
+
     compile rootProject.ext.dependencies["support-v4"]
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["design"]
@@ -63,8 +97,31 @@ dependencies {
     compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["httpcore"]
     compile rootProject.ext.dependencies["multidex"]
+    compile rootProject.ext.dependencies["constraint"]
     compile rootProject.ext.dependencies["imagepicker"]
+    compile rootProject.ext.dependencies["bugly-crashreport"]
+    compile rootProject.ext.dependencies["bugly-nativecrashreport"]
+//    compile rootProject.ext.dependencies["overscroll"]
+//    compile rootProject.ext.dependencies["droidsonroids"]
+    compile rootProject.ext.dependencies["packer"]
+    compile rootProject.ext.dependencies["baidu-mobstat"]
+    compile rootProject.ext.dependencies["amap"]
+    compile rootProject.ext.dependencies["easypermissions"]
+    compile rootProject.ext.dependencies["cardview"]
+    compile rootProject.ext.dependencies["jpush"]
+    compile rootProject.ext.dependencies["jcore"]
+    compile rootProject.ext.dependencies["umeng-common"]
+    compile rootProject.ext.dependencies["umeng-utdid"]
+    compile rootProject.ext.dependencies["share-core"]
+    compile rootProject.ext.dependencies["share-qq"]
+    compile rootProject.ext.dependencies["share-wechat"]
+    compile rootProject.ext.dependencies["share-sina"]
+    compile rootProject.ext.dependencies["share-widget"]
+
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
-    testCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+    demoCompile rootProject.ext.dependencies["leakcanary-android"]
+    uatCompile rootProject.ext.dependencies["leakcanary-android"]
+    stgCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
+    compile rootProject.ext.dependencies["tabStrip"]
 }

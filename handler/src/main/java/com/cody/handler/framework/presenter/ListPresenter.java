@@ -5,13 +5,13 @@ package com.cody.handler.framework.presenter;
 
 
 import com.cody.handler.framework.viewmodel.ListViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 
 /**
  * Created by chy on 2016/9/14.
  * 使用默认的ListViewModel
  * 通过ItemViewModel 获取列表
  */
-public abstract class ListPresenter<ItemViewModel extends ViewModel> extends
+public abstract class ListPresenter<ItemViewModel extends XItemViewModel> extends
         AbsListPresenter<ListViewModel<ItemViewModel>, ItemViewModel> {
 }

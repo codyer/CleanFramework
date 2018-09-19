@@ -3,7 +3,7 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,56 +15,79 @@
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.HeaderViewModel" />
+            type="com.cody.handler.framework.viewmodel.HeaderViewModel"/>
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         style="@style/headerLayoutStyle"
-        bind:layout_scrollFlags="scroll|enterAlways"
         android:visibility="@{viewModel.visible?View.VISIBLE:View.GONE}">
 
         <TextView
             android:id="@+id/headerText"
             style="@style/headerStyle"
-            android:onClick="@{onClickListener::onClick}"
+            android:maxEms="10"
             android:text="@{viewModel.title}"/>
 
         <ImageView
             android:id="@+id/headerLeftBtn"
             style="@style/headerButtonStyle"
+            android:contentDescription="@null"
             android:onClick="@{onClickListener::onClick}"
             android:src="@{viewModel.leftResId}"
             android:visibility="@{viewModel.left?View.VISIBLE:View.INVISIBLE}"/>
 
+        <FrameLayout
+            android:id="@+id/flContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:id="@+id/headerRightBtn"
+                style="@style/headerButtonStyle"
+                android:contentDescription="@null"
+                android:onClick="@{onClickListener::onClick}"
+                android:src="@{viewModel.rightResId}"
+                android:visibility="@{viewModel.right?View.VISIBLE:View.INVISIBLE}"/>
+
+            <TextView
+                android:id="@+id/headerRightText"
+                style="@style/headerButtonStyle"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="@{viewModel.rightText}"
+                android:textColor="@{viewModel.rightColorId}"
+                android:textSize="@dimen/font_15sp"
+                android:visibility="@{viewModel.rightIsText?View.VISIBLE:View.INVISIBLE}"
+                tools:text="联系TA"/>
+
+            <TextView
+                android:id="@+id/headerRightTextAndDrawable"
+                style="@style/headerButtonStyle"
+                android:drawableLeft="@{viewModel.rightResId}"
+                android:drawablePadding="@dimen/dimens_10dp"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="@{viewModel.rightText}"
+                android:textColor="@color/main_white"
+                android:textSize="@dimen/font_15sp"
+                android:visibility="@{viewModel.rightIsTextAndDrawable?View.VISIBLE:View.INVISIBLE}"/>
+        </FrameLayout>
+
         <ImageView
-            android:id="@+id/headerRightBtn"
+            android:id="@+id/headerToLeftRightBtn"
             style="@style/headerButtonStyle"
-            android:layout_gravity="end"
+            android:layout_toStartOf="@+id/flContainer"
+            android:contentDescription="@null"
             android:onClick="@{onClickListener::onClick}"
-            android:src="@{viewModel.rightResId}"
-            android:visibility="@{viewModel.right?View.VISIBLE:View.INVISIBLE}"/>
+            android:src="@{viewModel.toLeftRightResId}"
+            android:visibility="@{viewModel.toLeftRight?View.VISIBLE:View.INVISIBLE}"/>
 
-        <TextView
-            android:id="@+id/headerRightText"
-            style="@style/headerButtonStyle"
-            android:layout_gravity="end"
-            android:onClick="@{onClickListener::onClick}"
-            android:text="@{viewModel.rightText}"
-            android:textColor="@color/main_blue"
-            android:textSize="@dimen/font_size_30"
-            android:visibility="@{viewModel.rightIsText?View.VISIBLE:View.INVISIBLE}"/>
-
-        <TextView
-            android:id="@+id/headerRightTextAndDrawable"
-            style="@style/headerButtonStyle"
-            android:layout_gravity="end"
-            android:onClick="@{onClickListener::onClick}"
-            android:text="@{viewModel.rightText}"
-            android:drawableLeft="@drawable/xf_help_icon"
-            android:drawablePadding="@dimen/padding_10dp"
-            android:textColor="@color/main_blue"
-            android:textSize="@dimen/font_size_30"
-            android:visibility="@{viewModel.rightIsTextAndDrawable?View.VISIBLE:View.INVISIBLE}"/>
-    </FrameLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_E4E4E4"
+            android:visibility="@{viewModel.lineVisibility?View.VISIBLE:View.GONE}"/>
+    </RelativeLayout>
 </layout>

@@ -6,16 +6,19 @@ package com.cody.app.framework.activity;
 
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.View;
 
-import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.HeaderViewModel;
+import com.cody.app.R;
 import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.IWithHeaderViewModel;
 
 /**
  * Created by cody.yi on 2016/8/27.
  * 包含头部的Activity
+ * <P,VM,B>
  */
-public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends WithHeaderViewModel, B extends
+public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends IWithHeaderViewModel, B extends
         ViewDataBinding> extends BaseBindingActivity<P, VM, B> {
 
     /**
@@ -30,5 +33,13 @@ public abstract class WithHeaderActivity<P extends Presenter<VM>, VM extends Wit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initHeader(getViewModel().getHeaderViewModel());
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.headerLeftBtn:
+                finish();
+                break;
+        }
     }
 }

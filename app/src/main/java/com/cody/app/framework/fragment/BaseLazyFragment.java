@@ -16,8 +16,8 @@ import android.view.ViewGroup;
  */
 public abstract class BaseLazyFragment extends BaseFragment {
 
-    private boolean isFirstVisible = true;
-    private boolean isPrepared = false;
+    private boolean mIsFirstVisible = true;
+    private boolean mIsPrepared = false;
 
     /**
      * when fragment is visible for the first time, here we can do some initialized work or refresh data only once
@@ -40,7 +40,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        isPrepared = true;
+        mIsPrepared = true;
         return view;
     }
 
@@ -53,9 +53,9 @@ public abstract class BaseLazyFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && isPrepared) {
-            if (isFirstVisible) {
-                isFirstVisible = false;
+        if (isVisibleToUser && mIsPrepared) {
+            if (mIsFirstVisible) {
+                mIsFirstVisible = false;
                 onFirstUserVisible();
             } else {
                 onUserVisible();
@@ -65,8 +65,8 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     private void initPrepare() {
         if (getUserVisibleHint()) {
-            if (isFirstVisible) {
-                isFirstVisible = false;
+            if (mIsFirstVisible) {
+                mIsFirstVisible = false;
                 onFirstUserVisible();
             } else {
                 onUserVisible();

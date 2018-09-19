@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root_linearL"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/xf_white"
-    android:gravity="bottom"
-    android:orientation="vertical">
+              android:id="@+id/root_linearL"
+              android:layout_width="match_parent"
+              android:layout_height="200dp"
+              android:background="@color/xf_white"
+              android:gravity="bottom"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:paddingRight="15dp"
             android:text="取消"
             android:textColor="#333333"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/confirm"
@@ -33,12 +33,12 @@
             android:paddingRight="15dp"
             android:text="确认"
             android:textColor="@color/xf_blue"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
     </RelativeLayout>
 
-    <com.chinaredstar.foundation.ui.widget.pickerview.lib.WheelView
+    <com.cody.xf.widget.pickerview.lib.WheelView
         android:id="@+id/wheel"
         android:layout_width="match_parent"
-        android:layout_height="156dp" />
+        android:layout_height="156dp"/>
 
 </LinearLayout>

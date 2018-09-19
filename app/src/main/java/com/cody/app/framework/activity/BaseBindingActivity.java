@@ -11,7 +11,7 @@ import android.view.View;
 import com.cody.app.BR;
 import com.cody.handler.framework.IDataBinding;
 import com.cody.handler.framework.presenter.Presenter;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.IViewModel;
 
 
 /**
@@ -22,7 +22,7 @@ import com.cody.handler.framework.viewmodel.ViewModel;
  * @param <B>  和V（XML）进行绑定的自动生成的类，可以通过data节点添加class自定义binding的类名
  */
 public abstract class BaseBindingActivity<P extends Presenter<VM>,
-        VM extends ViewModel,
+        VM extends IViewModel,
         B extends ViewDataBinding>
         extends BaseActivity
         implements View.OnClickListener, IDataBinding<P, VM, B> {
@@ -67,8 +67,9 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
             setContentView(getLayoutID());
         }
         if (mPresenter != null) {
-            mPresenter.attachView(this, mViewModel);
+            mPresenter.attachView(TAG, this, mViewModel);
         }
+        onImmersiveReady();
     }
 
     @Override
@@ -85,7 +86,7 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     protected void onDestroy() {
         if (mPresenter != null) {
             mPresenter.cancel(TAG);
-            mPresenter.detachView();
+            mPresenter.detachView(TAG);
         }
         super.onDestroy();
     }
@@ -94,7 +95,7 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     @Override
     public void onUpdate(Object... args) {
         super.onUpdate(args);
-        if (mBinding != null && mViewModel != null){
+        if (mBinding != null && mViewModel != null) {
             mBinding.setVariable(BR.viewModel, mViewModel);
         }
     }
@@ -103,7 +104,7 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
-        if (mPresenter != null){
+        if (mPresenter != null) {
             mPresenter.cancel(TAG);
         }
     }

@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.cody.xf.R;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.cody.xf.R;
 
 /**
  * Created by liuqiang on 10/23/15.
@@ -90,11 +91,8 @@ public class ActionSheetDialog {
     }
 
     /**
-     *
-     * @param strItem
-     *            条目名称
-     * @param color
-     *            条目字体颜色，设置null则默认蓝色
+     * @param strItem  条目名称
+     * @param color    条目字体颜色，设置null则默认蓝色
      * @param listener
      * @return
      */
@@ -107,7 +105,9 @@ public class ActionSheetDialog {
         return this;
     }
 
-    /** 设置条目布局 */
+    /**
+     * 设置条目布局
+     */
     private void setSheetItems() {
         if (sheetItemList == null || sheetItemList.size() <= 0) {
             return;
@@ -194,23 +194,6 @@ public class ActionSheetDialog {
         dialog.show();
     }
 
-    public interface OnSheetItemClickListener {
-        void onClick(int which);
-    }
-
-    public class SheetItem {
-        String name;
-        OnSheetItemClickListener itemClickListener;
-        SheetItemColor color;
-
-        public SheetItem(String name, SheetItemColor color,
-                         OnSheetItemClickListener itemClickListener) {
-            this.name = name;
-            this.color = color;
-            this.itemClickListener = itemClickListener;
-        }
-    }
-
     public enum SheetItemColor {
         Blue("#037BFF"), Red("#FD4A2E");
 
@@ -226,6 +209,23 @@ public class ActionSheetDialog {
 
         public void setName(String name) {
             this.name = name;
+        }
+    }
+
+    public interface OnSheetItemClickListener {
+        void onClick(int which);
+    }
+
+    public class SheetItem {
+        String name;
+        OnSheetItemClickListener itemClickListener;
+        SheetItemColor color;
+
+        public SheetItem(String name, SheetItemColor color,
+                         OnSheetItemClickListener itemClickListener) {
+            this.name = name;
+            this.color = color;
+            this.itemClickListener = itemClickListener;
         }
     }
 }

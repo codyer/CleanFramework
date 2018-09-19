@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'realm-android'
 
 def MODULE_NAME = 'h_'
 
@@ -28,10 +29,24 @@ android {
         versionName MODULE_NAME + rootProject.ext.versionName // 版本号
         // dex突破65535的限制
         multiDexEnabled true
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            // 后面的还未提供 'armeabi','mips64', 'x86_64'
+        }
+    }
+
+    sourceSets {
+        demo {
+            java.srcDirs = ['src/demo', 'src/demo/java', 'src/demo/java/']
+        }
     }
 
     // 构建类型，此处配置debug和release版本的一些参数，像混淆、签名配置。
     buildTypes {
+        debug {
+            debuggable true
+        }
         // release 包的配置
         release {
             // 启用资源压缩 因为您可能需要编辑 proguard-rules.pro 文件以保留动态创建或调用的类或方法，然后再开始移除资源
@@ -43,9 +58,15 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        demo {initWith(debug)}
-        uat { initWith(debug) }
-        stg { initWith(release) }
+        demo {
+            initWith(debug)
+        }
+        uat {
+            initWith(debug)
+        }
+        stg {
+            initWith(release)
+        }
     }
 
     // 产品特性

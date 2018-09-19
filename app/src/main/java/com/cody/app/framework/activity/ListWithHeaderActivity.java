@@ -5,29 +5,29 @@
 package com.cody.app.framework.activity;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.cody.app.R;
 import com.cody.app.databinding.ListWithHeaderBinding;
 import com.cody.handler.framework.presenter.ListWithHeaderPresenter;
 import com.cody.handler.framework.viewmodel.ListWithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.ViewModel;
+import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
  * Created by cody.yi on 2016/8/26.
  * 可以加载更多的Activity基类,包含头部
+ * <P,itemVM>
  */
 public abstract class ListWithHeaderActivity<P extends ListWithHeaderPresenter<ItemViewModel>,
-        ItemViewModel extends ViewModel>
-        extends AbsListActivity<P,
-        ListWithHeaderViewModel<ItemViewModel>,
-        ItemViewModel,
+        ItemViewModel extends XItemViewModel>
+        extends ListWithHeaderBaseActivity<P, ListWithHeaderViewModel<ItemViewModel>, ItemViewModel,
         ListWithHeaderBinding> {
 
     @Override
     protected ListWithHeaderViewModel<ItemViewModel> buildViewModel(Bundle savedInstanceState) {
-        return new ListWithHeaderViewModel<>();
+        ListWithHeaderViewModel<ItemViewModel> listWithHeaderViewModel = new ListWithHeaderViewModel<>();
+        initHeader(listWithHeaderViewModel.getHeaderViewModel());
+        return listWithHeaderViewModel;
     }
 
     @Override
@@ -38,21 +38,5 @@ public abstract class ListWithHeaderActivity<P extends ListWithHeaderPresenter<I
     @Override
     protected int getLayoutID() {
         return R.layout.fw_list_with_header;
-    }
-
-    /**
-     * 定制empty view
-     */
-    protected int getEmptyViewId() {
-        return R.layout.fw_empty_view;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.headerText:
-                scrollToTop();
-                break;
-        }
     }
 }

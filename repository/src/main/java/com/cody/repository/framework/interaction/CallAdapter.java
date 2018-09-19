@@ -15,6 +15,7 @@ public abstract class CallAdapter {
 
     /**
      * 返回服务器定义的原始对象，且原始对象为simpleBean
+     *
      * @see SimpleBean
      */
     abstract void invokeSimple();
@@ -33,4 +34,20 @@ public abstract class CallAdapter {
      * 返回Result里面的DataMap对象List，且DataMap为JsonArray
      */
     abstract void invokeListBean();
+
+    /**
+     * 上传单张图片
+     * 返回Result里面的DataMap对象，且DataMap为JsonObject
+     *
+     * @see SimpleBean
+     */
+    abstract void invokeUploadImage();
+
+    /**
+     * 上传多张图片
+     * 返回Result里面的DataMap对象，且DataMap为JsonObject
+     *
+     * @see SimpleBean
+     */
+    abstract void invokeUploadImages();
 }

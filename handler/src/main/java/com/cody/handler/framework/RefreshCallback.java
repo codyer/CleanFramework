@@ -7,7 +7,7 @@ import com.cody.handler.framework.presenter.Presenter;
  * <p>
  * 所有View和ViewModel，ViewModel和Presenter之间的回调使用这个Callback
  * 默认回调函数，通用处理可以放在这里
- *
+ * <p>
  * 下拉刷新处理显示加载中提示特殊处理
  */
 public class RefreshCallback<T> extends DefaultCallback<T> {

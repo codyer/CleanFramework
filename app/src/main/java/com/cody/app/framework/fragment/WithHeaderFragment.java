@@ -13,14 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.handler.framework.viewmodel.HeaderViewModel;
 import com.cody.handler.framework.presenter.Presenter;
+import com.cody.handler.framework.viewmodel.HeaderViewModel;
+import com.cody.handler.framework.viewmodel.IWithHeaderViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class WithHeaderFragment<P extends Presenter<VM>, VM extends WithHeaderViewModel, B extends
+public abstract class WithHeaderFragment<P extends Presenter<VM>, VM extends IWithHeaderViewModel, B extends
         ViewDataBinding> extends BaseBindingFragment<P, VM, B> {
 
     /**

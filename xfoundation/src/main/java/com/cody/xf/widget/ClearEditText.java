@@ -7,6 +7,7 @@ package com.cody.xf.widget;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,13 +19,13 @@ import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
 import com.cody.xf.R;
+import com.cody.xf.utils.CommonUtil;
 
 
 /**
  * Created by chen_haiyan on 2016/7/6
  * 带有清除功能的输入框.
  */
-
 public class ClearEditText extends EditText implements
         OnFocusChangeListener, TextWatcher {
     /**
@@ -34,7 +35,7 @@ public class ClearEditText extends EditText implements
     /**
      * 控件是否有焦点
      */
-    private boolean hasFoucs;
+    private boolean hasFocus;
 
     public ClearEditText(Context context) {
         this(context, null);
@@ -50,13 +51,25 @@ public class ClearEditText extends EditText implements
         init();
     }
 
+    /**
+     * 晃动动画
+     *
+     * @param counts 1秒钟晃动多少下
+     * @return
+     */
+    public static Animation shakeAnimation(int counts) {
+        Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
+        translateAnimation.setInterpolator(new CycleInterpolator(counts));
+        translateAnimation.setDuration(1000);
+        return translateAnimation;
+    }
 
     private void init() {
         //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
 //          throw new NullPointerException("You can add drawableRight attribute in XML");
-            mClearDrawable = getResources().getDrawable(R.drawable.xf_et_clear);
+            mClearDrawable = getResources().getDrawable(R.drawable.xf_ic_clean_gray);
 //            mClearDrawable = getResources().getDrawable(R.drawable.delete_selector);
         }
 
@@ -67,8 +80,24 @@ public class ClearEditText extends EditText implements
         setOnFocusChangeListener(this);
         //设置输入框里面内容发生改变的监听
         addTextChangedListener(this);
-    }
 
+        // 过滤空字符和表情
+        InputFilter[] filters = this.getFilters();
+        InputFilter.LengthFilter lengthFilter = null;
+        for (InputFilter filter : filters) {
+            if (filter instanceof InputFilter.LengthFilter) {
+                lengthFilter = (InputFilter.LengthFilter) filter;
+                break;
+            }
+        }
+        if (lengthFilter != null) {
+            InputFilter[] spaceFilters = new InputFilter[]{CommonUtil.getEmoFilter(), CommonUtil.getSpaceFilter(), lengthFilter};
+            setFilters(spaceFilters);
+        } else {
+            InputFilter[] spaceFilters = new InputFilter[]{CommonUtil.getEmoFilter(), CommonUtil.getSpaceFilter()};
+            setFilters(spaceFilters);
+        }
+    }
 
     /**
      * 因为我们不能直接给EditText设置点击事件，所以我们用记住我们按下的位置来模拟点击事件
@@ -97,14 +126,13 @@ public class ClearEditText extends EditText implements
      */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        this.hasFoucs = hasFocus;
+        this.hasFocus = hasFocus;
         if (hasFocus) {
             setClearIconVisible(getText().length() > 0);
         } else {
             setClearIconVisible(false);
         }
     }
-
 
     /**
      * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
@@ -117,29 +145,26 @@ public class ClearEditText extends EditText implements
                 getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
     }
 
-
     /**
      * 当输入框里面内容发生变化的时候回调的方法
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int count,
                               int after) {
-        if (hasFoucs) {
+        if (hasFocus) {
             setClearIconVisible(s.length() > 0);
         }
+        super.onTextChanged(s, start, count, after);
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
                                   int after) {
-
     }
 
     @Override
     public void afterTextChanged(Editable s) {
-
     }
-
 
     /**
      * 设置晃动动画
@@ -147,20 +172,4 @@ public class ClearEditText extends EditText implements
     public void setShakeAnimation() {
         this.setAnimation(shakeAnimation(5));
     }
-
-
-    /**
-     * 晃动动画
-     *
-     * @param counts 1秒钟晃动多少下
-     * @return
-     */
-    public static Animation shakeAnimation(int counts) {
-        Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);
-        translateAnimation.setInterpolator(new CycleInterpolator(counts));
-        translateAnimation.setDuration(1000);
-        return translateAnimation;
-    }
-
-
 }

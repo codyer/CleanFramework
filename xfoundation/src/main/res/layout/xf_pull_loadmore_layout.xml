@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                              android:id="@+id/swipeRefreshLayout"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent">
 
 
     <FrameLayout
@@ -13,19 +13,25 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <include
             android:id="@+id/footerView"
             layout="@layout/xf_footer_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom"/>
 
         <include
             android:id="@+id/emptyView"
-            layout="@layout/xf_empty_layout" />
+            layout="@layout/xf_empty_layout"/>
 
+        <FrameLayout
+            android:id="@+id/defaultView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:visibility="gone"/>
 
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

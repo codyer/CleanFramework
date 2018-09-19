@@ -18,6 +18,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cody.xf.R;
 
 /**
@@ -40,6 +41,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     private boolean pushRefreshEnable = true;
     private View mFooterView;
     private FrameLayout mEmptyViewContainer;
+    private FrameLayout mDefaultViewContainer;
     private Context mContext;
     private TextView loadMoreText;
     private LinearLayout loadMoreLayout;
@@ -74,17 +76,22 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
         mFooterView = view.findViewById(R.id.footerView);
         mEmptyViewContainer = (FrameLayout) view.findViewById(R.id.emptyView);
+        mDefaultViewContainer = (FrameLayout) view.findViewById(R.id.defaultView);
 
         loadMoreLayout = (LinearLayout) view.findViewById(R.id.loadMoreLayout);
         loadMoreText = (TextView) view.findViewById(R.id.loadMoreText);
 
         mFooterView.setVisibility(View.GONE);
         mEmptyViewContainer.setVisibility(View.GONE);
+        mDefaultViewContainer.setVisibility(View.GONE);
 
         this.addView(view);
 
     }
 
+    public FrameLayout getEmptyViewContainer() {
+        return mEmptyViewContainer;
+    }
 
     /**
      * LinearLayoutManager
@@ -157,18 +164,33 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         mEmptyViewContainer.addView(emptyView);
     }
 
+    public void setDefaultView(View defaultView, boolean show) {
+        mDefaultViewContainer.removeAllViews();
+        if (defaultView != null) {
+            mDefaultViewContainer.addView(defaultView);
+        }
+        RecyclerView.Adapter<?> adapter = mRecyclerView.getAdapter();
+        if (adapter != null && mDefaultViewContainer.getChildCount() != 0) {
+            if (adapter.getItemCount() == 0 && show) {
+                mEmptyViewContainer.setVisibility(View.GONE);
+                mDefaultViewContainer.setVisibility(View.VISIBLE);
+            } else {
+                mDefaultViewContainer.setVisibility(View.GONE);
+            }
+        }
+    }
 
     public void showEmptyView() {
         RecyclerView.Adapter<?> adapter = mRecyclerView.getAdapter();
         if (adapter != null && mEmptyViewContainer.getChildCount() != 0) {
             if (adapter.getItemCount() == 0) {
                 mFooterView.setVisibility(View.GONE);
-                mEmptyViewContainer.setVisibility(VISIBLE);
+                mEmptyViewContainer.setVisibility(View.VISIBLE);
             } else {
-                mEmptyViewContainer.setVisibility(GONE);
+                mEmptyViewContainer.setVisibility(View.GONE);
+                mDefaultViewContainer.setVisibility(View.GONE);
             }
         }
-
     }
 
     /**
@@ -222,48 +244,22 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         unregisterEmptyDataObserver();
     }
 
-    /**
-     * This Observer receives adapter data change.
-     * When adapter's item count greater than 0 and empty view has been set,then show the empty view.
-     * when adapter's item count is 0 ,then empty view hide.
-     */
-    private class AdapterDataObserver extends android.support.v7.widget.RecyclerView.AdapterDataObserver {
-        @Override
-        public void onChanged() {
-            showEmptyView();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            super.onItemRangeInserted(positionStart, itemCount);
-            showEmptyView();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            super.onItemRangeRemoved(positionStart, itemCount);
-            showEmptyView();
-        }
+    public boolean getPullRefreshEnable() {
+        return pullRefreshEnable;
     }
-
 
     public void setPullRefreshEnable(boolean enable) {
         pullRefreshEnable = enable;
         setSwipeRefreshEnable(enable);
     }
 
-    public boolean getPullRefreshEnable() {
-        return pullRefreshEnable;
+    public boolean getSwipeRefreshEnable() {
+        return mSwipeRefreshLayout.isEnabled();
     }
 
     public void setSwipeRefreshEnable(boolean enable) {
         mSwipeRefreshLayout.setEnabled(enable);
     }
-
-    public boolean getSwipeRefreshEnable() {
-        return mSwipeRefreshLayout.isEnabled();
-    }
-
 
     public void setColorSchemeResources(int... colorResIds) {
         mSwipeRefreshLayout.setColorSchemeResources(colorResIds);
@@ -285,18 +281,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         });
 
     }
-
-
-    /**
-     * Solve IndexOutOfBoundsException exception
-     */
-    public class onTouchRecyclerView implements OnTouchListener {
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return isRefresh || isLoadMore;
-        }
-    }
-
 
     public boolean getPushRefreshEnable() {
         return pushRefreshEnable;
@@ -326,7 +310,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         loadMoreText.setTextColor(ContextCompat.getColor(mContext, color));
     }
 
-
     public void refresh() {
         if (mPullLoadMoreListener != null) {
             mPullLoadMoreListener.onRefresh();
@@ -351,7 +334,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         }
     }
 
-
     public void setPullLoadMoreCompleted() {
         isRefresh = false;
         setRefreshing(false);
@@ -365,11 +347,9 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     }
 
-
     public void setOnPullLoadMoreListener(PullLoadMoreListener listener) {
         mPullLoadMoreListener = listener;
     }
-
 
     public boolean isLoadMore() {
         return isLoadMore;
@@ -399,5 +379,44 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         void onRefresh();
 
         void onLoadMore();
+    }
+
+    /**
+     * This Observer receives adapter data change.
+     * When adapter's item count greater than 0 and empty view has been set,then show the empty view.
+     * when adapter's item count is 0 ,then empty view hide.
+     */
+    private class AdapterDataObserver extends android.support.v7.widget.RecyclerView.AdapterDataObserver {
+        @Override
+        public void onChanged() {
+            showEmptyView();
+        }
+
+        @Override
+        public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
+            showEmptyView();
+        }
+
+        @Override
+        public void onItemRangeRemoved(int positionStart, int itemCount) {
+            super.onItemRangeRemoved(positionStart, itemCount);
+            showEmptyView();
+        }
+    }
+
+    /**
+     * Solve IndexOutOfBoundsException exception
+     */
+    public class onTouchRecyclerView implements OnTouchListener {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
+                if (isRefresh != mSwipeRefreshLayout.isRefreshing()) {// 快速上下滑动导致不同步问题修正
+                    setRefreshing(isRefresh);
+                }
+            }
+            return isRefresh || isLoadMore;
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.cody.handler.framework;
 
+import com.cody.xf.utils.http.SimpleBean;
+
 /**
  * @author codyer .
  *         base activity and base fragment 需要实现的接口
@@ -27,15 +29,15 @@ public interface IView {
     /**
      * 弹出消息 一般onFailure调用，需要用户知道的错误
      */
-    void showFailure(String msg);
+    void showFailure(SimpleBean msg);
 
     /**
      * 出错，一般只记录，只打log，用户不用关心的错误
      */
-    void showError(String msg);
+    void showError(SimpleBean msg);
 
     /**
      * show Progress
      */
-    void onProgress(long count, long current);
+    void onProgress(int progress, int max);
 }

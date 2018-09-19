@@ -1,7 +1,7 @@
 package com.cody.xf.utils.http;
 
-import com.cody.xf.common.NotProguard;
 import com.google.gson.annotations.SerializedName;
+import com.cody.xf.common.NotProguard;
 
 /**
  * Created by cody.yi on 2016/7/12.
@@ -23,7 +23,7 @@ public class Result<T> {
      * data	返回数据
      * 相当于data model
      */
-    @SerializedName(value = "data", alternate = {"dataMap", "dataReturn"})
+    @SerializedName(value = "data", alternate = {"dataMap", "dataReturn","value"})
     private T data;
 
     public Result() {

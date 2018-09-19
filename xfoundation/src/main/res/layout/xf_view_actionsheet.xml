@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="8dp">
 
     <TextView
         android:id="@+id/txt_title"
@@ -12,27 +12,25 @@
         android:background="@drawable/xf_actionsheet_top_normal"
         android:gravity="center"
         android:minHeight="45dp"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:paddingTop="10dp"
         android:textColor="@color/xf_actionSheetGray"
         android:textSize="13sp"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <ScrollView
         android:id="@+id/sLayout_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="none"
-         >
+        android:fadingEdge="none">
 
         <LinearLayout
             android:id="@+id/lLayout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
 
     <TextView

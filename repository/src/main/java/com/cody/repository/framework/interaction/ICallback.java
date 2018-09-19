@@ -22,5 +22,5 @@ public interface ICallback<T> {
     void onError(SimpleBean simpleBean);
 
     //执行进度
-    void onProgress(long count, long current);
+    void onProgress(int progress, int max);
 }

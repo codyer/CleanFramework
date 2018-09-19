@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cody.app.R;
-import com.cody.xf.widget.banner.BannerRecyclerAdapter;
-import com.cody.xf.widget.banner.BannerViewModel;
-import com.cody.xf.widget.banner.OnBannerClickListener;
-import com.cody.xf.widget.banner.XFBanner;
+import com.cody.app.framework.widget.banner.BannerRecyclerAdapter;
+import com.cody.app.framework.widget.banner.BannerViewModel;
+import com.cody.app.framework.widget.banner.OnBannerClickListener;
+import com.cody.app.framework.widget.banner.XFBanner;
 
 import java.util.ArrayList;
 import java.util.List;

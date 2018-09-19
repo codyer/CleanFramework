@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cody.xf.R;
 import com.cody.xf.widget.pickerview.adapter.WheelAdapter;
 import com.cody.xf.widget.pickerview.listener.OnItemSelectedListener;
 import com.cody.xf.widget.pickerview.model.IPickerViewData;
@@ -21,47 +22,36 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import com.cody.xf.R;
 
 /**
  * 3d滚轮控件
  */
 public class WheelView extends View {
 
-    public enum ACTION {
-        // 点击，滑翔(滑到尽头)，拖拽事件
-        CLICK, FLING, DAGGLE
-    }
-
+    // 条目间距倍数
+    static final float lineSpacingMultiplier = 2.0F;
+    // 修改这个值可以改变滑行速度
+    private static final int VELOCITYFLING = 5;
+    private static final float SCALECONTENT = 0.8F;//非中间文字则用此控制高度，压扁形成3d错觉
+    private static final float CENTERCONTENTOFFSET = 6;//中间文字文字居中需要此偏移值
+    private static final int centerLabelPadding = 30;//中间文字文字居中需要此偏移值
     Context context;
-
     Handler handler;
-    private GestureDetector gestureDetector;
     OnItemSelectedListener onItemSelectedListener;
-
     // Timer mTimer;
     ScheduledExecutorService mExecutor = Executors.newSingleThreadScheduledExecutor();
-    private ScheduledFuture<?> mFuture;
-
     Paint paintOuterText;
     Paint paintCenterText;
     Paint paintIndicator;
-
     WheelAdapter adapter;
-
-    private String label;//附加单位
     int textSize;//选项的文字大小
     boolean customTextSize;//自定义文字大小，为true则用于使setTextSize函数无效，只能通过xml修改
     int maxTextWidth;
     int maxTextHeight;
     float itemHeight;//每行高度
-
     int textColorOut;
     int textColorCenter;
     int dividerColor;
-
-    // 条目间距倍数
-    static final float lineSpacingMultiplier = 1.4F;
     boolean isLoop;
 
     // 第一条线Y坐标值
@@ -75,37 +65,29 @@ public class WheelView extends View {
     int totalScrollY;
     //初始化默认选中第几个
     int initPosition;
-    //选中的Item是第几个
-    private int selectedItem;
     int preCurrentIndex;
     //滚动偏移值,用于记录滚动了多少个item
     int change;
-
     // 显示几个条目
     int itemsVisible = 11;
-
     int measuredHeight;
     int measuredWidth;
-
     // 半圆周长
     int halfCircumference;
     // 半径
     int radius;
-
+    long startTime = 0;
+    int widthMeasureSpec;
+    private GestureDetector gestureDetector;
+    private ScheduledFuture<?> mFuture;
+    private String label;//附加单位
+    //选中的Item是第几个
+    private int selectedItem;
     private int mOffset = 0;
     private float previousY = 0;
-    long startTime = 0;
-
-    // 修改这个值可以改变滑行速度
-    private static final int VELOCITYFLING = 5;
-    int widthMeasureSpec;
-
     private int mGravity = Gravity.CENTER;
     private int drawCenterContentStart = 0;//中间选中文字开始绘制位置
     private int drawOutContentStart = 0;//非中间文字开始绘制位置
-    private static final float SCALECONTENT = 0.8F;//非中间文字则用此控制高度，压扁形成3d错觉
-    private static final float CENTERCONTENTOFFSET = 6;//中间文字文字居中需要此偏移值
-    private static final int centerLabelPadding = 30;//中间文字文字居中需要此偏移值
 
     public WheelView(Context context) {
         this(context, null);
@@ -249,6 +231,7 @@ public class WheelView extends View {
 
     /**
      * 设置是否循环滚动
+     *
      * @param cyclic 是否循环
      */
     public final void setCyclic(boolean cyclic) {
@@ -263,14 +246,12 @@ public class WheelView extends View {
         }
     }
 
-    public final void setCurrentItem(int currentItem) {
-        this.initPosition = currentItem;
-        totalScrollY = 0;//回归顶部，不然重设setCurrentItem的话位置会偏移的，就会显示出不对位置的数据
-        invalidate();
-    }
-
     public final void setOnItemSelectedListener(OnItemSelectedListener OnItemSelectedListener) {
         this.onItemSelectedListener = OnItemSelectedListener;
+    }
+
+    public final WheelAdapter getAdapter() {
+        return adapter;
     }
 
     public final void setAdapter(WheelAdapter adapter) {
@@ -279,12 +260,14 @@ public class WheelView extends View {
         invalidate();
     }
 
-    public final WheelAdapter getAdapter() {
-        return adapter;
-    }
-
     public final int getCurrentItem() {
         return selectedItem;
+    }
+
+    public final void setCurrentItem(int currentItem) {
+        this.initPosition = currentItem;
+        totalScrollY = 0;//回归顶部，不然重设setCurrentItem的话位置会偏移的，就会显示出不对位置的数据
+        invalidate();
     }
 
     protected final void onItemSelected() {
@@ -354,8 +337,8 @@ public class WheelView extends View {
         if (label != null) {
             int drawRightContentStart = measuredWidth - getTextWidth(paintCenterText, label) - centerLabelPadding;
             //靠右并留出空隙
-            int labelLeft = (int) ((measuredWidth + maxTextWidth + centerLabelPadding)*0.5);
-            if (labelLeft > drawRightContentStart){
+            int labelLeft = (int) ((measuredWidth + maxTextWidth + centerLabelPadding) * 0.5);
+            if (labelLeft > drawRightContentStart) {
                 drawRightContentStart = labelLeft;
             }
             canvas.drawText(label, drawRightContentStart, centerY, paintCenterText);
@@ -442,14 +425,14 @@ public class WheelView extends View {
 
     /**
      * 根据传进来的对象获取getPickerViewText()方法，来获取需要显示的值
+     *
      * @param item 数据源的item
      * @return 对应显示的字符串
      */
     private String getContentText(Object item) {
         if (item == null) {
             return "";
-        }
-        else if (item instanceof IPickerViewData) {
+        } else if (item instanceof IPickerViewData) {
             return ((IPickerViewData) item).getPickerViewText();
         }
         return item.toString();
@@ -554,6 +537,7 @@ public class WheelView extends View {
 
     /**
      * 获取Item个数
+     *
      * @return item个数
      */
     public int getItemsCount() {
@@ -562,6 +546,7 @@ public class WheelView extends View {
 
     /**
      * 附加在右边的单位字符串
+     *
      * @param label 单位
      */
     public void setLabel(String label) {
@@ -583,5 +568,10 @@ public class WheelView extends View {
             }
         }
         return iRet;
+    }
+
+    public enum ACTION {
+        // 点击，滑翔(滑到尽头)，拖拽事件
+        CLICK, FLING, DAGGLE
     }
 }

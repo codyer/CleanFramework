@@ -23,25 +23,34 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 /**
- * Created by wulin on 2016/7/27.
+ * Created by dong.wang
+ * Date: 2016/7/27
+ * Time: 10:43
+ * Description:
  */
 
 public abstract class BasePopupWindow extends PopupWindow {
+    private static final int TRANSLATE_DURATION = 200;
+    private static final int ALPHA_DURATION = 300;
+    private View mBg;
+    private LinearLayout mPanel;
     protected Activity activity;
     private int layoutId;
+    private FrameLayout parent;
+    private boolean hasAnimation = true;
 
     public BasePopupWindow(Activity activity, int layoutId) {
-        this(activity, layoutId, true);
-    }
-
-    public BasePopupWindow(Activity activity, int layoutId, boolean isShow) {
         this.activity = activity;
         this.layoutId = layoutId;
-        if (isShow)
-            initView();
     }
 
-    protected void initView() {
+    protected abstract void callbackView(View view);
+
+    protected int setGravity() {
+        return Gravity.CENTER;
+    }
+
+    public void showPop() {
         if (layoutId == 0)
             return;
         View view = createView(activity, layoutId);
@@ -51,6 +60,7 @@ public abstract class BasePopupWindow extends PopupWindow {
         this.setFocusable(true);
         this.setOutsideTouchable(true);
         view.setFocusable(true);
+        setClippingEnabled(false);
         view.setFocusableInTouchMode(true);
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -62,17 +72,8 @@ public abstract class BasePopupWindow extends PopupWindow {
             }
         });
         callbackView(view);
-
         this.showAtLocation(view, Gravity.BOTTOM | Gravity.LEFT, 0, 0);
-
     }
-
-    protected abstract void callbackView(View view);
-
-
-    public View mBg;
-    public LinearLayout mPanel;
-    private FrameLayout parent;
 
     private View createView(final Activity activity, int subView) {
         final View view = LayoutInflater.from(activity).inflate(subView, null);
@@ -95,7 +96,7 @@ public abstract class BasePopupWindow extends PopupWindow {
         mPanel = new LinearLayout(activity);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.BOTTOM;
+        params.gravity = setGravity();
         mPanel.setLayoutParams(params);
         mPanel.setOrientation(LinearLayout.VERTICAL);
         mPanel.setFocusable(true);
@@ -105,8 +106,10 @@ public abstract class BasePopupWindow extends PopupWindow {
         parent.addView(mBg);
         parent.addView(mPanel);
         mPanel.addView(view);
-        mBg.startAnimation(createAlphaInAnimation());
-        mPanel.startAnimation(createTranslationInAnimation());
+        if (hasAnimation) {
+            mBg.startAnimation(createAlphaInAnimation());
+            mPanel.startAnimation(createTranslationInAnimation());
+        }
 
         parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,22 +120,28 @@ public abstract class BasePopupWindow extends PopupWindow {
         return parent;
     }
 
-    public void popDismiss() {
-        mPanel.startAnimation(createTranslationOutAnimation());
-        mBg.startAnimation(createAlphaOutAnimation());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, ALPHA_DURATION);
+    public BasePopupWindow setHasAnimation(boolean hasAnimation) {
+        this.hasAnimation = hasAnimation;
+        return this;
     }
 
+    public void popDismiss() {
+        if (hasAnimation) {
+            mPanel.startAnimation(createTranslationOutAnimation());
+            mBg.startAnimation(createAlphaOutAnimation());
 
-    private static final int TRANSLATE_DURATION = 200;
-    private static final int ALPHA_DURATION = 300;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, ALPHA_DURATION);
+        } else {
+            dismiss();
+        }
+    }
 
-    public Animation createTranslationInAnimation() {
+    private Animation createTranslationInAnimation() {
         int type = TranslateAnimation.RELATIVE_TO_SELF;
         TranslateAnimation an = new TranslateAnimation(type, 0, type, 0, type,
                 1, type, 0);
@@ -146,7 +155,7 @@ public abstract class BasePopupWindow extends PopupWindow {
         return an;
     }
 
-    public Animation createTranslationOutAnimation() {
+    private Animation createTranslationOutAnimation() {
         int type = TranslateAnimation.RELATIVE_TO_SELF;
         TranslateAnimation an = new TranslateAnimation(type, 0, type, 0, type,
                 0, type, 1);
@@ -161,7 +170,6 @@ public abstract class BasePopupWindow extends PopupWindow {
         an.setFillAfter(true);
         return an;
     }
-
 
     private int getNavBarHeight(Activity c) {
         int result = 0;

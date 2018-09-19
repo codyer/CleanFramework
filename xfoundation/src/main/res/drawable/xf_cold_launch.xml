@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="opaque">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+            android:opacity="opaque">
 
-    <item android:drawable="@color/xf_blue"/>
+    <item android:drawable="@color/xf_black"/>
     <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/xf_ic_default"/>
+        <bitmap android:src="@drawable/xf_ic_cold_start"/>
     </item>
 </layer-list>

@@ -3,6 +3,8 @@
     <style name="xf_AppTheme.Launcher" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/xf_cold_launch</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- 自定义仿IOS的AlertDialog的样式 -->
@@ -40,6 +42,26 @@
     <style name="xf.ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/xf_action_sheet_dialog_in</item>
         <item name="android:windowExitAnimation">@anim/xf_action_sheet_dialog_out</item>
+    </style>
+
+    <style name="xf.AnimUp" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/xf_push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/xf_push_bottom_out</item>
+    </style>
+
+    <style name="xf.AnimDown" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/xf_push_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/xf_push_scale_out</item>
+    </style>
+
+    <style name="xf.AnimHorizontal" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/xf_push_scale_left_in</item>
+        <item name="android:windowExitAnimation">@anim/xf_push_scale_left_out</item>
+    </style>
+
+    <style name="xf.AnimRight" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/xf_push_scale_right_in</item>
+        <item name="android:windowExitAnimation">@anim/xf_push_scale_right_out</item>
     </style>
 
 </resources>

@@ -1,14 +1,19 @@
 package com.cody.xf.utils.http;
 
+import android.text.TextUtils;
+
+import com.cody.xf.utils.ImageUtil;
+
 /**
  * Created by cody.yi on 2016/7/25.
- *
+ * <p>
  * Simple data container use for passing byte file
  */
 public class DataPart {
     private String name;// files
     private String fileName;
     private byte[] content;
+    private String path;
     private String type;
 
     /**
@@ -55,6 +60,21 @@ public class DataPart {
         type = mimeType;
     }
 
+    public DataPart(String name, String file, String path, String mimeType) {
+        this.name = name;
+        fileName = file;
+        this.path = path;
+        type = mimeType;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public String getName() {
         return name;
     }
@@ -87,6 +107,9 @@ public class DataPart {
      * @return byte file data
      */
     public byte[] getContent() {
+        if (!TextUtils.isEmpty(path)) {
+            return ImageUtil.getFileDataFromPath(path);
+        }
         return content;
     }
 

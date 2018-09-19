@@ -1,4 +1,5 @@
 /build
+/bugly
 # 开发应用时这两个文件可以不用上传
 #/signing.properties
 #/keystore.jks

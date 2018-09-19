@@ -4,7 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 /**
  * Created by WuXiaolong on 2015/7/7.
- *
+ * SwipeRefreshLayoutOnRefresh
  */
 public class SwipeRefreshLayoutOnRefresh implements SwipeRefreshLayout.OnRefreshListener {
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;

@@ -26,14 +26,26 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = ((GridLayoutManager) layoutManager);
             firstItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
+            if (firstItem == RecyclerView.NO_POSITION) {
+                if (gridLayoutManager.getChildAt(0) != null && Math.abs(gridLayoutManager.getChildAt(0).getY()) <= 0.001f) {
+                    firstItem = 0;
+                }
+            }
             //Position to find the final item of the current LayoutManager
             lastItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
-            if (lastItem == -1) lastItem = gridLayoutManager.findLastVisibleItemPosition();
+            if (lastItem == RecyclerView.NO_POSITION)
+                lastItem = gridLayoutManager.findLastVisibleItemPosition();
         } else if (layoutManager instanceof LinearLayoutManager) {
             LinearLayoutManager linearLayoutManager = ((LinearLayoutManager) layoutManager);
             firstItem = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+            if (firstItem == RecyclerView.NO_POSITION) {
+                if (linearLayoutManager.getChildAt(0) != null && Math.abs(linearLayoutManager.getChildAt(0).getY()) <= 0.001f) {
+                    firstItem = 0;
+                }
+            }
             lastItem = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-            if (lastItem == -1) lastItem = linearLayoutManager.findLastVisibleItemPosition();
+            if (lastItem == RecyclerView.NO_POSITION)
+                lastItem = linearLayoutManager.findLastVisibleItemPosition();
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager staggeredGridLayoutManager = ((StaggeredGridLayoutManager) layoutManager);
             // since may lead to the final item has more than one StaggeredGridLayoutManager the particularity of the so here that is an array
@@ -43,11 +55,14 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             lastItem = findMax(lastPositions);
             firstItem = staggeredGridLayoutManager.findFirstVisibleItemPositions(lastPositions)[0];
         }
-        if (firstItem == 0 || firstItem == RecyclerView.NO_POSITION) {
-            if (mPullLoadMoreRecyclerView.getPullRefreshEnable())
+        if (firstItem == 0) {
+            if (mPullLoadMoreRecyclerView.getPullRefreshEnable()) {
                 mPullLoadMoreRecyclerView.setSwipeRefreshEnable(true);
+            }
         } else {
-            mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
+            if (mPullLoadMoreRecyclerView.getPullRefreshEnable()) {
+                mPullLoadMoreRecyclerView.setSwipeRefreshEnable(totalItemCount == 0);
+            }
         }
         if (mPullLoadMoreRecyclerView.getPushRefreshEnable()
                 && !mPullLoadMoreRecyclerView.isRefresh()

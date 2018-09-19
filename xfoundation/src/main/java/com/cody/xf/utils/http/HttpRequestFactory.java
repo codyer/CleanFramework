@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -15,11 +16,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-import com.cody.xf.XFoundation;
-import com.cody.xf.utils.ImageUtil;
-import com.cody.xf.utils.LogUtil;
-import com.cody.xf.utils.StringUtil;
 import com.google.gson.JsonObject;
+import com.cody.xf.XFoundation;
+import com.cody.xf.utils.LogUtil;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -80,7 +79,7 @@ public class HttpRequestFactory {
                                               Map<String, String> params,
                                               JsonObject jsonParams,
                                               Type type,
-                                              HeaderListener headerListener,
+                                              IHeaderListener headerListener,
                                               @NonNull Response.Listener<T> listener,
                                               Response.ErrorListener errorListener) {
         return add(tag, new BaseRequest<>(method, url, headers, params, jsonParams, type,
@@ -112,26 +111,26 @@ public class HttpRequestFactory {
      *
      * @param tag           页面tag
      * @param url           请求地址
-     * @param bitmapList    需要上传的图片列表
+     * @param bitmapList    需要上传的图片路径列表
      * @param listener      成功的回调函数
      * @param errorListener 失败回调函数
      */
     public <T> Request<T> createMultipartRequest(Object tag,
                                                  String url,
                                                  String name,
-                                                 List<Bitmap> bitmapList,
+                                                 List<String> bitmapList,
                                                  Map<String, String> headers,
                                                  Map<String, String> params,
                                                  Type type,
                                                  Response.Listener<T> listener,
-                                                 Response.ErrorListener errorListener) {
+                                                 Response.ErrorListener errorListener,
+                                                 OnUploadListener uploadListener) {
         Map<String, DataPart> byteData = new HashMap<>();
         for (int i = 0; i < bitmapList.size(); i++) {
             String fileName = new Date(System.currentTimeMillis()).getTime() + "_" + i + ".jpg";
-            byteData.put(fileName, new DataPart(name, fileName, ImageUtil.getFileDataFromBitmap(bitmapList.get(i)),
-                    "image/jpeg"));
+            byteData.put(fileName, new DataPart(name, fileName, bitmapList.get(i), "image/jpeg"));
         }
-        MultipartRequest<T> multipartRequest = new MultipartRequest<>(url, headers, params, byteData, type, listener, errorListener);
+        MultipartRequest<T> multipartRequest = new MultipartRequest<>(url, headers, params, byteData, type, listener, errorListener, uploadListener);
         multipartRequest.setRetryPolicy(new DefaultRetryPolicy(30 * 1000, 1, 1.0f));
         return add(tag, multipartRequest);
     }
@@ -175,7 +174,7 @@ public class HttpRequestFactory {
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         }
-        if (StringUtil.isEmpty(path)) path = Environment.DIRECTORY_DOWNLOADS;
+        if (TextUtils.isEmpty(path)) path = Environment.DIRECTORY_DOWNLOADS;
 
         File path1 = new File(path);
         if (!path1.exists()) {

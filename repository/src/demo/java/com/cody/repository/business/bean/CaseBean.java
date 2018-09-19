@@ -128,6 +128,22 @@ public class CaseBean {
         this.nearlyPageNum = nearlyPageNum;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "pageNo=" + pageNo +
+                ", pageSize=" + pageSize +
+                ", count=" + count +
+                ", startIndex=" + startIndex +
+                ", totalPages=" + totalPages +
+                ", hasNextPage=" + hasNextPage +
+                ", hasPrePage=" + hasPrePage +
+                ", currentPage=" + currentPage +
+                ", records=" + records +
+                ", nearlyPageNum=" + nearlyPageNum +
+                '}';
+    }
+
     public static class RecordsBean {
         private int designerId;
         private String name;
@@ -265,21 +281,5 @@ public class CaseBean {
                     ", designerImage='" + designerImage + '\'' +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "pageNo=" + pageNo +
-                ", pageSize=" + pageSize +
-                ", count=" + count +
-                ", startIndex=" + startIndex +
-                ", totalPages=" + totalPages +
-                ", hasNextPage=" + hasNextPage +
-                ", hasPrePage=" + hasPrePage +
-                ", currentPage=" + currentPage +
-                ", records=" + records +
-                ", nearlyPageNum=" + nearlyPageNum +
-                '}';
     }
 }

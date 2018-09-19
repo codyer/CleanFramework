@@ -1,10 +1,10 @@
 package com.cody.repository.framework.interaction;
 
+import com.cody.xf.utils.http.IHeaderListener;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by cody.yi on 2017/3/28.
@@ -20,17 +20,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see QueryString 请求参数 类型 String
  * @see QueryJson 请求参数 类型 com.google.gson.JsonObject
  * @see QueryHeaderListener 回调函数类型
- *      @see com.cody.xf.utils.http.HeaderListener
+ * @see IHeaderListener
  * @see QueryClass 返回bean的类类型 Class<T>
  * @see QueryCallBack 回调函数类型
- *      @see ICallback <>
+ * @see ICallback <>
  */
 public class InteractionProxy {
     // TODO 各种异常检测需要添加
     private String mDomain;
     private CallAdapter mCallAdapter;
-
-    private final Map<Method, InteractionMethod> mInteractionMethodCache = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unchecked")
     public <T> T create(final Class<T> interaction) {
@@ -61,16 +59,9 @@ public class InteractionProxy {
     }
 
     private InteractionMethod loadInteractionMethod(Method method, Object... args) {
-        InteractionMethod result = mInteractionMethodCache.get(method);
-        if (result != null) return result;
-
-        synchronized (mInteractionMethodCache) {
-            result = mInteractionMethodCache.get(method);
-            if (result == null) {
-                result = new InteractionMethod.Builder(method, mDomain).setCallAdapter(mCallAdapter).build(args);
-                mInteractionMethodCache.put(method, result);
-            }
-        }
-        return result;
+        return new InteractionMethod
+                .Builder(method, mDomain)
+                .setCallAdapter(mCallAdapter)
+                .build(args);
     }
 }

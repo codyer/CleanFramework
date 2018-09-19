@@ -1,8 +1,8 @@
 package com.cody.handler.framework.presenter;
 
 
-import com.cody.handler.framework.viewmodel.ViewModel;
 import com.cody.handler.framework.IView;
+import com.cody.handler.framework.viewmodel.IViewModel;
 
 /**
  * Created by cody.yi on 2016/8/5.
@@ -17,7 +17,7 @@ import com.cody.handler.framework.IView;
  * Presenter和ViewModel，Binding，View相关，因此将其接口添加泛型支持
  * 在继承此类时，根据情况将ViewModel，Binding，View（Activity，Fragment）在合适的地方指定
  */
-public interface IPresenter<VM extends ViewModel> {
+public interface IPresenter<VM extends IViewModel> {
     /**
      * 取消相关操作
      *
@@ -30,12 +30,12 @@ public interface IPresenter<VM extends ViewModel> {
      *
      * @param view ui
      */
-    void attachView(IView view, VM viewModel);
+    void attachView(Object tag, IView view, VM viewModel);
 
     /**
      * 取消关联，避免内存泄漏
      */
-    void detachView();
+    void detachView(Object tag);
 
     /**
      * 获得当前view

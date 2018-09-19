@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 默认头像背景色 -->
+    <color name="h_avatar_bg_one">#63B8F3</color>
+    <color name="h_avatar_bg_two">#5DE57E</color>
+    <color name="h_avatar_bg_three">#B1D65F</color>
+    <color name="h_avatar_bg_four">#BB6DEB</color>
+    <color name="h_avatar_bg_five">#F3B163</color>
+    <color name="h_avatar_bg_six">#EFE023</color>
+    <color name="h_avatar_bg_seven">#F25959</color>
+    <color name="h_avatar_bg_eight">#7275F0</color>
+</resources>

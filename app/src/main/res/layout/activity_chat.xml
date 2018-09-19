@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ChatViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/headerLayoutStyle"
+            bind:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <ImageView
+                android:id="@+id/headerLeftBtn"
+                style="@style/headerButtonStyle"
+                android:onClick="@{onClickListener::onClick}"
+                android:src="@drawable/xf_ic_back_black"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:maxEms="10"
+                    android:text="@{viewModel.username}"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/font_18sp"
+                    tools:text="高圆圆高圆圆高圆圆高圆圆"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimens_6dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:maxEms="12"
+                    android:text="@{viewModel.groupName}"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_12sp"
+                    android:visibility="@{viewModel.isIntGroup ? View.VISIBLE : View.GONE}"
+                    tools:text="分组:已成交"
+                    tools:visibility="visible"/>
+
+            </LinearLayout>
+
+            <!--<TextView-->
+            <!--android:id="@+id/groupBtn"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toLeftOf="@+id/headerRightBtn"-->
+            <!--android:background="@drawable/bg_login_button_blue"-->
+            <!--android:onClick="@{onClickListener::onClick}"-->
+            <!--android:paddingBottom="@dimen/dimens_3dp"-->
+            <!--android:paddingLeft="@dimen/dimens_10dp"-->
+            <!--android:paddingRight="@dimen/dimens_10dp"-->
+            <!--android:paddingTop="@dimen/dimens_3dp"-->
+            <!--android:text="@{viewModel.isIntGroup ? @string/edit_group1 : @string/group}"-->
+            <!--android:textColor="@color/main_white"-->
+            <!--android:textSize="@dimen/font_size_26"-->
+            <!--tools:text="修改分组"/>-->
+
+            <ImageView
+                android:id="@+id/headerRightBtn"
+                style="@style/headerButtonStyle"
+                android:layout_alignParentRight="true"
+                android:onClick="@{onClickListener::onClick}"
+                android:src="@drawable/ic_chat_personal"/>
+
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_F5F5F5"
+                android:orientation="vertical">
+
+                <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+                    android:id="@+id/fw_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <com.cody.app.business.widget.EaseChatInputMenu
+                    android:id="@+id/input_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_im_tips"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/light_pink"
+                android:onClick="@{onClickListener::onClick}"
+                android:orientation="horizontal"
+                android:visibility="@{viewModel.isOnline?View.INVISIBLE:View.VISIBLE}"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_imtips"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text="您已掉线，点击"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_12sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="19dp"
+                    android:text="重新连接"
+                    android:textColor="@color/main_blue"
+                    android:textSize="@dimen/font_12sp"/>
+            </LinearLayout>
+
+            <com.cody.app.business.widget.EaseVoiceRecorderView
+                android:id="@+id/voice_recorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+        </FrameLayout>
+
+        <!--<include layout="@layout/include_chat_extend_menu"/>-->
+    </LinearLayout>
+</layout>

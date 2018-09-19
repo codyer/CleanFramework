@@ -1,0 +1,148 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.SystemGreetingViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_gray"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:gravity="center_vertical"
+            android:background="@color/main_white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dimens_15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/sys_welcome_words"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_16sp"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/switchOpen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimens_15dp"
+                android:checked="@{viewModel.enable}"/>
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimens_10dp"
+                    android:background="@color/main_white"
+                    android:padding="@dimen/dimens_15dp"
+                    android:text="@string/salutatory"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_13sp"/>
+
+                <View style="@style/style_dividing_line"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_white"
+                    android:padding="@dimen/dimens_16dp">
+
+                    <EditText
+                        android:id="@+id/replyContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit_quick_reply_title"
+                        android:hint="@string/system_greeting_hint"
+                        android:maxLength="140"
+                        android:text="@={viewModel.text}"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp"
+                        tools:text="因天气原因，物流受到影响，配送延迟，给您带来不便敬请谅解，感谢您的理解。"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/replyContent"
+                        android:text="@{viewModel.textCount}"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="@dimen/font_12sp"
+                        tools:text="1/140"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recommendGoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/main_white"
+                    android:padding="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_5dp"
+                    android:scrollbars="none"/>
+
+                <RelativeLayout
+                    android:id="@+id/addGoods"
+                    style="@style/itemWithLineStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimens_10dp"
+                    android:layout_marginTop="@dimen/dimens_10dp"
+                    android:padding="@dimen/dimens_15dp"
+                    bind:onClickListener="@{onClickListener}">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recommend_goods"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:drawableEnd="@drawable/xf_ic_arrow_black"
+                        android:text="@string/less_than_three"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="@dimen/font_16sp"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+</layout>

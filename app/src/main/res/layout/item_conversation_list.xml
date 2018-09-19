@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemConversationViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/list_itease_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{viewModel.isTop?@color/gray_F7FBFF:@color/main_white}">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_6dp"
+            android:layout_alignParentStart="true"
+            android:background="@color/gray_F5F5F5"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:id="@+id/fl_avatar"
+            android:layout_width="@dimen/dimens_40dp"
+            android:layout_height="@dimen/dimens_40dp"
+            android:layout_below="@+id/line"
+            android:layout_marginBottom="@dimen/dimens_16dp"
+            android:layout_marginStart="@dimen/dimens_16dp"
+            android:layout_marginTop="@dimen/dimens_16dp">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                bind:error="@{@drawable/icon_custom_avatar}"
+                bind:imageUrl="@{viewModel.imageUrl}"
+                bind:placeholder="@{@drawable/icon_custom_avatar}"/>
+
+            <TextView
+                android:id="@+id/unread_msg_number"
+                android:layout_width="@dimen/dimens_18dp"
+                android:layout_height="@dimen/dimens_18dp"
+                android:layout_gravity="end|top"
+                android:background="@drawable/shape_dot_red_18"
+                android:gravity="center"
+                android:text="@{String.valueOf(viewModel.unreadMsgCount)}"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.unreadMsgCount>0?View.VISIBLE:View.GONE}"/>
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimens_10dp"
+            android:layout_toEndOf="@+id/fl_avatar">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="@dimen/dimens_10dp"
+                android:layout_toStartOf="@+id/time"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.name}"
+                android:textColor="@color/gray_333333"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="16dp"
+                android:text="@{viewModel.time}"
+                android:textColor="@color/gray_999999"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/msg_state"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@id/name"
+                android:src="@drawable/ease_msg_state_fail_resend"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/mentioned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@id/msg_state"
+                android:paddingBottom="7dp"
+                android:paddingStart="7dp"
+                android:paddingTop="7dp"
+                android:text="@string/were_mentioned"
+                android:textColor="#e84e40"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/name"
+                android:layout_below="@+id/name"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="@dimen/dimens_6dp"
+                android:layout_toEndOf="@id/mentioned"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@{viewModel.content}"
+                android:textColor="@color/gray_999999"
+                android:textSize="14sp"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignStart="@+id/ll"
+            android:layout_below="@+id/fl_avatar"
+            android:background="@color/gray_E4E4E4"/>
+    </RelativeLayout>
+</layout>

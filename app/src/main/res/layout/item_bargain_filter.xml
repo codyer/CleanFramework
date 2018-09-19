@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemValue"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimens_44dp"
+    android:background="@color/main_white"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/dimens_28dp"
+    android:text="全部"
+    android:textColor="@color/btn_filter_blue_selector"
+    android:textSize="@dimen/font_15sp"/>

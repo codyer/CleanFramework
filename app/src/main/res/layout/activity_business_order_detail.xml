@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.BusinessOrderDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/fw_header"
+            layout="@layout/fw_header"
+            android:visibility="invisible"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}" />
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/main_blue">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="25dp"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="待付款"
+                            android:textColor="@color/main_white"
+                            android:textSize="@dimen/font_14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="待付款"
+                            android:textColor="@color/main_white"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_launcher" />
+
+
+                </RelativeLayout>
+
+                <!-- 订单信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="订单信息"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="订单编号"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.serialNumber}"
+                            tools:text="s3ggggkdkkfkdklgdkl 5552"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="下单时间"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.createDate}"
+                            tools:text="2018.3.20 16:54"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="付款时间"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.payDate}"
+                            tools:text="2018.3.20 16:54"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="下单渠道"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.channel}"
+                            tools:text="线下"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="剩余时间"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.remainingDate}"
+                            tools:text="6天2:52"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 顾客信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="顾客信息"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="联系电话"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.receiverMobile}"
+                            tools:text="183****2589"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="顾客姓名"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.username}"
+                            tools:text="王生"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="收货人"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.receiverName}"
+                            tools:text="王太"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="详细地址"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.receiverAddress}"
+                            tools:text="上海市普陀区怒江北路598号红星世贸大厦B坐25楼"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 商品信息 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品信息"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 物流信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="物流信息"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="预计送货"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.deliveryDate}"
+                            tools:text="2018.3.20 16:54"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="实际送货"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.deliveryCompleteDate}"
+                            tools:text="2018.3.20 16:54"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="物流运费"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.freight}"
+                            tools:text="¥0.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="服务费"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.servicePrice}"
+                            tools:text="¥0.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="服务费备注"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginLeft="12dp"
+                            android:text="@{viewModel.receiverAddress}"
+                            tools:text="上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="送货方式"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginLeft="12dp"
+                            android:text="@{viewModel.deliveryMode}"
+                            tools:text="送货到户"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 促销信息 -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="促销信息"
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 金额明细 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="金额明细"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="商品金额"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.goodsAmount}"
+                            tools:text="¥10200.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="优惠金额"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.promotionAmount}"
+                            tools:text="-¥50.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="服务费"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.serviceAmount}"
+                            tools:text="-¥50.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="运费"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.freightAmount}"
+                            tools:text="¥10200.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="抹零"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.discountAmount}"
+                            tools:text="-¥50.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="应收金额"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.receivableAmount}"
+                            tools:text="¥10200.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="已收金额"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.receivedAmount}"
+                            tools:text="¥10200.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="应付金额"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.payableAmount}"
+                            tools:text="¥10200.00"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 发票信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="发票信息"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="发票抬头"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.invoiceHead}"
+                            tools:text="上海市普陀区怒江北路598号红星世贸大厦B坐25楼"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="税号"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.invoiceNumber}"
+                            tools:text="420107698347902"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="62dp"
+                            android:layout_height="wrap_content"
+                            android:text="备注"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="@dimen/font_12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="@{viewModel.invoiceRemark}"
+                            tools:text="上海市普陀区怒江北路598号红星世贸大厦B坐25楼"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 发票信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="发票信息"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{viewModel.orderRemark}"
+                            tools:text="上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼上海市普陀区怒江北路598号红星世贸大厦B坐25楼"
+                            android:textColor="@color/gray_333333"
+                            android:textSize="@dimen/font_12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/gray_E4E4E4"
+                    />
+
+                <!-- 发票信息 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:text="其它约定"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@{viewModel.finalPayRemark}"
+                        tools:text="1.贷款余额应由购货方在约定期内付清"
+                        android:textColor="@color/gray_666666"
+                        android:textSize="@dimen/font_12sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@{viewModel.finalPayRemark}"
+                        tools:text="2.本单实售合计金额已包含定制商品测量、设计费用"
+                        android:textColor="@color/gray_666666"
+                        android:textSize="@dimen/font_12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

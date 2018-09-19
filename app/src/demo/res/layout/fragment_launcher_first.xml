@@ -1,0 +1,144 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.LauncherViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:text="W"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="60dp"
+            android:layout_marginTop="60dp"
+            android:text="E"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/animatorLine1"
+            android:layout_width="150dp"
+            android:layout_height="4dp"
+            android:layout_below="@id/animatorW"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="40dp"
+            android:background="#4397fd" />
+
+        <com.cody.app.business.launch.RandomAnimationFlowLayout
+            android:id="@+id/firstInfo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/animatorLine1"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp" />
+
+        <com.cody.app.business.launch.RandomAnimationFlowLayout
+            android:id="@+id/firstInfo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstInfo1"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp" />
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/animatorLine1"
+            android:layout_marginEnd="140dp"
+            android:layout_marginTop="60dp"
+            android:text="L"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/animatorLine2"
+            android:layout_width="80dp"
+            android:layout_height="4dp"
+            android:layout_below="@id/animatorL"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:background="#4397fd" />
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/animatorLine2"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="70dp"
+            android:text="C"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/animatorLine2"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="80dp"
+            android:text="O"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/animatorC"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="M"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <com.cody.app.business.launch.CharacterView
+            android:id="@+id/animatorE2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/animatorM"
+            android:layout_marginEnd="60dp"
+            android:text="E"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</layout>

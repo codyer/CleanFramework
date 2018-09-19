@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemConversationViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/root_system_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:onClick="@{onClickListener::onClick}"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimens_16dp"
+                android:layout_marginStart="@dimen/dimens_16dp"
+                android:layout_marginTop="@dimen/dimens_16dp">
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/dimens_40dp"
+                    android:layout_height="@dimen/dimens_40dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sys_msg_icon_new"/>
+
+                <TextView
+                    android:id="@+id/count"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end"
+                    android:background="@drawable/shape_dot_red"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/main_white"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingEnd="16dp"
+                android:paddingStart="@dimen/dimens_10dp">
+
+                <TextView
+                    android:id="@+id/title_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/time_tx"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="系统消息"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/font_16sp"
+                    android:textStyle="bold"
+                    />
+
+                <!--  android:text="@{viewModel.sysTitle}" -->
+
+
+                <TextView
+                    android:id="@+id/time_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="@dimen/dimens_10dp"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:text="@{viewModel.sysTime}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_12sp"
+                    tools:text="5月20日"/>
+
+                <TextView
+                    android:id="@+id/content_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/title_tx"
+                    android:layout_marginTop="@dimen/dimens_6dp"
+                    android:layout_toStartOf="@id/time_tx"
+                    android:ellipsize="end"
+                    android:lineSpacingMultiplier="1.2"
+                    android:singleLine="true"
+                    android:text="@{viewModel.sysContent}"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_12sp"
+                    tools:text=""/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_6dp"
+            android:background="@color/gray_F5F5F5"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimens_5dp"
+    android:paddingTop="13dp">
+
+    <TextView
+        android:id="@+id/timestamp"
+        style="@style/chat_text_date_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_16dp">
+
+        <ImageView
+            android:id="@+id/iv_userhead"
+            android:layout_width="@dimen/dimens_40dp"
+            android:layout_height="@dimen/dimens_40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/dimens_16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_touxiang"/>
+
+        <LinearLayout
+            android:id="@+id/bubble"
+            style="@style/receivedBubbleStyle"
+            android:layout_below="@+id/tv_userid"
+            android:layout_toRightOf="@id/iv_userhead">
+
+            <TextView
+                style="@style/chat_content_date_style"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ease_location_msg"
+                android:gravity="center|start"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_12dp"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:textSize="@dimen/font_13sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+</LinearLayout>

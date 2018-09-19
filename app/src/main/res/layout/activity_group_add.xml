@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="android.text.TextUtils"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.GroupModifyViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <com.cody.xf.widget.ClearEditText
+            android:id="@+id/et_group"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginEnd="@dimen/dimens_15dp"
+            android:layout_marginStart="@dimen/dimens_15dp"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="请输入分组名称"
+            android:maxLength="10"
+            android:text="@={viewModel.newGroupName}"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/dimens_15dp"
+            android:background="@color/gray_E4E4E4"/>
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimens_37dp"
+            android:layout_marginStart="@dimen/dimens_37dp"
+            android:layout_marginTop="48dp"
+            android:background="@{!TextUtils.isEmpty(viewModel.newGroupName)?@drawable/login_button_blue:@drawable/login_button_gray}"
+            android:gravity="center"
+            android:onClick="@{onClickListener::onClick}"
+            android:text="@string/confirm"
+            android:textColor="@color/main_white"
+            android:textSize="@dimen/font_17sp"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemMessageViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_5dp"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:id="@+id/timestamp"
+            style="@style/chat_text_date_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.timeStamp}"
+            android:visibility="@{viewModel.showTimeStamp?View.VISIBLE:View.GONE}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp">
+
+            <include
+                android:id="@+id/statusLayout"
+                layout="@layout/include_message_status_not_pronum"
+                bind:onClickListener="@{onClickListener}"
+                bind:viewModel="@{viewModel}"/>
+
+            <ImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/dimens_40dp"
+                android:layout_height="@dimen/dimens_40dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/dimens_16dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:scaleType="fitXY"
+                tools:src="@drawable/icon_guide_avatar"
+                bind:error="@{@drawable/icon_guide_avatar}"
+                bind:imageUrl="@{viewModel.userAvatar}"
+                bind:placeholder="@{@drawable/icon_guide_avatar}"/>
+
+            <LinearLayout
+                android:id="@+id/bubble"
+                style="@style/sendBubbleStyle"
+                android:layout_height="108dp"
+                android:layout_toRightOf="@+id/statusLayout"
+                android:layout_toLeftOf="@id/iv_userhead"
+                android:background="@drawable/im_quan"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginRight="@dimen/dimens_25dp"
+                    android:layout_marginLeft="@dimen/dimens_10dp"
+                    android:layout_weight="2.5"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/couponSubName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxEms="3"
+                        android:maxLines="1"
+                        android:text="@{viewModel.couponViewModel.couponSubName}"
+                        android:textColor="@color/main_white"
+                        android:textSize="@dimen/font_32sp"
+                        tools:text="赠送一张赠品券考虑考虑快乐"/>
+
+                    <TextView
+                        android:id="@+id/couponName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/couponSubName"
+                        android:layout_marginTop="@dimen/dimens_7dp"
+                        android:text="@{viewModel.couponViewModel.couponName}"
+                        android:textColor="@color/main_white"
+                        android:textSize="10sp"
+                        tools:text="无门槛优惠券"/>
+
+                    <TextView
+                        android:id="@+id/couponScope"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dimens_15dp"
+                        android:layout_toRightOf="@id/couponSubName"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{viewModel.couponViewModel.couponScope}"
+                        android:textColor="@color/main_white"
+                        android:textSize="@dimen/font_14sp"
+                        tools:text="红星美凯龙真北商场促销TOTO卫浴"/>
+
+                    <TextView
+                        android:id="@+id/couponBound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/couponScope"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/dimens_10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@{viewModel.couponViewModel.couponBound}"
+                        android:textColor="@color/main_white"
+                        android:textSize="@dimen/font_12sp"
+                        tools:text="满1000元可用"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/validity"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.couponViewModel.endDate}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_12sp"
+                    tools:text="有效期至2018-10-12"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

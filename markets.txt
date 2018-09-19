@@ -1,0 +1,3 @@
+10000#channel1
+10001#channel2
+10002#channel3

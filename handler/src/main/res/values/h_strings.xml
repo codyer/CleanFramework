@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="h_upload_image_loading">图片上传中&#8230;</string>
+    <string name="h_submit_loading">正在为您努力提交中&#8230;</string>
+    <string name="h_check_version">正在为您检测版本更新&#8230;</string>
+    <string name="h_format_sponsor_info">%1$d关注 · %2$d在办活动</string>
+    <string name="h_location_recv">[%1$s的位置]</string>
+    <string name="h_location_prefix">[我的位置]</string>
+    <string name="h_picture">[图片]</string>
+    <string name="h_video">[视频]</string>
+    <string name="h_file">[文件]</string>
+    <string name="h_voice_prefix">[语音]</string>
+    <string name="h_voice_call">[语音通话]</string>
+    <string name="h_video_call">[视频通话]</string>
+    <string name="h_dynamic_expression">[动态表情]</string>
+    <string name="h_systemmerchandise">[商品信息]</string>
+    <string name="h_personlocation">[位置分享消息]</string>
+    <string name="h_personguideswitch">[切换导购]</string>
+    <string name="h_personcoupon">[优惠券]</string>
+    <string name="h_personvideo">[视频请求]</string>
+    <string name="h_personorder">[订单]</string>
+    <string name="h_like">[用户点赞]</string>
+    <string name="h_personrecommendgoods">[推荐商品]</string>
+    <string name="h_sysgreetingwords">[系统欢迎语]</string>
+    <string name="h_order_serialnumber">订单编号：%1$s</string>
+    <string name="h_order_payment">订单金额：%1$s</string>
+    <string name="h_order_createdate">下单时间：%1$s</string>
+</resources>

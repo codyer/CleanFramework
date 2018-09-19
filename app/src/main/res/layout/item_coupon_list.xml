@@ -1,0 +1,219 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2017/4/21.
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemCouponViewModel" />
+
+    </data>
+
+    <LinearLayout
+        style="@style/itemStyle"
+        android:layout_marginLeft="@dimen/dimens_10dp"
+        android:layout_marginRight="@dimen/dimens_10dp"
+        android:layout_marginTop="@dimen/dimens_6dp"
+        android:background="@drawable/shape_white_round_3dp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_12dp"
+        android:paddingLeft="@dimen/dimens_12dp"
+        android:paddingRight="@dimen/dimens_12dp">
+
+        <LinearLayout
+            android:id="@+id/useList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:onClick="@{onClickListener::onClick}"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimens_10dp"
+            android:paddingTop="@dimen/dimens_10dp">
+
+            <TextView
+                android:id="@+id/useCount"
+                style="@style/singleStyle"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.actualConsumed}"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_15sp"
+                android:textStyle="bold"
+                tools:text="本店使用10张" />
+
+            <TextView
+                style="@style/singleStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableStart="@{viewModel.isUsed?@drawable/xf_ic_arrow_black:@drawable/xf_ic_trans_bg}"
+                android:gravity="end|center_vertical"
+                android:text="@{viewModel.couponStatusDec}"
+                android:textColor="@{viewModel.checked?@color/main_blue:@color/gray_333333}"
+                android:textSize="@dimen/font_13sp"
+                tools:text="待审核" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{viewModel.expiry?@drawable/bg_coupon_gray_up:@drawable/bg_coupon_up}"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimens_12dp"
+            android:paddingTop="@dimen/dimens_12dp"
+            tools:background="@drawable/bg_coupon_up">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/dimens_10dp"
+                android:paddingStart="@dimen/dimens_10dp">
+
+                <TextView
+                    android:id="@+id/couponDiscount"
+                    style="@style/singleStyle"
+                    android:layout_marginEnd="@dimen/dimens_2dp"
+                    android:layout_marginStart="@dimen/dimens_2dp"
+                    android:gravity="center"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:singleLine="false"
+                    android:text="@{viewModel.couponTitle}"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/font_20sp"
+                    tools:text="虎牌虎牌" />
+<!--
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/unit"
+                        style="@style/singleStyle"
+                        android:text="@string/unit"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_12sp"
+                        android:visibility="@{viewModel.showUnit?View.VISIBLE:View.GONE}" />
+
+
+                    <TextView
+                        android:id="@+id/discount"
+                        style="@style/singleStyle"
+                        android:text="@string/discount"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_12sp"
+                        android:visibility="@{viewModel.showDiscount?View.VISIBLE:View.GONE}" />
+
+                    <TextView
+                        android:id="@+id/most"
+                        style="@style/singleStyle"
+                        android:text="@string/most"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="@dimen/font_12sp"
+                        android:visibility="@{viewModel.showMost?View.VISIBLE:View.GONE}"
+                        tools:visibility="gone" />
+                </LinearLayout>
+-->
+
+                <TextView
+                    android:id="@+id/couponDiscountDesc"
+                    style="@style/singleStyle"
+                    android:layout_marginTop="@dimen/dimens_3dp"
+                    android:maxEms="8"
+                    android:text="@{viewModel.condition}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_12sp"
+                    android:visibility="@{viewModel.showCondition?View.VISIBLE:View.GONE}"
+                    tools:text="1000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/dimens_8dp"
+                android:paddingStart="@dimen/dimens_8dp">
+
+                <TextView
+                    android:id="@+id/couponName"
+                    style="@style/singleStyle"
+                    android:text="@{viewModel.couponName}"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/font_14sp"
+                    tools:text="上海真北商场双11优惠劵上海真北商场双11优惠劵" />
+
+                <TextView
+                    android:id="@+id/totalCount"
+                    style="@style/singleStyle"
+                    android:layout_marginTop="@dimen/dimens_12dp"
+                    android:text="@{viewModel.totalCount}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_12sp"
+                    tools:text="总发行数量：1000" />
+
+                <TextView
+                    android:id="@+id/remainCount"
+                    style="@style/singleStyle"
+                    android:layout_marginTop="@dimen/dimens_8dp"
+                    android:text="@{viewModel.remainCount}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_12sp"
+                    tools:text="剩余数量：100" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{viewModel.expiry?@drawable/bg_coupon_gray_down:@drawable/bg_coupon_down}"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/dimens_5dp"
+            android:paddingEnd="@dimen/dimens_15dp"
+            android:paddingStart="@dimen/dimens_15dp"
+            android:paddingTop="@dimen/dimens_5dp"
+            android:text="@{viewModel.expiryDate}"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_13sp"
+            tools:background="@drawable/bg_coupon_down"
+            tools:text="2018.5.4-2018.6.5" />
+
+        <TextView
+            android:id="@+id/addCoupon"
+            style="@style/singleStyle"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:background="@drawable/bg_btn_pay"
+            android:gravity="center"
+            android:onClick="@{onClickListener::onClick}"
+            android:paddingBottom="@dimen/dimens_5dp"
+            android:paddingEnd="@dimen/dimens_20dp"
+            android:paddingStart="@dimen/dimens_20dp"
+            android:paddingTop="@dimen/dimens_5dp"
+            android:text="@string/add_more"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/font_15sp"
+            android:visibility="@{viewModel.showAdd?View.VISIBLE:View.GONE}" />
+
+    </LinearLayout>
+
+</layout>

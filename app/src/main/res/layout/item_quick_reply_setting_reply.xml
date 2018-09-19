@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemQuickReplyViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_quickReplySet"
+        style="@style/itemWithLineStyle"
+        android:onClick="@{onClickListener::onClick}"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp">
+
+        <TextView
+            style="@style/subTitleStyle"
+            android:layout_centerVertical="true"
+            android:text="@{viewModel.text}"
+            android:textColor="@color/gray_333333"
+            tools:text="快捷回复设置"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/xf_ic_arrow_black"/>
+    </RelativeLayout>
+
+</layout>

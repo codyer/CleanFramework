@@ -1,0 +1,164 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/11.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemCustomerOrderListViewModel" />
+    </data>
+
+    <LinearLayout
+        style="@style/itemWithLineStyle"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_10dp"
+        android:paddingTop="@dimen/dimens_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="订单编号："
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{viewModel.orderNumber}"
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dimens_20dp"
+                android:text="@{viewModel.orderType}"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/font_13sp"
+                tools:text="已支付" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingRight="@dimen/dimens_10dp"
+            android:text="@{viewModel.goodsName}"
+            android:textColor="@color/gray_666666"
+            android:textSize="@dimen/font_15sp"
+            tools:text="箭牌水龙头箭牌水龙头箭牌水龙头箭牌水龙头箭牌水龙头箭牌水龙头" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:text="数量："
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.count}"
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp"
+                tools:text="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:orientation="horizontal"
+            android:visibility="@{viewModel.hasServerMoney?View.VISIBLE:View.GONE}">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:text="服务费："
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.severMoney}"
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimens_10dp"
+                android:text="订单金额："
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:id="@+id/tv_order_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimens_10dp"
+                android:text="@{viewModel.orderAmount}"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/font_15sp"
+                tools:text="2922929" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="已付金额："
+                android:textColor="@color/gray_666666"
+                android:textSize="@dimen/font_15sp" />
+
+            <TextView
+                android:id="@+id/tv_paid_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.paidAmount}"
+                android:textColor="@color/main_blue"
+                android:textSize="@dimen/font_15sp"
+                tools:text="124432443" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

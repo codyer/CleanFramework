@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: tab index -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.PotentialCustomerViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context="com.cody.app.business.customer.PotentialCustomerActivity">
+
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dimens_6dp"
+            android:paddingLeft="@dimen/dimens_15dp"
+            android:paddingTop="@dimen/dimens_6dp">
+
+            <CheckedTextView
+                android:id="@+id/filterAll"
+                style="@style/customer_filter_btn_style"
+                android:checked="@{viewModel.filterType == viewModel.FILTER_TYPE_ALL}"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="全部"/>
+
+            <CheckedTextView
+                android:id="@+id/browseShop"
+                style="@style/customer_filter_btn_style"
+                android:layout_marginLeft="@dimen/dimens_10dp"
+                android:checked="@{viewModel.filterType == viewModel.FILTER_TYPE_BROWER_SHOP}"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="浏览店铺"/>
+
+            <CheckedTextView
+                android:id="@+id/browseGood"
+                style="@style/customer_filter_btn_style"
+                android:layout_marginLeft="@dimen/dimens_10dp"
+                android:checked="@{viewModel.filterType == viewModel.FILTER_TYPE_BROWER_GOOD}"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="浏览单品"/>
+
+        </LinearLayout>
+
+
+        <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/fw_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dimens_15dp"
+            android:paddingRight="@dimen/dimens_7dp"
+            android:background="@drawable/ic_bottom_bg"
+            android:visibility="@{viewModel.isSendCoupons ? View.VISIBLE :View.GONE}">
+
+            <CheckedTextView
+                android:id="@+id/checkAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:checked="@{viewModel.totalCheck}"
+                android:drawableLeft="@drawable/btn_check_blue_selector"
+                android:drawablePadding="@dimen/dimens_10dp"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="@string/check_all"
+                android:textColor="@color/gray_333333"/>
+
+            <CheckedTextView
+                android:id="@+id/unSendCoupons"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dimens_20dp"
+                android:checked="@{viewModel.uncouponCheck}"
+                android:drawableLeft="@drawable/btn_check_blue_selector"
+                android:drawablePadding="@dimen/dimens_10dp"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="未发券"
+                android:textColor="@color/gray_333333"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/dimens_0dp"
+                android:layout_height="@dimen/dimens_0dp"
+                android:layout_weight="1"/>
+
+            <CheckedTextView
+                android:id="@+id/confirm"
+                android:layout_width="113dp"
+                android:layout_height="39dp"
+                android:background="@drawable/btn_confirm_blue_selector"
+                android:checked="@{viewModel.checkCount != 0}"
+                android:clickable="@{viewModel.checkCount != 0}"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:text="@{viewModel.confirmBtnText}"
+                android:textAlignment="center"
+                android:textColor="@color/btn_white_selector"
+                android:textSize="@dimen/font_17sp"
+                tools:checked="true"
+                tools:text="确认(200)"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

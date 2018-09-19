@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemMessageViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_5dp"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:id="@+id/timestamp"
+            style="@style/chat_text_date_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{viewModel.timeStamp}"
+            android:visibility="@{viewModel.isShowTimeStamp?View.VISIBLE:View.GONE}"/>
+
+        <TextView
+            android:id="@+id/tv_remark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimens_20dp"
+            android:layout_marginLeft="@dimen/dimens_16dp"
+            android:layout_marginRight="@dimen/dimens_16dp"
+            android:layout_marginTop="@dimen/dimens_5dp"
+            android:text="@{viewModel.switchGuideViewModel.remark}"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_13sp"
+            tools:text="导购员A备注：这个客户来了2次了哦，成交意向较大"/>
+
+        <RelativeLayout
+            android:id="@+id/good_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp"
+            android:paddingRight="60dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/dimens_40dp"
+                android:layout_height="@dimen/dimens_40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/dimens_16dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:scaleType="fitXY"
+                tools:src="@drawable/icon_custom_avatar"
+                bind:error="@{@drawable/icon_custom_avatar}"
+                bind:imageUrl="@{viewModel.userAvatar}"
+                bind:placeholder="@{@drawable/icon_custom_avatar}"/>
+
+            <LinearLayout
+                android:id="@+id/bubble"
+                style="@style/receivedBubbleStyle"
+                android:layout_toRightOf="@id/iv_userhead"
+                android:paddingLeft="@dimen/dimens_15dp"
+                android:paddingRight="@dimen/dimens_15dp">
+
+                <ImageView
+                    android:id="@+id/good_imag"
+                    android:layout_width="@dimen/dimens_60dp"
+                    android:layout_height="@dimen/dimens_60dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimens_16dp"
+                    android:scaleType="fitCenter"
+                    tools:src="@drawable/ease_default_image"
+                    bind:error="@{@drawable/ease_default_image}"
+                    bind:placeholder="@{@drawable/ease_default_image}"
+                    bind:resizeImageUrl="@{viewModel.switchGuideViewModel.imageUrl}"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimens_10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:ellipsize="end"
+                        android:maxEms="8"
+                        android:maxLines="2"
+                        android:text="@{viewModel.switchGuideViewModel.merchandiseName}"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="@dimen/font_16sp"
+                        tools:text="红星美凯龙真北商场促销TOTO卫浴"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="@dimen/dimens_10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="@{viewModel.switchGuideViewModel.merchandisePrice}"
+                        android:textColor="@color/main_blue"
+                        android:textSize="@dimen/font_16sp"
+                        tools:text="￥5000.00"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
+
+
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/dimens_10dp"
+    android:paddingEnd="@dimen/dimens_18dp"
+    android:paddingStart="@dimen/dimens_16dp"
+    android:paddingTop="@dimen/dimens_10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:textColor="@color/gray_333333"
+            android:textSize="@dimen/font_16sp"
+            tools:text="普陀区长征红星世贸大厦内(怒江北路598…"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_999999"
+            tools:text="上海市普陀区金沙江路1060号"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/checkbox"
+        android:layout_width="19dp"
+        android:layout_height="13dp"
+        android:src="@drawable/ic_xuanz"/>
+</LinearLayout>

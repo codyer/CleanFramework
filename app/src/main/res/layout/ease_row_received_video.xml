@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemMessageViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_5dp"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:id="@+id/timestamp"
+            style="@style/chat_text_date_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.timeStamp}"
+            android:visibility="@{viewModel.showTimeStamp?View.VISIBLE:View.GONE}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp">
+
+            <ImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/dimens_40dp"
+                android:layout_height="@dimen/dimens_40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/dimens_16dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:scaleType="fitXY"
+                bind:error="@{@drawable/icon_custom_avatar}"
+                bind:imageUrl="@{viewModel.userAvatar}"
+                bind:placeholder="@{@drawable/icon_custom_avatar}"
+                tools:src="@drawable/icon_custom_avatar"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bubble"
+                style="@style/receivedBubbleStyle"
+                android:layout_width="124dp"
+                android:layout_height="178dp"
+                android:layout_toRightOf="@id/iv_userhead"
+                android:onClick="@{onClickListener::onClick}"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/dimens_0dp"
+                android:paddingTop="0dp"
+                bind:cardCornerRadius="6dp"
+                bind:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/chatting_content_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        bind:badImageUrl="@{viewModel.videoViewModel.remoteThumb}"
+                        bind:error="@{@drawable/ease_default_image}"
+                        bind:placeholder="@{@drawable/ease_default_image}"
+                        tools:src="@drawable/ease_default_image"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="31dp"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/chatting_length_iv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/dimens_11dp"
+                            android:text="@{viewModel.videoViewModel.durationText}"
+                            android:textColor="@android:color/white"
+                            android:textSize="12.0sp"
+                            tools:text="6秒"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:alpha="0.3"
+                            android:background="@drawable/ease_video_bottom_bg"/>
+                    </FrameLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/chatting_status_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ease_video_play_btn_small_nor"
+                            android:clickable="false"
+                            android:visibility="@{viewModel.videoViewModel.isDowning ? View.GONE : View.VISIBLE}"/>
+
+                        <ProgressBar
+                            android:id="@+id/downloadProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/chatting_status_btn"
+                            android:layout_alignLeft="@+id/chatting_status_btn"
+                            android:layout_alignRight="@+id/chatting_status_btn"
+                            android:layout_alignTop="@+id/chatting_status_btn"
+                            android:visibility="@{viewModel.videoViewModel.isDowning ? View.VISIBLE : View.GONE}"
+                            tools:visibility="visible"/>
+
+                    </RelativeLayout>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

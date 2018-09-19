@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="names_chat_tab">
+        <item>最新消息</item>
+        <item>客户分组</item>
+    </array>
+
+    <array name="business_order_list_tab">
+        <item>全部</item>
+        <item>待付款</item>
+        <item>已付款</item>
+        <item>交易成功</item>
+        <item>售后中</item>
+    </array>
+
+    <array name="coupon_list_tab">
+        <item>全部</item>
+        <item>待报名</item>
+        <item>待审核</item>
+        <item>进行中</item>
+        <item>已过期</item>
+    </array>
+
+</resources>

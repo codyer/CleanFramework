@@ -1,0 +1,52 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.CouponAddViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}" />
+
+        <com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/fw_list"
+            style="@style/ListViewNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/main_white" />
+
+        <TextView
+            android:id="@+id/btnAdd"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:layout_marginLeft="@dimen/dimens_36dp"
+            android:layout_marginRight="@dimen/dimens_36dp"
+            android:layout_marginTop="@dimen/dimens_30dp"
+            android:background="@drawable/login_button_blue"
+            android:gravity="center"
+            android:onClick="@{onClickListener::onClick}"
+            android:text="@string/confirm"
+            android:textColor="@color/main_white"
+            android:textSize="17sp"
+            android:visibility="@{viewModel.valid?View.VISIBLE:View.GONE}" />
+
+    </LinearLayout>
+</layout>

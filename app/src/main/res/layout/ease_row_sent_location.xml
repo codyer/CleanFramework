@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimens_5dp"
+    android:paddingTop="13dp">
+
+    <TextView
+        android:id="@+id/timestamp"
+        style="@style/chat_text_date_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="2016-01-01 21:01"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_16dp">
+
+        <ImageView
+            android:id="@+id/iv_userhead"
+            android:layout_width="@dimen/dimens_40dp"
+            android:layout_height="@dimen/dimens_40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/dimens_16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_touxiang"/>
+
+        <LinearLayout
+            android:id="@+id/bubble"
+            style="@style/sendBubbleStyle"
+            android:layout_toLeftOf="@id/iv_userhead"
+            android:layout_toRightOf="@+id/statusLayout"
+            android:background="@drawable/ic_msg_send_bg_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimens_15dp"
+                android:layout_marginRight="23dp"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_14sp"
+                tools:text="上海天地软件园（普陀区中江路西南879号）"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/dimens_9dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ease_location_msg"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/include_message_status_not_pronum"/>
+    </RelativeLayout>
+
+</LinearLayout>

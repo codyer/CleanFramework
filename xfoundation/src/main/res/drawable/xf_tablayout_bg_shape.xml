@@ -1,0 +1,8 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/9/4.
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <solid android:color="#F5F6F8"/>
+</shape>

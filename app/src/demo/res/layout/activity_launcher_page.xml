@@ -1,0 +1,56 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.LauncherViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000">
+
+        <com.cody.app.business.widget.ScrollingImageView
+            android:id="@+id/secondPictures"
+            android:layout_width="match_parent"
+            android:layout_height="@{viewModel.imageHeight, default=@dimen/image_height}"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            bind:speed="1dp"
+            bind:src="@drawable/splash_scroll_view" />
+
+        <ImageView
+            android:id="@+id/thirdPictures"
+            android:layout_width="match_parent"
+            android:layout_height="@{viewModel.imageHeight, default=@dimen/image_height}"
+            android:layout_gravity="bottom"
+            android:scaleType="centerCrop"
+            android:src="@drawable/splash_scroll_view"
+            android:visibility="gone" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/launcherViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/launcherIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="60dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" />
+
+    </FrameLayout>
+
+</layout>

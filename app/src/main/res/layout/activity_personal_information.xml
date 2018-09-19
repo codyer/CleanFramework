@@ -1,0 +1,223 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: tab index -->
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.PersonalInformationViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_white"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context="com.cody.app.business.personal.PersonalInformationActivity">
+
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/portraitItem"
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_10dp"
+                    android:paddingTop="@dimen/dimens_10dp">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/portrait" />
+
+                    <ImageView
+                        android:id="@+id/portrait"
+                        style="@style/normalAvatar"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/portraitArrow"
+                        android:layout_toStartOf="@+id/portraitArrow"
+                        bind:error="@{@drawable/normal_portrait}"
+                        bind:imageUrl="@{viewModel.imageUrl}"
+                        bind:placeholder="@{@drawable/normal_portrait}" />
+
+                    <ImageView
+                        android:id="@+id/portraitArrow"
+                        style="@style/itemArrowStyle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/realNameItem"
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_10dp">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/real_name" />
+
+                    <TextView
+                        android:id="@+id/realName"
+                        style="@style/infoStyle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:maxEms="10"
+                        android:text="@{viewModel.realName}" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nickNameItem"
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_10dp">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/nick_name" />
+
+                    <TextView
+                        android:id="@+id/nickName"
+                        style="@style/infoStyle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/nickNameArrow"
+                        android:maxEms="10"
+                        android:text="@{viewModel.nickName}"
+                        tools:text="sajfl" />
+
+                    <ImageView
+                        android:id="@+id/nickNameArrow"
+                        style="@style/itemArrowStyle"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/telPhoneItem"
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_10dp">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/tel_phone" />
+
+                    <TextView
+                        android:id="@+id/telPhone"
+                        style="@style/infoStyle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/telPhoneArrow"
+                        android:maxEms="10"
+                        android:text="@{viewModel.telPhone}"
+                        tools:text="1512046552" />
+
+                    <ImageView
+                        android:id="@+id/telPhoneArrow"
+                        style="@style/itemArrowStyle"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_10dp">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/gender" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        style="@style/infoStyle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:maxEms="10"
+                        android:text="@{viewModel.gender}" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/selfIntroductionItem"
+                    style="@style/itemWithLineStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_15dp"
+                    android:paddingTop="@dimen/dimens_10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/self_introduction" />
+
+                    <TextView
+                        android:id="@+id/selfIntroduction"
+                        style="@style/infoStyle"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/selfIntroductionArrow"
+                        android:maxEms="10"
+                        android:text="@{viewModel.selfIntroduction}" />
+
+                    <ImageView
+                        android:id="@+id/selfIntroductionArrow"
+                        style="@style/itemArrowStyle" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimens_10dp"
+                    android:background="@color/background_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/personalQrCodeItem"
+                    style="@style/itemStyle"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:paddingBottom="@dimen/dimens_20dp"
+                    android:paddingTop="@dimen/dimens_20dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/subTitleStyle"
+                        android:layout_centerVertical="true"
+                        android:text="@string/create_personal_qr_code" />
+
+                    <ImageView
+                        android:id="@+id/personalQrCodeArrow"
+                        style="@style/itemArrowStyle" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

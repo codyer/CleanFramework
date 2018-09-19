@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c)  Created by Cody.yi on 2016/8/26.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.PersonalInformationViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:background="@color/main_white">
+        <include
+            layout="@layout/fw_header"
+            bind:onClickListener="@{onClickListener}"
+            bind:viewModel="@{viewModel.headerViewModel}"/>
+
+        <EditText
+            android:id="@+id/selfIntroduction"
+            style="@style/subInfoStyle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimens_20dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="@drawable/btn_edge_gray_shape"
+            android:gravity="start"
+            android:inputType="textMultiLine"
+            android:maxLength="600"
+            android:minLines="3"
+            android:hint="@string/please_input_self_introduction"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:singleLine="false"
+            android:text="@={viewModel.selfIntroduction}"/>
+
+    </LinearLayout>
+</layout>

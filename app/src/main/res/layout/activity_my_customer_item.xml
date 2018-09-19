@@ -1,0 +1,108 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemCustomerViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{onClickListener::onClick}"
+        android:paddingTop="@dimen/dimens_15dp">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="@dimen/dimens_36dp"
+            android:layout_height="@dimen/dimens_36dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            android:src="@{viewModel.imgResId}" />
+
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimens_15dp"
+            android:layout_marginStart="@dimen/dimens_12dp"
+            android:layout_toEndOf="@id/itemImage"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{viewModel.itemTitle}"
+            android:textColor="@color/gray_333333"
+            android:textSize="@dimen/font_15sp"
+            tools:text="潜在客户(10)" />
+
+        <TextView
+            android:id="@+id/itemDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitle"
+            android:layout_marginStart="@dimen/dimens_12dp"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:layout_toEndOf="@id/itemImage"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/new_customer"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_13sp" />
+
+        <TextView
+            android:id="@+id/itemDescriptionCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitle"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:layout_toEndOf="@id/itemDescription"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{viewModel.newCount}"
+            android:textColor="@color/main_blue"
+            android:textSize="@dimen/font_13sp"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/itemDescriptionEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemTitle"
+            android:layout_marginEnd="@dimen/dimens_15dp"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:layout_toEndOf="@id/itemDescriptionCount"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/update_time"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/itemDescription"
+            android:layout_marginStart="@dimen/dimens_12dp"
+            android:layout_marginTop="@dimen/dimens_15dp"
+            android:layout_toEndOf="@id/itemImage"
+            android:background="@color/gray_E4E4E4"
+            android:visibility="@{viewModel.hideLine?View.INVISIBLE:View.VISIBLE}" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:src="@drawable/xf_ic_arrow_black" />
+
+    </RelativeLayout>
+
+</layout>

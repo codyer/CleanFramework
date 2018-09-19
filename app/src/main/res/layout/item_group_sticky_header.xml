@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemGroupViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:id="@+id/stickyHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{onClickListener::onClick}"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_49dp"
+            android:background="@color/main_white"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/dimens_15dp"
+            android:paddingStart="@dimen/dimens_15dp">
+
+            <TextView
+                android:layout_width="@dimen/dimens_36dp"
+                android:layout_height="@dimen/dimens_36dp"
+                android:background="@{viewModel.drawableColor}"
+                android:gravity="center"
+                android:text="@{viewModel.customGroupName}"
+                android:textColor="@color/main_white"
+                android:textSize="@dimen/font_17sp"
+                android:visibility="@{viewModel.customGroup?View.VISIBLE:View.GONE}"/>
+
+            <ImageView
+                android:layout_width="@dimen/dimens_36dp"
+                android:layout_height="@dimen/dimens_36dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@{viewModel.imgResId}"
+                android:visibility="@{viewModel.customGroup?View.GONE:View.VISIBLE}"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimens_10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@{viewModel.valid?viewModel.groupName:viewModel.groupName}"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_15sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:rotation="@{viewModel.expand?90:0}"
+                android:scaleType="fitCenter"
+                android:src="@{viewModel.valid?viewModel.arrowResId:viewModel.arrowResId}"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/dimens_15dp"
+            android:background="@color/gray_E4E4E4"
+            android:visibility="@{viewModel.expand?View.GONE:View.VISIBLE}"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemConversationViewModel"/>
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/list_itease_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimens_40dp"
+        android:background="@color/gray_F7FBFF">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/dimens_40dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dimens_10dp"
+            android:layout_marginStart="@dimen/dimens_16dp"
+            android:contentDescription="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_computer"/>
+
+        <TextView
+            android:id="@+id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/avatar"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="电脑已经登录"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_13sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/hint"
+            android:background="@color/gray_E4E4E4"/>
+    </RelativeLayout>
+</layout>

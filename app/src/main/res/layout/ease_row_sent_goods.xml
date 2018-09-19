@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemMessageViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimens_5dp"
+        android:paddingTop="13dp">
+
+        <TextView
+            android:id="@+id/timestamp"
+            style="@style/chat_text_date_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.timeStamp}"
+            android:visibility="@{viewModel.showTimeStamp?View.VISIBLE:View.GONE}"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_16dp">
+
+            <ImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/dimens_40dp"
+                android:layout_height="@dimen/dimens_40dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/dimens_16dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:scaleType="fitXY"
+                tools:src="@drawable/icon_guide_avatar"
+                bind:error="@{@drawable/icon_guide_avatar}"
+                bind:imageUrl="@{viewModel.userAvatar}"
+                bind:placeholder="@{@drawable/icon_guide_avatar}"/>
+
+            <LinearLayout
+                android:id="@+id/bubble"
+                style="@style/sendBubbleStyle"
+                android:layout_toRightOf="@id/statusLayout"
+                android:layout_toLeftOf="@id/iv_userhead"
+                android:background="@drawable/ic_msg_send_bg_white"
+                android:paddingBottom="@dimen/dimens_8dp"
+                android:paddingEnd="@dimen/dimens_13dp"
+                android:paddingStart="@dimen/dimens_10dp"
+                android:paddingTop="@dimen/dimens_9dp">
+
+                <ImageView
+                    android:id="@+id/good_imag"
+                    android:layout_width="@dimen/dimens_60dp"
+                    android:layout_height="@dimen/dimens_60dp"
+                    android:layout_gravity="center_vertical"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:scaleType="fitCenter"
+                    tools:src="@drawable/ease_default_image"
+                    bind:error="@{@drawable/ease_default_image}"
+                    bind:placeholder="@{@drawable/ease_default_image}"
+                    bind:rectImageUrl="@{viewModel.goodsViewModel.imageUrl}"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimens_10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxEms="8"
+                        android:maxLines="2"
+                        android:includeFontPadding="false"
+                        android:text="@{viewModel.goodsViewModel.merchandiseName}"
+                        android:textColor="@color/gray_333333"
+                        android:textSize="15sp"
+                        tools:text="红星美凯龙红星美凯龙红星美凯龙红星美凯龙红星美凯龙"/>
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimens_10dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:includeFontPadding="false"
+                        android:text="@{viewModel.goodsViewModel.merchandisePrice}"
+                        android:textColor="@color/gold_dfaf7d"
+                        android:textSize="13sp"
+                        tools:text="￥5000.00"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <include
+                layout="@layout/include_message_status_not_pronum"
+                bind:onClickListener="@{onClickListener}"
+                bind:viewModel="@{viewModel}"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,26 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.framework.viewmodel.BannerViewModel"/>
+    </data>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:onClick="@{onClickListener::onClick}"
+        android:scaleType="centerCrop"
+        bind:error="@{@android:drawable/ic_delete}"
+        bind:placeholder="@{@android:drawable/ic_delete}"
+        bind:rectImageUrl="@{viewModel.imgUrl}"/>
+</layout>

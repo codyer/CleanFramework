@@ -1,0 +1,109 @@
+<!--
+  ~ Copyright (c) 2017. China Red star  Cody.yi Inc. All rights reserved.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License”);
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemDemoDesignerMainViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimens_20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_20dp"
+            android:layout_marginRight="@dimen/dimens_20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="精选推荐"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_18sp" />
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.topItem.cursor}"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/font_24sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_20dp"
+            android:layout_marginRight="@dimen/dimens_20dp"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:text="探索每一次设计新旅程"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_12sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/topList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimens_20dp"
+            android:layout_marginTop="@dimen/dimens_20dp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimens_1dp"
+            android:layout_marginBottom="@dimen/dimens_20dp"
+            android:background="@color/gray_E4E4E4" />
+
+        <TextView
+            android:id="@+id/tv_title_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_20dp"
+            android:layout_marginRight="@dimen/dimens_20dp"
+            android:text="近期活动"
+            android:textColor="@color/gray_333333"
+            android:textSize="@dimen/font_18sp" />
+
+        <TextView
+            android:id="@+id/tv_hint_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_20dp"
+            android:layout_marginRight="@dimen/dimens_20dp"
+            android:layout_marginTop="@dimen/dimens_8dp"
+            android:text="探索每一次设计新旅程"
+            android:textColor="@color/gray_999999"
+            android:textSize="@dimen/font_12sp" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,141 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemPotentialCustomerViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_white"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{onClickListener::onClick}"
+            android:visibility="@{viewModel.isSendCoupons?View.VISIBLE:View.GONE}"
+            tools:visibility="gone">
+
+            <CheckedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dimens_15dp"
+                android:background="@drawable/btn_check_blue_selector"
+                android:checked="@{viewModel.check}"
+                tools:checked="true"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="@{viewModel.itemWidth, default=@dimen/dimens_375dp}"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dimens_15dp"
+            android:paddingTop="@dimen/dimens_13dp"
+            tools:layout_width="@dimen/dimens_375dp">
+
+            <ImageView
+                android:id="@+id/iv_userhead"
+                android:layout_width="@dimen/dimens_40dp"
+                android:layout_height="@dimen/dimens_40dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/dimens_10dp"
+                android:scaleType="fitXY"
+                bind:error="@{@drawable/icon_custom_avatar}"
+                bind:imageUrl="@{viewModel.avatar}"
+                bind:placeholder="@{@drawable/icon_custom_avatar}"
+                tools:src="@drawable/icon_custom_avatar"/>
+
+            <TextView
+                android:layout_width="@dimen/dimens_25dp"
+                android:layout_height="@dimen/dimens_12dp"
+                android:layout_alignRight="@+id/iv_userhead"
+                android:layout_alignTop="@+id/iv_userhead"
+                android:background="@drawable/btn_red_shape"
+                android:gravity="center"
+                android:text="NEW"
+                android:textColor="@color/main_white"
+                android:textSize="8sp"
+                android:visibility="@{viewModel.isNew?View.VISIBLE:View.GONE}"/>
+
+            <TextView
+                android:id="@+id/telPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_userhead"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.mobile}"
+                android:textColor="@color/gray_333333"
+                android:textSize="@dimen/font_15sp"
+                tools:text="136****4057"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimens_4dp"
+                android:layout_toRightOf="@+id/telPhone"
+                android:src="@{viewModel.gender == 0?@drawable/ic_women:@drawable/ic_man}"
+                android:visibility="@{viewModel.gender == -1 ? View.GONE:View.VISIBLE}"
+                tools:src="@drawable/ic_women"/>
+
+            <CheckedTextView
+                android:id="@+id/sendCoupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dimens_15dp"
+                android:checked="@{viewModel.sendCouponCount == 0}"
+                android:text="@{viewModel.sendCouponText}"
+                android:textColor="@color/btn_blue_selector"
+                tools:text="未发劵"/>
+
+            <ImageView
+                android:id="@+id/imageMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dimens_5dp"
+                android:layout_alignRight="@+id/sendCoupon"
+                android:layout_below="@id/sendCoupon"
+                android:paddingTop="@dimen/dimens_12dp"
+                android:onClick="@{onClickListener::onClick}"
+                android:src="@drawable/ic_message"/>
+
+            <com.cody.app.framework.widget.flowlayout.TagFlowLayout
+                android:id="@+id/tagLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/telPhone"
+                android:layout_below="@id/telPhone"
+                android:layout_marginTop="@dimen/dimens_10dp"
+                android:layout_marginRight="@dimen/dimens_5dp"
+                android:layout_toLeftOf="@+id/imageMessage"
+                tools:layout_height="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/imageMessage"
+                android:layout_marginTop="@dimen/dimens_14dp"
+                android:layout_toRightOf="@id/iv_userhead"
+                android:background="@color/gray_f2f2f2"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

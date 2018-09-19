@@ -1,0 +1,259 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- 定义变量: -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemPotentialCustomerViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:onClick="@{onClickListener::onClick}"
+            android:paddingLeft="@dimen/dimens_15dp"
+            android:visibility="@{viewModel.isSendCoupons?View.VISIBLE:View.GONE}"
+            tools:visibility="visible">
+
+            <CheckedTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/dimens_5dp"
+                android:background="@drawable/btn_check_blue_selector"
+                android:checked="@{viewModel.check}"
+                tools:checked="true"/>
+
+        </FrameLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="@{viewModel.itemWidth, default=@dimen/dimens_327dp}"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dimens_10dp"
+            android:layout_marginRight="@dimen/dimens_15dp"
+            android:layout_marginTop="@dimen/dimens_12dp"
+            android:background="@color/main_white"
+            bind:cardCornerRadius="3dp"
+            bind:cardElevation="@dimen/dimens_0dp"
+            tools:layout_width="350dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/dimens_12dp"
+                android:paddingTop="@dimen/dimens_13dp">
+
+                <ImageView
+                    android:id="@+id/iv_userhead"
+                    android:layout_width="@dimen/dimens_40dp"
+                    android:layout_height="@dimen/dimens_40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/dimens_10dp"
+                    android:onClick="@{onClickListener::onClick}"
+                    android:scaleType="fitXY"
+                    bind:error="@{@drawable/icon_custom_avatar}"
+                    bind:imageUrl="@{viewModel.avatar}"
+                    bind:placeholder="@{@drawable/icon_custom_avatar}"
+                    tools:src="@drawable/icon_custom_avatar"/>
+
+                <TextView
+                    android:layout_width="@dimen/dimens_25dp"
+                    android:layout_height="@dimen/dimens_12dp"
+                    android:layout_alignRight="@+id/iv_userhead"
+                    android:layout_alignTop="@+id/iv_userhead"
+                    android:background="@drawable/btn_red_shape"
+                    android:gravity="center"
+                    android:text="NEW"
+                    android:textColor="@color/main_white"
+                    android:textSize="8sp"
+                    android:visibility="@{viewModel.isNew?View.VISIBLE:View.GONE}"/>
+
+                <TextView
+                    android:id="@+id/telPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/iv_userhead"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.mobile}"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="@dimen/font_15sp"
+                    tools:text="136****4057"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimens_6dp"
+                    android:layout_toRightOf="@+id/telPhone"
+                    android:src="@{viewModel.gender == 0?@drawable/ic_women:@drawable/ic_man}"
+                    android:visibility="@{viewModel.gender == -1 ? View.GONE:View.VISIBLE}"
+                    tools:src="@drawable/ic_women"/>
+
+                <CheckedTextView
+                    android:id="@+id/sendCoupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dimens_15dp"
+                    android:checked="@{viewModel.sendCouponCount == 0}"
+                    android:text="@{viewModel.sendCouponText}"
+                    android:textColor="@color/btn_blue_selector"
+                    tools:text="未发劵"/>
+
+                <TextView
+                    android:id="@+id/lastBehavior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/iv_userhead"
+                    android:layout_alignLeft="@id/telPhone"
+                    android:text="@{viewModel.lastBehaviorText}"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="@dimen/font_13sp"
+                    tools:visibility="visible"/>
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimens_1dp"
+                    android:layout_alignLeft="@id/iv_userhead"
+                    android:layout_alignRight="@id/sendCoupon"
+                    android:layout_below="@+id/iv_userhead"
+                    android:layout_marginTop="@dimen/dimens_16dp"
+                    android:background="@color/gray_E1E1E1"/>
+
+                <TextView
+                    android:id="@+id/orderTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line1"
+                    android:layout_marginTop="@dimen/dimens_13dp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_13sp"
+                    android:text="@{viewModel.lastOrderTimeText}"
+                    tools:text="下单时间 2018.03.20 16:54"/>
+
+                <TextView
+                    android:id="@+id/orderAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/orderTime"
+                    android:layout_marginTop="@dimen/dimens_10dp"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.orderTotalAmountText}"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_13sp"
+                    tools:text="累计消费 87728"/>
+
+                <TextView
+                    android:id="@+id/recentBehavior"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/orderAmount"
+                    android:layout_marginTop="@dimen/dimens_10dp"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.recentBehaviorText}"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="@dimen/font_13sp"
+                    tools:text="最近行为 2018.03.20 16:54"/>
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@id/iv_userhead"
+                    android:layout_alignRight="@id/sendCoupon"
+                    android:layout_below="@id/recentBehavior"
+                    android:layout_marginTop="@dimen/dimens_15dp"
+                    android:background="@color/gray_E1E1E1"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/sendCoupon"
+                    android:layout_below="@id/line2"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimens_7dp"
+                    android:paddingTop="@dimen/dimens_6dp">
+
+                    <FrameLayout
+                        android:id="@+id/callBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimens_8dp"
+                        android:background="@drawable/btn_blue_with_touch_selector"
+                        android:onClick="@{onClickListener::onClick}">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/dimens_15dp"
+                            android:paddingRight="@dimen/dimens_15dp"
+                            android:text="打电话"
+                            android:textColor="@color/main_blue"
+                            android:textSize="@dimen/font_15sp"/>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/sendMessage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimens_8dp"
+                        android:background="@drawable/btn_blue_with_touch_selector"
+                        android:onClick="@{onClickListener::onClick}">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/dimens_15dp"
+                            android:paddingRight="@dimen/dimens_15dp"
+                            android:text="发消息"
+                            android:textColor="@color/main_blue"
+                            android:textSize="@dimen/font_15sp"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/imConsult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimens_8dp"
+                        android:background="@drawable/btn_blue_with_touch_selector"
+                        android:onClick="@{onClickListener::onClick}">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/dimens_15dp"
+                            android:paddingRight="@dimen/dimens_15dp"
+                            android:text="IM咨询"
+                            android:textColor="@color/main_blue"
+                            android:textSize="@dimen/font_15sp"/>
+                    </FrameLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</layout>

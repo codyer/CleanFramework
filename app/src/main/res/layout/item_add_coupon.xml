@@ -1,0 +1,48 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="viewModel"
+            type="com.cody.handler.business.viewmodel.ItemCouponChannelViewModel" />
+    </data>
+
+    <LinearLayout
+        style="@style/itemWithLineStyle"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/singleStyle"
+            android:minEms="5"
+            android:onClick="@{onClickListener::onClick}"
+            android:paddingBottom="@dimen/dimens_20dp"
+            android:paddingTop="@dimen/dimens_20dp"
+            android:text="@{viewModel.channelName}"
+            android:textColor="@color/gray_666666"
+            android:textSize="@dimen/font_17sp"
+            tools:text="@string/app_name" />
+
+        <com.cody.xf.widget.ClearEditText
+            android:id="@+id/addCounts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimens_15dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/input_add_counts_hint"
+            android:inputType="number"
+            android:maxLength="5"
+            android:paddingBottom="@dimen/dimens_15dp"
+            android:paddingTop="@dimen/dimens_15dp"
+            android:text="@={viewModel.count}"
+            android:textColor="@color/gray_333333"
+            android:textColorHint="@color/gray_999999"
+            android:textSize="@dimen/font_17sp" />
+    </LinearLayout>
+</layout>

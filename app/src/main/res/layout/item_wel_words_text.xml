@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_quick_reply_title"
+        android:paddingStart="@dimen/dimens_16dp"
+        android:paddingEnd="@dimen/dimens_16dp"
+        android:paddingTop="@dimen/dimens_15dp"
+        android:paddingBottom="@dimen/dimens_15dp"
+        android:text="因天气原因，物流受到影响，配送延迟，给您带来不便敬请谅解，感谢您的理解。"
+        android:textColor="@color/gray_333333"
+        android:textSize="@dimen/font_16sp" />
+</LinearLayout>

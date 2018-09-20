@@ -3,18 +3,18 @@ package com.cody.repository.framework.interaction;
 
 import android.text.TextUtils;
 
-import com.google.gson.JsonObject;
-import com.cody.repository.business.interaction.constant.Constant;
 import com.cody.repository.framework.Repository;
 import com.cody.repository.framework.local.BaseLocalKey;
 import com.cody.repository.framework.statistics.StatConstData;
 import com.cody.repository.framework.statistics.StatKey;
 import com.cody.xf.XFoundation;
+import com.cody.xf.common.Constant;
 import com.cody.xf.common.LoginBroadcastReceiver;
 import com.cody.xf.utils.HttpUtil;
 import com.cody.xf.utils.LocationUtil;
 import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.SimpleBean;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.List;

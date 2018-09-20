@@ -2,17 +2,15 @@ package com.cody.app.business.scan;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.SurfaceHolder;
@@ -20,22 +18,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cody.app.R;
+import com.cody.app.databinding.FwActivityScanBinding;
+import com.cody.app.framework.activity.BaseBindingActivity;
+import com.cody.app.framework.widget.image.ImageViewDelegate;
+import com.cody.app.framework.widget.image.OnImageViewListener;
 import com.cody.app.framework.zxing.camera.CameraManager;
 import com.cody.app.framework.zxing.decoding.CaptureActivityHandler;
 import com.cody.app.framework.zxing.decoding.InactivityTimer;
 import com.cody.app.framework.zxing.view.ViewfinderView;
-import com.cody.app.databinding.ActivityScanBinding;
-import com.cody.app.framework.activity.BaseBindingActivity;
-import com.cody.app.framework.activity.HtmlActivity;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Result;
 import com.cody.handler.framework.presenter.DefaultWithHeaderPresenter;
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
-import com.cody.repository.Domain;
-import com.cody.repository.business.interaction.constant.H5Url;
 import com.cody.xf.utils.ActivityUtil;
 import com.cody.xf.utils.SystemBarUtil;
 import com.cody.xf.utils.ToastUtil;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.Result;
+import com.lzy.imagepicker.bean.ImageItem;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,12 +45,9 @@ import pub.devrel.easypermissions.EasyPermissions;
  * Create by jiquan.zhong  on 2018/8/3.
  * description:
  */
-public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter, WithHeaderViewModel, ActivityScanBinding> implements SurfaceHolder.Callback {
+public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter, WithHeaderViewModel, FwActivityScanBinding> implements SurfaceHolder.Callback {
     public static final String SCAN_RESULT = "scan_result";
-    public static final String SCAN_FROM_NATIVE = "scan_from_native";
-    public static final String SCAN_ALL = "scan_all";
     public static final int SCAN_REQUEST_CODE = 0x001;
-    private static final int IMAGE_CODE = 1001;
     private final int PERMISSION_REQUEST_CODE = 88;
     private CaptureActivityHandler handler;
     private boolean hasSurface;
@@ -65,14 +60,15 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
     private boolean vibrate;
     private String permissions[] = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
-    private SurfaceHolder surfaceHolder;
-    private String path;
-    private boolean mScanAll;
-    private boolean mFromNative;
+    private ImageViewDelegate mImageViewDelegate;
+
+    public static void startScanActivity() {
+        ActivityUtil.navigateToForResult(ScanActivity.class, SCAN_REQUEST_CODE);
+    }
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_scan;
+        return R.layout.fw_activity_scan;
     }
 
     @Override
@@ -85,32 +81,30 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
         return new WithHeaderViewModel();
     }
 
-    public static void startScanActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(SCAN_FROM_NATIVE, true);
-        ActivityUtil.navigateToForResult(ScanActivity.class, SCAN_REQUEST_CODE, bundle);
-    }
-
-    public static void startScanAllActivity() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(SCAN_FROM_NATIVE, true);
-        bundle.putBoolean(SCAN_ALL, true);
-        ActivityUtil.navigateToForResult(ScanActivity.class, SCAN_REQUEST_CODE, bundle);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFromNative = getIntent().getBooleanExtra(SCAN_FROM_NATIVE, false);
-        mScanAll = getIntent().getBooleanExtra(SCAN_ALL, false);
-        if (mScanAll) {
-            getBinding().manualOrder.setVisibility(View.GONE);
-        }else {
-            getBinding().manualOrder.setVisibility(View.VISIBLE);
-        }
         CameraManager.init(getApplication());
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
+        mImageViewDelegate = new ImageViewDelegate(new OnImageViewListener() {
+            @Override
+            public void onPreview(int id, List<ImageItem> images) {
+
+            }
+
+            @Override
+            public void onPickImage(int id, List<ImageItem> images) {
+                if (images != null && images.size() > 0) {
+                    Result result = ScanUtils.scanningImage(images.get(0).path);
+                    if (result == null) {
+                        ToastUtil.showToast(getString(R.string.error_qrcode));
+                    } else {
+                        handleDecode(result, null);
+                    }
+                }
+            }
+        }, this);
     }
 
     @Override
@@ -121,23 +115,24 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
         SystemBarUtil.setPadding(this, getBinding().header);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void onResume() {
         super.onResume();
-        surfaceHolder = getBinding().previewView.getHolder();
+        SurfaceHolder surfaceHolder = getBinding().previewView.getHolder();
         if (hasSurface) {
             requestPermissions(surfaceHolder);
         } else {
             surfaceHolder.addCallback(this);
-            surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+            if (Build.VERSION.SDK_INT < 16) {
+                surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+            }
         }
         decodeFormats = null;
         characterSet = null;
 
         playBeep = true;
         AudioManager audioService = (AudioManager) getSystemService(AUDIO_SERVICE);
-        if (audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
+        if (audioService == null || audioService.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) {
             playBeep = false;
         }
         initBeepSound();
@@ -162,9 +157,6 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
 
     /**
      * Handler scan result
-     *
-     * @param result
-     * @param barcode
      */
     public void handleDecode(Result result, Bitmap barcode) {
         inactivityTimer.onActivity();
@@ -184,7 +176,7 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
     }
 
     private boolean checkBarCode(String result) {
-        return mScanAll || (!TextUtils.isEmpty(result) && result.contains(Domain.MMALL_URL));
+        return (!TextUtils.isEmpty(result));
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -267,18 +259,11 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
         }
         if (vibrate) {
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-            vibrator.vibrate(VIBRATE_DURATION);
+            if (vibrator != null) {
+                vibrator.vibrate(VIBRATE_DURATION);
+            }
         }
     }
-
-    /**
-     * When the beep has finished playing, rewind to queue up another one.
-     */
-    private final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
-        public void onCompletion(MediaPlayer mediaPlayer) {
-            mediaPlayer.seekTo(0);
-        }
-    };
 
     private void requestPermissions(SurfaceHolder surfaceHolder) {
         if (EasyPermissions.hasPermissions(this, permissions)) {
@@ -305,45 +290,7 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_CODE) {
-
-            //此处的用于判断接收的Activity是不是你想要的那个
-            //这说明是用户点击了图片返回到的app界面
-            Result result = null;
-            try {
-                String[] proj = {MediaStore.Images.Media.DATA};
-
-                // 获取选中图片的路径
-                //                外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
-                Cursor cursor = getContentResolver().query(data.getData(),
-                        proj, null, null, null);
-
-                if (cursor.moveToFirst()) {
-
-                    int column_index = cursor
-                            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    path = cursor.getString(column_index);
-                    if (path == null) {
-                        path = ScanUtils.getPath(getApplicationContext(),
-                                data.getData());
-                    }
-
-                }
-
-                cursor.close();
-
-                result = ScanUtils.scanningImage(path);
-
-                if (result == null) {
-                    ToastUtil.showToast(getString(R.string.error_qrcode));
-                } else {
-                    handleDecode(result, null);
-                }
-
-            } catch (Exception e) {
-            }
-
-        }
+        mImageViewDelegate.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -353,28 +300,7 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
                 cancelAndFinish();
                 break;
             case R.id.tv_photo:
-                PackageManager pm = getPackageManager();
-                boolean permission = (PackageManager.PERMISSION_GRANTED == pm.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName()));
-                //判断有没有android.permission.WRITE_EXTERNAL_STORAGE权限
-                if (permission) {
-                    //如果有权限则激活系统相册
-                    // 激活系统图库，选择一张图片
-                    try {
-                        Intent innerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        Intent wrapperIntent = Intent.createChooser(innerIntent, getString(R.string.select_qrcode));
-                        startActivityForResult(wrapperIntent, IMAGE_CODE);
-                    } catch (Exception e) {
-                        ToastUtil.showToast(getString(R.string.without_ablum));
-                    }
-                    return;
-                }
-                break;
-            case R.id.manualOrder:
-                if (mFromNative) {
-                    HtmlActivity.startHtml(null, H5Url.MANUAL_ORDER);
-                }else {
-                    cancelAndFinish();
-                }
+                mImageViewDelegate.selectImage(1);
                 break;
             case R.id.ll_light:
                 cameraFlashControl();
@@ -391,13 +317,21 @@ public class ScanActivity extends BaseBindingActivity<DefaultWithHeaderPresenter
         finish();
     }
 
+    /**
+     * When the beep has finished playing, rewind to queue up another one.
+     */
+    private final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            mediaPlayer.seekTo(0);
+        }
+    };
+
     private void cameraFlashControl() {
-        //cameraManager.flashControlHandler();
         if (CameraManager.get().flashControlHandler()) {
-            getBinding().ivLight.setImageResource(R.drawable.flashlight_open);
+            getBinding().ivLight.setImageResource(R.drawable.fw_flashlight_open);
             getBinding().tvLight.setText(getString(R.string.light_off));
         } else {
-            getBinding().ivLight.setImageResource(R.drawable.flashlight_close);
+            getBinding().ivLight.setImageResource(R.drawable.fw_flashlight_close);
             getBinding().tvLight.setText(getString(R.string.light_on));
         }
     }

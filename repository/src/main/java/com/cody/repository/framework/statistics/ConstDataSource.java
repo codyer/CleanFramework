@@ -1,7 +1,7 @@
 /*
  * @Title ConstDataSource.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-4-11 下午3:07:54
  * @version 1.0
  */
@@ -11,7 +11,7 @@ import com.cody.repository.business.local.LocalKey;
 import com.cody.repository.framework.Repository;
 
 /**
- * @author SongZheng
+ * @author Cody
  * @Description TODO
  * @date 2016-4-11 下午3:07:54
  */
@@ -54,7 +54,7 @@ public class ConstDataSource extends StatConstDataSource {
 
     @Override
     public String domain() {
-        return "longguo.com";
+        return "cody.com";
     }
 
     @Override

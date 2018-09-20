@@ -20,7 +20,7 @@ import java.util.Map;
  * 根据唯一id-->key 更新对应列表的item
  */
 public class SimpleEventBus extends BroadcastReceiver {
-    private static final String ACTION = "china.red.star.ReservationBroadcastReceiver";
+    private static final String ACTION = "cody.ReservationBroadcastReceiver";
     private static final String KEY = "KEY";
     private EventReceiver mReceiver;
     private static final Map<EventReceiver, SimpleEventBus> mBusMap = new HashMap<>();

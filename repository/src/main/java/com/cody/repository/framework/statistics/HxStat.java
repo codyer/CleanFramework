@@ -1,7 +1,7 @@
 /*
  * @Title HxStat.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-2-22 下午3:51:46
  * @version 1.0
  */

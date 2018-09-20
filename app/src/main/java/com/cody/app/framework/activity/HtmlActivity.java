@@ -91,6 +91,9 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
                     }
                 } else {//外链显示头部
                     viewModel.setHtmlWithHeader(false);
+                    if (!TextUtils.isEmpty(title)) {
+                        viewModel.getHeaderViewModel().setTitle(title);
+                    }
                 }
                 viewModel.setUrl(url);
             } else {

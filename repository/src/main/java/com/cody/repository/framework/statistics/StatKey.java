@@ -1,7 +1,7 @@
 /*
  * @Title StatKey.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-2-24 下午1:11:09
  * @version 1.0
  */
@@ -10,7 +10,7 @@ package com.cody.repository.framework.statistics;
 import android.text.TextUtils;
 
 /**
- * @author SongZheng
+ * @author Cody
  * @Description 数据统计用到的Key
  * @date 2016-2-24 下午1:11:09
  */

@@ -97,7 +97,7 @@ public class ImageViewDelegate implements IImageViewListener {
                 .builder()
                 .setCancelable(true)
                 .setCanceledOnTouchOutside(true)
-                .addSheetItem(ResourceUtil.getString(R.string.from_photos), ActionSheetDialog.SheetItemColor.Blue,
+                .addSheetItem(ResourceUtil.getString(R.string.fw_from_photos), ActionSheetDialog.SheetItemColor.Blue,
                         new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
@@ -105,7 +105,7 @@ public class ImageViewDelegate implements IImageViewListener {
                                         REQUEST_CODE_SELECT);
                             }
                         })
-                .addSheetItem(ResourceUtil.getString(R.string.from_camera), ActionSheetDialog.SheetItemColor.Blue,
+                .addSheetItem(ResourceUtil.getString(R.string.fw_from_camera), ActionSheetDialog.SheetItemColor.Blue,
                         new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {

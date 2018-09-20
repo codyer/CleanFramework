@@ -162,7 +162,7 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
         }
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setTitle(ResourceUtil.getString(R.string.image_upload));
+            mProgressDialog.setTitle(ResourceUtil.getString(R.string.fw_html_loading));
             mProgressDialog.setProgressNumberFormat(null);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(true);

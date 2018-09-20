@@ -18,8 +18,7 @@ public class UrlUtil {
         try {
             if (!TextUtils.isEmpty(url)) {
                 String host = Uri.parse(url).getHost();
-                //文件服务器正式环境不走寻常路，不是.mmall.com，所有做特殊处理
-                if (host.endsWith(Domain.HOST_SUFFIX) || host.endsWith(".mklimg.com")) {
+                if (host != null && host.endsWith(Domain.HOST_SUFFIX)) {
                     return true;
                 }
             }

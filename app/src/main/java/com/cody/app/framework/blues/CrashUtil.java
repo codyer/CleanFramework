@@ -3,9 +3,9 @@ package com.cody.app.framework.blues;
 import android.content.Context;
 
 import com.cody.app.BuildConfig;
-import com.cody.repository.framework.statistics.HxStat;
-import com.cody.repository.business.local.LocalKey;
 import com.cody.repository.framework.Repository;
+import com.cody.repository.framework.local.BaseLocalKey;
+import com.cody.repository.framework.statistics.HxStat;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.HashMap;
@@ -32,8 +32,8 @@ public class CrashUtil {
             CrashReport.initCrashReport(context.getApplicationContext(), "e9750f4265", BuildConfig.DEBUG, strategy);
         }
 
-        if (Repository.getLocalValue(LocalKey.REAL_NAME) != null) {
-            CrashReport.setUserId(Repository.getLocalValue(LocalKey.REAL_NAME));
+        if (Repository.getLocalValue(BaseLocalKey.OPEN_ID) != null) {
+            CrashReport.setUserId(Repository.getLocalValue(BaseLocalKey.OPEN_ID));
         }
     }
 

@@ -9,7 +9,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cody.app.business.SplashActivity;
+import com.cody.app.business.MainActivity;
 import com.cody.xf.utils.LogUtil;
 
 import org.json.JSONException;
@@ -90,7 +90,7 @@ public class HandlerJPushReceiver extends BroadcastReceiver {
     private void startApp(Context context) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        intent.setComponent(new ComponentName(context, SplashActivity.class));
+        intent.setComponent(new ComponentName(context, MainActivity.class));
         context.startActivity(intent);
     }
 

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="true" android:drawable="@drawable/btn_edge_gray_shape"/>
-    <item android:drawable="@android:color/transparent"/>
-
-</selector>

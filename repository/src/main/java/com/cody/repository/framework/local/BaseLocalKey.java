@@ -15,4 +15,5 @@ public interface BaseLocalKey {
     String FIRST_OPEN = BASE + "first_open";
     String CITY_NAME = "cityName";// 城市名称
     String CITY_CODE = "cityCode";// 城市code
+    String KEY_TOKEN = "x-token";
 }

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2017. China Red star  Cody.yi Inc. All rights reserved.
+  ~ Copyright (c) 2017.   Cody.yi Inc. All rights reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License”);
   ~ you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 <resources>
     <string name="r_build_type">debug</string>
-    <string name="r_app_name">龙果debug</string>
+    <string name="r_app_name">示例debug</string>
     <string name="r_a_map_key">796a75d0408bf01d7c7516efe07539a9</string>
     <string name="r_j_push_key">7abae0a2a985b91178ddb8e9</string>
 

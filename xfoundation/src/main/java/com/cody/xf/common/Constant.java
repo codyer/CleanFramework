@@ -33,4 +33,5 @@ public class Constant {
      * RUNNING_MODE大于4时Log关闭
      */
     public static final int RUNNING_MODE = 1;
+    public static final String UPLOAD_FILE_NAME = "file";
 }

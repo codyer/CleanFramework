@@ -18,11 +18,11 @@ import java.util.Map;
  */
 public class CasePresenter extends Presenter<CaseViewModel> {
     private CaseMapper mMapper;
-    private JzInteraction mInteraction;
+    private DemoInteraction mInteraction;
 
     public CasePresenter() {
         mMapper = new CaseMapper();
-        mInteraction = Repository.getInteraction(JzInteraction.class);
+        mInteraction = Repository.getInteraction(DemoInteraction.class);
     }
 
     public void getCaseList(final Object tag) {

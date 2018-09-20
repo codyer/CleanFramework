@@ -184,7 +184,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
         }
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setTitle(ResourceUtil.getString(R.string.image_upload));
+            mProgressDialog.setTitle(ResourceUtil.getString(R.string.fw_html_loading));
             mProgressDialog.setProgressNumberFormat(null);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(true);

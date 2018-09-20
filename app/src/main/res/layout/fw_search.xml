@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_with_bottom_line">
+        android:background="@drawable/fw_bg_with_bottom_line">
 
         <com.cody.xf.widget.SearchEditView
             android:id="@+id/searchView"

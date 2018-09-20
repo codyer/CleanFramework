@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:padding="@dimen/dimens_15dp"
-            android:text="@string/the_end_of_list"
+            android:text="@string/fw_the_end_of_list"
             android:visibility="@{viewModel.lastItem?View.VISIBLE:View.GONE}" />
 
     </LinearLayout>

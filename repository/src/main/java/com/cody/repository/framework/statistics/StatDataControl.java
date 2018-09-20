@@ -1,7 +1,7 @@
 /*
  * @Title StatDataControl.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-4-11 下午4:20:04
  * @version 1.0
  */
@@ -10,7 +10,7 @@ package com.cody.repository.framework.statistics;
 import java.util.Map;
 
 /**
- * @author SongZheng
+ * @author Cody
  * @Description 埋点数据上报
  * @date 2016-4-11 下午4:20:04
  */

@@ -6,7 +6,6 @@ import com.cody.app.BuildConfig;
 import com.cody.app.framework.blues.Blues;
 import com.cody.app.statistics.Pages;
 import com.cody.repository.KeyConstant;
-import com.cody.repository.business.interaction.constant.Account;
 import com.cody.repository.framework.Repository;
 import com.cody.repository.framework.local.BaseLocalKey;
 import com.cody.repository.framework.statistics.ConstDataSource;
@@ -57,9 +56,9 @@ public class BaseApplication extends XFApplication {
 
     @Override
     public void onLogin(Map<String, String> header) {
-        if (header.containsKey(Account.KEY_TOKEN)) {
+        if (header.containsKey(BaseLocalKey.KEY_TOKEN)) {
             Map<String, String> token = new HashMap<>();
-            token.put(Account.KEY_TOKEN, header.get(Account.KEY_TOKEN));
+            token.put(BaseLocalKey.KEY_TOKEN, header.get(BaseLocalKey.KEY_TOKEN));
             Repository.setLocalMap(BaseLocalKey.X_TOKEN, token);
             Repository.setLocalMap(BaseLocalKey.HEADERS, header);
         } else {

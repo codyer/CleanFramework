@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2017. China Red star  Cody.yi Inc. All rights reserved.
+  ~ Copyright (c) 2017.   Cody.yi Inc. All rights reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License”);
   ~ you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 <resources>
     <string name="r_build_type">uat</string>
-    <string name="r_app_name">龙果uat</string>
+    <string name="r_app_name">示例uat</string>
     <string name="r_a_map_key">69933c45fd088893e8f172ad0b3738af</string>
     <string name="r_j_push_key">d959c0814f6d8e35b4a58a1b</string>
 

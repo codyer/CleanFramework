@@ -1,7 +1,7 @@
 /*
  * @Title StatConstDataSource.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-4-11 下午2:57:00
  * @version 1.0
  */

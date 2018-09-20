@@ -6,21 +6,16 @@ import android.text.TextUtils;
 import android.webkit.WebView;
 
 import com.cody.app.R;
-import com.cody.app.business.order.BusinessOrderListActivity;
 import com.cody.app.business.scan.ScanActivity;
 import com.cody.app.framework.activity.HtmlActivity;
 import com.cody.app.framework.hybrid.JsBridge;
 import com.cody.app.framework.hybrid.core.JsCallback;
 import com.cody.app.framework.hybrid.core.JsHandler;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.cody.repository.business.local.LocalKey;
-import com.cody.repository.framework.Repository;
-import com.cody.repository.framework.local.BaseLocalKey;
 import com.cody.xf.common.NotProguard;
-import com.cody.xf.utils.ActivityUtil;
 import com.cody.xf.utils.ResourceUtil;
 import com.cody.xf.utils.ToastUtil;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -164,34 +159,11 @@ public final class JsHandlerCommonImpl implements JsHandler {
 ////        }
 //    }
 
-    public static void getMoneyVisible(WebView webView, JsonObject params, JsCallback callback) {
-        JsonObject object = new JsonObject();
-        object.addProperty("visible", Repository.getLocalInt(LocalKey.IS_MONEY_VISIBLE));
-        callback.success(object);
-    }
-
-    public static void setMoneyVisible(WebView webView, JsonObject params, JsCallback callback) {
-        JsonPrimitive visible = params.getAsJsonPrimitive("visible");
-        Repository.setLocalInt(LocalKey.IS_MONEY_VISIBLE, visible.getAsInt());
-        callback.success("setMoneyVisible");
-    }
-
     public static void finish(WebView webView, JsonObject params, JsCallback callback) {
         if (webView.getContext() instanceof Activity) {
             ((Activity) webView.getContext()).finish();
         }
         callback.success("finish");
-    }
-
-    /**
-     * 获取用户信息
-     */
-    public static void getUserInfo(WebView webView, JsonObject params, JsCallback callback) {
-        JsonObject object = new JsonObject();
-        object.addProperty("openId", Repository.getLocalValue(LocalKey.OPEN_ID));
-        object.addProperty("token", Repository.getLocalMap(BaseLocalKey.X_TOKEN).get("x-auth-token"));
-        object.addProperty("shopId", Repository.getLocalValue(LocalKey.SHOP_ID));
-        callback.success(object);
     }
 
     /**
@@ -208,18 +180,10 @@ public final class JsHandlerCommonImpl implements JsHandler {
                             data.addProperty("result", result);
                             callback.success(result, data);
                         } else {
-                            callback.failure(ResourceUtil.getString(R.string.cancel_scan));
+                            callback.failure(ResourceUtil.getString(R.string.cancel));
                         }
                     }
                 });
-    }
-
-    /**
-     * 打开订单列表页面
-     */
-    public static void openOrderList(final WebView webView, JsonObject params, final JsCallback callback) {
-        ActivityUtil.navigateTo(BusinessOrderListActivity.class);
-        callback.success("跳转成功");
     }
 
     /**

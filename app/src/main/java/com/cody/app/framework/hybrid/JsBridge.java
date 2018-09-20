@@ -35,7 +35,7 @@ import pub.devrel.easypermissions.EasyPermissions;
  * JsBridge
  */
 public class JsBridge {
-    private final static String USER_AGENT = ";android;chinaredstar/1.0.1;longguo";
+    private final static String USER_AGENT = ";android;cody/1.0.1;cody";
     private volatile static JsBridge sInstance;
     private JsHandlerFactory mJsHandlerFactory;
     private SparseArray<OnActivityResultListener> mResultListener;

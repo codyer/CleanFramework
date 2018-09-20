@@ -91,7 +91,7 @@ public class DownloadService extends Service {
             }
             startDownload(uri);
         } else {
-            ToastUtil.showToast(ResourceUtil.getString(R.string.permission_un_granted));
+            ToastUtil.showToast(ResourceUtil.getString(R.string.permission_deny));
             stopSelf();
         }
         return mDownloadBinder;

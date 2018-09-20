@@ -1,7 +1,7 @@
 /*
  * @Title StatConstData.java
- * @Copyright Copyright 2016 Redstar Macalline All Rights Reserved.
- * @author SongZheng
+ * @Copyright Copyright 2016 Cody All Rights Reserved.
+ * @author Cody
  * @date 2016-4-13 下午1:28:17
  * @version 1.0
  */
@@ -14,7 +14,7 @@ import android.os.Build;
 import android.telephony.TelephonyManager;
 
 /**
- * @author SongZheng
+ * @author Cody
  * @Description 可通过android SDK直接获得的常量信息
  * @date 2016-4-13 下午1:28:17
  */

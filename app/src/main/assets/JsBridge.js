@@ -29,7 +29,7 @@
                 PrivateMethod.registerCallback(port, callback);
                 PrivateMethod.callNativeMethod(clazz, port, method, param);
             }else{
-                console.error("not in chinaRedStar app webView, method:" + method +" cannot execute.");
+                console.error("not in cody app webView, method:" + method +" cannot execute.");
             }
         },
 
@@ -107,7 +107,7 @@
         },
         isApp: function () {
             var tmp = ua.toLowerCase();
-            var app = tmp.indexOf("chinaredstar") > -1;
+            var app = tmp.indexOf("cody") > -1;
             return !!app;
         },
         isAndroid: function () {

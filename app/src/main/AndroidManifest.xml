@@ -40,7 +40,7 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
-        android:name=".LongGuoApp"
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_LABEL}"
@@ -57,7 +57,7 @@
         <!-- 您从百度网站获取的APP KEY，根据实际您的APP申请的APP_KEY进行修改 -->
         <meta-data
             android:name="BaiduMobAd_STAT_ID"
-            android:value="078dda5738" /> <!-- 龙果：078dda5738  监理： 905166a8cc 设计师： efec10745f  设计猫： fa509099f7  自己的： 20afd8e471 -->
+            android:value="078dda5738" /> <!-- 示例：078dda5738  监理： 905166a8cc 设计师： efec10745f  设计猫： fa509099f7  自己的： 20afd8e471 -->
         <!-- 渠道商编号 -->
         <meta-data
             android:name="BaiduMobAd_CHANNEL"
@@ -102,7 +102,7 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5b6d471db27b0a305b000031" />
+            android:value="xxxxxxxxx" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_ID}" />
@@ -158,8 +158,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ImagePickerThemeFullScreen" />
+
+        <!-- end framework -->
+
         <activity
-            android:name=".business.SplashActivity"
+            android:name=".business.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/xf_AppTheme.Launcher">
@@ -169,199 +172,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- end framework -->
-
-        <!-- 声明SDK所需的service SDK核心功能 -->
-        <service
-            android:name="com.hyphenate.chat.EMChatService"
-            android:exported="true" />
-        <service
-            android:name="com.hyphenate.chat.EMJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <!-- 声明SDK所需的receiver -->
-        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-            <!-- 可选filter -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name=".business.chat.RecommendGoodsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".business.SettingActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.personal.PersonalInformationActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.personal.SelfIntroductionActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.chat.ChooseCouponImActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="chinaredStar.chat.chooseCoupon" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".business.chat.SwitchSaleActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="chinaredStar.chat.switchSale" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".business.manager.CreateReleaseActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.manager.CreateQrCodeActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".business.scan.ScanActivity"
             android:screenOrientation="portrait" />
-
-        <!-- 地图 -->
-        <activity
-            android:name=".business.easeui.ui.EaseGaodeMapActivity"
-            android:screenOrientation="portrait" />
-
-        <!-- 视频聊天页面 -->
-        <activity
-            android:name=".business.easeui.ui.VideoCallActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <!-- 视频拍摄页面 -->
-        <activity
-            android:name=".business.easeui.ui.RecorderVideoActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".business.easeui.ui.EaseShowVideoActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".business.LoginNewActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".business.UserInfoActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".business.easeui.ui.ModifyRemarkActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name=".business.QuickReplyActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".business.SystemMessageActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.order.BusinessOrderListActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".business.order.BusinessOrderDetailActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".business.order.SearchBusinessOrderActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.customer.MyCustomerActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.VerifyPhoneNewActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.im.ImTabActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.im.SearchContactActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.im.ChatActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".business.im.ChatHistoryActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.CustomerOrderListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.im.GroupModifyActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.QuickReplySettingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.SystemGreetingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.EventMarketingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.PromotionListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.CouponListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.CouponAddActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".business.customer.PotentialCustomerActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.customer.IntentionCustomerActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.im.GroupManageActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.customer.BargainCustomerActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.customer.CouponsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.CouponOrderListActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.MiniAppActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".business.promotion.CouponFailListActivity"
-            android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>

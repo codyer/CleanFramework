@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2017. China Red star  Cody.yi Inc. All rights reserved.
+  ~ Copyright (c) 2017.   Cody.yi Inc. All rights reserved.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License”);
   ~ you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawablePadding="@dimen/dimens_15dp"
-            android:drawableTop="@drawable/ic_no_network"
+            android:drawableTop="@drawable/fw_ic_no_network"
             android:gravity="center"
             android:paddingBottom="100dp"
             android:text="@string/server_error"/>

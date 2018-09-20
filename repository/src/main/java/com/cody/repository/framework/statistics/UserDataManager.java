@@ -1,7 +1,7 @@
 /**
  * @file UserDataManager
  * @copyright (c) 2016 Macalline All Rights Reserved.
- * @author SongZheng
+ * @author Cody
  * @date 2016/3/8
  */
 package com.cody.repository.framework.statistics;
@@ -19,7 +19,7 @@ import com.ut.device.UTDevice;
 import java.util.HashMap;
 
 /**
- * @author SongZheng
+ * @author Cody
  * @description TODO
  * @date 2016/3/8
  */
@@ -127,7 +127,7 @@ public class UserDataManager {
      * @param @return
      * @return String
      * @Description 采用阿里方式生成的设备唯一标识
-     * @author SongZheng
+     * @author Cody
      */
     public static String getDeviceUtdid() {
         if (TextUtils.isEmpty(mAliUtdid)) {
@@ -148,7 +148,7 @@ public class UserDataManager {
      * @param isActivity
      * @return String
      * Description 检查该页面是否需要进行数据统计
-     * @author SongZheng
+     * @author Cody
      */
     public static HashMap<String, String> checkShouldStat(String cls, boolean isActivity) {
         HashMap<String, String> paramer = null;

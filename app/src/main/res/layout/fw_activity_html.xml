@@ -2,20 +2,20 @@
   ~ Copyright (c)  Created by Cody.yi on 2017/4/21.
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <!-- 定义变量: -->
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="onClickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
-            type="com.cody.handler.framework.viewmodel.HtmlViewModel"/>
+            type="com.cody.handler.framework.viewmodel.HtmlViewModel" />
 
     </data>
 
@@ -29,13 +29,13 @@
             layout="@layout/fw_header"
             android:visibility="invisible"
             bind:onClickListener="@{onClickListener}"
-            bind:viewModel="@{viewModel.headerViewModel}"/>
+            bind:viewModel="@{viewModel.headerViewModel}" />
 
         <WebView
             android:id="@+id/fw_webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/fw_header"/>
+            android:layout_below="@id/fw_header" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,13 +50,13 @@
                 android:layout_width="@dimen/dimens_50dp"
                 android:layout_height="@dimen/dimens_50dp"
                 android:contentDescription="@null"
-                bind:gifSrc="@{viewModel.loadingResId}"/>
+                bind:gifSrc="@{viewModel.loadingResId}" />
 
             <TextView
                 style="@style/infoStyle"
                 android:layout_marginTop="@dimen/dimens_10dp"
                 android:text="@string/fw_html_loading"
-                android:textColor="@color/main_white"/>
+                android:textColor="@color/main_white" />
 
         </LinearLayout>
 
@@ -75,27 +75,33 @@
                 android:layout_marginTop="@dimen/dimens_10dp"
                 android:contentDescription="@null"
                 android:src="@drawable/fw_ic_404"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <TextView
                 style="@style/infoStyle"
                 android:text="@{viewModel.error}"
-                tools:text="网路不好"/>
+                tools:text="网路不好" />
 
             <TextView
                 android:id="@+id/refresh"
-                style="@style/BtnEdgeStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimens_20dp"
                 android:onClick="@{onClickListener::onClick}"
-                android:text="@string/fw_refresh"/>
+                android:padding="@dimen/dimens_5dp"
+                android:text="@string/fw_refresh"
+                android:textColor="@color/main_blue" />
 
             <TextView
                 android:id="@+id/ignore"
-                style="@style/BtnEdgeStyle"
-                android:visibility="@{viewModel.debug?View.VISIBLE:View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimens_20dp"
                 android:onClick="@{onClickListener::onClick}"
-                android:text="@string/fw_ignore"/>
+                android:padding="@dimen/dimens_5dp"
+                android:text="@string/fw_ignore"
+                android:textColor="@color/main_blue"
+                android:visibility="@{viewModel.debug?View.VISIBLE:View.GONE}" />
 
         </LinearLayout>
 
@@ -108,7 +114,7 @@
             android:max="@{viewModel.MAX_PROGRESS}"
             android:progress="@{viewModel.progress}"
             android:progressDrawable="@drawable/fw_html_progress"
-            android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}"/>
+            android:visibility="@{viewModel.isLoaded?View.GONE:View.VISIBLE}" />
 
     </RelativeLayout>
 

@@ -150,7 +150,7 @@ android {
                 BaiduMobAd_CHANNEL_ID: "@string/r_build_type",
                 UMENG_CHANNEL_ID     : "@string/r_build_type",
                 AMAP_KEY             : "@string/r_a_map_key",
-                qqappid              : "1106446561"
+                qqappid              : "cccccccccc"
         ]
     }
     // 打包后自动修改apk的名字

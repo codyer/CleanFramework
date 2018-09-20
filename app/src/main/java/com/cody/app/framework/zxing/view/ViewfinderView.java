@@ -181,7 +181,7 @@ public final class ViewfinderView extends View {
             paint.setTextAlign(Paint.Align.CENTER);
 
             //写入二维码框下面的文字
-            canvas.drawText("将商品价签二维码放入框内，即可自动扫描",
+            canvas.drawText("将二维码放入框内，即可自动扫描",
                     screenWidth / 2,
                     screenHeight / 2 + screenWidth * 85 / 375, paint);
 

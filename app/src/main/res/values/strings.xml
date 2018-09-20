@@ -16,7 +16,7 @@
     <string name="action_settings">Settings</string>
     <string name="click_back_two_times">再按一次退出程序</string>
     <string name="error_qrcode">未识别到二维码</string>
-    <string name="wrong_qr_code">二维码格式不正确，请扫商品价签二维码</string>
+    <string name="wrong_qr_code">二维码格式不正确，请扫二维码链接</string>
     <string name="permission_remind">须开启存储权限和拍照权限才能正常使用此功能，是否授权？</string>
     <string name="permission_deny">授权失败，无法使用</string>
     <string name="light_on">轻触照亮</string>

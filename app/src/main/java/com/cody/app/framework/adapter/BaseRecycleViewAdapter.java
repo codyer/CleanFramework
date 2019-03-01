@@ -88,7 +88,9 @@ public abstract class BaseRecycleViewAdapter<ItemViewModel extends XItemViewMode
             viewHolder.getXItemBinding().setVariable(BR.onClickListener, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mItemClickListener.onItemClick(mRecyclerView, v, viewHolder.getAdapterPosition(), v.getId());
+                    if (mItemClickListener != null) {
+                        mItemClickListener.onItemClick(mRecyclerView, v, viewHolder.getAdapterPosition(), v.getId());
+                    }
                 }
             });
             viewHolder.getXItemBinding().executePendingBindings();
@@ -97,7 +99,9 @@ public abstract class BaseRecycleViewAdapter<ItemViewModel extends XItemViewMode
         viewHolder.getItemBinding().setVariable(BR.onClickListener, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mItemClickListener.onItemClick(mRecyclerView, v, viewHolder.getAdapterPosition(), v.getId());
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(mRecyclerView, v, viewHolder.getAdapterPosition(), v.getId());
+                }
             }
         });
         viewHolder.getItemBinding().executePendingBindings();
@@ -229,10 +233,10 @@ public abstract class BaseRecycleViewAdapter<ItemViewModel extends XItemViewMode
 
         public void setItemBinding(ViewDataBinding itemBinding) {
             mItemBinding = itemBinding;
-            if (mItemClickListener != null) {
+            if (mItemClickListener != null && mItemBinding != null) {
                 mItemBinding.getRoot().setOnClickListener(this);
             }
-            if (mItemLongClickListener != null) {
+            if (mItemLongClickListener != null && mItemBinding != null) {
                 mItemBinding.getRoot().setOnCreateContextMenuListener(this);
             }
         }
@@ -240,12 +244,16 @@ public abstract class BaseRecycleViewAdapter<ItemViewModel extends XItemViewMode
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menuInfo = new AdapterView.AdapterContextMenuInfo(v, getAdapterPosition(), v.getId());
-            mItemLongClickListener.onCreateContextMenu(menu, v, menuInfo);
+            if (mItemLongClickListener != null) {
+                mItemLongClickListener.onCreateContextMenu(menu, v, menuInfo);
+            }
         }
 
         @Override
         public void onClick(View v) {
-            mItemClickListener.onItemClick(mRecyclerView, v, getAdapterPosition(), v.getId());
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(mRecyclerView, v, getAdapterPosition(), v.getId());
+            }
         }
     }
 }

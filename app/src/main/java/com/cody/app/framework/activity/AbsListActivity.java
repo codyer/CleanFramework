@@ -13,6 +13,7 @@ import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.utils.RecyclerViewUtil;
 import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.SimpleBean;
+import com.cody.xf.widget.Scrollable;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -26,7 +27,7 @@ public abstract class AbsListActivity<
         ItemViewModel extends XItemViewModel,
         B extends ViewDataBinding>
         extends BaseBindingActivity<P, AbsListViewModel, B>
-        implements OnItemClickListener,
+        implements OnItemClickListener,Scrollable,
         PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
@@ -116,6 +117,16 @@ public abstract class AbsListActivity<
     }
 
     @Override
+    protected void onDestroy() {
+        if (mPullLoadMoreRecyclerView != null) {
+            mPullLoadMoreRecyclerView.release();
+        }
+        mPullLoadMoreRecyclerView = null;
+        mRecyclerViewAdapter = null;
+        super.onDestroy();
+    }
+
+    @Override
     public void showFailure(SimpleBean simpleBean) {
         super.showFailure(simpleBean);
         parseCode(simpleBean);
@@ -152,7 +163,7 @@ public abstract class AbsListActivity<
     @Override
     public void hideLoading() {
         super.hideLoading();
-        if (mPullLoadMoreRecyclerView != null) {
+        if (mPullLoadMoreRecyclerView != null && isBound()) {
             mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
@@ -161,6 +172,7 @@ public abstract class AbsListActivity<
     /**
      * 滑动到顶部
      */
+    @Override
     public void scrollToTop() {
         if (mPullLoadMoreRecyclerView != null) {
             RecyclerViewUtil.smoothScrollToTop(mPullLoadMoreRecyclerView.getRecyclerView());

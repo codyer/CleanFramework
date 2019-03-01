@@ -36,7 +36,7 @@ public class LogUtil {
     }
 
     public static void d(String message, Throwable t) {
-        if (message == null) {
+        if (message == null || t == null) {
             return;
         }
         if (Constant.RUNNING_MODE <= RUNNING_MODE_DEBUG) {
@@ -54,7 +54,7 @@ public class LogUtil {
     }
 
     public static void i(String message, Throwable t) {
-        if (message == null) {
+        if (message == null || t == null) {
             return;
         }
         if (Constant.RUNNING_MODE <= RUNNING_MODE_INFO) {
@@ -72,7 +72,7 @@ public class LogUtil {
     }
 
     public static void w(String message, Throwable t) {
-        if (message == null) {
+        if (message == null || t == null) {
             return;
         }
         if (Constant.RUNNING_MODE <= RUNNING_MODE_WRING) {
@@ -89,12 +89,30 @@ public class LogUtil {
         }
     }
 
+    public static void e(String tag, String message) {
+        if (null == message || null == tag) {
+            return;
+        }
+        if (Constant.RUNNING_MODE <= RUNNING_MODE_ERROR) {
+            Log.e(tag, message);
+        }
+    }
+
     public static void e(String message, Throwable t) {
-        if (message == null) {
+        if (message == null || t == null) {
             return;
         }
         if (Constant.RUNNING_MODE <= RUNNING_MODE_ERROR) {
             Log.e(LOG_TAG, message, t);
+        }
+    }
+
+    public static void e(String tag, String message, Throwable t) {
+        if (null == message || null == tag || t == null) {
+            return;
+        }
+        if (Constant.RUNNING_MODE <= RUNNING_MODE_ERROR) {
+            Log.e(tag, message, t);
         }
     }
 }

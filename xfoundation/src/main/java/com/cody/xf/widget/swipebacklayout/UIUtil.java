@@ -85,7 +85,8 @@ class UIUtil {
             Configuration conf = activity.getResources().getConfiguration();
             if (Configuration.ORIENTATION_LANDSCAPE == conf.orientation) {
                 View contentView = decorView.findViewById(android.R.id.content);
-                show = (point.x != contentView.getWidth());
+                if (null != contentView)
+                    show = (point.x != contentView.getWidth());
             } else {
                 Rect rect = new Rect();
                 decorView.getWindowVisibleDisplayFrame(rect);

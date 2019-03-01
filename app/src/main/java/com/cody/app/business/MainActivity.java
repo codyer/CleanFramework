@@ -1,9 +1,7 @@
 package com.cody.app.business;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -11,10 +9,9 @@ import com.cody.app.R;
 import com.cody.app.business.scan.ScanActivity;
 import com.cody.app.databinding.ActivityMainBinding;
 import com.cody.app.framework.activity.BaseBindingActivity;
-import com.cody.app.framework.activity.HtmlActivity;
 import com.cody.handler.business.presenter.MainPresenter;
 import com.cody.handler.business.viewmodel.MainViewModel;
-import com.cody.xf.utils.LogUtil;
+import com.cody.xf.utils.ActivityUtil;
 import com.cody.xf.utils.SystemBarUtil;
 import com.cody.xf.utils.ToastUtil;
 
@@ -79,20 +76,8 @@ public class MainActivity extends BaseBindingActivity<MainPresenter, MainViewMod
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.scan:
-                ScanActivity.startScanActivity();
+                ActivityUtil.navigateTo(ScanActivity.class);
                 break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (resultCode == RESULT_OK && requestCode == ScanActivity.SCAN_REQUEST_CODE) {
-            String result = intent.getStringExtra(ScanActivity.SCAN_RESULT);
-            if (!TextUtils.isEmpty(result)) {
-                LogUtil.d("扫码结果：" + result);
-                HtmlActivity.startHtml("扫码结果", result);
-            }
         }
     }
 

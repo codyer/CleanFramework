@@ -165,7 +165,7 @@ public class MultipartRequest<T> extends BaseRequest<T> {
         int max = bytesAvailable;
         int progress = 0;
 
-        int maxBufferSize = 1024 * 1024;
+        int maxBufferSize = 1024;
         int bufferSize = Math.min(bytesAvailable, maxBufferSize);
         byte[] buffer = new byte[bufferSize];
 

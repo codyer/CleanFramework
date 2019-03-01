@@ -34,13 +34,13 @@ public abstract class BasePopupWindow extends PopupWindow {
     private static final int ALPHA_DURATION = 300;
     private View mBg;
     private LinearLayout mPanel;
-    protected Activity activity;
+    protected Context mContext;
     private int layoutId;
     private FrameLayout parent;
     private boolean hasAnimation = true;
 
-    public BasePopupWindow(Activity activity, int layoutId) {
-        this.activity = activity;
+    public BasePopupWindow(Context context, int layoutId) {
+        this.mContext = context;
         this.layoutId = layoutId;
     }
 
@@ -53,7 +53,7 @@ public abstract class BasePopupWindow extends PopupWindow {
     public void showPop() {
         if (layoutId == 0)
             return;
-        View view = createView(activity, layoutId);
+        View view = createView(mContext, layoutId);
         this.setContentView(view);
         this.setHeight(LayoutParams.MATCH_PARENT);
         this.setWidth(LayoutParams.MATCH_PARENT);
@@ -75,8 +75,8 @@ public abstract class BasePopupWindow extends PopupWindow {
         this.showAtLocation(view, Gravity.BOTTOM | Gravity.LEFT, 0, 0);
     }
 
-    private View createView(final Activity activity, int subView) {
-        final View view = LayoutInflater.from(activity).inflate(subView, null);
+    private View createView(final Context context, int subView) {
+        final View view = LayoutInflater.from(context).inflate(subView, null);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -84,16 +84,16 @@ public abstract class BasePopupWindow extends PopupWindow {
             }
         });
 
-        parent = new FrameLayout(activity);
+        parent = new FrameLayout(context);
         parent.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
-        mBg = new View(activity);
+        mBg = new View(context);
         mBg.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
         mBg.setBackgroundColor(Color.argb(136, 0, 0, 0));
         mBg.setId(View.NO_ID);
 
-        mPanel = new LinearLayout(activity);
+        mPanel = new LinearLayout(context);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         params.gravity = setGravity();
@@ -101,7 +101,7 @@ public abstract class BasePopupWindow extends PopupWindow {
         mPanel.setOrientation(LinearLayout.VERTICAL);
         mPanel.setFocusable(true);
 
-//        parent.setPadding(0, 0, 0, getNavBarHeight(activity));
+//        parent.setPadding(0, 0, 0, getNavBarHeight(mContext));
         parent.setPadding(0, 0, 0, 0);
         parent.addView(mBg);
         parent.addView(mPanel);

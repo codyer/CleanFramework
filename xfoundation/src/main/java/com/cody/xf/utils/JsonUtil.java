@@ -1,6 +1,7 @@
 package com.cody.xf.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -26,6 +27,30 @@ public class JsonUtil {
     public static JsonObject toJsonObject(Object object) {
         String jsonStr = gson.toJson(object);
         return new JsonParser().parse(jsonStr).getAsJsonObject();
+    }
+
+    /**
+     * Json转对象
+     */
+    public static <T> T fromJson(JsonElement json, Type type) {
+        try {
+            return gson.fromJson(json, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Json转对象
+     */
+    public static <T> T fromJson(JsonElement json, Class<T> type) {
+        try {
+            return gson.fromJson(json, type);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

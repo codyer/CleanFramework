@@ -1,6 +1,7 @@
 package com.cody.xf.utils;
 
 import android.content.Context;
+import android.os.Looper;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -75,6 +76,9 @@ public class ToastUtil {
     }
 
     private static void showToast(Context context, String text) {
+        if (!isMainThread()) {
+            return;
+        }
         if (mToast == null) {
             mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
             mToast.setGravity(Gravity.CENTER, 0, 0);
@@ -85,12 +89,24 @@ public class ToastUtil {
     }
 
     private static void showToast(Context context, int resId) {
+        if (!isMainThread()) {
+            return;
+        }
         if (mToast == null) {
             mToast = Toast.makeText(context, context.getString(resId), Toast.LENGTH_SHORT);
             mToast.setGravity(Gravity.CENTER, 0, 0);
-        }else {
+        } else {
             mToast.setText(context.getString(resId));
         }
         mToast.show();
+    }
+
+    /**
+     * 是否在主线程
+     *
+     * @return
+     */
+    private static boolean isMainThread() {
+        return Looper.myLooper() == Looper.getMainLooper();
     }
 }

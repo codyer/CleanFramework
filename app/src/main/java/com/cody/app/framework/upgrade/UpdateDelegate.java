@@ -7,7 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -71,10 +75,13 @@ public class UpdateDelegate {
                     mOnUpdateListener.onUpdateFinish();
                 }
             });
+
+            isBindService = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
+            isBindService = false;
         }
     };
 
@@ -144,31 +151,72 @@ public class UpdateDelegate {
         alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode==KeyEvent.KEYCODE_BACK){
-                    ((Activity)alertDialog.getContext()).finish();
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    ((Activity) alertDialog.getContext()).finish();
                 }
                 return false;
             }
         });
     }
 
+    /**
+     * DownloadManager是否可用
+     *
+     * @param context
+     * @return
+     */
+    private boolean isDownLoadMangerEnable(Context context) {
+        int state = context.getApplicationContext().getPackageManager()
+                .getApplicationEnabledSetting("com.android.providers.downloads");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            return !(state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ||
+                    state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER
+                    || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED);
+        } else {
+            return !(state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ||
+                    state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER);
+        }
+    }
+
     private void bindDownLoadService() {
-        Intent intent = new Intent(mActivity, DownloadService.class);
-        intent.putExtra(DownloadService.DOWNLOAD, mUpdateViewModel.getApkUrl());
-        intent.putExtra(DownloadService.APK_NAME, mUpdateViewModel.getApkName());
-        intent.putExtra(DownloadService.IS_FORCE, mUpdateViewModel.isForceUpdate());
-        mActivity.startService(intent);
-        mProgressDialog.show();
-        isBindService = mActivity.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        if (isDownLoadMangerEnable(mActivity)) {
+            Intent intent = new Intent(mActivity, DownloadService.class);
+            intent.putExtra(DownloadService.DOWNLOAD, mUpdateViewModel.getApkUrl());
+            intent.putExtra(DownloadService.APK_NAME, mUpdateViewModel.getApkName());
+            intent.putExtra(DownloadService.IS_FORCE, mUpdateViewModel.isForceUpdate());
+            mActivity.startService(intent);
+            mProgressDialog.show();
+            mActivity.bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+        } else {//下载管理器被禁用时跳转浏览器下载
+            try {
+                if (!TextUtils.isEmpty(mUpdateViewModel.getApkUrl()) && mActivity != null) {
+                    Intent intent = new Intent();
+                    Uri uri = Uri.parse(mUpdateViewModel.getApkUrl());
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setData(uri);
+                    if (intent.resolveActivity(mActivity.getPackageManager()) != null) {
+                        mActivity.startActivity(Intent.createChooser(intent, "请选择浏览器进行下载更新"));
+                        System.exit(0);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void stopDownLoadService() {
-        Intent intent = new Intent(mActivity, DownloadService.class);
-        if (isBindService) {
-            mActivity.unbindService(mServiceConnection);
-            isBindService = false;
+        try {
+            Intent intent = new Intent(mActivity, DownloadService.class);
+            if (isBindService) {
+                mActivity.unbindService(mServiceConnection);
+                isBindService = false;
+            }
+            mActivity.stopService(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        mActivity.stopService(intent);
     }
 
     public interface OnUpdateListener {

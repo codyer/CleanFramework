@@ -89,6 +89,9 @@ public abstract class BaseBindingActivity<P extends Presenter<VM>,
             mPresenter.detachView(TAG);
         }
         super.onDestroy();
+        mPresenter = null;
+        mViewModel = null;
+        mBinding = null;
     }
 
     @CallSuper

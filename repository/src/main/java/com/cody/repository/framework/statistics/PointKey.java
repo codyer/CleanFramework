@@ -38,6 +38,7 @@ public class PointKey {
         public static String url = "url";//	url地址	#
         public static String openid = "openid";//	导购员ID	#	传Openid字符串
         public static String keyword = "s_tag";//	站内搜索词	#
+        public static String activity_id="activity_id";//活动id
 
         public Parameter() {
         }

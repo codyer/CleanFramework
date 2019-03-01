@@ -65,9 +65,13 @@ public abstract class AbsListPresenter<AbsListViewModel extends IListViewModel<I
      */
     @Override
     public void getDefaultRecycleList(Object tag, @NonNull Map<String, String> params) {
-        params.put("pageNo", getViewModel().getPageNO() + "");
-        params.put("pageSize", getViewModel().getPageSize() + "");
-        getRecycleList(tag, params);
+        if (getViewModel() != null) {
+            params.put("pageNo", getViewModel().getPageNO() + "");
+            params.put("pageSize", getViewModel().getPageSize() + "");
+            getRecycleList(tag, params);
+        } else if (getView() != null) {
+            getView().hideLoading();
+        }
     }
 
 }

@@ -24,9 +24,11 @@ import com.baidu.mobstat.StatService;
 import com.cody.app.R;
 import com.cody.handler.framework.IView;
 import com.cody.repository.framework.statistics.HxStat;
+import com.cody.xf.XFoundation;
 import com.cody.xf.common.Constant;
 import com.cody.xf.common.LoginBroadcastReceiver;
 import com.cody.xf.utils.ActivityUtil;
+import com.cody.xf.utils.DeviceUtil;
 import com.cody.xf.utils.LogUtil;
 import com.cody.xf.utils.ResourceUtil;
 import com.cody.xf.utils.SystemBarUtil;
@@ -36,6 +38,7 @@ import com.umeng.socialize.UMShareAPI;
 
 import java.util.List;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
 import pub.devrel.easypermissions.EasyPermissions;
 
 
@@ -44,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
         BGASwipeBackHelper.Delegate,
         EasyPermissions.PermissionCallbacks {
 
-    private final static float DISTANCE = 5;
+    private final static float DISTANCE = DeviceUtil.dip2px(XFoundation.getContext(), 10);
     private final static int ANIMATION_IN[] = new int[]{
             R.anim.fw_fade_in,
             R.anim.fw_left_in,
@@ -135,16 +138,20 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
      */
     @Override
     public void onSwipeBackLayoutExecuted() {
-        mSwipeBackHelper.swipeBackward();
+        if (mSwipeBackHelper != null) {
+            mSwipeBackHelper.swipeBackward();
+        }
     }
 
     @Override
     public void onBackPressed() {
-        // 正在滑动返回的时候取消返回按钮事件
-        if (mSwipeBackHelper.isSliding()) {
-            return;
+        if (mSwipeBackHelper != null) {
+            // 正在滑动返回的时候取消返回按钮事件
+            if (mSwipeBackHelper.isSliding()) {
+                return;
+            }
+            mSwipeBackHelper.backward();
         }
-        mSwipeBackHelper.backward();
     }
 
     /**
@@ -185,6 +192,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setTitle(ResourceUtil.getString(R.string.fw_html_loading));
+            mProgressDialog.setProgress(0);
             mProgressDialog.setProgressNumberFormat(null);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(true);
@@ -203,6 +211,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
             mIsFirstVisible = false;
             onFirstUserVisible();
         }
+        //移除角标
+        ShortcutBadger.removeCount(getApplicationContext()); //for 1.1.4+
     }
 
     @Override
@@ -215,8 +225,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
     @Override
     protected void onDestroy() {
         hideLoading();
-        super.onDestroy();
         UMShareAPI.get(this).release();
+        mSwipeBackHelper = null;
+        mLoading = null;
+        mProgressDialog = null;
+        super.onDestroy();
     }
 
     @Override
@@ -232,6 +245,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
     @Override
     public void showLoading(String msg) {
         LogUtil.d(TAG, "BaseActivity ++ showLoading");
+        if (null == mLoading) return;
         if (TextUtils.isEmpty(msg)) {
             mLoading.setMessage(getString(R.string.fw_html_loading));
         } else {
@@ -246,10 +260,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
     @Override
     public void hideLoading() {
         LogUtil.d(TAG, "BaseActivity ++ hideLoading");
+        if (null == mLoading) return;
         if (mLoading.isShowing()) {
             mLoading.dismiss();
         }
+        if (null == mProgressDialog) return;
         if (mProgressDialog.isShowing()) {
+            mProgressDialog.setProgress(0);
             mProgressDialog.dismiss();
         }
     }
@@ -272,12 +289,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
     @Override
     public void onProgress(int progress, int max) {
         LogUtil.d(TAG, "BaseActivity ++ onProgress");
+        if (null == mProgressDialog) return;
         mProgressDialog.setMax(max);
         mProgressDialog.setProgress(progress);
         if (!mProgressDialog.isShowing()) {
             mProgressDialog.show();
         }
         if (progress == max && mProgressDialog.isShowing()) {
+            mProgressDialog.setProgress(0);
             mProgressDialog.dismiss();
         }
     }
@@ -483,5 +502,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IView,
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
 
+    }
+
+    /**
+     * 设置能否左滑关闭页面
+     *
+     * @param enable
+     */
+    public void setEnableBackLayout(boolean enable) {
+        if (mSwipeBackHelper != null) {
+            mSwipeBackHelper.setSwipeBackEnable(enable);
+        }
     }
 }

@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cody.app.R;
+import com.cody.xf.utils.LogUtil;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -144,7 +144,7 @@ public class TagFlowLayout extends FlowLayout
 
     public void setMaxSelectCount(int count) {
         if (mSelectedView.size() > count) {
-            Log.w(TAG, "you has already select more than " + count + " views , so it will be clear .");
+            LogUtil.d(TAG, "you has already select more than " + count + " views , so it will be clear .");
             mSelectedView.clear();
         }
         mSelectedMax = count;

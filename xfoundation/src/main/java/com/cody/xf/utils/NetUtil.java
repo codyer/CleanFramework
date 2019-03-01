@@ -10,6 +10,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lenovo on 2016/3/9.
@@ -18,6 +20,18 @@ import java.util.Enumeration;
  * @description 判断网络状态
  */
 public class NetUtil {
+    //判断是否ip地址
+    public static boolean isIP(String address)
+    {
+        if(address == null || address.length() < 7 || address.length() > 15 || "".equals(address))
+        {
+            return false;
+        }
+        String regex = "([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
+        Pattern pat = Pattern.compile(regex);
+        Matcher mat = pat.matcher(address);
+        return mat.find();
+    }
 
     // 判断网络连接状态
     public static boolean isNetworkConnected(Context context) {

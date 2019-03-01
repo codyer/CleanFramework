@@ -16,6 +16,7 @@ import com.cody.handler.framework.viewmodel.XItemViewModel;
 import com.cody.xf.utils.RecyclerViewUtil;
 import com.cody.xf.utils.http.HttpCode;
 import com.cody.xf.utils.http.SimpleBean;
+import com.cody.xf.widget.Scrollable;
 import com.cody.xf.widget.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 /**
@@ -28,7 +29,8 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
         ItemViewModel extends XItemViewModel,
         B extends ViewDataBinding>
         extends BaseBindingFragment<P, AbsListViewModel, B>
-        implements OnItemClickListener, PullLoadMoreRecyclerView.PullLoadMoreListener {
+        implements OnItemClickListener, Scrollable,
+        PullLoadMoreRecyclerView.PullLoadMoreListener {
 
     protected PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
     protected BaseRecycleViewAdapter<ItemViewModel> mRecyclerViewAdapter;
@@ -134,6 +136,16 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mPullLoadMoreRecyclerView != null) {
+            mPullLoadMoreRecyclerView.release();
+        }
+        mPullLoadMoreRecyclerView = null;
+        mRecyclerViewAdapter = null;
+    }
+
+    @Override
     public void showFailure(SimpleBean simpleBean) {
         super.showFailure(simpleBean);
         parseCode(simpleBean);
@@ -170,7 +182,7 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
     @Override
     public void hideLoading() {
         super.hideLoading();
-        if (mPullLoadMoreRecyclerView != null) {
+        if (mPullLoadMoreRecyclerView != null && isBound()) {
             mPullLoadMoreRecyclerView.setHasMore(getViewModel().getHasMore());
             mPullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         }
@@ -179,6 +191,7 @@ public abstract class AbsListFragment<P extends AbsListPresenter<AbsListViewMode
     /**
      * 滑动到顶部
      */
+    @Override
     public void scrollToTop() {
         if (mPullLoadMoreRecyclerView != null) {
             RecyclerViewUtil.smoothScrollToTop(mPullLoadMoreRecyclerView.getRecyclerView());

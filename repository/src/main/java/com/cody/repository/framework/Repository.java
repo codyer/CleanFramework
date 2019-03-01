@@ -179,7 +179,7 @@ public class Repository {
             }
         } else {
             getRepository().mProfile.setValue(localKey, true);
-            getRepository().mLocalBooleanCache.put(localKey, localValue);
+            getRepository().mLocalBooleanCache.put(localKey, true);
         }
     }
 

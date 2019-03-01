@@ -21,7 +21,7 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
     WheelOptions<T> wheelOptions;
     private View btnSubmit, btnCancel;
     private TextView tvTitle;
-    private OnOptionsSelectListener optionsSelectListener;
+    private OnOptionSelectListener mOptionsSelectListener;
 
     public OptionsPickerView(Context context) {
         super(context);
@@ -36,8 +36,12 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         //顶部标题
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         // ----转轮
-        final View optionspicker = findViewById(R.id.options_picker);
-        wheelOptions = new WheelOptions(optionspicker);
+        final View optionPicker = findViewById(R.id.options_picker);
+        wheelOptions = new WheelOptions<>(optionPicker);
+    }
+
+    public void setTextSize(int textSize) {
+        this.wheelOptions.setTextSize(textSize);
     }
 
     public void setPicker(ArrayList<T> optionsItems) {
@@ -136,27 +140,25 @@ public class OptionsPickerView<T> extends BasePickerView implements View.OnClick
         String tag = (String) v.getTag();
         if (tag.equals(TAG_CANCEL)) {
             dismiss();
-            return;
         } else {
-            if (optionsSelectListener != null) {
+            if (mOptionsSelectListener != null) {
                 int[] optionsCurrentItems = wheelOptions.getCurrentItems();
-                optionsSelectListener.onOptionsSelect(optionsCurrentItems[0], optionsCurrentItems[1], optionsCurrentItems[2]);
+                mOptionsSelectListener.onOptionSelect(optionsCurrentItems[0], optionsCurrentItems[1], optionsCurrentItems[2]);
             }
             dismiss();
-            return;
         }
     }
 
-    public void setOnoptionsSelectListener(
-            OnOptionsSelectListener optionsSelectListener) {
-        this.optionsSelectListener = optionsSelectListener;
+    public void setOnOptionSelectListener(
+            OnOptionSelectListener optionSelectListener) {
+        this.mOptionsSelectListener = optionSelectListener;
     }
 
     public void setTitle(String title) {
         tvTitle.setText(title);
     }
 
-    public interface OnOptionsSelectListener {
-        void onOptionsSelect(int options1, int option2, int options3);
+    public interface OnOptionSelectListener {
+        void onOptionSelect(int option1, int option2, int option3);
     }
 }

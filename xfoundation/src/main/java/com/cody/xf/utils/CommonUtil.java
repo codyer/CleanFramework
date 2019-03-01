@@ -81,6 +81,7 @@ public class CommonUtil {
         }
         return key;
     }
+
     /**
      * 重构List成String
      *
@@ -106,7 +107,8 @@ public class CommonUtil {
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
             byte[] encrypted = cipher.doFinal(sSrc.getBytes());
             return Base64.encodeToString(encrypted, Base64.DEFAULT);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | InvalidAlgorithmParameterException | BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
+                | InvalidAlgorithmParameterException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
@@ -165,10 +167,11 @@ public class CommonUtil {
 
     /**
      * 参数拼接都url后面
-     * @param url base url
+     *
+     * @param url    base url
      * @param params 参数
      */
-    public static  String formatUrl(String url, Map<String, String> params) {
+    public static String formatUrl(String url, Map<String, String> params) {
         StringBuilder sb = new StringBuilder(url);
         if (params != null && params.size() > 0) {
             HashMap<String, String> map = new HashMap<>();
@@ -310,8 +313,11 @@ public class CommonUtil {
      * @return true 邮箱正确 false 邮箱有误
      */
     public static boolean isEmail(String strEmail) {
-        String strPattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)" +
-                "+[\\w](?:[\\w-]*[\\w])?";
+//        String strPattern = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\
+// .)" +
+//                "+[\\w](?:[\\w-]*[\\w])?";
+//        String strPattern = "\"^[a-zA-Z0-9]+@[a-zA-Z0-9]+.com\"";
+        String strPattern = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         Pattern p = Pattern.compile(strPattern);
         Matcher m = p.matcher(strEmail);
         return m.matches();
@@ -338,7 +344,8 @@ public class CommonUtil {
         if (TextUtils.isEmpty(mobiles)) {
             return false;
         } else {
-            Pattern p = Pattern.compile("^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9]))\\d{8}$");
+//            Pattern p = Pattern.compile("^((13[0-9])|(14[0-9])|(15[0-9])|(16[0-9])|(17[0-9])|(18[0-9]))\\d{8}$");
+            Pattern p = Pattern.compile("^(1)\\d{10}$");
             Matcher m = p.matcher(mobiles);
             return m.matches();
         }
@@ -467,7 +474,7 @@ public class CommonUtil {
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dStart,
                                        int dEnd) {
                 //返回null表示此字符可以输入,返回空字符串表示禁止输入此字符
-                if (source.equals(" ")) {
+                if (TextUtils.equals(source, " ")) {
                     return "";
                 } else {
                     return null;
@@ -629,7 +636,7 @@ public class CommonUtil {
                     return processName;
                 }
             } catch (Exception e) {
-                // Log.d("Process", "Error>> :"+ e.toString());
+                // LogUtil.d("Process", "Error>> :"+ e.toString());
             }
         }
         return null;

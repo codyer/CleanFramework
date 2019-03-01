@@ -81,11 +81,11 @@ public class DefaultCallAdapter extends CallAdapter {
                 mMethod.getDomain() + mMethod.getUrl(),
                 token,
                 mMethod.getParams(), mMethod.getJsonObject(),
-                JsonObject.class,
+                mMethod.getClazz(),
                 mMethod.getHeaderListener(),
-                new HttpUtil.Callback<JsonObject>() {
+                new HttpUtil.Callback() {
                     @Override
-                    public void onSuccess(JsonObject data) {
+                    public void onSuccess(Object data) {
                         mMethod.getCallback().onSuccess(data);
                     }
 

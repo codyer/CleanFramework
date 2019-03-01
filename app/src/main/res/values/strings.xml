@@ -41,4 +41,5 @@
     <string name="pwd_short">密码位数不能少于6位！</string>
     <string name="enter_price">请输入报价金额</string>
     <string name="cash_zero_toast">输入金额不能为零！</string>
+    <string name="scan_hint">将二维码/条码放入框内，即可自动扫描</string>
 </resources>

@@ -324,15 +324,15 @@ public class HttpUtil {
      * @param jsonParams json格式参数
      * @param callback   数据返回的回调
      */
-    public static void getOriginalResult(Object tag,
-                                         int method,
-                                         String url,
-                                         Map<String, String> token,
-                                         Map<String, String> params,
-                                         JsonObject jsonParams,
-                                         Class<JsonObject> clazz,
-                                         IHeaderListener headerListener,
-                                         final Callback<JsonObject> callback) {
+    public static <T> void getOriginalResult(Object tag,
+                                             int method,
+                                             String url,
+                                             Map<String, String> token,
+                                             Map<String, String> params,
+                                             JsonObject jsonParams,
+                                             @NonNull Class<T> clazz,
+                                             IHeaderListener headerListener,
+                                             @NonNull final Callback<T> callback) {
         Type type = CommonUtil.getType(clazz);
         doOriginalBeanRequest(tag, method, url, token, params, jsonParams, type, headerListener, callback);
     }
@@ -699,15 +699,15 @@ public class HttpUtil {
                 listener);
     }
 
-    private static void doOriginalBeanRequest(Object tag,
-                                              int method,
-                                              @NonNull String url,
-                                              Map<String, String> token,
-                                              Map<String, String> params,
-                                              JsonObject jsonParams,
-                                              Type type,
-                                              IHeaderListener headerListener,
-                                              @NonNull final Callback<JsonObject> callback) {
+    private static <T> void doOriginalBeanRequest(Object tag,
+                                                  int method,
+                                                  @NonNull String url,
+                                                  Map<String, String> token,
+                                                  Map<String, String> params,
+                                                  JsonObject jsonParams,
+                                                  @NonNull Type type,
+                                                  IHeaderListener headerListener,
+                                                  @NonNull final Callback<T> callback) {
         if (checkParameters(tag, url, callback)) {
             return;
         }

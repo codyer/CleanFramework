@@ -8,6 +8,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
+import java.lang.ref.Reference;
+import java.lang.ref.SoftReference;
+
 /**
  * Created by cody.yi on 2016.8.15
  * Activity Navigator
@@ -15,13 +18,14 @@ import android.text.TextUtils;
 public class ActivityUtil {
 
     private static ActivityUtil sInstance;
-    private Activity mCurrentActivity;
+    private Reference<Activity> mCurrentActivity;
 
     public static void install() {
         sInstance = new ActivityUtil();
     }
 
     public static void uninstall() {
+        getInstance().mCurrentActivity.clear();
         getInstance().mCurrentActivity = null;
         sInstance = null;
     }
@@ -38,8 +42,9 @@ public class ActivityUtil {
      * 用getCurrentActivity 前判断是否为空
      */
     public static boolean isActivityDestroyed() {
-        return getInstance().mCurrentActivity == null ||
-                getInstance().mCurrentActivity.isDestroyed();
+        return getCurrentActivity() == null ||
+                getCurrentActivity().isDestroyed() ||
+                getCurrentActivity().isFinishing();
     }
 
     public static Activity getCurrentActivity() {
@@ -47,11 +52,11 @@ public class ActivityUtil {
             LogUtil.e("You should setCurrentActivity first!");
             return null;
         }
-        return getInstance().mCurrentActivity;
+        return getInstance().mCurrentActivity.get();
     }
 
     public static void setCurrentActivity(@NonNull Activity currentActivity) {
-        getInstance().mCurrentActivity = currentActivity;
+        getInstance().mCurrentActivity = new SoftReference<>(currentActivity);
     }
 
     /**
@@ -111,9 +116,6 @@ public class ActivityUtil {
 
     /**
      * startActivity with bundle then finish
-     *
-     * @param clazz
-     * @param bundle
      */
     public static void navigateToThenKill(Class<? extends Activity> clazz, Bundle bundle) {
         Activity activity = getCurrentActivity();
@@ -174,8 +176,7 @@ public class ActivityUtil {
 
     public static void openDialPage(String tel) {
         if (TextUtils.isEmpty(tel)) return;
-        Activity activity = getCurrentActivity();
-        if (activity == null) return;
+        if (isActivityDestroyed()) return;
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (intent.resolveActivity(getCurrentActivity().getPackageManager()) != null) {

@@ -8,7 +8,6 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -130,8 +129,8 @@ class BaseRequest<T> extends Request<T> {
         try {
             return mIsJsonParams ? mRequestBody.getBytes(PROTOCOL_CHARSET) : super.getBody();
         } catch (UnsupportedEncodingException uee) {
-            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
-                    mRequestBody, PROTOCOL_CHARSET);
+            LogUtil.e("BaseRequest getBody", "Unsupported Encoding while trying to get the bytes of (" + mRequestBody + ") using " +
+                    PROTOCOL_CHARSET);
             return null;
         }
     }

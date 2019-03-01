@@ -14,6 +14,7 @@ public class WheelOptions<T> {
     private WheelView wv_option1;
     private WheelView wv_option2;
     private WheelView wv_option3;
+    private int textSize = 22;
 
     private ArrayList<T> mOptions1Items;
     private ArrayList<ArrayList<T>> mOptions2Items;
@@ -29,6 +30,9 @@ public class WheelOptions<T> {
         setView(view);
     }
 
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+    }
     public View getView() {
         return view;
     }

@@ -29,7 +29,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by chen.huarong on 2018/5/17.
+ * Created by chen.huarong on 2018/9/17.
+ * 文件处理工具类
  */
 public class FileUtils {
 
@@ -212,10 +213,9 @@ public class FileUtils {
      * @param path
      * @param fileName
      * @param input
-     * @param isGotye
      * @return
      */
-    public static File write2SDFromInput(String path, String fileName, InputStream input, boolean isGotye) {
+    public static File write2SDFromInput(String path, String fileName, InputStream input) {
         File file = null;
         OutputStream output = null;
         try {
@@ -232,11 +232,11 @@ public class FileUtils {
 
             /* 网友提供 begin */
             int length;
-            if (isGotye) {
-                String header = "#!AMR\n";
-                byte[] bytes = header.getBytes();
-                output.write(bytes);
-            }
+//            if (isGotye) {
+//                String header = "#!AMR\n";
+//                byte[] bytes = header.getBytes();
+//                output.write(bytes);
+//            }
             while ((length = (input.read(buffer))) > 0) {
                 output.write(buffer, 0, length);
             }
@@ -309,14 +309,14 @@ public class FileUtils {
      * 0:文件下载成功
      * 1:文件已经存在
      */
-    public static int downFile(String urlStr, String path, String fileName, boolean isGotye) {
+    public static int downFile(String urlStr, String path, String fileName) {
         try {
 
             if (isFileExist(path + fileName)) {
                 return 1;
             } else {
                 InputStream inputStream = getInputStreamFromURL(urlStr);
-                File resultFile = write2SDFromInput(path, fileName, inputStream, isGotye);
+                File resultFile = write2SDFromInput(path, fileName, inputStream);
                 if (resultFile == null) {
                     return -1;
                 }
@@ -452,6 +452,19 @@ public class FileUtils {
     private static String getMimeType(String filePath) {
         String ext = MimeTypeMap.getFileExtensionFromUrl(filePath);
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
+    }
+
+    /**
+     * 获取文件大小
+     * @param path
+     * @return
+     */
+    public static long getFileSize(String path) {
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            return file.length();
+        }
+        return 0;
     }
 
     // 保存图片到手机

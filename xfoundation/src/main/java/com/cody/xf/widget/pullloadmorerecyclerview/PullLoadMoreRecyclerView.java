@@ -57,6 +57,19 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         initView(context);
     }
 
+    public void release() {
+        mRecyclerView = null;
+        mSwipeRefreshLayout = null;
+        mPullLoadMoreListener = null;
+        mFooterView = null;
+        mEmptyViewContainer = null;
+        mDefaultViewContainer = null;
+        mContext = null;
+        loadMoreText = null;
+        loadMoreLayout = null;
+        mEmptyDataObserver = null;
+    }
+
     private void initView(Context context) {
         mContext = context;
         View view = LayoutInflater.from(context).inflate(R.layout.xf_pull_loadmore_layout, null);
@@ -97,6 +110,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
      * LinearLayoutManager
      */
     public void setLinearLayout() {
+        if (mRecyclerView == null) return;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -107,6 +121,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
      */
 
     public void setGridLayout(int spanCount) {
+        if (mRecyclerView == null) return;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, spanCount);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -118,12 +133,14 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
      */
 
     public void setStaggeredGridLayout(int spanCount) {
+        if (mRecyclerView == null) return;
         StaggeredGridLayoutManager staggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(spanCount, LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(staggeredGridLayoutManager);
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
+        if (mRecyclerView == null) return null;
         return mRecyclerView.getLayoutManager();
     }
 
@@ -132,39 +149,49 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void setItemAnimator(RecyclerView.ItemAnimator animator) {
+        if (mRecyclerView == null) return;
         mRecyclerView.setItemAnimator(animator);
     }
 
     public void addItemDecoration(RecyclerView.ItemDecoration decor, int index) {
+        if (mRecyclerView == null) return;
         mRecyclerView.addItemDecoration(decor, index);
     }
 
     public void addItemDecoration(RecyclerView.ItemDecoration decor) {
+        if (mRecyclerView == null) return;
         mRecyclerView.addItemDecoration(decor);
     }
 
     public void scrollToTop() {
+        if (mRecyclerView == null) return;
         mRecyclerView.scrollToPosition(0);
     }
 
     public void smoothScrollToTop() {
+        if (mRecyclerView == null) return;
         mRecyclerView.smoothScrollToPosition(0);
     }
 
     public void scrollToPosition(int position) {
+        if (mRecyclerView == null) return;
         mRecyclerView.scrollToPosition(position);
     }
 
     public void smoothScrollToPosition(int position) {
+        if (mRecyclerView == null) return;
         mRecyclerView.smoothScrollToPosition(position);
     }
 
     public void setEmptyView(View emptyView) {
+        if (mEmptyViewContainer == null) return;
         mEmptyViewContainer.removeAllViews();
         mEmptyViewContainer.addView(emptyView);
     }
 
     public void setDefaultView(View defaultView, boolean show) {
+        if (mEmptyViewContainer == null || mRecyclerView == null || mDefaultViewContainer == null)
+            return;
         mDefaultViewContainer.removeAllViews();
         if (defaultView != null) {
             mDefaultViewContainer.addView(defaultView);
@@ -181,6 +208,10 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void showEmptyView() {
+        if (mEmptyViewContainer == null ||
+                mRecyclerView == null ||
+                mDefaultViewContainer == null ||
+                mFooterView == null) return;
         RecyclerView.Adapter<?> adapter = mRecyclerView.getAdapter();
         if (adapter != null && mEmptyViewContainer.getChildCount() != 0) {
             if (adapter.getItemCount() == 0) {
@@ -199,6 +230,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
      * @param adapter
      */
     public void setAdapter(RecyclerView.Adapter adapter) {
+        if (mRecyclerView == null) return;
         if (adapter != null) {
             mRecyclerView.setAdapter(adapter);
             showEmptyView();
@@ -207,6 +239,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     private void registerEmptyDataObserver() {
+        if (mRecyclerView == null) return;
         RecyclerView.Adapter<?> adapter = mRecyclerView.getAdapter();
         if (mEmptyDataObserver == null) {
             mEmptyDataObserver = new PullLoadMoreRecyclerView.AdapterDataObserver();
@@ -220,6 +253,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     private void unregisterEmptyDataObserver() {
+        if (mRecyclerView == null || mEmptyDataObserver == null) return;
         RecyclerView.Adapter<?> adapter = mRecyclerView.getAdapter();
         if (isRegister && adapter != null && mEmptyDataObserver != null) {
             synchronized (mEmptyDataObserver) {
@@ -254,6 +288,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public boolean getSwipeRefreshEnable() {
+        if (mSwipeRefreshLayout == null) return false;
         return mSwipeRefreshLayout.isEnabled();
     }
 
@@ -262,6 +297,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void setColorSchemeResources(int... colorResIds) {
+        if (mSwipeRefreshLayout == null) return;
         mSwipeRefreshLayout.setColorSchemeResources(colorResIds);
 
     }
@@ -271,15 +307,16 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void setRefreshing(final boolean isRefreshing) {
+        if (mSwipeRefreshLayout == null) return;
         mSwipeRefreshLayout.post(new Runnable() {
 
             @Override
             public void run() {
-                if (pullRefreshEnable)
+                if (pullRefreshEnable && mSwipeRefreshLayout != null) {
                     mSwipeRefreshLayout.setRefreshing(isRefreshing);
+                }
             }
         });
-
     }
 
     public boolean getPushRefreshEnable() {
@@ -295,18 +332,22 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void setFooterViewBackgroundColor(int color) {
+        if (loadMoreLayout == null) return;
         loadMoreLayout.setBackgroundColor(ContextCompat.getColor(mContext, color));
     }
 
     public void setFooterViewText(CharSequence text) {
+        if (loadMoreText == null) return;
         loadMoreText.setText(text);
     }
 
     public void setFooterViewText(int resid) {
+        if (loadMoreText == null) return;
         loadMoreText.setText(resid);
     }
 
     public void setFooterViewTextColor(int color) {
+        if (loadMoreText == null) return;
         loadMoreText.setTextColor(ContextCompat.getColor(mContext, color));
     }
 
@@ -317,7 +358,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     }
 
     public void loadMore() {
-        if (mPullLoadMoreListener != null && hasMore) {
+        if (mPullLoadMoreListener != null && hasMore && mFooterView != null) {
             mFooterView.animate()
                     .translationY(0)
                     .setDuration(300)
@@ -339,12 +380,13 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         setRefreshing(false);
 
         isLoadMore = false;
-        mFooterView.animate()
-                .translationY(mFooterView.getHeight())
-                .setDuration(300)
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .start();
-
+        if (mFooterView != null) {
+            mFooterView.animate()
+                    .translationY(mFooterView.getHeight())
+                    .setDuration(300)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .start();
+        }
     }
 
     public void setOnPullLoadMoreListener(PullLoadMoreListener listener) {
@@ -412,7 +454,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
-                if (isRefresh != mSwipeRefreshLayout.isRefreshing()) {// 快速上下滑动导致不同步问题修正
+                if (mSwipeRefreshLayout != null && isRefresh != mSwipeRefreshLayout.isRefreshing()) {// 快速上下滑动导致不同步问题修正
                     setRefreshing(isRefresh);
                 }
             }

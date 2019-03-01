@@ -159,7 +159,7 @@ public class DataBindingAdapters {
         Context context = view.getContext();
         LogUtil.d("setBadImageUrl = " + badImageUrl);
         Glide.with(context)
-                .load(badImageUrl)      //设置图片路径
+                .load(badImageUrl)//设置图片路径
                 .error(error)           //设置错误图片
                 .placeholder(placeholder)     //设置占位图片
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -187,6 +187,7 @@ public class DataBindingAdapters {
                 .load(glideUrl == null ? imageCodeUrl : glideUrl)      //设置图片路径
                 .error(error)           //设置错误图片
                 .placeholder(placeholder)     //设置占位图片
+                .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(view);
     }

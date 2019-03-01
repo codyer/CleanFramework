@@ -1,0 +1,78 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.bingoogolapple.qrcode.zxing.ZXingView
+            android:id="@+id/qrCodeView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:qrcv_animTime="1000"
+            bind:qrcv_borderColor="@color/main_white"
+            bind:qrcv_borderSize="@dimen/dimens_1dp"
+            bind:qrcv_cornerColor="@color/colorAccent"
+            bind:qrcv_cornerLength="@dimen/dimens_20dp"
+            bind:qrcv_cornerSize="@dimen/dimens_3dp"
+            bind:qrcv_isAutoZoom="true"
+            bind:qrcv_isOnlyDecodeScanBoxArea="true"
+            bind:qrcv_isShowDefaultGridScanLineDrawable="true"
+            bind:qrcv_isShowLocationPoint="true"
+            bind:qrcv_isShowTipTextAsSingleLine="true"
+            bind:qrcv_isTipTextBelowRect="true"
+            bind:qrcv_maskColor="@color/transparent_mask"
+            bind:qrcv_qrCodeTipText="@string/scan_hint"
+            bind:qrcv_rectWidth="200dp"
+            bind:qrcv_scanLineColor="@color/colorAccent"
+            bind:qrcv_scanLineSize="@dimen/dimens_1dp"
+            bind:qrcv_tipTextMargin="@dimen/dimens_10dp"
+            bind:qrcv_verticalBias="0.5" />
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:onClick="@{onClickListener::onClick}"
+                android:padding="@dimen/dimens_8dp"
+                android:src="@drawable/xf_ic_back_white" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="@{onClickListener::onClick}"
+                android:paddingBottom="@dimen/dimens_8dp"
+                android:paddingEnd="@dimen/dimens_15dp"
+                android:paddingStart="@dimen/dimens_15dp"
+                android:paddingTop="@dimen/dimens_8dp"
+                android:text="相册"
+                android:textColor="@color/main_white"
+                android:textSize="@dimen/font_15sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

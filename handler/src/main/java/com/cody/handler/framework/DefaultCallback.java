@@ -26,12 +26,18 @@ public abstract class DefaultCallback<T> implements ICallback<T> {
 
     private static final int RESPONSE_UPDATE = 0x02;
     //主线程Handler
-    private final Handler mHandler;
-    protected Reference<IView> mViewRef;
+    private Handler mHandler;
+    private Reference<IView> mViewRef;
 
     public DefaultCallback(Presenter presenter) {
         this.mViewRef = new WeakReference<>(presenter.getView());
-        mHandler = new UIHandler(Looper.getMainLooper());
+    }
+
+    public DefaultCallback(Presenter presenter, boolean progress) {
+        this.mViewRef = new WeakReference<>(presenter.getView());
+        if (progress) {
+            mHandler = new UIHandler(Looper.getMainLooper());
+        }
     }
 
     protected
@@ -85,7 +91,7 @@ public abstract class DefaultCallback<T> implements ICallback<T> {
     @Override
     public void onProgress(int progress, int max) {
         LogUtil.d("Callback onProgress max=" + max + " progress=" + progress);
-        if (!isViewRecycled()) {
+        if (!isViewRecycled() && mHandler != null) {
             //通过Handler发送进度消息
             Message message = Message.obtain();
             message.what = RESPONSE_UPDATE;
@@ -104,6 +110,9 @@ public abstract class DefaultCallback<T> implements ICallback<T> {
     protected void hideLoading() {
         if (!isViewRecycled()) {
             mViewRef.get().hideLoading();
+            if (mHandler != null){
+                mHandler = null;
+            }
         }
     }
 
@@ -122,12 +131,12 @@ public abstract class DefaultCallback<T> implements ICallback<T> {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case RESPONSE_UPDATE:
-                    /*IView callback = mViewRef.get();
+                    IView callback = mViewRef.get();
                     if (callback != null) {
                         int progress = msg.arg1;
                         int max = msg.arg2;
                         callback.onProgress(progress, max);
-                    }*/
+                    }
                     break;
                 default:
                     super.handleMessage(msg);

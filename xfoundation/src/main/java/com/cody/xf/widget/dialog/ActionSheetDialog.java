@@ -2,6 +2,7 @@ package com.cody.xf.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.Display;
 import android.view.Gravity;
@@ -56,13 +57,16 @@ public class ActionSheetDialog {
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.cancel();
             }
         });
 
         // 定义Dialog布局和参数
         dialog = new Dialog(context, R.style.xf_ActionSheetDialogStyle);
         dialog.setContentView(view);
+        if (context instanceof DialogInterface.OnCancelListener) {
+            dialog.setOnCancelListener((DialogInterface.OnCancelListener) context);
+        }
         Window dialogWindow = dialog.getWindow();
         dialogWindow.setGravity(Gravity.LEFT | Gravity.BOTTOM);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();

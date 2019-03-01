@@ -1,12 +1,10 @@
 package com.cody.handler.framework.viewmodel;
 
-import java.util.Objects;
-
 /**
  * Created by cody.yi on 2017/4/26.
  * banner viewModel
  */
-public class BannerViewModel {
+public class BannerViewModel extends XItemViewModel {
     private String materType;
     private String materName;
     private String imgDesc;
@@ -91,19 +89,33 @@ public class BannerViewModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
         BannerViewModel that = (BannerViewModel) o;
-        return Objects.equals(materType, that.materType) &&
-                Objects.equals(materName, that.materName) &&
-                Objects.equals(imgDesc, that.imgDesc) &&
-                Objects.equals(imgUrl, that.imgUrl) &&
-                Objects.equals(imgSize, that.imgSize) &&
-                Objects.equals(imgType, that.imgType) &&
-                Objects.equals(imgId, that.imgId) &&
-                Objects.equals(linkUrl, that.linkUrl);
+
+        if (materType != null ? !materType.equals(that.materType) : that.materType != null)
+            return false;
+        if (materName != null ? !materName.equals(that.materName) : that.materName != null)
+            return false;
+        if (imgDesc != null ? !imgDesc.equals(that.imgDesc) : that.imgDesc != null) return false;
+        if (imgUrl != null ? !imgUrl.equals(that.imgUrl) : that.imgUrl != null) return false;
+        if (imgSize != null ? !imgSize.equals(that.imgSize) : that.imgSize != null) return false;
+        if (imgType != null ? !imgType.equals(that.imgType) : that.imgType != null) return false;
+        if (imgId != null ? !imgId.equals(that.imgId) : that.imgId != null) return false;
+        return linkUrl != null ? linkUrl.equals(that.linkUrl) : that.linkUrl == null;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(materType, materName, imgDesc, imgUrl, imgSize, imgType, imgId, linkUrl);
+        int result = super.hashCode();
+        result = 31 * result + (materType != null ? materType.hashCode() : 0);
+        result = 31 * result + (materName != null ? materName.hashCode() : 0);
+        result = 31 * result + (imgDesc != null ? imgDesc.hashCode() : 0);
+        result = 31 * result + (imgUrl != null ? imgUrl.hashCode() : 0);
+        result = 31 * result + (imgSize != null ? imgSize.hashCode() : 0);
+        result = 31 * result + (imgType != null ? imgType.hashCode() : 0);
+        result = 31 * result + (imgId != null ? imgId.hashCode() : 0);
+        result = 31 * result + (linkUrl != null ? linkUrl.hashCode() : 0);
+        return result;
     }
 }

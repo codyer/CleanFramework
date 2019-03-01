@@ -1,8 +1,10 @@
 package com.cody.xf.widget.marqueen;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.List;
 public abstract class MarqueeFactory<E> {
     protected Context mContext;
     private MarqueeView mMarqueeView;
-
+    private Handler mHandler;
+    private List<E> mDataList;
     public MarqueeFactory(Context context, MarqueeView marqueeView) {
         mContext = context;
         mMarqueeView = marqueeView;
@@ -29,6 +32,7 @@ public abstract class MarqueeFactory<E> {
         if (list == null || list.size() == 0) {
             return;
         }
+        mDataList = list;
         List<View> views = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
             E data = list.get(i);
@@ -44,6 +48,46 @@ public abstract class MarqueeFactory<E> {
         if (mMarqueeView != null) {
             mMarqueeView.setMarqueeViews(views);
         }
+    }
+
+    //适用于多次（含一次）更新数据源 避免重影
+    public void resetData(final List<E> list){
+        if (null == list || list.size() == 0) return;
+        if (mDataList == null || mDataList.size() == 0){
+            setData(list);
+            return;
+        }
+        //正在执行动画时 等执行完后再刷新数据
+        if (mMarqueeView.getOutAnimation() != null) {
+            mMarqueeView.getOutAnimation().setAnimationListener(new Animation.AnimationListener() {
+                boolean isAnimationStopped = false;
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (!isAnimationStopped) {
+                        if (mHandler == null){
+                            mHandler = new Handler();
+                        }
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                setData(list);
+                                isAnimationStopped = true;
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
+
     }
 
     public MarqueeView getMarqueeView() {

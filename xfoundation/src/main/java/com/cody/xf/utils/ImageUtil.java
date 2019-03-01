@@ -11,9 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.hyphenate.util.EMLog;
-import com.hyphenate.util.PathUtil;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -221,19 +218,6 @@ public class ImageUtil {
         }
 
         return returnBm;
-    }
-
-    /**
-     * IM获取图片地址
-     *
-     * @param thumbRemoteUrl
-     * @return
-     */
-    public static String getThumbnailImagePath(String thumbRemoteUrl) {
-        String thumbImageName = thumbRemoteUrl.substring(thumbRemoteUrl.lastIndexOf("/") + 1, thumbRemoteUrl.length());
-        String path = PathUtil.getInstance().getImagePath() + "/" + "th" + thumbImageName;
-        EMLog.d("msg", "thum image path:" + path);
-        return path;
     }
 
     public static Bitmap base64ToBitmap(String base64Str) {

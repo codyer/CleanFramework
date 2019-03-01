@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.cody.xf.common.LoginBroadcastReceiver;
 import com.cody.xf.utils.http.ILoginStatusListener;
+import com.cody.xf.widget.pickerview.region.RegionPicker;
 import com.cody.xf.widget.swipebacklayout.BGASwipeBackHelper;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -19,6 +20,7 @@ public abstract class XFApplication extends MultiDexApplication implements ILogi
         super.onCreate();
         XFoundation.install(this);
         LeakCanary.install(this);
+        RegionPicker.initData();
         mReceiver = LoginBroadcastReceiver.register();
 
         /**

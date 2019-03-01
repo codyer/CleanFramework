@@ -41,6 +41,7 @@ public class JsBridge {
     private SparseArray<OnActivityResultListener> mResultListener;
     private SparseArray<EasyPermissions.PermissionCallbacks> mPermissionsListener;
     private WeakReference<WebView> mWebViewRef;
+    private JsWebChromeClient.OpenFileChooserCallBack mFileChooserCallBack;
 
     private JsBridge() {
         mJsHandlerFactory = new JsHandlerFactory();
@@ -157,6 +158,7 @@ public class JsBridge {
             WebView webView = getInstance().mWebViewRef.get();
             JsLifeCycle.onDestroy(webView);
         }
+        getInstance().mFileChooserCallBack = null;
         getInstance().mResultListener.clear();
     }
 
@@ -190,6 +192,14 @@ public class JsBridge {
             CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(context);
             cookieSyncManager.sync();
         }
+        return this;
+    }
+
+    /**
+     * 设置图片选择回调到webView
+     */
+    public JsBridge setFileChooseCallBack(JsWebChromeClient.OpenFileChooserCallBack fileChooseCallBack) {
+        mFileChooserCallBack = fileChooseCallBack;
         return this;
     }
 
@@ -229,7 +239,7 @@ public class JsBridge {
             viewModel = new HtmlViewModel();
         }
         webView.setWebViewClient(new JsWebViewClient(viewModel));
-        webView.setWebChromeClient(new JsWebChromeClient(viewModel));
+        webView.setWebChromeClient(new JsWebChromeClient(webView, viewModel, mFileChooserCallBack));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         }

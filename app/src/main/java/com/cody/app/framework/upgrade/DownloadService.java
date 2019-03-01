@@ -113,7 +113,6 @@ public class DownloadService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         unregisterBroadcast();
         if (mFuture != null && !mFuture.isCancelled()) {
             mFuture.cancel(true);
@@ -123,6 +122,7 @@ public class DownloadService extends Service {
             mScheduledExecutorService.shutdown();
         }
         LogUtil.d(TAG, "下载任务服务销毁");
+        super.onDestroy();
     }
 
     @Override
@@ -151,9 +151,7 @@ public class DownloadService extends Service {
         if (mOnNotificationListener != null) {
             mOnNotificationListener.onFinish();
         }
-        if (force) {
-            System.exit(0);
-        }
+        System.exit(0);
     }
 
     /**

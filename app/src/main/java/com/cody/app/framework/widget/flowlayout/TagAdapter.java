@@ -1,7 +1,8 @@
 package com.cody.app.framework.widget.flowlayout;
 
-import android.util.Log;
 import android.view.View;
+
+import com.cody.xf.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,11 +74,11 @@ public abstract class TagAdapter<T> {
 
 
     public void onSelected(int position, View view){
-        Log.d("zhy","onSelected " + position);
+        LogUtil.d("zhy","onSelected " + position);
     }
 
     public void unSelected(int position, View view){
-        Log.d("zhy","unSelected " + position);
+        LogUtil.d("zhy","unSelected " + position);
     }
 
     public boolean setSelected(int position, T t) {

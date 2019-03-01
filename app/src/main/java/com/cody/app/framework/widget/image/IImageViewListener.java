@@ -29,16 +29,10 @@ public interface IImageViewListener {
      *
      * @param limit 还可以添加的图片数量 limit = LIMIT - items.size()
      */
-    void selectImage(final int limit); // 获取图片
-    /**
-     * 获取图片，弹出选择照相或者从相册选择
-     *
-     * @param limit 还可以添加的图片数量 limit = LIMIT - items.size()
-     */
-    void pickImage(final int limit); // 获取图片
+    void selectImage(final int limit, boolean isCrop); // 获取图片
 
     /**
-     * 获取图片(可选择是否裁剪)
+     * 获取图片，弹出选择照相或者从相册选择,可选择是否裁剪
      *
      * @param limit 还可以添加的图片数量 limit = LIMIT - items.size()
      */

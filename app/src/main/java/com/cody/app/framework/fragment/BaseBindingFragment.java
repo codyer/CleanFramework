@@ -84,6 +84,14 @@ public abstract class BaseBindingFragment<P extends Presenter<VM>,
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter = null;
+        mViewModel = null;
+        mBinding = null;
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (mPresenter != null && isBound()) {

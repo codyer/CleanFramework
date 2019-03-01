@@ -79,13 +79,22 @@ public class ImageViewDelegate implements IImageViewListener {
     }
 
     @Override
-    public void selectImage(int limit) {
-        ImagePicker.getInstance().setSelectLimit(limit);
+    public void selectImage(int limit, boolean isCrop) {
+        // 设置是否裁剪照片
+        ImagePicker.getInstance().setCrop(isCrop);
+        if (limit == 1) {
+            ImagePicker.getInstance().setMultiMode(false);//图片选着模式，单选
+        } else {
+            ImagePicker.getInstance().setMultiMode(true);//图片选着模式，多选
+            ImagePicker.getInstance().setSelectLimit(limit);
+        }
         ActivityUtil.navigateToForResult(mContext, ImageGridActivity.class, REQUEST_CODE_SELECT);
     }
 
     @Override
-    public void pickImage(final int limit) {
+    public void pickImage(int limit, boolean isCrop) {
+        // 设置是否裁剪照片
+        ImagePicker.getInstance().setCrop(isCrop);
         if (limit == 1) {
             ImagePicker.getInstance().setMultiMode(false);//图片选着模式，单选
         } else {
@@ -115,13 +124,6 @@ public class ImageViewDelegate implements IImageViewListener {
                                         REQUEST_CODE_SELECT, bundle);
                             }
                         }).show();
-    }
-
-    @Override
-    public void pickImage(int limit, boolean isCrop) {
-        // 设置是否裁剪照片
-        ImagePicker.getInstance().setCrop(isCrop);
-        pickImage(limit);
     }
 
     @Override

@@ -76,14 +76,13 @@ configurations {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.hyphenate:hyphenate-sdk:3.3.9'
     //高德地图
     compile 'com.amap.api:map2d:5.2.0'
 //    compile 'com.amap.api:location:3.7.0'
-    compile 'com.amap.api:search:6.1.0'
-    //生成二维码
-    compile rootProject.ext.dependencies["zxing"]
+    compile 'com.amap.api:search:6.5.0.1'
 //    compile rootProject.ext.dependencies["android-pdfview"]
+    //生成二维码
+    compile rootProject.ext.dependencies["BGAQRCode-Android"]
 
     compile rootProject.ext.dependencies["support-v4"]
     compile rootProject.ext.dependencies["appcompat-v7"]
@@ -117,6 +116,7 @@ dependencies {
     compile rootProject.ext.dependencies["share-wechat"]
     compile rootProject.ext.dependencies["share-sina"]
     compile rootProject.ext.dependencies["share-widget"]
+    compile rootProject.ext.dependencies["shortcutbadger"]
 
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]

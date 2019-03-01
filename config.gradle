@@ -21,8 +21,8 @@ ext {
             "gson"                    : "com.google.code.gson:gson:2.6.1",
             "okio"                    : "com.squareup.okio:okio:1.6.0",
             "httpcore"                : "org.apache.httpcomponents:httpcore:4.4.5",
-            "leakcanary-android"      : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
-            "leakcanary-android-no-op": "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
+            "leakcanary-android"      : "com.squareup.leakcanary:leakcanary-android:1.6.3",
+            "leakcanary-android-no-op": "com.squareup.leakcanary:leakcanary-android-no-op:1.6.3",
             "multidex"                : "com.android.support:multidex:1.0.1",
             "constraint"              : "com.android.support.constraint:constraint-layout:1.0.2",
             "packer"                  : "com.mcxiaoke.packer-ng:helper:2.0.0",
@@ -34,25 +34,26 @@ ext {
             "bugly-nativecrashreport" : "com.tencent.bugly:nativecrashreport:3.3.1",
             "baidu-mobstat"           : "com.baidu.mobstat:mtj-sdk:3.9.0.1",//baidu statistics
             //高德地图
-            "amap"                    : "com.amap.api:location:4.1.0",
-            "jpush"                   : "cn.jiguang.sdk:jpush:3.1.2",
-            "jcore"                   : "cn.jiguang.sdk:jcore:1.2.0",
+            "amap"                    : "com.amap.api:location:4.4.0",
+            "jpush"                   : "cn.jiguang.sdk:jpush:3.1.5",
+            "jcore"                   : "cn.jiguang.sdk:jcore:1.2.3",
             "cardview"                : "com.android.support:cardview-v7:${supportLibraryVersion}",
             //页面回弹
             "overscroll"              : "me.everything:overscroll-decor-android:1.0.4",
             "droidsonroids"           : "pl.droidsonroids.gif:android-gif-drawable:1.2.8",
             'tabStrip'                : "homhomlin.lib:apsts:1.8.0",
             //umeng分享
-            "umeng-common"            : "com.umeng.sdk:common:1.5.1",
-            "umeng-utdid"             : "com.umeng.sdk:utdid:1.1.5.3",
-            "share-core"              : "com.umeng.sdk:share-core:6.9.1",
-            "share-qq"                : "com.umeng.sdk:share-qq:6.9.1.1",
-            "share-wechat"            : "com.umeng.sdk:share-wechat:6.9.1",
-            "share-sina"              : "com.umeng.sdk:share-sina:6.9.1",
-            "share-widget"            : "com.umeng.sdk:shareboard-widget:6.9.1",
+            "umeng-common"            : "com.umeng.umsdk:common:1.5.4",
+            "umeng-utdid"             : "com.umeng.umsdk:utdid:1.1.5.3",
+            "share-core"              : "com.umeng.umsdk:share-core:6.9.4",
+            "share-wechat"            : "com.umeng.umsdk:share-wx:6.9.4",
+            "share-qq"                : "com.umeng.umsdk:share-qq:6.9.4",
+            "share-sina"              : "com.umeng.umsdk:share-sina:6.9.4",
+            "share-widget"            : "com.umeng.umsdk:share-board:6.9.4",
             //二维码生成
-            "zxing"                   : "com.journeyapps:zxing-android-embedded:3.3.0",
+            "BGAQRCode-Android"       : "cn.bingoogolapple:bga-qrcode-zxing:1.3.4",
             // https://github.com/barteksc/AndroidPdfViewer pdf阅读器
-            "android-pdfview"         : "com.joanzapata.pdfview:android-pdfview:1.0.4@aar"
+            "android-pdfview"         : "com.github.barteksc:android-pdf-viewer:2.8.2",
+            "shortcutbadger"           :"me.leolin:ShortcutBadger:1.1.22@aar"
     ]
 }

@@ -24,12 +24,19 @@
         android:layout_height="match_parent"
         android:background="@color/background_gray">
 
-        <include
+        <FrameLayout
             android:id="@+id/fw_header"
-            layout="@layout/fw_header"
-            android:visibility="invisible"
-            bind:onClickListener="@{onClickListener}"
-            bind:viewModel="@{viewModel.headerViewModel}" />
+            android:visibility="@{viewModel.headerViewModel.visible?View.VISIBLE:View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/fw_header"
+                android:visibility="invisible"
+                bind:onClickListener="@{onClickListener}"
+                bind:viewModel="@{viewModel.headerViewModel}" />
+
+        </FrameLayout>
 
         <WebView
             android:id="@+id/fw_webView"

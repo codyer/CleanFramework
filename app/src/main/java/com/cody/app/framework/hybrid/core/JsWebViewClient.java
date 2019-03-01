@@ -35,22 +35,7 @@ public class JsWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if (TextUtils.isEmpty(url)) return true;
-        if (url.contains("tel:") || url.contains("phone:")) {
-            url = url.replace("phone:", "").replace("tel:", "");
-            ActivityUtil.openDialPage(url);
-            return true;
-        }
-        //从内部链接跳到外部链接打开新的html页面
-        if (UrlUtil.isInnerLink(mViewModel.getUrl())
-                && !UrlUtil.isInnerLink(url)) {
-            HtmlActivity.startHtml(ResourceUtil.getString(R.string.app_name), url);
-        } else {
-            mViewModel.setUrl(url);
-            view.loadUrl(url);
-        }
-
-        return true;
+        return shouldOverrideUrl(view, url);
     }
 
     @Override
@@ -154,21 +139,7 @@ public class JsWebViewClient extends WebViewClient {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        String url = request.getUrl().toString();
-        if (TextUtils.isEmpty(url)) return true;
-        if (url.contains("tel:") || url.contains("phone:")) {
-            url = url.replace("phone:", "").replace("tel:", "");
-            ActivityUtil.openDialPage(url);
-            return true;
-        }
-        //从内部链接跳到外部链接打开新的html页面
-        if (UrlUtil.isInnerLink(mViewModel.getUrl()) && !UrlUtil.isInnerLink(url)) {
-            HtmlActivity.startHtml(ResourceUtil.getString(R.string.app_name), url);
-        } else {
-            mViewModel.setUrl(url);
-            view.loadUrl(url);
-        }
-        return true;
+        return shouldOverrideUrl(view, request.getUrl().toString());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -179,5 +150,23 @@ public class JsWebViewClient extends WebViewClient {
         if (!mViewModel.getIgnoreError().get()) {
             mViewModel.setIsError(true);
         }
+    }
+
+    private boolean shouldOverrideUrl(WebView view, String url) {
+        if (TextUtils.isEmpty(url)) return true;
+        if (url.contains("tel:") || url.contains("phone:")) {
+            url = url.replace("phone:", "").replace("tel:", "");
+            ActivityUtil.openDialPage(url);
+            return true;
+        }
+        //从内部链接跳到外部链接打开新的html页面
+        if (UrlUtil.isInnerLink(mViewModel.getUrl())
+                && !UrlUtil.isInnerLink(url)) {
+            HtmlActivity.startHtml(ResourceUtil.getString(R.string.app_name), url);
+        } else {
+            mViewModel.setUrl(url);
+            view.loadUrl(url);
+        }
+        return true;
     }
 }

@@ -45,7 +45,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -53,6 +52,9 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
+import com.cody.xf.utils.LogUtil;
+
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -201,7 +203,7 @@ public class BGASwipeBackLayout extends ViewGroup {
     /**
      * 当前 Activity
      */
-    private Activity mActivity;
+    private WeakReference<Activity> mActivity;
     /**
      * 触发滑动返回的滑动范围
      */
@@ -219,7 +221,7 @@ public class BGASwipeBackLayout extends ViewGroup {
      * 将该滑动返回控件添加到 Activity 上
      */
     void attachToActivity(Activity activity) {
-        mActivity = activity;
+        mActivity = new WeakReference<>(activity);
 
         setSliderFadeColor(Color.TRANSPARENT);
 
@@ -569,13 +571,15 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Activity activity = mActivity.get();
+        if (activity == null)return;
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         // ======================== 新加的 START ========================
 //        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int widthSize = UIUtil.getRealScreenWidth(mActivity);
+        int widthSize = UIUtil.getRealScreenWidth(activity);
 //        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int heightSize = UIUtil.getRealScreenHeight(mActivity);
+        int heightSize = UIUtil.getRealScreenHeight(activity);
         // ======================== 新加的 END ========================
 
         if (widthMode != MeasureSpec.EXACTLY) {
@@ -619,12 +623,12 @@ public class BGASwipeBackLayout extends ViewGroup {
         }
 
         // ======================== 新加的 START ========================
-        if (!mIsNavigationBarOverlap && UIUtil.isPortrait(mActivity)) {
-            maxLayoutHeight -= UIUtil.getNavigationBarHeight(mActivity);
+        if (!mIsNavigationBarOverlap && UIUtil.isPortrait(activity)) {
+            maxLayoutHeight -= UIUtil.getNavigationBarHeight(activity);
         }
 
-        if (mIsNavigationBarOverlap && !UIUtil.isPortrait(mActivity)) {
-            widthSize += UIUtil.getNavigationBarHeight(mActivity);
+        if (mIsNavigationBarOverlap && !UIUtil.isPortrait(activity)) {
+            widthSize += UIUtil.getNavigationBarHeight(activity);
         }
         // ======================== 新加的 END ========================
 
@@ -635,7 +639,7 @@ public class BGASwipeBackLayout extends ViewGroup {
         final int childCount = getChildCount();
 
         if (childCount > 2) {
-            Log.e(TAG, "onMeasure: More than two child views are not supported.");
+            LogUtil.e(TAG, "onMeasure: More than two child views are not supported.");
         }
 
         // We'll find the current one below.
@@ -1179,7 +1183,7 @@ public class BGASwipeBackLayout extends ViewGroup {
                     canvas.drawBitmap(cache, child.getLeft(), child.getTop(), lp.dimPaint);
                     result = false;
                 } else {
-                    Log.e(TAG, "drawChild: child view " + child + " returned null drawing cache");
+                    LogUtil.e(TAG, "drawChild: child view " + child + " returned null drawing cache");
                     result = super.drawChild(canvas, child, drawingTime);
                 }
             } else {
@@ -1697,13 +1701,13 @@ public class BGASwipeBackLayout extends ViewGroup {
             try {
                 mGetDisplayList = View.class.getDeclaredMethod("getDisplayList", (Class[]) null);
             } catch (NoSuchMethodException e) {
-                Log.e(TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
+                LogUtil.e(TAG, "Couldn't fetch getDisplayList method; dimming won't work right.", e);
             }
             try {
                 mRecreateDisplayList = View.class.getDeclaredField("mRecreateDisplayList");
                 mRecreateDisplayList.setAccessible(true);
             } catch (NoSuchFieldException e) {
-                Log.e(TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
+                LogUtil.e(TAG, "Couldn't fetch mRecreateDisplayList field; dimming will be slow.", e);
             }
         }
 
@@ -1714,7 +1718,7 @@ public class BGASwipeBackLayout extends ViewGroup {
                     mRecreateDisplayList.setBoolean(child, true);
                     mGetDisplayList.invoke(child, (Object[]) null);
                 } catch (Exception e) {
-                    Log.e(TAG, "Error refreshing display list state", e);
+                    LogUtil.e(TAG, "Error refreshing display list state", e);
                 }
             } else {
                 // Slow path. REALLY slow path. Let's hope we don't get here.

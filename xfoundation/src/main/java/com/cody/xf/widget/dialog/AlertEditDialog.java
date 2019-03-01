@@ -6,6 +6,7 @@ package com.cody.xf.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -85,12 +86,15 @@ public class AlertEditDialog {
         btn_neg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.cancel();
             }
         });
         // 定义Dialog布局和参数
         dialog = new Dialog(context, R.style.xf_AlertDialogStyle);
         dialog.setContentView(view);
+        if (context instanceof DialogInterface.OnCancelListener) {
+            dialog.setOnCancelListener((DialogInterface.OnCancelListener) context);
+        }
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display

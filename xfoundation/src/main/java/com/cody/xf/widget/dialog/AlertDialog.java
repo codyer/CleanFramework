@@ -3,6 +3,7 @@ package com.cody.xf.widget.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -64,6 +65,9 @@ public class AlertDialog {
         // 定义Dialog布局和参数
         dialog = new Dialog(context, R.style.xf_AlertDialogStyle);
         dialog.setContentView(view);
+        if (context instanceof DialogInterface.OnCancelListener) {
+            dialog.setOnCancelListener((DialogInterface.OnCancelListener) context);
+        }
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display
@@ -101,6 +105,11 @@ public class AlertDialog {
 
     public AlertDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
+        return this;
+    }
+
+    public AlertDialog setCanceledOnTouchOutside(boolean cancel) {
+        dialog.setCanceledOnTouchOutside(cancel);
         return this;
     }
 
@@ -197,9 +206,33 @@ public class AlertDialog {
         }
     }
 
+    public AlertDialog setPositiveButtonColor(int colorId) {
+        if (btn_pos != null) {
+            btn_pos.setTextColor(ContextCompat.getColor(getContext(), colorId));
+        }
+        return this;
+    }
+
+    public AlertDialog setNegativeButtonColor(int colorId) {
+        if (btn_neg != null) {
+            btn_neg.setTextColor(ContextCompat.getColor(getContext(), colorId));
+        }
+        return this;
+    }
+
     public void show() {
         setLayout();
         dialog.show();
+    }
+
+    public boolean isShowing() {
+        return dialog.isShowing();
+    }
+
+    public void cancel() {
+        if (dialog.isShowing()) {
+            dialog.cancel();
+        }
     }
 
     public void disMiss() {

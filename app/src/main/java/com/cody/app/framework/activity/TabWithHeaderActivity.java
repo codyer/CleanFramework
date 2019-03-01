@@ -11,6 +11,7 @@ import com.cody.app.framework.adapter.ChildTabPageFragmentAdapter;
 import com.cody.app.framework.fragment.AbsListFragment;
 import com.cody.handler.framework.presenter.Presenter;
 import com.cody.handler.framework.viewmodel.WithHeaderViewModel;
+import com.cody.xf.widget.Scrollable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,8 +61,8 @@ public abstract class TabWithHeaderActivity<P extends Presenter<WithHeaderViewMo
         switch (view.getId()) {
             case R.id.headerText:
                 Fragment fragment = mChildTabPageFragmentAdapter.getItem(getBinding().viewPager.getCurrentItem());
-                if (fragment instanceof AbsListFragment) {
-                    ((AbsListFragment) fragment).scrollToTop();
+                if (fragment != null && fragment instanceof Scrollable) {
+                    ((Scrollable) fragment).scrollToTop();
                 }
                 break;
         }

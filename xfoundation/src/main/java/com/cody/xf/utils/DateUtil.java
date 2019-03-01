@@ -146,9 +146,15 @@ public class DateUtil {
         return df.format(new Date(time));
     }
 
-    public static String string2String(String dateStr, String dateType) {
-        SimpleDateFormat sdf = new SimpleDateFormat(dateType, Locale.CHINA);
-        return sdf.format(string2date(dateStr, dateType));
+    /**
+     * @param dateStr   日期格式
+     * @param inFormat  传入的日期格式
+     * @param outFormat 返回的日期格式
+     * @return
+     */
+    public static String string2String(String dateStr, String inFormat, String outFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(outFormat, Locale.CHINA);
+        return sdf.format(string2date(dateStr, inFormat));
     }
 
     public static Date string2date(String dateStr, String dateType) {
@@ -204,7 +210,7 @@ public class DateUtil {
      * @author fy.zhang
      */
     public static String formatDuring2(long mss) {
-        if (mss < 60){
+        if (mss < 60) {
             return "不足一分钟";
         }
         long days = mss / (60 * 60 * 24);
@@ -622,19 +628,32 @@ public class DateUtil {
         return date;
     }
 
-    public static Date stringToDate(String dateStr) {
+    /**
+     * 时间格式回去的：yyyy-MM-dd转成其他
+     *
+     * @param dateStr
+     * @param format
+     * @return
+     */
+    public static String dataFormat(String dateStr, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
+        String result = dateStr;
         try {
             date = sdf.parse(dateStr);
+            result = new SimpleDateFormat(format).format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return date;
+        return result;
     }
 
     public static String Data2String(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+    }
+
+    public static String data2String(Date date, String format) {
+        return new SimpleDateFormat(format).format(date);
     }
 
     public static Date[] string2date(String dateStr[]) {
@@ -734,7 +753,8 @@ public class DateUtil {
                         if (dayOfMonth == todayOfMonth) {//表示是同一周
                             int dayOfWeek = otherCalendar.get(Calendar.DAY_OF_WEEK);
                             if (dayOfWeek != 1) {//判断当前是不是星期日     如想显示为：周日 12:09 可去掉此判断
-                                result = dayNames[otherCalendar.get(Calendar.DAY_OF_WEEK) - 1] + getHourAndMin(timesamp);
+                                result = dayNames[otherCalendar.get(Calendar.DAY_OF_WEEK) - 1] + getHourAndMin
+                                        (timesamp);
                             } else {
                                 result = getTime(timesamp, timeFormat);
                             }
@@ -788,5 +808,52 @@ public class DateUtil {
     public static String getYearTime(long time, String yearTimeFormat) {
         SimpleDateFormat format = new SimpleDateFormat(yearTimeFormat);
         return format.format(new Date(time));
+    }
+
+    /***
+     * 是否是同一年，月，日
+     * @param targetTime
+     * @param compareTime
+     * @param field  {@link Calendar#MONTH} , {@link Calendar#YEAR} and {@link Calendar#DAY_OF_YEAR}
+     * @return
+     */
+    public static boolean isSameDate(Date targetTime, Date compareTime, int field) {
+        Calendar tarCalendar = Calendar.getInstance();
+        tarCalendar.setTime(targetTime);
+        int tarTime = tarCalendar.get(field);
+
+        Calendar comCalendar = Calendar.getInstance();
+        comCalendar.setTime(compareTime);
+        int comTime = comCalendar.get(field);
+        return tarTime == comTime;
+    }
+
+    /***
+     * 商家学院时间戳转换
+     * @param endTime
+     * @return
+     */
+    public static String getShortTime(long endTime) {
+        Date endDate = new Date(endTime);
+        Date curDate = new Date();
+        String result = "";
+        long durTime = curDate.getTime() - endDate.getTime();
+
+        if (durTime < 0) {
+            result = DateUtil.getTime(endTime, "yyyy.MM.dd");
+        } else if (durTime / (60 * 60 * 1000) < 1) {
+            //小于一小时显示分钟
+            result = Math.max(1, durTime / (60 * 1000)) + "分钟前发布";
+        } else if (durTime / (60 * 60 * 1000) < 24) {
+            //小于一天显示小时
+            result = durTime / (60 * 60 * 1000) + "小时前发布";
+        } else if (durTime / (24 * 60 * 60 * 1000) < 30) {
+            //小于30天显示天数
+            result = durTime / (24 * 60 * 60 * 1000) + "天前发布";
+        } else {
+            result = DateUtil.getTime(endTime, "yyyy.MM.dd");
+        }
+
+        return result;
     }
 }

@@ -82,6 +82,13 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
     }
 
     @Override
+    public void onDestroyView() {
+        mLoading = null;
+        mProgressDialog = null;
+        super.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         hideLoading();
         super.onDestroy();
@@ -91,6 +98,7 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
     @Override
     public void showLoading(String msg) {
         LogUtil.d(TAG, "BaseFragment ++ showLoading");
+        if (null == mLoading) return;
         if (TextUtils.isEmpty(msg)) {
             mLoading.setMessage(getString(R.string.fw_html_loading));
         } else {
@@ -105,6 +113,7 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
     @Override
     public void hideLoading() {
         LogUtil.d(TAG, "BaseFragment ++ hideLoading");
+        if (null == mLoading) return;
         if (mLoading.isShowing()) {
             mLoading.dismiss();
         }
@@ -128,6 +137,7 @@ public abstract class BaseFragment extends Fragment implements DialogInterface.O
     @Override
     public void onProgress(int progress, int max) {
         LogUtil.d(TAG, "BaseFragment ++ onProgress");
+        if (null == mProgressDialog) return;
         mProgressDialog.setMax(max);
         mProgressDialog.setProgress(progress);
         if (!mProgressDialog.isShowing()) {

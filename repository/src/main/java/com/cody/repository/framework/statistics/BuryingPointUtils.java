@@ -382,6 +382,12 @@ public class BuryingPointUtils {
         return this;
     }
 
+    public BuryingPointUtils addActivityId(Object activityId){
+        if (isObjectNull(activityId))
+            return this;
+        mParams.put(PointKey.Parameter.activity_id, String.valueOf(activityId));
+        return this;
+    }
     private boolean isObjectNull(Object skuid) {
         return skuid == null || (skuid instanceof String && TextUtils.isEmpty((String) skuid));
     }

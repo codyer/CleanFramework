@@ -367,7 +367,7 @@ public class SystemBarUtil {
                 window.setAttributes(e);
                 result = true;
             } catch (Exception var8) {
-                Log.e("StatusBar", "setStatusBarDarkIcon: failed");
+                LogUtil.e("StatusBar", "setStatusBarDarkIcon: failed");
             }
         }
 

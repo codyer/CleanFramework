@@ -2,7 +2,6 @@ package com.cody.xf.utils;
 
 import android.app.Activity;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
@@ -33,7 +32,7 @@ public class KeyboardChangeListener implements ViewTreeObserver.OnGlobalLayoutLi
 
     public KeyboardChangeListener(Activity contextObj) {
         if (contextObj == null) {
-            Log.i(TAG, "contextObj is null");
+            LogUtil.d(TAG, "contextObj is null");
             return;
         }
         mContentView = findContentView(contextObj);
@@ -55,7 +54,7 @@ public class KeyboardChangeListener implements ViewTreeObserver.OnGlobalLayoutLi
     public void onGlobalLayout() {
         int currHeight = mContentView.getHeight();
         if (currHeight == 0) {
-            Log.i(TAG, "currHeight is 0");
+            LogUtil.d(TAG, "currHeight is 0");
             return;
         }
         boolean hasChange = false;

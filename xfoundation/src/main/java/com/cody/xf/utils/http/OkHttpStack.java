@@ -1,4 +1,5 @@
 package com.cody.xf.utils.http;
+import android.text.TextUtils;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -135,7 +136,9 @@ public class OkHttpStack implements HttpStack {
         okhttp3.Request.Builder okHttpRequestBuilder = new okhttp3.Request.Builder();
         Map<String, String> headers = request.getHeaders();
         for (final String name : headers.keySet()) {
-            okHttpRequestBuilder.addHeader(name, headers.get(name));
+            if (!TextUtils.isEmpty(headers.get(name))) {
+                okHttpRequestBuilder.addHeader(name, headers.get(name));
+            }
         }
 
         for (final String name : additionalHeaders.keySet()) {

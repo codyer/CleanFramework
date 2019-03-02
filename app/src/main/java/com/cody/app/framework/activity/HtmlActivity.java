@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -41,6 +43,8 @@ import java.util.TimerTask;
 
 public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewModel, FwActivityHtmlBinding>
         implements OnImageViewListener, JsWebChromeClient.OpenFileChooserCallBack {
+    private final int TAKE_VIDEO_CODE = 0x2005;
+    private final int TAKE_OTHER_FILE_CODE = 0x2006;
     private static Boolean isExit = false;
     private boolean mIsRoot = false;
     private ImageViewDelegate mImageViewDelegate;
@@ -190,17 +194,18 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
     public void openFileChooserCallBack(ValueCallback<Uri> uploadMsg, String acceptType) {
         LogUtil.d("OpenFileChooserCallBack acceptType=" + acceptType);
         mUploadMsg = uploadMsg;
-        if (mImageViewDelegate != null) {
-            mImageViewDelegate.pickImage(1, false);
-        }
+        openChooser(acceptType);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void showFileChooserCallBack(final ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
         LogUtil.d("OpenFileChooserCallBack fileChooserParams=" + fileChooserParams);
         mFilePathCallback = filePathCallback;
-        if (mImageViewDelegate != null) {
-            mImageViewDelegate.pickImage(1, false);
+        if (fileChooserParams != null && fileChooserParams.getAcceptTypes() != null) {
+            for (String acceptType : fileChooserParams.getAcceptTypes()) {
+                openChooser(acceptType);
+            }
         }
     }
 
@@ -260,6 +265,22 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
         if (mImageViewDelegate != null) {
             mImageViewDelegate.onActivityResult(requestCode, resultCode, data);
         }
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case TAKE_VIDEO_CODE:
+                    Uri result = data == null ? null : data.getData();
+                    if (mFilePathCallback != null) {
+                        mFilePathCallback.onReceiveValue(new Uri[]{result});
+                        mFilePathCallback = null;
+                    } else if (mUploadMsg != null) {
+                        mUploadMsg.onReceiveValue(result);
+                        mUploadMsg = null;
+                    }
+                    break;
+                case TAKE_OTHER_FILE_CODE:
+                    break;
+            }
+        }
         releaseFileChoose();
         /*
           QQ与新浪不需要添加Activity，但需要在使用QQ分享或者授权的Activity中，添加onActivityResult
@@ -283,11 +304,7 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.headerLeftBtn:
-                if (getBinding().fwWebView.canGoBack()) {
-                    getBinding().fwWebView.goBack();
-                } else {
-                    finish();
-                }
+                finish();
                 break;
             case R.id.headerText:
                 getBinding().fwWebView.scrollTo(0, 0);
@@ -326,6 +343,26 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
         JsBridge.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private void openChooser(String acceptType) {
+        if (acceptType != null) {
+            if (acceptType.contains("image/") && mImageViewDelegate != null) {
+                mImageViewDelegate.pickImage(1, false);
+            } else if (acceptType.contains("video/")) {
+                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                //限制时长
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5);
+                //开启摄像机
+                startActivityForResult(intent, TAKE_VIDEO_CODE);
+            } else {
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType(acceptType);
+                this.startActivityForResult(Intent.createChooser(i, "File Chooser"), TAKE_OTHER_FILE_CODE);
+            }
+        }
+    }
+
     private void exitByDoubleClick() {
         Timer tExit;
         if (!isExit) {
@@ -347,12 +384,12 @@ public class HtmlActivity extends WithHeaderActivity<HtmlPresenter, HtmlViewMode
 
     private void releaseFileChoose() {
         if (mUploadMsg != null) {
-            mUploadMsg.onReceiveValue(null);
+            mUploadMsg.onReceiveValue(Uri.EMPTY);
             mUploadMsg = null;
         }
 
         if (mFilePathCallback != null) {         // for android 5.0+
-            mFilePathCallback.onReceiveValue(null);
+            mFilePathCallback.onReceiveValue(new Uri[]{});
             mFilePathCallback = null;
         }
     }

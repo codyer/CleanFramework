@@ -7,6 +7,8 @@ import com.cody.app.BuildConfig;
 import com.cody.repository.Domain;
 import com.cody.xf.utils.NetUtil;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -50,6 +52,37 @@ public class UrlUtil {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 解析出url参数中的键值对
+     * 如 "index.jsp?Action=del&id=123"，解析出Action:del,id:123存入map中
+     *
+     * @param url url地址
+     * @return url请求参数部分
+     */
+    public static Map<String, String> getUrlParams(String url) {
+        Map<String, String> params = new HashMap<>();
+        if (TextUtils.isEmpty(url)) return params;
+        int beginIndex = url.indexOf("?");
+        if (beginIndex >= 0 && url.length() > 1) {
+            url = url.substring(++beginIndex, url.length());
+        }
+        //每个键值为一组
+        String[] keyValueParts = url.split("&");
+        for (String keyValuePart : keyValueParts) {
+            String[] keyValue;
+            keyValue = keyValuePart.split("=");
+            //解析出键值
+            if (keyValue.length > 1) {
+                //正确解析
+                params.put(keyValue[0], keyValue[1]);
+            } else if (TextUtils.isEmpty(keyValue[0])) {
+                //只有参数没有值，不加入
+                params.put(keyValue[0], "");
+            }
+        }
+        return params;
     }
 
     private static final String IP_ADDRESS_STRING =

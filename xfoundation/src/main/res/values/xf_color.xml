@@ -30,5 +30,7 @@
     <color name="xf_picker_view_wheel_view_text_color_divider">#d5d5d5</color>
     <!--覆盖颜色-->
     <color name="xf_bgColor_overlay">#60000000</color>
-
+    <!--apsts-->
+    <color name="xf_tab_background_pressed">#6633B5E5</color>
+    <color name="xf_tab_red">#E43F3E</color>
 </resources>

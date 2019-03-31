@@ -12,7 +12,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     // 构建工具版本
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     // 主要是用来设置Library发布所有的variants
     publishNonDefault true
@@ -52,76 +51,54 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        demo {
-            initWith(debug)
-        }
-        uat {
-            initWith(debug)
-        }
-        stg {
-            initWith(release)
-        }
     }
 
     return void
 }
 
-configurations {
-    debugCompile
-    releaseCompile
-    demoCompile
-    uatCompile
-    stgCompile
-}
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(include: ['*.jar'], dir: 'libs')
     //高德地图
-    compile 'com.amap.api:map2d:5.2.0'
-//    compile 'com.amap.api:location:3.7.0'
-    compile 'com.amap.api:search:6.5.0.1'
-//    compile rootProject.ext.dependencies["android-pdfview"]
+    api 'com.amap.api:map2d:5.2.0'
+    //    api 'com.amap.api:location:3.7.0'
+    api 'com.amap.api:search:6.5.0.1'
+    //    api rootProject.ext.dependencies["android-pdfview"]
     //生成二维码
-    compile rootProject.ext.dependencies["BGAQRCode-Android"]
-
-    compile rootProject.ext.dependencies["support-v4"]
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["recyclerview-v7"]
-    compile rootProject.ext.dependencies["volley"]
-    compile rootProject.ext.dependencies["glide-transformations"]
-    compile rootProject.ext.dependencies["glide"]
-    compile rootProject.ext.dependencies["okhttp3"]
-    compile rootProject.ext.dependencies["okio"]
-    compile rootProject.ext.dependencies["gson"]
-    compile rootProject.ext.dependencies["httpcore"]
-    compile rootProject.ext.dependencies["multidex"]
-    compile rootProject.ext.dependencies["constraint"]
-    compile rootProject.ext.dependencies["imagepicker"]
-    compile rootProject.ext.dependencies["bugly-crashreport"]
-    compile rootProject.ext.dependencies["bugly-nativecrashreport"]
-//    compile rootProject.ext.dependencies["overscroll"]
-//    compile rootProject.ext.dependencies["droidsonroids"]
-    compile rootProject.ext.dependencies["packer"]
-    compile rootProject.ext.dependencies["baidu-mobstat"]
-    compile rootProject.ext.dependencies["amap"]
-    compile rootProject.ext.dependencies["easypermissions"]
-    compile rootProject.ext.dependencies["cardview"]
-    compile rootProject.ext.dependencies["jpush"]
-    compile rootProject.ext.dependencies["jcore"]
-    compile rootProject.ext.dependencies["umeng-common"]
-    compile rootProject.ext.dependencies["umeng-utdid"]
-    compile rootProject.ext.dependencies["share-core"]
-    compile rootProject.ext.dependencies["share-qq"]
-    compile rootProject.ext.dependencies["share-wechat"]
-    compile rootProject.ext.dependencies["share-sina"]
-    compile rootProject.ext.dependencies["share-widget"]
-    compile rootProject.ext.dependencies["shortcutbadger"]
-
-    debugCompile rootProject.ext.dependencies["leakcanary-android"]
-    releaseCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
-    demoCompile rootProject.ext.dependencies["leakcanary-android"]
-    uatCompile rootProject.ext.dependencies["leakcanary-android"]
-    stgCompile rootProject.ext.dependencies["leakcanary-android-no-op"]
-    compile rootProject.ext.dependencies["tabStrip"]
+    api rootProject.ext.dependencies["BGAQRCode-Android"]
+    api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["design"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["volley"]
+    api rootProject.ext.dependencies["glide-transformations"]
+    api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["okhttp3"]
+    api rootProject.ext.dependencies["okio"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["httpcore"]
+    api rootProject.ext.dependencies["multidex"]
+    api rootProject.ext.dependencies["constraint"]
+    api rootProject.ext.dependencies["imagepicker"]
+    api rootProject.ext.dependencies["bugly-crashreport"]
+    api rootProject.ext.dependencies["bugly-nativecrashreport"]
+    //    api rootProject.ext.dependencies["overscroll"]
+    //    api rootProject.ext.dependencies["droidsonroids"]
+    api rootProject.ext.dependencies["packer"]
+    api rootProject.ext.dependencies["baidu-mobstat"]
+    api rootProject.ext.dependencies["amap"]
+    api rootProject.ext.dependencies["easypermissions"]
+    api rootProject.ext.dependencies["cardview"]
+    api rootProject.ext.dependencies["jpush"]
+    api rootProject.ext.dependencies["jcore"]
+    api rootProject.ext.dependencies["umeng-common"]
+    api rootProject.ext.dependencies["umeng-utdid"]
+    api rootProject.ext.dependencies["share-core"]
+    api rootProject.ext.dependencies["share-qq"]
+    api rootProject.ext.dependencies["share-wechat"]
+    api rootProject.ext.dependencies["share-sina"]
+    api rootProject.ext.dependencies["share-widget"]
+    api rootProject.ext.dependencies["shortcutbadger"]
+//    api rootProject.ext.dependencies["tabStrip"]
+    debugApi rootProject.ext.dependencies["leakcanary-android"]
+    releaseApi rootProject.ext.dependencies["leakcanary-android-no-op"]
 }

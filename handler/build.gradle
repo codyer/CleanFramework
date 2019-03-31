@@ -13,7 +13,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     // 构建工具版本
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     // 主要是用来设置Library发布所有的variants
     publishNonDefault true
@@ -37,8 +36,11 @@ android {
     }
 
     sourceSets {
-        demo {
-            java.srcDirs = ['src/demo', 'src/demo/java', 'src/demo/java/']
+        uat {
+            java.srcDirs = ['src/uat', 'src/uat/java', 'src/uat/java/']
+        }
+        prd {
+            java.srcDirs = ['src/prd', 'src/prd/java', 'src/prd/java/']
         }
     }
 
@@ -58,37 +60,24 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        demo {
-            initWith(debug)
-        }
-        uat {
-            initWith(debug)
-        }
-        stg {
-            initWith(release)
-        }
     }
 
+    flavorDimensions("version")
     // 产品特性
     productFlavors {
+        uat {
+            dimension 'version'
+//            matchingFallbacks = ['demo', 'trial']
+        }
+        prd {
+            dimension 'version'
+        }
     }
     return void
 }
 
-configurations {
-    debugCompile
-    releaseCompile
-    demoCompile
-    uatCompile
-    stgCompile
-}
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-
-    debugCompile project(path: ':repository', configuration: 'debug')
-    releaseCompile project(path: ':repository', configuration: 'release')
-    demoCompile project(path: ':repository', configuration: 'demo')
-    uatCompile project(path: ':repository', configuration: 'uat')
-    stgCompile project(path: ':repository', configuration: 'stg')
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    uatApi project(':repository')
+    prdApi project(':repository')
 }

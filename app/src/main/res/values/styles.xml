@@ -308,25 +308,25 @@
         <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
         <item name="android:textColor">@color/gray_999999</item>
         <!-- tab 的背景-->
-        <item name="apTabBackground">@drawable/fw_tab_bg_transparent</item>
+        <item name="xf_TabBackground">@drawable/fw_tab_bg_transparent</item>
         <!--导航条的颜色-->
-        <item name="apTabIndicatorColor">@color/main_blue</item>
+        <item name="xf_TabIndicatorColor">@color/main_blue</item>
         <!--每个 Tab 之间的分割线颜色-->
-        <item name="apTabDividerColor">#00000000</item>
+        <item name="xf_TabDividerColor">#00000000</item>
         <!--伸缩情况，如果为真，每个 tab 都是相同的 weight，默认是 false-->
-        <item name="apTabShouldExpand">true</item>
+        <item name="xf_TabShouldExpand">true</item>
         <!--每个 Tab 的左右 padding-->
-        <item name="apTabPaddingLeftRight">8dp</item>
+        <item name="xf_TabPaddingLeftRight">8dp</item>
         <!--绘制模式，text 或者 normal，用于是否将下划线绘制为跟随 TextView-->
-        <item name="apTabDrawMode">text</item>
+        <item name="xf_TabDrawMode">text</item>
         <!--你所选择的那个 tab 的颜色-->
-        <item name="apTabTextSelectColor">@color/main_blue</item>
+        <item name="xf_TabTextSelectColor">@color/main_blue</item>
         <!--Tab 底部下划线的高度-->
-        <item name="apTabUnderlineHeight">0dp</item>
+        <item name="xf_TabUnderlineHeight">0dp</item>
         <!--Tab 分割线的 padding-->
-        <item name="apTabDividerPadding">10dp</item>
+        <item name="xf_TabDividerPadding">10dp</item>
         <!--导航条的高度-->
-        <item name="apTabIndicatorHeight">2dp</item>
+        <item name="xf_TabIndicatorHeight">2dp</item>
     </style>
 
     <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">

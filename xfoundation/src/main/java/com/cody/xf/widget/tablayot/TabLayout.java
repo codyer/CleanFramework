@@ -1,4 +1,4 @@
-package com.cody.xf.widget;
+package com.cody.xf.widget.tablayot;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -30,48 +30,45 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.lhh.apst.library.Margins;
 import com.cody.xf.R;
 import com.cody.xf.utils.DeviceUtil;
 
 import java.util.Locale;
 
-
 /**
  * Created by linhomhom on 2015/8/10.
- * tab view tabLayout
  */
-public class LinePagerSlidingTabStrip extends HorizontalScrollView {
+public class TabLayout extends HorizontalScrollView {
 
     public interface LayoutProvider {
-        float getPageWeight(int position);
+        public float getPageWeight(int position);
 
-        int[] getPageRule(int position);
+        public int[] getPageRule(int position);
 
-        Margins getPageMargins(int position);
+        public Margins getPageMargins(int position);
     }
 
     public interface TipsProvider {
-        int[] getTipsRule(int position);
+        public int[] getTipsRule(int position);
 
-        Margins getTipsMargins(int position);
+        public Margins getTipsMargins(int position);
 
-        Drawable getTipsDrawable(int position);
+        public Drawable getTipsDrawable(int position);
     }
 
     public interface IconTabProvider {
-        <T extends Object> T getPageIcon(int position);
+        public <T extends Object> T getPageIcon(int position);
 
-        <T extends Object> T getPageSelectIcon(int position);
+        public <T extends Object> T getPageSelectIcon(int position);
 
-        Rect getPageIconBounds(int position);
+        public Rect getPageIconBounds(int position);
     }
 
     public interface ViewTabProvider {
         //        public View onCreateIconView(int position, View view, ViewGroup parent);
-        View onSelectIconView(int position, View view, ViewGroup parent);
+        public View onSelectIconView(int position, View view, ViewGroup parent);
 
-        View onIconView(int position, View view, ViewGroup parent);
+        public View onIconView(int position, View view, ViewGroup parent);
     }
 
     // @formatter:off
@@ -128,20 +125,25 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
 
     private int lastScrollX = 0;
 
-    private int tabBackgroundResId = R.drawable.psts_background_tab;
+    private int tabBackgroundResId = R.drawable.xf_tab_background_tab;
 //    private int tabBackgroundResId;
 
     private Locale locale;
+    private OnTabClickListener mOnTabClickListener;
 
-    public LinePagerSlidingTabStrip(Context context) {
+    public interface OnTabClickListener {
+        public void onClick(int pos);
+    }
+
+    public TabLayout(Context context) {
         this(context, null);
     }
 
-    public LinePagerSlidingTabStrip(Context context, AttributeSet attrs) {
+    public TabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LinePagerSlidingTabStrip(Context context, AttributeSet attrs, int defStyle) {
+    public TabLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         setFillViewport(true);
@@ -173,22 +175,22 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         // get custom attrs
 
 
-        a = context.obtainStyledAttributes(attrs, R.styleable.AdvancedPagerSlidingTabStrip);
+        a = context.obtainStyledAttributes(attrs, R.styleable.xf_TabLayout);
 
-        indicatorColor = a.getColor(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabIndicatorColor, indicatorColor);
-        underlineColor = a.getColor(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabUnderlineColor, underlineColor);
-        dividerColor = a.getColor(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabDividerColor, dividerColor);
-        indicatorHeight = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabIndicatorHeight, indicatorHeight);
-        underlineHeight = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabUnderlineHeight, underlineHeight);
-        dividerPadding = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabDividerPadding, dividerPadding);
-        tabPadding = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabPaddingLeftRight, tabPadding);
-        tabPaddingTopBottom = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabPaddingTopBottom, tabPaddingTopBottom);
-        tabBackgroundResId = a.getResourceId(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabBackground, tabBackgroundResId);
-        shouldExpand = a.getBoolean(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabShouldExpand, shouldExpand);
-        scrollOffset = a.getDimensionPixelSize(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabScrollOffset, scrollOffset);
-        textAllCaps = a.getBoolean(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabTextAllCaps, textAllCaps);
-        tabTextSelectColor = a.getColor(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabTextSelectColor, dividerColor);
-        tabDrawMode = a.getInteger(com.lhh.apst.library.R.styleable.AdvancedPagerSlidingTabStrip_apTabDrawMode, DRAW_MODE_NORMAL);
+        indicatorColor = a.getColor(R.styleable.xf_TabLayout_xf_TabIndicatorColor, indicatorColor);
+        underlineColor = a.getColor(R.styleable.xf_TabLayout_xf_TabUnderlineColor, underlineColor);
+        dividerColor = a.getColor(R.styleable.xf_TabLayout_xf_TabDividerColor, dividerColor);
+        indicatorHeight = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabIndicatorHeight, indicatorHeight);
+        underlineHeight = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabUnderlineHeight, underlineHeight);
+        dividerPadding = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabDividerPadding, dividerPadding);
+        tabPadding = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabPaddingLeftRight, tabPadding);
+        tabPaddingTopBottom = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabPaddingTopBottom, tabPaddingTopBottom);
+        tabBackgroundResId = a.getResourceId(R.styleable.xf_TabLayout_xf_TabBackground, tabBackgroundResId);
+        shouldExpand = a.getBoolean(R.styleable.xf_TabLayout_xf_TabShouldExpand, shouldExpand);
+        scrollOffset = a.getDimensionPixelSize(R.styleable.xf_TabLayout_xf_TabScrollOffset, scrollOffset);
+        textAllCaps = a.getBoolean(R.styleable.xf_TabLayout_xf_TabTextAllCaps, textAllCaps);
+        tabTextSelectColor = a.getColor(R.styleable.xf_TabLayout_xf_TabTextSelectColor, dividerColor);
+        tabDrawMode = a.getInteger(R.styleable.xf_TabLayout_xf_TabDrawMode, DRAW_MODE_NORMAL);
 
         a.recycle();
 
@@ -210,6 +212,10 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         if (mViewTabCache == null) {
             mViewTabCache = new SparseArray<>();
         }
+    }
+
+    public void setOnTabClickListener(OnTabClickListener onTabClickListener) {
+        mOnTabClickListener = onTabClickListener;
     }
 
     public void setViewPager(ViewPager pager) {
@@ -280,6 +286,9 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         tab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mOnTabClickListener != null) {
+                    mOnTabClickListener.onClick(position);
+                }
                 scrollToChild(position, 0);
                 pager.setCurrentItem(position);
             }
@@ -290,7 +299,7 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         txt.setFocusable(true);
         txt.setGravity(Gravity.CENTER);
         txt.setSingleLine();
-        txt.setId(R.id.id_tab_txt);
+        txt.setId(R.id.xf_tab_txt_id);
         RelativeLayout.LayoutParams txtParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -308,19 +317,19 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
 //        txtParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         txt.setLayoutParams(txtParams);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.psts_dot_wh), getResources().getDimensionPixelSize(R.dimen.psts_dot_wh));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh), getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh));
         TextView dot = new TextView(getContext());
         dot.setTextColor(Color.WHITE);
         dot.setBackgroundColor(Color.BLUE);
         dot.setGravity(Gravity.CENTER);
         dot.setSingleLine();
-        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.psts_dot_txt_size));
+        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_txt_size));
         //16 new
-        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.apsts_tips, null);
+        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.xf_tab_tips, null);
 
 
         boolean hasRule = false;
-        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.psts_dot_m_right), 0);
+        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_m_right), 0);
         if (pager.getAdapter() instanceof TipsProvider) {
             TipsProvider tipsProvider = (TipsProvider) pager.getAdapter();
             for (Integer rule : tipsProvider.getTipsRule(position)) {
@@ -361,8 +370,8 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         TextView dot_layout = (TextView) tab.getChildAt(tab.getChildCount() - 1);
         dot_layout.setText("");
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) dot_layout.getLayoutParams();
-        layoutParams.width = getResources().getDimensionPixelSize(R.dimen.psts_dot_wh);
-        layoutParams.height = getResources().getDimensionPixelSize(R.dimen.psts_dot_wh);
+        layoutParams.width = getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh);
+        layoutParams.height = getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh);
 
         dot_layout.setVisibility(View.VISIBLE);
     }
@@ -399,6 +408,9 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         tab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mOnTabClickListener != null) {
+                    mOnTabClickListener.onClick(position);
+                }
                 scrollToChild(position, 0);
                 pager.setCurrentItem(position);
             }
@@ -410,7 +422,7 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         txt.setFocusable(true);
         txt.setGravity(Gravity.CENTER);
         txt.setSingleLine();
-        txt.setId(R.id.id_tab_txt);
+        txt.setId(R.id.xf_tab_txt_id);
         RelativeLayout.LayoutParams txtParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -436,21 +448,21 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         RelativeLayout.LayoutParams viewLayoutParams
                 = (RelativeLayout.LayoutParams) view.getLayoutParams();
         viewLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        viewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.id_tab_txt);
+        viewLayoutParams.addRule(RelativeLayout.ABOVE, R.id.xf_tab_txt_id);
 
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.psts_dot_wh), getResources().getDimensionPixelSize(R.dimen.psts_dot_wh));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh), getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh));
         TextView dot = new TextView(getContext());
         dot.setTextColor(Color.WHITE);
         dot.setBackgroundColor(Color.BLUE);
         dot.setGravity(Gravity.CENTER);
-        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.psts_dot_txt_size));
+        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_txt_size));
         dot.setSingleLine();
 
-        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.apsts_tips, null);
+        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.xf_tab_tips, null);
 
         boolean hasRule = false;
-        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.psts_dot_m_right), 0);
+        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_m_right), 0);
         if (pager.getAdapter() instanceof TipsProvider) {
             TipsProvider tipsProvider = (TipsProvider) pager.getAdapter();
             for (Integer rule : tipsProvider.getTipsRule(position)) {
@@ -492,6 +504,9 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         tab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mOnTabClickListener != null) {
+                    mOnTabClickListener.onClick(position);
+                }
                 scrollToChild(position, 0);
                 pager.setCurrentItem(position);
             }
@@ -503,7 +518,7 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
         txt.setFocusable(true);
         txt.setGravity(Gravity.CENTER);
         txt.setSingleLine();
-        txt.setId(R.id.id_tab_txt);
+        txt.setId(R.id.xf_tab_txt_id);
         RelativeLayout.LayoutParams txtParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -524,17 +539,17 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
 
         setViewResource(position, res, txt);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.psts_dot_wh), getResources().getDimensionPixelSize(R.dimen.psts_dot_wh));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh), getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_wh));
         TextView dot = new TextView(getContext());
         dot.setTextColor(Color.WHITE);
         dot.setBackgroundColor(Color.BLUE);
         dot.setGravity(Gravity.CENTER);
-        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.psts_dot_txt_size));
+        dot.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_txt_size));
         dot.setSingleLine();
-        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.apsts_tips, null);
+        Drawable dot_drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.xf_tab_tips, null);
 
         boolean hasRule = false;
-        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.psts_dot_m_right), 0);
+        layoutParams.setMargins(0, 0, getResources().getDimensionPixelSize(R.dimen.xf_tab_dot_m_right), 0);
         if (pager.getAdapter() instanceof TipsProvider) {
             TipsProvider tipsProvider = (TipsProvider) pager.getAdapter();
             for (Integer rule : tipsProvider.getTipsRule(position)) {
@@ -772,7 +787,6 @@ public class LinePagerSlidingTabStrip extends HorizontalScrollView {
             lineLeft = (currentPositionOffset * nextTabLeft + (1f - currentPositionOffset) * lineLeft);
 
             View nextTextView = ((RelativeLayout) nextTab).getChildAt(0);
-
             float nextTextViewLeft = nextTextView.getLeft();
             float nextTextViewRight = nextTextView.getRight();
 

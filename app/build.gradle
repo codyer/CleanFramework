@@ -22,11 +22,12 @@ android {
 
     // 签名配置
     signingConfigs {
-        DefaultConfig {
+        config {
             keyAlias props['KEY_ALIAS']
             keyPassword props['KEY_PASSWORD']
             storeFile file(props['KEYSTORE_FILE'])
             storePassword props['KEYSTORE_PASSWORD']
+            v2SigningEnabled true
         }
     }
 
@@ -38,7 +39,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     // 构建工具版本
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     // 主要是用来设置Library发布所有的variants
 //    publishNonDefault true
@@ -64,20 +64,11 @@ android {
     }
 
     sourceSets {
-        debug {
-            java.srcDirs = ['src/debug', 'src/debug/java', 'src/debug/java/']
-        }
-        release {
-            java.srcDirs = ['src/release', 'src/release/java', 'src/release/java/']
-        }
-        demo {
-            java.srcDirs = ['src/demo', 'src/demo/java', 'src/demo/java/']
-        }
         uat {
             java.srcDirs = ['src/uat', 'src/uat/java', 'src/uat/java/']
         }
-        stg {
-            java.srcDirs = ['src/stg', 'src/stg/java', 'src/stg/java/']
+        prd {
+            java.srcDirs = ['src/prd', 'src/prd/java', 'src/prd/java/']
         }
     }
 
@@ -92,7 +83,7 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 读取设置的签名文件
-            signingConfig signingConfigs.DefaultConfig
+            signingConfig signingConfigs.config
 
             // 为包名添加后缀，使调试与正式包可以并存
             applicationIdSuffix ".debug"
@@ -116,30 +107,25 @@ android {
             // 指定混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 指定签名配置
-            signingConfig signingConfigs.DefaultConfig
+            signingConfig signingConfigs.config
             bugly {
                 appId = "13501369e4"
                 appKey = "f8eecab9-c570-4e0d-bf81-504bc1ffeb12"
             }
         }
-        demo {
-            initWith(debug)
-            // 为包名添加后缀，使调试与正式包可以并存
-            applicationIdSuffix ".demo"
-        }
+    }
+
+    flavorDimensions("version")
+    // 产品特性
+    productFlavors {
         uat {
-            initWith(debug)
-            // 为包名添加后缀，使调试与正式包可以并存
-            applicationIdSuffix ".uat"
+            dimension 'version'
         }
-        stg {
-            initWith(release)
-            // 为包名添加后缀，使调试与正式包可以并存
-            applicationIdSuffix ".stg"
+        prd {
+            dimension 'version'
         }
     }
 
-    // 产品特性
     buildTypes.all { type ->
         type.manifestPlaceholders = [
                 APPLICATION_ID     : name == "release" ? PKG_NAME : (PKG_NAME + applicationIdSuffix),
@@ -157,17 +143,17 @@ android {
     // release 包的命名格式为：产品名_版本号_渠道号_release_打包时间.apk
     // debug 包的命名格式为：产品名_版本号_渠道号_debug_打包时间.apk
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
+        variant.outputs.all { output ->
             def outputFile = output.outputFile
             if (null != outputFile && outputFile.name.endsWith('.apk')) {
                 def suffix = ".apk";
                 if (variant.buildType.name == 'release') {
                     suffix = "_${packageTime()}.apk"
                 }
-                File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
+//                File outputDir = new File(outputFile.parent + "/${variant.buildType.name}");
                 def newApkName = MODULE_NAME + "${defaultConfig.versionName}" + "_" + variant.buildType.name + suffix
 
-                output.outputFile = new File(outputDir, newApkName)
+                outputFileName = newApkName
             }
         }
     }
@@ -190,26 +176,8 @@ android {
     return void
 }
 
-configurations {
-    debugCompile
-    releaseCompile
-    demoCompile
-    uatCompile
-    stgCompile
-}
-
-repositories {
-    mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
-}
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    debugCompile project(path: ':handler', configuration: 'debug')
-    releaseCompile project(path: ':handler', configuration: 'release')
-    demoCompile project(path: ':handler', configuration: 'demo')
-    uatCompile project(path: ':handler', configuration: 'uat')
-    stgCompile project(path: ':handler', configuration: 'stg')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    uatImplementation project( ':handler')
+    prdImplementation project( ':handler')
 }

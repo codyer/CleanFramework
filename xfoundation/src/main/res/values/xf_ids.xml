@@ -2,4 +2,6 @@
 <resources>
     <item name="xf_statusbar_view" type="id"/>
     <item name="xf_translucent_view" type="id"/>
+    <item type="id" name="xf_tab_tag_position"/>
+    <item type="id" name="xf_tab_txt_id"/>
 </resources>

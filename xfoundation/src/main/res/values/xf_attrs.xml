@@ -41,4 +41,25 @@
         <attr name="xf_slider_pic" format="reference"/>
     </declare-styleable>
 
+    <!--apsts-->
+    <declare-styleable name="xf_TabLayout">
+        <attr name="xf_TabIndicatorColor" format="color"/>
+        <attr name="xf_TabUnderlineColor" format="color"/>
+        <attr name="xf_TabDividerColor" format="color"/>
+        <attr name="xf_TabTextSelectColor" format="color"/>
+        <attr name="xf_TabIndicatorHeight" format="dimension"/>
+        <attr name="xf_TabUnderlineHeight" format="dimension"/>
+        <attr name="xf_TabDividerPadding" format="dimension"/>
+        <attr name="xf_TabPaddingLeftRight" format="dimension"/>
+        <attr name="xf_TabPaddingTopBottom" format="dimension"/>
+        <attr name="xf_TabScrollOffset" format="dimension"/>
+        <attr name="xf_TabBackground" format="reference"/>
+        <attr name="xf_TabShouldExpand" format="boolean"/>
+        <attr name="xf_TabTextAllCaps" format="boolean"/>
+        <attr name="xf_TabDrawMode" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="text" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

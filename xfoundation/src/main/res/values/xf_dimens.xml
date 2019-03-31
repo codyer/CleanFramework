@@ -10,4 +10,13 @@
     <dimen name="xf_picker_view_top_bar_title_text_size">21sp</dimen>
     <!-- 选项文字大小 需要配合 bool s .xml 的 picker_view_custom_text_size 为 true 才有效果-->
     <dimen name="xf_picker_view_text_size">20sp</dimen>
+
+    <!--xf tab layout-->
+    <dimen name="xf_tab_dot_wh">10dp</dimen>
+    <dimen name="xf_tab_indicator_circle">4dp</dimen>
+    <dimen name="xf_tab_dot_m_right">9dp</dimen>
+    <dimen name="xf_tab_dot_m_tv_right">8dp</dimen>
+    <dimen name="xf_tab_dot_m_top">7dp</dimen>
+    <dimen name="xf_tab_dot_line_layout_h">23dp</dimen>
+    <dimen name="xf_tab_dot_txt_size">10sp</dimen>
 </resources>

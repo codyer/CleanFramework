@@ -25,7 +25,7 @@
             bind:onClickListener="@{onClickListener}"
             bind:viewModel="@{viewModel.headerViewModel}" />
 
-        <com.cody.xf.widget.LinePagerSlidingTabStrip
+        <com.cody.xf.widget.tablayot.TabLayout
             android:id="@+id/tabLayout"
             style="@style/style_item_main_tab"
             android:layout_width="match_parent"

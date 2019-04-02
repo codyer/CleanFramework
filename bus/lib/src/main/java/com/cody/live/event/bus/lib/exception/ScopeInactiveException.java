@@ -9,7 +9,7 @@
  * ************************************************************
  */
 
-package com.cody.live.event.bus.core.exception;
+package com.cody.live.event.bus.lib.exception;
 
 /**
  * Created by xu.yi. on 2019/3/31.

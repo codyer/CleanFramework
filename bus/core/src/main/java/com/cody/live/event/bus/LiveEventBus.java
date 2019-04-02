@@ -11,12 +11,13 @@
 
 package com.cody.live.event.bus;
 
-import com.cody.live.event.bus.core.IEvent;
+import com.cody.live.event.bus.lib.IEvent;
 import com.cody.live.event.bus.core.factory.BusFactory;
-import com.cody.live.event.bus.core.annotation.EventScope;
-import com.cody.live.event.bus.core.exception.MissingEventScopeException;
-import com.cody.live.event.bus.core.exception.ScopeInactiveException;
-import com.cody.live.event.bus.core.exception.WrongTypeException;
+import com.cody.live.event.bus.lib.annotation.AutoGenerate;
+import com.cody.live.event.bus.lib.annotation.EventScope;
+import com.cody.live.event.bus.lib.exception.MissingEventScopeException;
+import com.cody.live.event.bus.lib.exception.ScopeInactiveException;
+import com.cody.live.event.bus.lib.exception.WrongTypeException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -61,7 +62,7 @@ public class LiveEventBus {
      *
      * @param scopeClass 范围，通过注解自动生成的类，如果没有生成，请使用注解
      * @see EventScope 注解枚举类，并使用
-     * @see com.cody.live.event.bus.core.annotation.EventType 注解事件
+     * @see com.cody.live.event.bus.lib.annotation.Event 注解事件
      */
     @SuppressWarnings("unchecked")
     public synchronized <T extends IEvent> T inScope(Class<T> scopeClass) {
@@ -74,17 +75,14 @@ public class LiveEventBus {
         private final String mScopeName;
 
         InterfaceInvokeHandler(Class<T> scopeClass) {
-            EventScope eventScope = scopeClass.getAnnotation(EventScope.class);
-            if (eventScope == null) {
-                throw new MissingEventScopeException();
-            }
-            if (!scopeClass.isEnum()) {
+            AutoGenerate generate = scopeClass.getAnnotation(AutoGenerate.class);
+            if (generate == null) {
                 throw new WrongTypeException();
             }
-            if (!eventScope.active()) {
+            if (!generate.active()) {
                 throw new ScopeInactiveException();
             }
-            mScopeName = eventScope.value();
+            mScopeName = generate.value();
         }
 
         @Override

@@ -1,1 +1,1 @@
-include ':app', ':handler', ':repository', ':xfoundation', ':bus', ':bus:core', ':bus:compiler'
+include ':app', ':handler', ':repository', ':xfoundation', ':bus', ':bus:core', ':bus:compiler', ':bus:lib'

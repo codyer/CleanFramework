@@ -1,15 +1,15 @@
 /*
  * ************************************************************
- * 文件：EventType.java  模块：core  项目：CleanFramework
- * 当前修改时间：2019年03月31日 18:21:19
- * 上次修改时间：2019年03月31日 18:11:29
+ * 文件：Event.java  模块：lib  项目：CleanFramework
+ * 当前修改时间：2019年04月02日 15:07:43
+ * 上次修改时间：2019年04月02日 15:07:42
  * 作者：Cody.yi   https://github.com/codyer
  *
  * Copyright (c) 2019
  * ************************************************************
  */
 
-package com.cody.live.event.bus.core.annotation;
+package com.cody.live.event.bus.lib.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)
-public @interface EventType {
+public @interface Event {
     /**
      * 事件描述
      */
@@ -36,5 +36,5 @@ public @interface EventType {
     /**
      * 事件携带数据类型
      */
-    Class<?> data() default Object.class;
+    Class data() default Object.class;
 }

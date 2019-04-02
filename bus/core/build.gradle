@@ -1,15 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
-
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName // 版本号
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -25,10 +23,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    api project(':bus:lib')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:livedata:1.1.1"
 }

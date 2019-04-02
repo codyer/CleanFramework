@@ -9,7 +9,7 @@
  * ************************************************************
  */
 
-package com.cody.live.event.bus.core.exception;
+package com.cody.live.event.bus.lib.exception;
 
 /**
  * Created by xu.yi. on 2019/3/31.
@@ -17,6 +17,6 @@ package com.cody.live.event.bus.core.exception;
  */
 public class WrongTypeException extends RuntimeException {
     public WrongTypeException() {
-        super("请使用枚举类型进行事件定义");
+        super("请使用自动生成的接口文件");
     }
 }

@@ -9,19 +9,17 @@
  * ************************************************************
  */
 
-package com.cody.bus.test;
+package com.cody.app.test;
 
-import android.arch.lifecycle.MutableLiveData;
-
-import com.cody.live.event.bus.core.IEvent;
 import com.cody.live.event.bus.core.wrapper.LiveEventWrapper;
+import com.cody.live.event.bus.lib.IEvent;
 
 /**
  * Created by xu.yi. on 2019/3/31.
  * 自动生成，请勿修改
  */
 public interface ToBeCompilerOut extends IEvent {
-    MutableLiveData<Object> EVENT1();
+    LiveEventWrapper<Object> EVENT1();
     LiveEventWrapper<String> withEvent$LOGIN();
     LiveEventWrapper<String> withEvent$login();
 }

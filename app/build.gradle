@@ -180,4 +180,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     uatImplementation project( ':handler')
     prdImplementation project( ':handler')
+    implementation project(path:':bus:core')
+
+    annotationProcessor project(path:':bus:compiler')
 }

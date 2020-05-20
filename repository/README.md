@@ -1,11 +1,29 @@
-数据仓库 Repository
+# 数据仓库 Repository
 包名：com.cody.repository
 
-作用：提供网络数据和本地数据
+# 主要功能：
+提供网络数据和本地数据
 
-网络数据操作（Interaction）
+# 其他功能
++ 数据绑定
++ 数据库封装
++ 埋点封装
++ 模拟数据请求
 
-使用：1、定义接口Interaction，一个Interaction对应一个服务器提供的接口，参数和格式类似于Swagger。
+# 说明
+* 网路层，Retrofit 是封装的很好的网路层，但是根据公司当前情况
+1. 公司服务器有多种配置
+2. 多后台结构
+3. 公司现有开发对 Retrofit 使用不熟悉
+4. 其他原因
+基于各方面的考虑，最终没有直接使用 Retrofit，而是根据实际情况参考 Retrofit 思想，例如动态代理
+再加上自定义的注解，实现了适合自己公司的请求封装。
+
+
+# 网络数据操作（Interaction）
+
+# 使用说明：
+1、定义接口Interaction，一个Interaction对应一个服务器提供的接口，参数和格式类似于Swagger。
 
 整个接口和方法的定义通过注解的方式实现
 1、@Server
@@ -76,5 +94,21 @@ eg:
 注解在请求数据的方法查询参数上，请求回调，http请求的回调接口，使用ICallback定义
 
 
-Mock
+# Mock
 使用MockRepository进行伪造数据，将服务器返回的json保存在res/raw目录下,调用MockRepository可以直接读取对应json作为接口返回。
+
+
+# License
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
